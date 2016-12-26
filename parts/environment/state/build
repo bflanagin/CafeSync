@@ -1,0 +1,4 @@
+!BuildState
+properties:
+  files: {snappy-qt5.conf: etc/xdg/qtchooser/snappy-qt5.conf}
+schema_properties: [files]

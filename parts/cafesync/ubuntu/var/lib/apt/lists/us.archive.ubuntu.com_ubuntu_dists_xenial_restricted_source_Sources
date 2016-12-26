@@ -1,0 +1,397 @@
+Package: bcmwl
+Binary: bcmwl-kernel-source
+Version: 6.30.223.248+bdcom-0ubuntu8
+Priority: optional
+Section: restricted/admin
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Alberto Milone <alberto.milone@canonical.com>
+Build-Depends: debhelper (>= 7.0.50~), dh-modaliases
+Architecture: i386 amd64
+Standards-Version: 3.9.1
+Format: 1.0
+Directory: pool/restricted/b/bcmwl
+Files:
+ f5331d89f2a36ed3ae83cec20441af62 1862 bcmwl_6.30.223.248+bdcom-0ubuntu8.dsc
+ 939c3b02cc908dd5811971a2838a3ddc 5565531 bcmwl_6.30.223.248+bdcom.orig.tar.gz
+ 70d97ffbf54d9cc0f4d2363db2d24e42 22969 bcmwl_6.30.223.248+bdcom-0ubuntu8.diff.gz
+Package-List:
+ bcmwl-kernel-source deb admin optional
+Checksums-Sha1:
+ cca5deab80d165587ea914bdcb3e9794a87d7029 1862 bcmwl_6.30.223.248+bdcom-0ubuntu8.dsc
+ b7bbf93a02913ef86f8992f1a2a2c24b8c317321 5565531 bcmwl_6.30.223.248+bdcom.orig.tar.gz
+ b933d5616727c324bee8a7dc92f6caa0dbcc76ff 22969 bcmwl_6.30.223.248+bdcom-0ubuntu8.diff.gz
+Checksums-Sha256:
+ a641b6e1219c40292458873535657820445fb329ac3cc7367cf3a88627937e05 1862 bcmwl_6.30.223.248+bdcom-0ubuntu8.dsc
+ 196a3db32fcf2d6095aa39c93108e8fc7e10ad82e01807aa1444ff001e936a21 5565531 bcmwl_6.30.223.248+bdcom.orig.tar.gz
+ 6548bc102f714f3a37199c63bcad9d0d43b513ddfa4666ae0ea5db62a973f892 22969 bcmwl_6.30.223.248+bdcom-0ubuntu8.diff.gz
+
+Package: intel-microcode
+Binary: intel-microcode
+Version: 3.20151106.1
+Priority: extra
+Section: restricted/admin
+Maintainer: Henrique de Moraes Holschuh <hmh@debian.org>
+Build-Depends: debhelper (>= 7), iucode-tool (>= 0.9)
+Architecture: i386 amd64 x32
+Standards-Version: 3.9.6
+Format: 3.0 (native)
+Directory: pool/restricted/i/intel-microcode
+Files:
+ 9de9a509e5eb21d8e1b75908d4d54ede 1774 intel-microcode_3.20151106.1.dsc
+ efce0b8f5dc73efc9722020313583954 977788 intel-microcode_3.20151106.1.tar.xz
+Uploaders: Giacomo Catenazzi <cate@debian.org>
+Homepage: http://feeds.downloadcenter.intel.com/rss/?p=483&lang=eng
+Vcs-Browser: http://git.debian.org/?p=users/hmh/intel-microcode.git
+Vcs-Git: git://git.debian.org/users/hmh/intel-microcode.git
+Package-List:
+ intel-microcode deb non-free/admin standard arch=i386,amd64,x32
+Checksums-Sha1:
+ 91962f464a234493a5e8c224733f2a90f8d2ea58 1774 intel-microcode_3.20151106.1.dsc
+ 8c8a7ba10190b0b8e9f8a4c3ecf7b79615d03f08 977788 intel-microcode_3.20151106.1.tar.xz
+Checksums-Sha256:
+ e0772bad2d28fae5e7a83ebb6b38a18ad46a8a042ca9358e4ac3522c477730db 1774 intel-microcode_3.20151106.1.dsc
+ 04a15ad7d0234d47b303820913ab5889b64d95e40f95ec1ce2f86814680984ff 977788 intel-microcode_3.20151106.1.tar.xz
+Autobuild: yes
+
+Package: iucode-tool
+Binary: iucode-tool
+Version: 1.5.1-1
+Priority: optional
+Section: restricted/utils
+Maintainer: Henrique de Moraes Holschuh <hmh@debian.org>
+Build-Depends: debhelper (>= 7), autotools-dev, automake (>= 1:1.10), autoconf (>= 2.61)
+Architecture: i386 amd64 x32
+Standards-Version: 3.9.6
+Format: 3.0 (quilt)
+Directory: pool/restricted/i/iucode-tool
+Files:
+ 9ee8771cfeea3afec201a35d1ec5b425 1962 iucode-tool_1.5.1-1.dsc
+ 10f253e22ad6788647cbdd6170cd3564 132652 iucode-tool_1.5.1.orig.tar.xz
+ ff95d88b09b617b334fbebb3ba5882a8 5884 iucode-tool_1.5.1-1.debian.tar.xz
+Homepage: https://gitlab.com/iucode-tool
+Vcs-Browser: https://gitlab.com/iucode-tool/iucode-tool/tree/debian/master
+Vcs-Git: https://gitlab.com/iucode-tool/iucode-tool.git -b debian/master
+Package-List:
+ iucode-tool deb contrib/utils optional arch=i386,amd64,x32
+Checksums-Sha1:
+ 7a0175d096c207b4c8656f44b107be082c9cde2d 1962 iucode-tool_1.5.1-1.dsc
+ 4d37c6d035904821ac62aca2a0c473b32b85f8e8 132652 iucode-tool_1.5.1.orig.tar.xz
+ efbd1600418bec786eec043f7e525a1c008bf460 5884 iucode-tool_1.5.1-1.debian.tar.xz
+Checksums-Sha256:
+ f0cb15b4088e55a9ef1148b5cd684952e72fc55209f8fce103e3b7c2e7440ee7 1962 iucode-tool_1.5.1-1.dsc
+ 094e6e9c40d2eb2275ede38f82574557ead2d49dc1436277ce396a93b52271c9 132652 iucode-tool_1.5.1.orig.tar.xz
+ 3a36362c835d5ccfe3ecaacfa8bb902a65b099aaafd2ee57c8fc8f899c2e1e7b 5884 iucode-tool_1.5.1-1.debian.tar.xz
+
+Package: nvidia-graphics-drivers-304
+Binary: nvidia-304, nvidia-304-dev, libcuda1-304, nvidia-libopencl1-304, nvidia-opencl-icd-304, nvidia-current, nvidia-current-dev
+Version: 304.131-0ubuntu3
+Priority: optional
+Section: restricted/misc
+Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Build-Depends: debhelper (>= 6.0.7~), sed (>> 3.0), libxext6, bzip2, xserver-xorg-dev (>= 2:1.4), execstack, cdbs, libc6, libxvmc1, dh-modaliases, libxv1
+Architecture: i386 amd64
+Standards-Version: 3.8.0
+Format: 1.0
+Directory: pool/restricted/n/nvidia-graphics-drivers-304
+Files:
+ dd45e1396ce4e59bc714c562ac342c2c 2499 nvidia-graphics-drivers-304_304.131-0ubuntu3.dsc
+ 895ce6be3b8f5766fca6a7a98e96bc68 80204588 nvidia-graphics-drivers-304_304.131.orig.tar.gz
+ ff4f3079d13e6abccf5d6bd707bec951 150720 nvidia-graphics-drivers-304_304.131-0ubuntu3.diff.gz
+Vcs-Browser: http://github.com/tseliot/nvidia-graphics-drivers
+Vcs-Git: git://github.com/tseliot/nvidia-graphics-drivers.git
+Package-List:
+ libcuda1-304 deb restricted/misc optional
+ nvidia-304 deb restricted/misc optional
+ nvidia-304-dev deb restricted/misc optional
+ nvidia-current deb restricted/misc optional
+ nvidia-current-dev deb restricted/misc optional
+ nvidia-libopencl1-304 deb restricted/misc optional
+ nvidia-opencl-icd-304 deb restricted/misc optional
+Checksums-Sha1:
+ 6eb835e2abd1851aab1645c3df0eb4e99e45f4cf 2499 nvidia-graphics-drivers-304_304.131-0ubuntu3.dsc
+ f43410eff30b47154138e33e7929d0481bb1943d 80204588 nvidia-graphics-drivers-304_304.131.orig.tar.gz
+ e2006c13629dc572494f368519f8576c628e010f 150720 nvidia-graphics-drivers-304_304.131-0ubuntu3.diff.gz
+Checksums-Sha256:
+ 5aa63ebeec035b07ffc97304af505f0e51c3fc4502ef95ca484d8e13e7ace1b2 2499 nvidia-graphics-drivers-304_304.131-0ubuntu3.dsc
+ 2fcd3e51028addb4ab4ec20b80d049a12925657330218d3ac12c0ba6805e3132 80204588 nvidia-graphics-drivers-304_304.131.orig.tar.gz
+ e33d0c53fdd4cb7cdd25c36650e697535f69ab52fd35cd2ac1cda11a4c1cbebf 150720 nvidia-graphics-drivers-304_304.131-0ubuntu3.diff.gz
+
+Package: nvidia-graphics-drivers-304-updates
+Binary: nvidia-304-updates, nvidia-304-updates-dev, libcuda1-304-updates, nvidia-libopencl1-304-updates, nvidia-opencl-icd-304-updates, nvidia-current-updates, nvidia-current-updates-dev, nvidia-experimental-304, nvidia-experimental-304-dev
+Version: 304.131-0ubuntu3
+Priority: optional
+Section: restricted/misc
+Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Build-Depends: debhelper (>= 6.0.7~), sed (>> 3.0), libxext6, bzip2, xserver-xorg-dev (>= 2:1.4), execstack, cdbs, libc6, libxvmc1, dh-modaliases, libxv1
+Architecture: i386 amd64
+Standards-Version: 3.8.0
+Format: 1.0
+Directory: pool/restricted/n/nvidia-graphics-drivers-304-updates
+Files:
+ 02ef399954a50785835ae4980854a30b 2833 nvidia-graphics-drivers-304-updates_304.131-0ubuntu3.dsc
+ 895ce6be3b8f5766fca6a7a98e96bc68 80204588 nvidia-graphics-drivers-304-updates_304.131.orig.tar.gz
+ 65d40d2ff2cb6bf19dac291a065ea51f 151056 nvidia-graphics-drivers-304-updates_304.131-0ubuntu3.diff.gz
+Vcs-Browser: http://github.com/tseliot/nvidia-graphics-drivers
+Vcs-Git: git://github.com/tseliot/nvidia-graphics-drivers.git
+Package-List:
+ libcuda1-304-updates deb restricted/misc optional
+ nvidia-304-updates deb restricted/misc optional
+ nvidia-304-updates-dev deb restricted/misc optional
+ nvidia-current-updates deb restricted/misc optional
+ nvidia-current-updates-dev deb restricted/misc optional
+ nvidia-experimental-304 deb restricted/misc optional
+ nvidia-experimental-304-dev deb restricted/misc optional
+ nvidia-libopencl1-304-updates deb restricted/misc optional
+ nvidia-opencl-icd-304-updates deb restricted/misc optional
+Checksums-Sha1:
+ 227ed2f76f9db97d3f2efbe1614325afb5030b72 2833 nvidia-graphics-drivers-304-updates_304.131-0ubuntu3.dsc
+ f43410eff30b47154138e33e7929d0481bb1943d 80204588 nvidia-graphics-drivers-304-updates_304.131.orig.tar.gz
+ f99aededbbe6a991328082a2df02c60add521d05 151056 nvidia-graphics-drivers-304-updates_304.131-0ubuntu3.diff.gz
+Checksums-Sha256:
+ 90f559ab9cea78b0a42d9020cc05adc4c098ff0a27dcb4e438df8800d09193c7 2833 nvidia-graphics-drivers-304-updates_304.131-0ubuntu3.dsc
+ 2fcd3e51028addb4ab4ec20b80d049a12925657330218d3ac12c0ba6805e3132 80204588 nvidia-graphics-drivers-304-updates_304.131.orig.tar.gz
+ 939136f48aba5a4104f62749b4e38aeee77d2936a2e0bda00997b3e6d52d29ca 151056 nvidia-graphics-drivers-304-updates_304.131-0ubuntu3.diff.gz
+
+Package: nvidia-graphics-drivers-340
+Binary: nvidia-340, nvidia-340-dev, libcuda1-340, nvidia-libopencl1-340, nvidia-opencl-icd-340, nvidia-340-uvm, nvidia-331, nvidia-331-dev, nvidia-331-uvm, nvidia-libopencl1-331, nvidia-opencl-icd-331, libcuda1-331, nvidia-331-updates, nvidia-331-updates-dev, nvidia-331-updates-uvm, nvidia-libopencl1-331-updates, nvidia-opencl-icd-331-updates, libcuda1-331-updates, nvidia-340-updates, nvidia-340-updates-dev, nvidia-libopencl1-340-updates, nvidia-opencl-icd-340-updates, libcuda1-340-updates
+Version: 340.96-0ubuntu3
+Priority: optional
+Section: restricted/misc
+Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Build-Depends: debhelper (>= 8.0.0), sed (>> 3.0), libxext6, bzip2, xserver-xorg-dev (>= 2:1.4), execstack, libc6, libxvmc1, dh-modaliases, libxv1
+Architecture: i386 amd64 armhf
+Standards-Version: 3.8.0
+Format: 1.0
+Directory: pool/restricted/n/nvidia-graphics-drivers-340
+Files:
+ 43cdc7a52441b91d05c18335ba1b2aea 3686 nvidia-graphics-drivers-340_340.96-0ubuntu3.dsc
+ d5c797b5048b52a6594b3c81cce90649 100586016 nvidia-graphics-drivers-340_340.96.orig.tar.gz
+ 7479108ffd4b1f1824ed173d2b7726aa 152849 nvidia-graphics-drivers-340_340.96-0ubuntu3.diff.gz
+Vcs-Browser: http://github.com/tseliot/nvidia-graphics-drivers
+Vcs-Git: git://github.com/tseliot/nvidia-graphics-drivers.git
+Package-List:
+ libcuda1-331 deb restricted/misc optional
+ libcuda1-331-updates deb restricted/misc optional
+ libcuda1-340 deb restricted/misc optional
+ libcuda1-340-updates deb restricted/misc optional
+ nvidia-331 deb restricted/misc optional
+ nvidia-331-dev deb restricted/misc optional
+ nvidia-331-updates deb restricted/misc optional
+ nvidia-331-updates-dev deb restricted/misc optional
+ nvidia-331-updates-uvm deb restricted/misc optional
+ nvidia-331-uvm deb restricted/misc optional
+ nvidia-340 deb restricted/misc optional
+ nvidia-340-dev deb restricted/misc optional
+ nvidia-340-updates deb restricted/misc optional
+ nvidia-340-updates-dev deb restricted/misc optional
+ nvidia-340-uvm deb restricted/misc optional
+ nvidia-libopencl1-331 deb restricted/misc optional
+ nvidia-libopencl1-331-updates deb restricted/misc optional
+ nvidia-libopencl1-340 deb restricted/misc optional
+ nvidia-libopencl1-340-updates deb restricted/misc optional
+ nvidia-opencl-icd-331 deb restricted/misc optional
+ nvidia-opencl-icd-331-updates deb restricted/misc optional
+ nvidia-opencl-icd-340 deb restricted/misc optional
+ nvidia-opencl-icd-340-updates deb restricted/misc optional
+Checksums-Sha1:
+ 197e4a0ef6a03eb7d2d5ed61b8d1706233c94b56 3686 nvidia-graphics-drivers-340_340.96-0ubuntu3.dsc
+ e1d8109b38193e3d1e4e5db4c35841cc9d145841 100586016 nvidia-graphics-drivers-340_340.96.orig.tar.gz
+ 5351a76847bcbfa21a532b5d31422b7ee38ec9ce 152849 nvidia-graphics-drivers-340_340.96-0ubuntu3.diff.gz
+Checksums-Sha256:
+ 6709bf6827d8abc07002acbca8bd9219cf0ef3bdb76fa388127e77803bb6a44b 3686 nvidia-graphics-drivers-340_340.96-0ubuntu3.dsc
+ bcc912c0be00603325cf2d1196a9d36b71849b867f9609ff3bba9166beb2a730 100586016 nvidia-graphics-drivers-340_340.96.orig.tar.gz
+ 27098511933054ce04997e248f6b9a6bd9d030c6f01f855906ca62ab0036bb5b 152849 nvidia-graphics-drivers-340_340.96-0ubuntu3.diff.gz
+
+Package: nvidia-graphics-drivers-340-updates
+Binary: nvidia-340-updates, nvidia-340-updates-dev, libcuda1-340-updates, nvidia-libopencl1-340-updates, nvidia-opencl-icd-340-updates, nvidia-340-updates-uvm, nvidia-331-updates, nvidia-331-updates-dev, nvidia-331-updates-uvm, nvidia-libopencl1-331-updates, nvidia-opencl-icd-331-updates, libcuda1-331-updates
+Version: 340.96-0ubuntu2
+Priority: optional
+Section: restricted/misc
+Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Build-Depends: debhelper (>= 8.0.0), sed (>> 3.0), libxext6, bzip2, xserver-xorg-dev (>= 2:1.4), execstack, libc6, libxvmc1, dh-modaliases, libxv1
+Architecture: i386 amd64 armhf
+Standards-Version: 3.8.0
+Format: 1.0
+Directory: pool/restricted/n/nvidia-graphics-drivers-340-updates
+Files:
+ 17241da47aaabf1f4c4be2f1d9fe653e 3055 nvidia-graphics-drivers-340-updates_340.96-0ubuntu2.dsc
+ d5c797b5048b52a6594b3c81cce90649 100586016 nvidia-graphics-drivers-340-updates_340.96.orig.tar.gz
+ 897e30484782d17d4769bc6c51b81414 152626 nvidia-graphics-drivers-340-updates_340.96-0ubuntu2.diff.gz
+Vcs-Browser: http://github.com/tseliot/nvidia-graphics-drivers
+Vcs-Git: git://github.com/tseliot/nvidia-graphics-drivers.git
+Package-List:
+ libcuda1-331-updates deb restricted/misc optional
+ libcuda1-340-updates deb restricted/misc optional
+ nvidia-331-updates deb restricted/misc optional
+ nvidia-331-updates-dev deb restricted/misc optional
+ nvidia-331-updates-uvm deb restricted/misc optional
+ nvidia-340-updates deb restricted/misc optional
+ nvidia-340-updates-dev deb restricted/misc optional
+ nvidia-340-updates-uvm deb restricted/misc optional
+ nvidia-libopencl1-331-updates deb restricted/misc optional
+ nvidia-libopencl1-340-updates deb restricted/misc optional
+ nvidia-opencl-icd-331-updates deb restricted/misc optional
+ nvidia-opencl-icd-340-updates deb restricted/misc optional
+Checksums-Sha1:
+ 46c4d44745a4124dac076911233991e7b22f4430 3055 nvidia-graphics-drivers-340-updates_340.96-0ubuntu2.dsc
+ e1d8109b38193e3d1e4e5db4c35841cc9d145841 100586016 nvidia-graphics-drivers-340-updates_340.96.orig.tar.gz
+ 7d7a100f35229c11140d73b272748705811161d4 152626 nvidia-graphics-drivers-340-updates_340.96-0ubuntu2.diff.gz
+Checksums-Sha256:
+ 1559c69f3353c74b137fd5d1c29c419a4e644997c1eb7cf0301ca5c194bd7d92 3055 nvidia-graphics-drivers-340-updates_340.96-0ubuntu2.dsc
+ bcc912c0be00603325cf2d1196a9d36b71849b867f9609ff3bba9166beb2a730 100586016 nvidia-graphics-drivers-340-updates_340.96.orig.tar.gz
+ eda56c260dcda47c2f90e328ad4d91590c6b0fa9ee10d32a932b784373272edb 152626 nvidia-graphics-drivers-340-updates_340.96-0ubuntu2.diff.gz
+
+Package: nvidia-graphics-drivers-352
+Binary: nvidia-352, nvidia-352-dev, libcuda1-352, nvidia-libopencl1-352, nvidia-opencl-icd-352, nvidia-346, nvidia-346-dev, nvidia-libopencl1-346, nvidia-opencl-icd-346, libcuda1-346
+Version: 352.63-0ubuntu3
+Priority: optional
+Section: restricted/misc
+Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Build-Depends: debhelper (>= 8.0.0), sed (>> 3.0), libxext6, bzip2, xserver-xorg-dev (>= 2:1.4), execstack, libc6, libxvmc1, dh-modaliases, libxv1
+Architecture: i386 amd64 armhf
+Standards-Version: 3.8.0
+Format: 1.0
+Directory: pool/restricted/n/nvidia-graphics-drivers-352
+Files:
+ 08d3155ead899cde8a4df2912b5a328f 2685 nvidia-graphics-drivers-352_352.63-0ubuntu3.dsc
+ 5dc2a5cd39d74948e287558512610192 108918933 nvidia-graphics-drivers-352_352.63.orig.tar.gz
+ dfe6359ee1bd9dc62e2a9c16a061fb94 153200 nvidia-graphics-drivers-352_352.63-0ubuntu3.diff.gz
+Vcs-Browser: http://github.com/tseliot/nvidia-graphics-drivers
+Vcs-Git: git://github.com/tseliot/nvidia-graphics-drivers.git
+Package-List:
+ libcuda1-346 deb restricted/misc optional
+ libcuda1-352 deb restricted/misc optional
+ nvidia-346 deb restricted/misc optional
+ nvidia-346-dev deb restricted/misc optional
+ nvidia-352 deb restricted/misc optional
+ nvidia-352-dev deb restricted/misc optional
+ nvidia-libopencl1-346 deb restricted/misc optional
+ nvidia-libopencl1-352 deb restricted/misc optional
+ nvidia-opencl-icd-346 deb restricted/misc optional
+ nvidia-opencl-icd-352 deb restricted/misc optional
+Checksums-Sha1:
+ 4e371d8e760b03d75cf1b90f247be3139287139c 2685 nvidia-graphics-drivers-352_352.63-0ubuntu3.dsc
+ 3d5f7f7e3fe312e26af4c42350281ed3a7b80de4 108918933 nvidia-graphics-drivers-352_352.63.orig.tar.gz
+ 7dbb31fd0dca8b72df61e1806c4d7fb89b3b882d 153200 nvidia-graphics-drivers-352_352.63-0ubuntu3.diff.gz
+Checksums-Sha256:
+ de93d029323ce078e9bfd0bc2e9fd37432e6df81c6919d92fd7ed913de2595e0 2685 nvidia-graphics-drivers-352_352.63-0ubuntu3.dsc
+ 6e4a85cd6d2372524219ad96acb5d9f29c5660e5bf61506cb1d2e982ecbbfd1c 108918933 nvidia-graphics-drivers-352_352.63.orig.tar.gz
+ f4589b1c9f091feadaa77cfd37fd163e0fbaa90d92e2970527bea9bdddac5200 153200 nvidia-graphics-drivers-352_352.63-0ubuntu3.diff.gz
+
+Package: nvidia-graphics-drivers-352-updates
+Binary: nvidia-352-updates, nvidia-352-updates-dev, libcuda1-352-updates, nvidia-libopencl1-352-updates, nvidia-opencl-icd-352-updates, nvidia-346-updates, nvidia-346-updates-dev, nvidia-libopencl1-346-updates, nvidia-opencl-icd-346-updates, libcuda1-346-updates
+Version: 352.63-0ubuntu3
+Priority: optional
+Section: restricted/misc
+Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Build-Depends: debhelper (>= 8.0.0), sed (>> 3.0), libxext6, bzip2, xserver-xorg-dev (>= 2:1.4), execstack, libc6, libxvmc1, dh-modaliases, libxv1
+Architecture: i386 amd64 armhf
+Standards-Version: 3.8.0
+Format: 1.0
+Directory: pool/restricted/n/nvidia-graphics-drivers-352-updates
+Files:
+ 15fb5a348d3747d9d74bc93c38fbf9d0 2901 nvidia-graphics-drivers-352-updates_352.63-0ubuntu3.dsc
+ 5dc2a5cd39d74948e287558512610192 108918933 nvidia-graphics-drivers-352-updates_352.63.orig.tar.gz
+ 44e9cff6765fdb14920cf0695e9be58b 153104 nvidia-graphics-drivers-352-updates_352.63-0ubuntu3.diff.gz
+Vcs-Browser: http://github.com/tseliot/nvidia-graphics-drivers
+Vcs-Git: git://github.com/tseliot/nvidia-graphics-drivers.git
+Package-List:
+ libcuda1-346-updates deb restricted/misc optional
+ libcuda1-352-updates deb restricted/misc optional
+ nvidia-346-updates deb restricted/misc optional
+ nvidia-346-updates-dev deb restricted/misc optional
+ nvidia-352-updates deb restricted/misc optional
+ nvidia-352-updates-dev deb restricted/misc optional
+ nvidia-libopencl1-346-updates deb restricted/misc optional
+ nvidia-libopencl1-352-updates deb restricted/misc optional
+ nvidia-opencl-icd-346-updates deb restricted/misc optional
+ nvidia-opencl-icd-352-updates deb restricted/misc optional
+Checksums-Sha1:
+ b203033f6864c6c271c43a1164d8bdb56dee7218 2901 nvidia-graphics-drivers-352-updates_352.63-0ubuntu3.dsc
+ 3d5f7f7e3fe312e26af4c42350281ed3a7b80de4 108918933 nvidia-graphics-drivers-352-updates_352.63.orig.tar.gz
+ 9cf79dbe2108c568f06cc72fb6e7a9f763f7c015 153104 nvidia-graphics-drivers-352-updates_352.63-0ubuntu3.diff.gz
+Checksums-Sha256:
+ 9b89df2470ef6f064bab961dd3dd209cfd505a0301e697e6f7b8ad965b4c7f60 2901 nvidia-graphics-drivers-352-updates_352.63-0ubuntu3.dsc
+ 6e4a85cd6d2372524219ad96acb5d9f29c5660e5bf61506cb1d2e982ecbbfd1c 108918933 nvidia-graphics-drivers-352-updates_352.63.orig.tar.gz
+ 7ab26461c5226b7dfb3be0b36fb23268d589952fefdb67e4b5fca815edb45c3e 153104 nvidia-graphics-drivers-352-updates_352.63-0ubuntu3.diff.gz
+
+Package: nvidia-graphics-drivers-361
+Binary: nvidia-361, nvidia-361-dev, libcuda1-361, nvidia-libopencl1-361, nvidia-opencl-icd-361, nvidia-361-updates, nvidia-361-updates-dev, nvidia-libopencl1-361-updates, nvidia-opencl-icd-361-updates, libcuda1-361-updates, nvidia-352, nvidia-352-dev, nvidia-libopencl1-352, nvidia-opencl-icd-352, libcuda1-352, nvidia-352-updates, nvidia-352-updates-dev, nvidia-libopencl1-352-updates, nvidia-opencl-icd-352-updates, libcuda1-352-updates
+Version: 361.42-0ubuntu2
+Priority: optional
+Section: restricted/misc
+Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Build-Depends: debhelper (>= 8.0.0), sed (>> 3.0), libxext6, bzip2, xserver-xorg-dev (>= 2:1.4), execstack, libc6, libxvmc1, dh-modaliases, libxv1
+Architecture: i386 amd64 armhf
+Standards-Version: 3.8.0
+Format: 1.0
+Directory: pool/restricted/n/nvidia-graphics-drivers-361
+Files:
+ 03f970e30d7aed43dd11482d1e6d9717 3487 nvidia-graphics-drivers-361_361.42-0ubuntu2.dsc
+ c240ee5757361f42734d5f2651d268b2 122091056 nvidia-graphics-drivers-361_361.42.orig.tar.gz
+ 8825a9b50c532c929803d91c3212461b 153212 nvidia-graphics-drivers-361_361.42-0ubuntu2.diff.gz
+Vcs-Browser: http://github.com/tseliot/nvidia-graphics-drivers
+Vcs-Git: git://github.com/tseliot/nvidia-graphics-drivers.git
+Package-List:
+ libcuda1-352 deb restricted/misc optional
+ libcuda1-352-updates deb restricted/misc optional
+ libcuda1-361 deb restricted/misc optional
+ libcuda1-361-updates deb restricted/misc optional
+ nvidia-352 deb restricted/misc optional
+ nvidia-352-dev deb restricted/misc optional
+ nvidia-352-updates deb restricted/misc optional
+ nvidia-352-updates-dev deb restricted/misc optional
+ nvidia-361 deb restricted/misc optional
+ nvidia-361-dev deb restricted/misc optional
+ nvidia-361-updates deb restricted/misc optional
+ nvidia-361-updates-dev deb restricted/misc optional
+ nvidia-libopencl1-352 deb restricted/misc optional
+ nvidia-libopencl1-352-updates deb restricted/misc optional
+ nvidia-libopencl1-361 deb restricted/misc optional
+ nvidia-libopencl1-361-updates deb restricted/misc optional
+ nvidia-opencl-icd-352 deb restricted/misc optional
+ nvidia-opencl-icd-352-updates deb restricted/misc optional
+ nvidia-opencl-icd-361 deb restricted/misc optional
+ nvidia-opencl-icd-361-updates deb restricted/misc optional
+Checksums-Sha1:
+ 96a4533e862e964811c3741a33145a01df12a41a 3487 nvidia-graphics-drivers-361_361.42-0ubuntu2.dsc
+ 50b85f443aa7760c013d2440bb406e6348a8a710 122091056 nvidia-graphics-drivers-361_361.42.orig.tar.gz
+ 7b4781a66bfa254a0afa9912564ab2e9338f69d7 153212 nvidia-graphics-drivers-361_361.42-0ubuntu2.diff.gz
+Checksums-Sha256:
+ a8861e76908792f83b04fa555ebafc3c7891ace28a7987c45ce91436cbd31d46 3487 nvidia-graphics-drivers-361_361.42-0ubuntu2.dsc
+ fb512e315f064b229245350f6b45fdffcef59d86ef00c834a54df7c07ad01766 122091056 nvidia-graphics-drivers-361_361.42.orig.tar.gz
+ 88083d65344a6f1c977d637262e390930cbf4ea2411c61839e07d1fc43cdaa51 153212 nvidia-graphics-drivers-361_361.42-0ubuntu2.diff.gz
+
+Package: sl-modem
+Binary: sl-modem-dkms, sl-modem-daemon, sl-modem-source
+Version: 2.9.11~20110321-12
+Priority: optional
+Section: restricted/misc
+Maintainer: أحمد المحمودي (Ahmed El-Mahmoudy) <aelmahmoudy@users.sourceforge.net>
+Build-Depends: debhelper (>= 9), bzip2, libasound2-dev (>> 1.0.6), po-debconf, execstack, dkms (>= 2.1.1.2-1~)
+Architecture: i386 amd64 all
+Standards-Version: 3.9.6
+Format: 3.0 (quilt)
+Directory: pool/restricted/s/sl-modem
+Files:
+ 0da4ba8c80d6a336df5505fc04e4b87c 1970 sl-modem_2.9.11~20110321-12.dsc
+ e2b2217bb1727890dfa08ac65e4cf4ed 1006393 sl-modem_2.9.11~20110321.orig.tar.gz
+ 73de1fb55216aec3af6a3ece48753150 34236 sl-modem_2.9.11~20110321-12.debian.tar.xz
+Uploaders: Maurizio Avogadro <mavoga@gmail.com>, Rolf Leggewie <foss@rolf.leggewie.biz>
+Homepage: http://linmodems.technion.ac.il/packages/smartlink/
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/sl-modem.git
+Vcs-Git: git://anonscm.debian.org/collab-maint/sl-modem.git
+Package-List:
+ sl-modem-daemon deb non-free/misc optional arch=i386
+ sl-modem-dkms deb non-free/kernel optional arch=i386,amd64
+ sl-modem-source deb non-free/oldlibs extra arch=all
+Checksums-Sha1:
+ 6c6604cad7964d6b49ab9690eedf6f82dc429357 1970 sl-modem_2.9.11~20110321-12.dsc
+ e9a5f456dab090674c2351cc9528ac41823a7949 1006393 sl-modem_2.9.11~20110321.orig.tar.gz
+ 255e9ec9019c2e781fec3957aa6731376732924f 34236 sl-modem_2.9.11~20110321-12.debian.tar.xz
+Checksums-Sha256:
+ 8b242bcfcd6e335f199d22224fdab881cdb40d37251ba39dcdf558a4bcc43469 1970 sl-modem_2.9.11~20110321-12.dsc
+ cea496e9c34a16cf347124b27ed673f3a6e87089f83e15ab5e0b0365a56fd253 1006393 sl-modem_2.9.11~20110321.orig.tar.gz
+ 49253f31b1d39c55e2c562855a49cca4cd3b0b38e95493a31d9cf0a93f4b72ab 34236 sl-modem_2.9.11~20110321-12.debian.tar.xz
+Autobuild: yes
+

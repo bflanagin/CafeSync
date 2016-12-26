@@ -1,0 +1,50 @@
+name: cafesync
+version: 1.1 
+summary: Digtial Bulletin Board and Card collection service
+description: CafeSync is your own personal bulletin board. Whether you are a business, artist, musician, or any other person that needs to get noticed Cafesync aims to make it easier. By opening the application in any area that has public wifi you leave your "business card" for anyone else using CafeSync to pick up. There is a timed deletion for cards that you don't save so you don't have to worry about keeping your app clean of unwanted cards. For those that are saved you will never have to worry about calling a wrong number or getting an old address because the cards are updated automatically in the saved section of the app. Further more the most important information is saved locally so no need for an "always connected device" to get telephone numbers  to contact the card owner. We are still in the early days so if you download this app be sure to tell your friends and colleagues about it. As that will be the only way the service will really shine.
+
+apps:
+  cafesync:
+    command: qmlscene $SNAP/usr/share/qml/CafeSync/Main.qml
+    plugs: [network,home]
+
+parts:
+  cafesync:
+    plugin: cmake
+    configflags: [-DCMAKE_INSTALL_PREFIX=/usr, -DCLICK_MODE=off]
+    source: ./
+    source-type: file
+    build-packages:
+      - cmake
+      - gettext
+      - intltool
+      - suru-icon-theme
+      - qml-module-qttest
+      - qml-module-qtsysteminfo
+      - qml-module-qt-labs-settings
+      - qtdeclarative5-u1db1.0
+      - qtdeclarative5-qtmultimedia-plugin
+      - qtdeclarative5-qtpositioning-plugin
+      - qtdeclarative5-ubuntu-content1
+      - qt5-default
+      - qtbase5-dev
+      - qtdeclarative5-dev
+      - qtdeclarative5-dev-tools
+      - qtdeclarative5-folderlistmodel-plugin
+      - qtdeclarative5-ubuntu-ui-toolkit-plugin
+      - xvfb
+    stage-packages:
+      - ubuntu-sdk-libs
+      - qtubuntu-desktop
+      - qml-module-qtsysteminfo
+      - qmlscene
+
+    snap:
+      - -usr/share/doc
+      - -usr/include
+  environment:
+    plugin: copy
+    files:
+      snappy-qt5.conf: etc/xdg/qtchooser/snappy-qt5.conf
+
+  

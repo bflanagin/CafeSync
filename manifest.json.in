@@ -1,0 +1,15 @@
+{
+    "name": "@APP_ID@",
+    "description": "Location based Calling Card, and Personal Bulletin Board",
+    "architecture": "@CLICK_ARCH@",
+    "title": "@APP_NAME@",
+    "hooks": {
+        "CafeSync": {
+            "apparmor": "CafeSync.apparmor",
+            "desktop": "CafeSync.desktop"
+        }
+    },
+    "version": "1.1",
+    "maintainer": "Benjamin Flanagin <bflanagin@vagueentertainment.com>",
+    "framework": "ubuntu-sdk-15.04.2"
+}

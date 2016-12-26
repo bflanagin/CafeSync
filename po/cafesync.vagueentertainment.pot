@@ -1,0 +1,1010 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the  package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-26 15:41-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../app/CCreator.qml:107
+#: ../parts/cafesync/install/share/qml/CafeSync/CCreator.qml:107
+#: ../parts/environment/build/app/CCreator.qml:107
+#: ../snap/share/qml/CafeSync/CCreator.qml:107
+#: ../stage/share/qml/CafeSync/CCreator.qml:107
+msgid "Set"
+msgstr ""
+
+#: ../app/CCreator.qml:146 ../app/Main.qml:259
+#: ../parts/cafesync/install/share/qml/CafeSync/CCreator.qml:146
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:259
+#: ../parts/environment/build/app/CCreator.qml:146
+#: ../parts/environment/build/app/Main.qml:259
+#: ../snap/share/qml/CafeSync/CCreator.qml:146
+#: ../snap/share/qml/CafeSync/Main.qml:259
+#: ../stage/share/qml/CafeSync/CCreator.qml:146
+#: ../stage/share/qml/CafeSync/Main.qml:259
+msgid "Cancel"
+msgstr ""
+
+#: ../app/CCreator.qml:173
+#: ../parts/cafesync/install/share/qml/CafeSync/CCreator.qml:173
+#: ../parts/environment/build/app/CCreator.qml:173
+#: ../snap/share/qml/CafeSync/CCreator.qml:173
+#: ../stage/share/qml/CafeSync/CCreator.qml:173
+msgid "Background"
+msgstr ""
+
+#: ../app/CCreator.qml:186
+#: ../parts/cafesync/install/share/qml/CafeSync/CCreator.qml:186
+#: ../parts/environment/build/app/CCreator.qml:186
+#: ../snap/share/qml/CafeSync/CCreator.qml:186
+#: ../stage/share/qml/CafeSync/CCreator.qml:186
+msgid "Symbol"
+msgstr ""
+
+#: ../app/CCreator.qml:199
+#: ../parts/cafesync/install/share/qml/CafeSync/CCreator.qml:199
+#: ../parts/environment/build/app/CCreator.qml:199
+#: ../snap/share/qml/CafeSync/CCreator.qml:199
+#: ../stage/share/qml/CafeSync/CCreator.qml:199
+msgid "Text"
+msgstr ""
+
+#: ../app/CCreator.qml:461
+#: ../parts/cafesync/install/share/qml/CafeSync/CCreator.qml:461
+#: ../parts/environment/build/app/CCreator.qml:461
+#: ../snap/share/qml/CafeSync/CCreator.qml:461
+#: ../stage/share/qml/CafeSync/CCreator.qml:461
+msgid "Use your Own"
+msgstr ""
+
+#: ../app/Card.qml:188
+#: ../parts/cafesync/install/share/qml/CafeSync/Card.qml:188
+#: ../parts/environment/build/app/Card.qml:188
+#: ../snap/share/qml/CafeSync/Card.qml:188
+#: ../stage/share/qml/CafeSync/Card.qml:188
+msgid "Company: "
+msgstr ""
+
+#: ../app/Card.qml:207 ../app/Home.qml:100
+#: ../parts/cafesync/install/share/qml/CafeSync/Card.qml:207
+#: ../parts/cafesync/install/share/qml/CafeSync/Home.qml:100
+#: ../parts/environment/build/app/Card.qml:207
+#: ../parts/environment/build/app/Home.qml:100
+#: ../snap/share/qml/CafeSync/Card.qml:207
+#: ../snap/share/qml/CafeSync/Home.qml:100
+#: ../stage/share/qml/CafeSync/Card.qml:207
+#: ../stage/share/qml/CafeSync/Home.qml:100
+msgid "Phone: "
+msgstr ""
+
+#: ../app/Card.qml:218 ../app/Home.qml:107
+#: ../parts/cafesync/install/share/qml/CafeSync/Card.qml:218
+#: ../parts/cafesync/install/share/qml/CafeSync/Home.qml:107
+#: ../parts/environment/build/app/Card.qml:218
+#: ../parts/environment/build/app/Home.qml:107
+#: ../snap/share/qml/CafeSync/Card.qml:218
+#: ../snap/share/qml/CafeSync/Home.qml:107
+#: ../stage/share/qml/CafeSync/Card.qml:218
+#: ../stage/share/qml/CafeSync/Home.qml:107
+msgid "Email: "
+msgstr ""
+
+#: ../app/DA.qml:161 ../app/Jamendo.qml:160 ../app/Kickstarter.qml:289
+#: ../app/SoundCloud.qml:242 ../app/Twitch.qml:160 ../app/Vimeo.qml:159
+#: ../parts/cafesync/install/share/qml/CafeSync/DA.qml:161
+#: ../parts/cafesync/install/share/qml/CafeSync/Jamendo.qml:160
+#: ../parts/cafesync/install/share/qml/CafeSync/Kickstarter.qml:289
+#: ../parts/cafesync/install/share/qml/CafeSync/SoundCloud.qml:242
+#: ../parts/cafesync/install/share/qml/CafeSync/Twitch.qml:160
+#: ../parts/cafesync/install/share/qml/CafeSync/Vimeo.qml:159
+#: ../parts/environment/build/app/DA.qml:161
+#: ../parts/environment/build/app/Jamendo.qml:160
+#: ../parts/environment/build/app/Kickstarter.qml:289
+#: ../parts/environment/build/app/SoundCloud.qml:242
+#: ../parts/environment/build/app/Twitch.qml:160
+#: ../parts/environment/build/app/Vimeo.qml:159
+#: ../snap/share/qml/CafeSync/DA.qml:161
+#: ../snap/share/qml/CafeSync/Jamendo.qml:160
+#: ../snap/share/qml/CafeSync/Kickstarter.qml:289
+#: ../snap/share/qml/CafeSync/SoundCloud.qml:242
+#: ../snap/share/qml/CafeSync/Twitch.qml:160
+#: ../snap/share/qml/CafeSync/Vimeo.qml:159
+#: ../stage/share/qml/CafeSync/DA.qml:161
+#: ../stage/share/qml/CafeSync/Jamendo.qml:160
+#: ../stage/share/qml/CafeSync/Kickstarter.qml:289
+#: ../stage/share/qml/CafeSync/SoundCloud.qml:242
+#: ../stage/share/qml/CafeSync/Twitch.qml:160
+#: ../stage/share/qml/CafeSync/Vimeo.qml:159
+msgid "Chat"
+msgstr ""
+
+#: ../app/DA.qml:233 ../app/Jamendo.qml:232 ../app/Twitch.qml:232
+#: ../app/Vimeo.qml:231 ../parts/cafesync/install/share/qml/CafeSync/DA.qml:233
+#: ../parts/cafesync/install/share/qml/CafeSync/Jamendo.qml:232
+#: ../parts/cafesync/install/share/qml/CafeSync/Twitch.qml:232
+#: ../parts/cafesync/install/share/qml/CafeSync/Vimeo.qml:231
+#: ../parts/environment/build/app/DA.qml:233
+#: ../parts/environment/build/app/Jamendo.qml:232
+#: ../parts/environment/build/app/Twitch.qml:232
+#: ../parts/environment/build/app/Vimeo.qml:231
+#: ../snap/share/qml/CafeSync/DA.qml:233
+#: ../snap/share/qml/CafeSync/Jamendo.qml:232
+#: ../snap/share/qml/CafeSync/Twitch.qml:232
+#: ../snap/share/qml/CafeSync/Vimeo.qml:231
+#: ../stage/share/qml/CafeSync/DA.qml:233
+#: ../stage/share/qml/CafeSync/Jamendo.qml:232
+#: ../stage/share/qml/CafeSync/Twitch.qml:232
+#: ../stage/share/qml/CafeSync/Vimeo.qml:231
+msgid "Plugin Under Development"
+msgstr ""
+
+#: ../app/DA.qml:239 ../app/Jamendo.qml:239 ../app/Twitch.qml:239
+#: ../app/Vimeo.qml:238 ../parts/cafesync/install/share/qml/CafeSync/DA.qml:239
+#: ../parts/cafesync/install/share/qml/CafeSync/Jamendo.qml:239
+#: ../parts/cafesync/install/share/qml/CafeSync/Twitch.qml:239
+#: ../parts/cafesync/install/share/qml/CafeSync/Vimeo.qml:238
+#: ../parts/environment/build/app/DA.qml:239
+#: ../parts/environment/build/app/Jamendo.qml:239
+#: ../parts/environment/build/app/Twitch.qml:239
+#: ../parts/environment/build/app/Vimeo.qml:238
+#: ../snap/share/qml/CafeSync/DA.qml:239
+#: ../snap/share/qml/CafeSync/Jamendo.qml:239
+#: ../snap/share/qml/CafeSync/Twitch.qml:239
+#: ../snap/share/qml/CafeSync/Vimeo.qml:238
+#: ../stage/share/qml/CafeSync/DA.qml:239
+#: ../stage/share/qml/CafeSync/Jamendo.qml:239
+#: ../stage/share/qml/CafeSync/Twitch.qml:239
+#: ../stage/share/qml/CafeSync/Vimeo.qml:238
+msgid "Tap to launch in external application"
+msgstr ""
+
+#: ../app/FaceBook.qml:130
+#: ../parts/cafesync/install/share/qml/CafeSync/FaceBook.qml:130
+#: ../parts/environment/build/app/FaceBook.qml:130
+#: ../snap/share/qml/CafeSync/FaceBook.qml:130
+#: ../stage/share/qml/CafeSync/FaceBook.qml:130
+msgid "This is a personal page. Detailed information is restricted."
+msgstr ""
+
+#: ../app/FaceBook.qml:225
+#: ../parts/cafesync/install/share/qml/CafeSync/FaceBook.qml:225
+#: ../parts/environment/build/app/FaceBook.qml:225
+#: ../snap/share/qml/CafeSync/FaceBook.qml:225
+#: ../stage/share/qml/CafeSync/FaceBook.qml:225
+msgid "Events"
+msgstr ""
+
+#: ../app/FaceBook.qml:257
+#: ../parts/cafesync/install/share/qml/CafeSync/FaceBook.qml:257
+#: ../parts/environment/build/app/FaceBook.qml:257
+#: ../snap/share/qml/CafeSync/FaceBook.qml:257
+#: ../stage/share/qml/CafeSync/FaceBook.qml:257
+msgid "About"
+msgstr ""
+
+#: ../app/FaceBook.qml:295
+#: ../parts/cafesync/install/share/qml/CafeSync/FaceBook.qml:295
+#: ../parts/environment/build/app/FaceBook.qml:295
+#: ../snap/share/qml/CafeSync/FaceBook.qml:295
+#: ../stage/share/qml/CafeSync/FaceBook.qml:295
+msgid "Photos"
+msgstr ""
+
+#: ../app/Home.qml:87 ../parts/cafesync/install/share/qml/CafeSync/Home.qml:87
+#: ../parts/environment/build/app/Home.qml:87
+#: ../snap/share/qml/CafeSync/Home.qml:87
+#: ../stage/share/qml/CafeSync/Home.qml:87
+msgid "Name: "
+msgstr ""
+
+#: ../app/Home.qml:156 ../app/Setup.qml:442
+#: ../parts/cafesync/install/share/qml/CafeSync/Home.qml:156
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:442
+#: ../parts/environment/build/app/Home.qml:156
+#: ../parts/environment/build/app/Setup.qml:442
+#: ../snap/share/qml/CafeSync/Home.qml:156
+#: ../snap/share/qml/CafeSync/Setup.qml:442
+#: ../stage/share/qml/CafeSync/Home.qml:156
+#: ../stage/share/qml/CafeSync/Setup.qml:442
+msgid "Category: "
+msgstr ""
+
+#: ../app/Home.qml:161
+#: ../parts/cafesync/install/share/qml/CafeSync/Home.qml:161
+#: ../parts/environment/build/app/Home.qml:161
+#: ../snap/share/qml/CafeSync/Home.qml:161
+#: ../stage/share/qml/CafeSync/Home.qml:161
+msgid "Tagged On:"
+msgstr ""
+
+#: ../app/Home.qml:512 ../app/Setup.qml:599
+#: ../parts/cafesync/install/share/qml/CafeSync/Home.qml:512
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:599
+#: ../parts/environment/build/app/Home.qml:512
+#: ../parts/environment/build/app/Setup.qml:599
+#: ../snap/share/qml/CafeSync/Home.qml:512
+#: ../snap/share/qml/CafeSync/Setup.qml:599
+#: ../stage/share/qml/CafeSync/Home.qml:512
+#: ../stage/share/qml/CafeSync/Setup.qml:599
+msgid "About:"
+msgstr ""
+
+#: ../app/Home.qml:539
+#: ../parts/cafesync/install/share/qml/CafeSync/Home.qml:539
+#: ../parts/environment/build/app/Home.qml:539
+#: ../snap/share/qml/CafeSync/Home.qml:539
+#: ../stage/share/qml/CafeSync/Home.qml:539
+msgid "Share Card"
+msgstr ""
+
+#: ../app/Info.qml:71 ../parts/cafesync/install/share/qml/CafeSync/Info.qml:71
+#: ../parts/environment/build/app/Info.qml:71
+#: ../snap/share/qml/CafeSync/Info.qml:71
+#: ../stage/share/qml/CafeSync/Info.qml:71
+msgid "(Tap to close)"
+msgstr ""
+
+#: ../app/Info.qml:79 ../parts/cafesync/install/share/qml/CafeSync/Info.qml:79
+#: ../parts/environment/build/app/Info.qml:79
+#: ../snap/share/qml/CafeSync/Info.qml:79
+#: ../stage/share/qml/CafeSync/Info.qml:79
+msgid "Warning: Closing this window invalidates code"
+msgstr ""
+
+#: ../app/Main.qml:57 ../app/Main.qml:488
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:57
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:488
+#: ../parts/environment/build/app/Main.qml:57
+#: ../parts/environment/build/app/Main.qml:488
+#: ../snap/share/qml/CafeSync/Main.qml:57
+#: ../snap/share/qml/CafeSync/Main.qml:488
+#: ../stage/share/qml/CafeSync/Main.qml:57
+#: ../stage/share/qml/CafeSync/Main.qml:488
+msgid "Passers By"
+msgstr ""
+
+#: ../app/Main.qml:205 ../app/main.js:473 ../app/main.js:686
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:205
+#: ../parts/cafesync/install/share/qml/CafeSync/main.js:473
+#: ../parts/cafesync/install/share/qml/CafeSync/main.js:686
+#: ../parts/environment/build/app/Main.qml:205
+#: ../parts/environment/build/app/main.js:473
+#: ../parts/environment/build/app/main.js:686
+#: ../snap/share/qml/CafeSync/Main.qml:205
+#: ../snap/share/qml/CafeSync/main.js:473
+#: ../snap/share/qml/CafeSync/main.js:686
+#: ../stage/share/qml/CafeSync/Main.qml:205
+#: ../stage/share/qml/CafeSync/main.js:473
+#: ../stage/share/qml/CafeSync/main.js:686
+msgid "All Cards"
+msgstr ""
+
+#: ../app/Main.qml:208
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:208
+#: ../parts/environment/build/app/Main.qml:208
+#: ../snap/share/qml/CafeSync/Main.qml:208
+#: ../stage/share/qml/CafeSync/Main.qml:208
+msgid ""
+"All Cards,Art,Business,Construction,Education,Engineering,Food,Government,"
+"Law,Living,Lifestyle,Music,Non-Profit,Personal,Repair,Science,Software,"
+"Technology,Theatre,Writing,Wellness"
+msgstr ""
+
+#: ../app/Main.qml:226
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:226
+#: ../parts/environment/build/app/Main.qml:226
+#: ../snap/share/qml/CafeSync/Main.qml:226
+#: ../stage/share/qml/CafeSync/Main.qml:226
+msgid "Connect to OpenSeed"
+msgstr ""
+
+#: ../app/Main.qml:227
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:227
+#: ../parts/environment/build/app/Main.qml:227
+#: ../snap/share/qml/CafeSync/Main.qml:227
+#: ../stage/share/qml/CafeSync/Main.qml:227
+msgid "CafeSync uses the Openseed network for App and User authentication."
+msgstr ""
+
+#: ../app/Main.qml:232 ../app/Setup.qml:266
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:232
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:266
+#: ../parts/environment/build/app/Main.qml:232
+#: ../parts/environment/build/app/Setup.qml:266
+#: ../snap/share/qml/CafeSync/Main.qml:232
+#: ../snap/share/qml/CafeSync/Setup.qml:266
+#: ../stage/share/qml/CafeSync/Main.qml:232
+#: ../stage/share/qml/CafeSync/Setup.qml:266
+msgid "User Name"
+msgstr ""
+
+#: ../app/Main.qml:239
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:239
+#: ../parts/environment/build/app/Main.qml:239
+#: ../snap/share/qml/CafeSync/Main.qml:239
+#: ../stage/share/qml/CafeSync/Main.qml:239
+msgid "example@email.com"
+msgstr ""
+
+#: ../app/Main.qml:248
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:248
+#: ../parts/environment/build/app/Main.qml:248
+#: ../snap/share/qml/CafeSync/Main.qml:248
+#: ../stage/share/qml/CafeSync/Main.qml:248
+msgid "Okay"
+msgstr ""
+
+#: ../app/Main.qml:352 ../app/Main.qml:434
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:352
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:434
+#: ../parts/environment/build/app/Main.qml:352
+#: ../parts/environment/build/app/Main.qml:434
+#: ../snap/share/qml/CafeSync/Main.qml:352
+#: ../snap/share/qml/CafeSync/Main.qml:434
+#: ../stage/share/qml/CafeSync/Main.qml:352
+#: ../stage/share/qml/CafeSync/Main.qml:434
+msgid "Saved"
+msgstr ""
+
+#: ../app/Main.qml:352 ../app/Setup.qml:396
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:352
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:396
+#: ../parts/environment/build/app/Main.qml:352
+#: ../parts/environment/build/app/Setup.qml:396
+#: ../snap/share/qml/CafeSync/Main.qml:352
+#: ../snap/share/qml/CafeSync/Setup.qml:396
+#: ../stage/share/qml/CafeSync/Main.qml:352
+#: ../stage/share/qml/CafeSync/Setup.qml:396
+msgid "Card"
+msgstr ""
+
+#: ../app/Main.qml:486 ../app/slides.js:94
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:486
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:94
+#: ../parts/environment/build/app/Main.qml:486
+#: ../parts/environment/build/app/slides.js:94
+#: ../snap/share/qml/CafeSync/Main.qml:486
+#: ../snap/share/qml/CafeSync/slides.js:94
+#: ../stage/share/qml/CafeSync/Main.qml:486
+#: ../stage/share/qml/CafeSync/slides.js:94
+msgid "Region"
+msgstr ""
+
+#: ../app/Main.qml:487 ../app/slides.js:102
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:487
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:102
+#: ../parts/environment/build/app/Main.qml:487
+#: ../parts/environment/build/app/slides.js:102
+#: ../snap/share/qml/CafeSync/Main.qml:487
+#: ../snap/share/qml/CafeSync/slides.js:102
+#: ../stage/share/qml/CafeSync/Main.qml:487
+#: ../stage/share/qml/CafeSync/slides.js:102
+msgid "Global"
+msgstr ""
+
+#: ../app/Main.qml:541
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:541
+#: ../parts/environment/build/app/Main.qml:541
+#: ../snap/share/qml/CafeSync/Main.qml:541
+#: ../stage/share/qml/CafeSync/Main.qml:541
+msgid "::Search..."
+msgstr ""
+
+#: ../app/Main.qml:614
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:614
+#: ../parts/environment/build/app/Main.qml:614
+#: ../snap/share/qml/CafeSync/Main.qml:614
+#: ../stage/share/qml/CafeSync/Main.qml:614
+msgid "Settings "
+msgstr ""
+
+#: ../app/Main.qml:841
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:841
+#: ../parts/environment/build/app/Main.qml:841
+#: ../snap/share/qml/CafeSync/Main.qml:841
+#: ../stage/share/qml/CafeSync/Main.qml:841
+msgid "No cards yet"
+msgstr ""
+
+#: ../app/Main.qml:996
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:996
+#: ../parts/environment/build/app/Main.qml:996
+#: ../snap/share/qml/CafeSync/Main.qml:996
+#: ../stage/share/qml/CafeSync/Main.qml:996
+msgid "Main Menu"
+msgstr ""
+
+#: ../app/Main.qml:1024
+#: ../parts/cafesync/install/share/qml/CafeSync/Main.qml:1024
+#: ../parts/environment/build/app/Main.qml:1024
+#: ../snap/share/qml/CafeSync/Main.qml:1024
+#: ../stage/share/qml/CafeSync/Main.qml:1024
+msgid "Receive Card"
+msgstr ""
+
+#: ../app/Menus.qml:146 ../app/slides.js:25
+#: ../parts/cafesync/install/share/qml/CafeSync/Menus.qml:146
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:25
+#: ../parts/environment/build/app/Menus.qml:146
+#: ../parts/environment/build/app/slides.js:25
+#: ../snap/share/qml/CafeSync/Menus.qml:146
+#: ../snap/share/qml/CafeSync/slides.js:25
+#: ../stage/share/qml/CafeSync/Menus.qml:146
+#: ../stage/share/qml/CafeSync/slides.js:25
+msgid "Cards"
+msgstr ""
+
+#: ../app/Menus.qml:147
+#: ../parts/cafesync/install/share/qml/CafeSync/Menus.qml:147
+#: ../parts/environment/build/app/Menus.qml:147
+#: ../snap/share/qml/CafeSync/Menus.qml:147
+#: ../stage/share/qml/CafeSync/Menus.qml:147
+msgid "Card 1 not configured"
+msgstr ""
+
+#: ../app/Menus.qml:148
+#: ../parts/cafesync/install/share/qml/CafeSync/Menus.qml:148
+#: ../parts/environment/build/app/Menus.qml:148
+#: ../snap/share/qml/CafeSync/Menus.qml:148
+#: ../stage/share/qml/CafeSync/Menus.qml:148
+msgid "Card 2 not configured"
+msgstr ""
+
+#: ../app/Menus.qml:149 ../app/slides.js:122
+#: ../parts/cafesync/install/share/qml/CafeSync/Menus.qml:149
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:122
+#: ../parts/environment/build/app/Menus.qml:149
+#: ../parts/environment/build/app/slides.js:122
+#: ../snap/share/qml/CafeSync/Menus.qml:149
+#: ../snap/share/qml/CafeSync/slides.js:122
+#: ../stage/share/qml/CafeSync/Menus.qml:149
+#: ../stage/share/qml/CafeSync/slides.js:122
+msgid "Setup"
+msgstr ""
+
+#: ../app/Payment.qml:61
+#: ../parts/cafesync/install/share/qml/CafeSync/Payment.qml:61
+#: ../parts/environment/build/app/Payment.qml:61
+#: ../snap/share/qml/CafeSync/Payment.qml:61
+#: ../stage/share/qml/CafeSync/Payment.qml:61
+msgid ""
+"You can upload custom card faces to our servers by hitting the check mark "
+"below.\n"
+" This will generate the request and send an email to the address on the "
+"card.\n"
+" (please check your Spam folder)"
+msgstr ""
+
+#: ../app/Payment.qml:97
+#: ../parts/cafesync/install/share/qml/CafeSync/Payment.qml:97
+#: ../parts/environment/build/app/Payment.qml:97
+#: ../snap/share/qml/CafeSync/Payment.qml:97
+#: ../stage/share/qml/CafeSync/Payment.qml:97
+msgid "Custom Card Face = 1 USD"
+msgstr ""
+
+#: ../app/Payment.qml:124
+#: ../parts/cafesync/install/share/qml/CafeSync/Payment.qml:124
+#: ../parts/environment/build/app/Payment.qml:124
+#: ../snap/share/qml/CafeSync/Payment.qml:124
+#: ../stage/share/qml/CafeSync/Payment.qml:124
+msgid "Email Sent"
+msgstr ""
+
+#: ../app/Setup.qml:255
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:255
+#: ../parts/environment/build/app/Setup.qml:255
+#: ../snap/share/qml/CafeSync/Setup.qml:255
+#: ../stage/share/qml/CafeSync/Setup.qml:255
+msgid "Name:"
+msgstr ""
+
+#: ../app/Setup.qml:280
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:280
+#: ../parts/environment/build/app/Setup.qml:280
+#: ../snap/share/qml/CafeSync/Setup.qml:280
+#: ../stage/share/qml/CafeSync/Setup.qml:280
+msgid "Phone:"
+msgstr ""
+
+#: ../app/Setup.qml:291
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:291
+#: ../parts/environment/build/app/Setup.qml:291
+#: ../snap/share/qml/CafeSync/Setup.qml:291
+#: ../stage/share/qml/CafeSync/Setup.qml:291
+msgid "0 555-555-5555"
+msgstr ""
+
+#: ../app/Setup.qml:309
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:309
+#: ../parts/environment/build/app/Setup.qml:309
+#: ../snap/share/qml/CafeSync/Setup.qml:309
+#: ../stage/share/qml/CafeSync/Setup.qml:309
+msgid "Email:"
+msgstr ""
+
+#: ../app/Setup.qml:319
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:319
+#: ../parts/environment/build/app/Setup.qml:319
+#: ../snap/share/qml/CafeSync/Setup.qml:319
+#: ../stage/share/qml/CafeSync/Setup.qml:319
+msgid "johndoe@example.com"
+msgstr ""
+
+#: ../app/Setup.qml:339
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:339
+#: ../parts/environment/build/app/Setup.qml:339
+#: ../snap/share/qml/CafeSync/Setup.qml:339
+#: ../stage/share/qml/CafeSync/Setup.qml:339
+msgid "Company:"
+msgstr ""
+
+#: ../app/Setup.qml:349
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:349
+#: ../parts/environment/build/app/Setup.qml:349
+#: ../snap/share/qml/CafeSync/Setup.qml:349
+#: ../stage/share/qml/CafeSync/Setup.qml:349
+msgid "Company Name"
+msgstr ""
+
+#: ../app/Setup.qml:367
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:367
+#: ../parts/environment/build/app/Setup.qml:367
+#: ../snap/share/qml/CafeSync/Setup.qml:367
+#: ../stage/share/qml/CafeSync/Setup.qml:367
+msgid "Alias:"
+msgstr ""
+
+#: ../app/Setup.qml:379
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:379
+#: ../parts/environment/build/app/Setup.qml:379
+#: ../snap/share/qml/CafeSync/Setup.qml:379
+#: ../stage/share/qml/CafeSync/Setup.qml:379
+msgid "User Alias"
+msgstr ""
+
+#: ../app/Setup.qml:458
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:458
+#: ../parts/environment/build/app/Setup.qml:458
+#: ../snap/share/qml/CafeSync/Setup.qml:458
+#: ../stage/share/qml/CafeSync/Setup.qml:458
+msgid "Select Category"
+msgstr ""
+
+#: ../app/Setup.qml:492
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:492
+#: ../parts/environment/build/app/Setup.qml:492
+#: ../snap/share/qml/CafeSync/Setup.qml:492
+#: ../stage/share/qml/CafeSync/Setup.qml:492
+msgid "Send"
+msgstr ""
+
+#: ../app/Setup.qml:515
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:515
+#: ../parts/environment/build/app/Setup.qml:515
+#: ../snap/share/qml/CafeSync/Setup.qml:515
+#: ../stage/share/qml/CafeSync/Setup.qml:515
+msgid "Alias"
+msgstr ""
+
+#: ../app/Setup.qml:534
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:534
+#: ../parts/environment/build/app/Setup.qml:534
+#: ../snap/share/qml/CafeSync/Setup.qml:534
+#: ../stage/share/qml/CafeSync/Setup.qml:534
+msgid "Contact"
+msgstr ""
+
+#: ../app/Setup.qml:572
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:572
+#: ../parts/environment/build/app/Setup.qml:572
+#: ../snap/share/qml/CafeSync/Setup.qml:572
+#: ../stage/share/qml/CafeSync/Setup.qml:572
+msgid "Main Page:"
+msgstr ""
+
+#: ../app/Setup.qml:584
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:584
+#: ../parts/environment/build/app/Setup.qml:584
+#: ../snap/share/qml/CafeSync/Setup.qml:584
+#: ../stage/share/qml/CafeSync/Setup.qml:584
+msgid "Main Site for Advertising"
+msgstr ""
+
+#: ../app/Setup.qml:623
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:623
+#: ../parts/environment/build/app/Setup.qml:623
+#: ../snap/share/qml/CafeSync/Setup.qml:623
+#: ../stage/share/qml/CafeSync/Setup.qml:623
+msgid "Other Sites"
+msgstr ""
+
+#: ../app/Setup.qml:674 ../app/Setup.qml:700 ../app/Setup.qml:725
+#: ../app/Setup.qml:751
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:674
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:700
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:725
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:751
+#: ../parts/environment/build/app/Setup.qml:674
+#: ../parts/environment/build/app/Setup.qml:700
+#: ../parts/environment/build/app/Setup.qml:725
+#: ../parts/environment/build/app/Setup.qml:751
+#: ../snap/share/qml/CafeSync/Setup.qml:674
+#: ../snap/share/qml/CafeSync/Setup.qml:700
+#: ../snap/share/qml/CafeSync/Setup.qml:725
+#: ../snap/share/qml/CafeSync/Setup.qml:751
+#: ../stage/share/qml/CafeSync/Setup.qml:674
+#: ../stage/share/qml/CafeSync/Setup.qml:700
+#: ../stage/share/qml/CafeSync/Setup.qml:725
+#: ../stage/share/qml/CafeSync/Setup.qml:751
+msgid "www.example.com"
+msgstr ""
+
+#: ../app/Setup.qml:770
+#: ../parts/cafesync/install/share/qml/CafeSync/Setup.qml:770
+#: ../parts/environment/build/app/Setup.qml:770
+#: ../snap/share/qml/CafeSync/Setup.qml:770
+#: ../stage/share/qml/CafeSync/Setup.qml:770
+msgid "Misc."
+msgstr ""
+
+#: ../app/SlideShow.qml:132
+#: ../parts/cafesync/install/share/qml/CafeSync/SlideShow.qml:132
+#: ../parts/environment/build/app/SlideShow.qml:132
+#: ../snap/share/qml/CafeSync/SlideShow.qml:132
+#: ../stage/share/qml/CafeSync/SlideShow.qml:132
+msgid "Pages:"
+msgstr ""
+
+#: ../app/SlideShow.qml:170
+#: ../parts/cafesync/install/share/qml/CafeSync/SlideShow.qml:170
+#: ../parts/environment/build/app/SlideShow.qml:170
+#: ../snap/share/qml/CafeSync/SlideShow.qml:170
+#: ../stage/share/qml/CafeSync/SlideShow.qml:170
+msgid "close"
+msgstr ""
+
+#: ../app/Twitter.qml:258
+#: ../parts/cafesync/install/share/qml/CafeSync/Twitter.qml:258
+#: ../parts/environment/build/app/Twitter.qml:258
+#: ../snap/share/qml/CafeSync/Twitter.qml:258
+#: ../stage/share/qml/CafeSync/Twitter.qml:258
+msgid "Tweets & Replies"
+msgstr ""
+
+#: ../app/Twitter.qml:296
+#: ../parts/cafesync/install/share/qml/CafeSync/Twitter.qml:296
+#: ../parts/environment/build/app/Twitter.qml:296
+#: ../snap/share/qml/CafeSync/Twitter.qml:296
+#: ../stage/share/qml/CafeSync/Twitter.qml:296
+msgid "Photos & Videos"
+msgstr ""
+
+#: ../app/Twitter.qml:341
+#: ../parts/cafesync/install/share/qml/CafeSync/Twitter.qml:341
+#: ../parts/environment/build/app/Twitter.qml:341
+#: ../snap/share/qml/CafeSync/Twitter.qml:341
+#: ../stage/share/qml/CafeSync/Twitter.qml:341
+msgid "Followers"
+msgstr ""
+
+#: ../app/slides.js:8 ../parts/cafesync/install/share/qml/CafeSync/slides.js:8
+#: ../parts/environment/build/app/slides.js:8
+#: ../snap/share/qml/CafeSync/slides.js:8
+#: ../stage/share/qml/CafeSync/slides.js:8
+msgid "Welcome"
+msgstr ""
+
+#: ../app/slides.js:16
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:16
+#: ../parts/environment/build/app/slides.js:16
+#: ../snap/share/qml/CafeSync/slides.js:16
+#: ../stage/share/qml/CafeSync/slides.js:16
+msgid "OpenSeed"
+msgstr ""
+
+#: ../app/slides.js:17
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:17
+#: ../parts/environment/build/app/slides.js:17
+#: ../snap/share/qml/CafeSync/slides.js:17
+#: ../stage/share/qml/CafeSync/slides.js:17
+msgid ""
+"CafeSync uses the Openseed Network. OpenSeed is being developed by Vague "
+"Entertainment and more information will be available about Openseed when the "
+"API is ready for others to join the network."
+msgstr ""
+
+#: ../app/slides.js:26
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:26
+#: ../parts/environment/build/app/slides.js:26
+#: ../snap/share/qml/CafeSync/slides.js:26
+#: ../stage/share/qml/CafeSync/slides.js:26
+msgid ""
+"Each user on the network has two cards to share. Because of the way that "
+"CafeSync works these cards can be about you, a cause you believe in, or a "
+"company. Think of each card as a way to both help yourself, and someone else."
+msgstr ""
+
+#: ../app/slides.js:34
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:34
+#: ../parts/environment/build/app/slides.js:34
+#: ../snap/share/qml/CafeSync/slides.js:34
+#: ../stage/share/qml/CafeSync/slides.js:34
+msgid "Cards (cont.1)"
+msgstr ""
+
+#: ../app/slides.js:35
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:35
+#: ../parts/environment/build/app/slides.js:35
+#: ../snap/share/qml/CafeSync/slides.js:35
+#: ../stage/share/qml/CafeSync/slides.js:35
+msgid ""
+"Each card has two sides, the Card face and the information side. Tapping on "
+"the card will give you a quick look at the info whereas a long press will "
+"bring up more detailed information about the card owner."
+msgstr ""
+
+#: ../app/slides.js:41
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:41
+#: ../parts/environment/build/app/slides.js:41
+#: ../snap/share/qml/CafeSync/slides.js:41
+#: ../stage/share/qml/CafeSync/slides.js:41
+msgid "Cards (cont.2)"
+msgstr ""
+
+#: ../app/slides.js:42
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:42
+#: ../parts/environment/build/app/slides.js:42
+#: ../snap/share/qml/CafeSync/slides.js:42
+#: ../stage/share/qml/CafeSync/slides.js:42
+msgid ""
+"In the detailed information view you can Call,Text,Email, Swap, Save, and "
+"Delete the card. If you swipe the screen to the right you can view the pages "
+"that are associated with the owner of the card."
+msgstr ""
+
+#: ../app/slides.js:50
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:50
+#: ../parts/environment/build/app/slides.js:50
+#: ../snap/share/qml/CafeSync/slides.js:50
+#: ../stage/share/qml/CafeSync/slides.js:50
+msgid "Menu"
+msgstr ""
+
+#: ../app/slides.js:51
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:51
+#: ../parts/environment/build/app/slides.js:51
+#: ../snap/share/qml/CafeSync/slides.js:51
+#: ../stage/share/qml/CafeSync/slides.js:51
+msgid ""
+"Once you have saved your card, hitting the button in the upper left corner "
+"will bring up the menu. Cards will take you to the main view of the program "
+"whereas the two options below that will take you to your cards. Setup will "
+"return you to the card setup screen."
+msgstr ""
+
+#: ../app/slides.js:60
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:60
+#: ../parts/environment/build/app/slides.js:60
+#: ../snap/share/qml/CafeSync/slides.js:60
+#: ../stage/share/qml/CafeSync/slides.js:60
+msgid "Your Cards"
+msgstr ""
+
+#: ../app/slides.js:61
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:61
+#: ../parts/environment/build/app/slides.js:61
+#: ../snap/share/qml/CafeSync/slides.js:61
+#: ../stage/share/qml/CafeSync/slides.js:61
+msgid ""
+"Tapping on one of your cards will bring up detailed information about that "
+"card. Unlike other cards the options for your cards are as follows: "
+"Share(allow others to see your card),Use Alias,Share Contact Info(share "
+"email address and telephone info with other users), and Swap."
+msgstr ""
+
+#: ../app/slides.js:69
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:69
+#: ../parts/environment/build/app/slides.js:69
+#: ../snap/share/qml/CafeSync/slides.js:69
+#: ../stage/share/qml/CafeSync/slides.js:69
+msgid "Swapping"
+msgstr ""
+
+#: ../app/slides.js:70
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:70
+#: ../parts/environment/build/app/slides.js:70
+#: ../snap/share/qml/CafeSync/slides.js:70
+#: ../stage/share/qml/CafeSync/slides.js:70
+msgid ""
+"Swapping cards is a great way share either your card or any card you have "
+"picked up between CafeSync users. You don't even need to be connected to the "
+"same network. Simply bring up the details for the card you want to send and "
+"hit the swap button. Once it generates the code, have the other user hit the "
+"swap button on the Menu to enter the code."
+msgstr ""
+
+#: ../app/slides.js:78
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:78
+#: ../parts/environment/build/app/slides.js:78
+#: ../snap/share/qml/CafeSync/slides.js:78
+#: ../stage/share/qml/CafeSync/slides.js:78
+msgid "Areas"
+msgstr ""
+
+#: ../app/slides.js:79
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:79
+#: ../parts/environment/build/app/slides.js:79
+#: ../snap/share/qml/CafeSync/slides.js:79
+#: ../stage/share/qml/CafeSync/slides.js:79
+msgid ""
+"The main view has three selectable card areas:PassersBy,Region,and Global. "
+"You can search and save from any of these areas."
+msgstr ""
+
+#: ../app/slides.js:86
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:86
+#: ../parts/environment/build/app/slides.js:86
+#: ../snap/share/qml/CafeSync/slides.js:86
+#: ../stage/share/qml/CafeSync/slides.js:86
+msgid "PassersBy"
+msgstr ""
+
+#: ../app/slides.js:87
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:87
+#: ../parts/environment/build/app/slides.js:87
+#: ../snap/share/qml/CafeSync/slides.js:87
+#: ../stage/share/qml/CafeSync/slides.js:87
+msgid ""
+"PassersBy is the default view. Any time you connect to wifi, you collect "
+"other cards that are connected to the same network and leave your card for "
+"them to pick up."
+msgstr ""
+
+#: ../app/slides.js:95
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:95
+#: ../parts/environment/build/app/slides.js:95
+#: ../snap/share/qml/CafeSync/slides.js:95
+#: ../stage/share/qml/CafeSync/slides.js:95
+msgid ""
+"Region show all cards within ~20miles from your last known location. The "
+"range depends on the density of the networks in your area."
+msgstr ""
+
+#: ../app/slides.js:103
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:103
+#: ../parts/environment/build/app/slides.js:103
+#: ../snap/share/qml/CafeSync/slides.js:103
+#: ../stage/share/qml/CafeSync/slides.js:103
+msgid ""
+"Shows all cards on the service. Note: this mode will go away when we are "
+"over 1000 users world wide."
+msgstr ""
+
+#: ../app/slides.js:111
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:111
+#: ../parts/environment/build/app/slides.js:111
+#: ../snap/share/qml/CafeSync/slides.js:111
+#: ../stage/share/qml/CafeSync/slides.js:111
+msgid "Search"
+msgstr ""
+
+#: ../app/slides.js:112
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:112
+#: ../parts/environment/build/app/slides.js:112
+#: ../snap/share/qml/CafeSync/slides.js:112
+#: ../stage/share/qml/CafeSync/slides.js:112
+msgid ""
+"Hitting the Magnifing glass in the upper right hand corner will bring up the "
+"search functions. In this mode the Menu has changed. The search takes into "
+"account name,company, and hashtags in the about, as well as a specific "
+"category set by hitting the menu button."
+msgstr ""
+
+#: ../app/slides.js:123
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:123
+#: ../parts/environment/build/app/slides.js:123
+#: ../snap/share/qml/CafeSync/slides.js:123
+#: ../stage/share/qml/CafeSync/slides.js:123
+msgid ""
+"After you close this dialog, be sure to setup your card. Pay close attention "
+"to the privacy settings and be sure to add at least one website that you "
+"would like people to see. Be sure to hit save in the upper right corner of "
+"the screen."
+msgstr ""
+
+#: ../app/slides.js:131
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:131
+#: ../parts/environment/build/app/slides.js:131
+#: ../snap/share/qml/CafeSync/slides.js:131
+#: ../stage/share/qml/CafeSync/slides.js:131
+msgid "Card Creator"
+msgstr ""
+
+#: ../app/slides.js:132
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:132
+#: ../parts/environment/build/app/slides.js:132
+#: ../snap/share/qml/CafeSync/slides.js:132
+#: ../stage/share/qml/CafeSync/slides.js:132
+msgid ""
+"To setup your card face tap the card image at the top of the Setup page. It "
+"will take you to the card creator pictured above. If you would like to use "
+"your own card face, hit the 'use your own' button. It costs 1 USD per custom "
+"card face."
+msgstr ""
+
+#: ../app/slides.js:140
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:140
+#: ../parts/environment/build/app/slides.js:140
+#: ../snap/share/qml/CafeSync/slides.js:140
+#: ../stage/share/qml/CafeSync/slides.js:140
+msgid "Useage"
+msgstr ""
+
+#: ../app/slides.js:141
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:141
+#: ../parts/environment/build/app/slides.js:141
+#: ../snap/share/qml/CafeSync/slides.js:141
+#: ../stage/share/qml/CafeSync/slides.js:141
+msgid ""
+"To get the most out of using CafeSync you need to open it up whenever you "
+"join a wifi network. Doing so will leave your card and pick up any card that "
+"is set to be shared. As the service grows just imagine how many new and "
+"exciting things you could discover just by getting out and doing what you "
+"always do."
+msgstr ""
+
+#: ../app/slides.js:150
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:150
+#: ../parts/environment/build/app/slides.js:150
+#: ../snap/share/qml/CafeSync/slides.js:150
+#: ../stage/share/qml/CafeSync/slides.js:150
+msgid "Thank you"
+msgstr ""
+
+#: ../app/slides.js:151
+#: ../parts/cafesync/install/share/qml/CafeSync/slides.js:151
+#: ../parts/environment/build/app/slides.js:151
+#: ../snap/share/qml/CafeSync/slides.js:151
+#: ../stage/share/qml/CafeSync/slides.js:151
+msgid ""
+"Thank you for being a part of the CafeSync Network. We hope that it serves "
+"you well. If you have any issues or questions don't hesitate to contact us "
+"via Facbook,Twitter,or G+. We plan on adding more features regularly so "
+"follow us and find out what is coming up."
+msgstr ""
+
+#: ../parts/cafesync/build/po/CafeSync.desktop.in.h:1
+#: /home/benjamin/Projects/build-CafeSync-Desktop-Release/po/CafeSync.desktop.in.h:1
+msgid "CafeSync"
+msgstr ""
+
+#: ../parts/cafesync/install/usr/lib/x86_64-linux-gnu/qt5/qml/Ubuntu/Components/Themes/Ambiance/1.2/PullToRefreshStyle.qml:28
+#: ../parts/cafesync/install/usr/lib/x86_64-linux-gnu/qt5/qml/Ubuntu/Components/Themes/Ambiance/1.3/PullToRefreshStyle.qml:28
+#: ../snap/usr/lib/x86_64-linux-gnu/qt5/qml/Ubuntu/Components/Themes/Ambiance/1.2/PullToRefreshStyle.qml:28
+#: ../snap/usr/lib/x86_64-linux-gnu/qt5/qml/Ubuntu/Components/Themes/Ambiance/1.3/PullToRefreshStyle.qml:28
+#: ../stage/usr/lib/x86_64-linux-gnu/qt5/qml/Ubuntu/Components/Themes/Ambiance/1.2/PullToRefreshStyle.qml:28
+#: ../stage/usr/lib/x86_64-linux-gnu/qt5/qml/Ubuntu/Components/Themes/Ambiance/1.3/PullToRefreshStyle.qml:28
+msgid "Release to refresh..."
+msgstr ""
+
+#: ../parts/cafesync/install/usr/lib/x86_64-linux-gnu/qt5/qml/Ubuntu/Components/Themes/Ambiance/1.2/PullToRefreshStyle.qml:28
+#: ../parts/cafesync/install/usr/lib/x86_64-linux-gnu/qt5/qml/Ubuntu/Components/Themes/Ambiance/1.3/PullToRefreshStyle.qml:28
+#: ../snap/usr/lib/x86_64-linux-gnu/qt5/qml/Ubuntu/Components/Themes/Ambiance/1.2/PullToRefreshStyle.qml:28
+#: ../snap/usr/lib/x86_64-linux-gnu/qt5/qml/Ubuntu/Components/Themes/Ambiance/1.3/PullToRefreshStyle.qml:28
+#: ../stage/usr/lib/x86_64-linux-gnu/qt5/qml/Ubuntu/Components/Themes/Ambiance/1.2/PullToRefreshStyle.qml:28
+#: ../stage/usr/lib/x86_64-linux-gnu/qt5/qml/Ubuntu/Components/Themes/Ambiance/1.3/PullToRefreshStyle.qml:28
+msgid "Pull to refresh..."
+msgstr ""

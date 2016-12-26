@@ -1,0 +1,340 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-02-08 15:54-0600\n"
+"PO-Revision-Date: 2016-02-08 15:57-0600\n"
+"Last-Translator: Benjamin Flanagin <bflanagin@vagueentertainment.com>\n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../app/CCreator.qml:100
+msgid "Set"
+msgstr "Satz"
+
+#: ../app/CCreator.qml:130 ../app/Main.qml:220 ../app/Payment.qml:129
+msgid "Cancel"
+msgstr "Stornieren"
+
+#: ../app/CCreator.qml:157
+msgid "Background"
+msgstr "Hintergrund"
+
+#: ../app/CCreator.qml:170
+msgid "Symbol"
+msgstr "Symbol"
+
+#: ../app/CCreator.qml:183
+msgid "Text"
+msgstr "Text"
+
+#: ../app/CCreator.qml:444
+msgid "Use your Own"
+msgstr "Verwenden Sie Ihre eigenen"
+
+#: ../app/Card.qml:194
+msgid "Company: "
+msgstr "Unternehmen:"
+
+#: ../app/Card.qml:213 ../app/Pages.qml:297
+msgid "Phone: "
+msgstr "Telefon:"
+
+#: ../app/Card.qml:224 ../app/Pages.qml:304
+msgid "Email: "
+msgstr "Email:"
+
+#: ../app/Card.qml:254
+msgid "card: "
+msgstr "karte:"
+
+#: ../app/FaceBook.qml:158
+msgid "Events"
+msgstr "Ereignisse"
+
+#: ../app/FaceBook.qml:194
+msgid "About"
+msgstr "Etwa"
+
+#: ../app/FaceBook.qml:236
+msgid "Photos"
+msgstr "Fotos"
+
+#: ../app/Main.qml:57 ../app/Main.qml:440
+msgid "Passers By"
+msgstr "Passanten"
+
+#: ../app/Main.qml:135 ../app/main.js:301 ../app/main.js:511
+msgid "All Cards"
+msgstr "Alle Karten"
+
+#: ../app/Main.qml:137
+msgid ""
+"All Cards,Art,Business,Construction,Demolition,Education,Engineering,Food,"
+"Government,Law,Music,Non-Profit,Personal,Repair,Science,Software,Technology,"
+"Theatre,Writing"
+msgstr ""
+"Alle Karten,Kunst,Geschäftsleben,Baugewerbe,Demolition,Bildung,Technik,"
+"Ernährung,Regierung,Justizwesen,Musik,Non-Profit,Personal,Reparatur,"
+"Wissenschaft,Software,Technik,Theater,Schreiben"
+
+#: ../app/Main.qml:193
+msgid "Connect to OpenSeed"
+msgstr "Eine Verbindung mit OpenSeed"
+
+#: ../app/Main.qml:194
+msgid "CafeSync uses the Openseed network for App and User authentication."
+msgstr ""
+"CafeSync verwendet die Openseed Netzwerk für App und "
+"Benutzerauthentifizierung ."
+
+#: ../app/Main.qml:199 ../app/Setup.qml:249
+msgid "User Name"
+msgstr "Benutzername"
+
+#: ../app/Main.qml:206
+msgid "example@email.com"
+msgstr "example@email.com"
+
+#: ../app/Main.qml:215
+msgid "Okay"
+msgstr "Okay"
+
+#: ../app/Main.qml:307 ../app/Main.qml:386
+msgid "Saved"
+msgstr "Gerettet"
+
+#: ../app/Main.qml:438
+msgid "Region"
+msgstr "Region"
+
+#: ../app/Main.qml:439
+msgid "Global"
+msgstr "Weltweit"
+
+#: ../app/Main.qml:493
+msgid "::Search..."
+msgstr "::Suche..."
+
+#: ../app/Main.qml:566
+msgid "Settings "
+msgstr "Einstellungen"
+
+#: ../app/Main.qml:781
+msgid "No cards yet"
+msgstr "Keine Karten noch"
+
+#: ../app/Main.qml:935
+msgid "Main Menu"
+msgstr "Hauptmenü"
+
+#: ../app/Menus.qml:144
+msgid "Cards"
+msgstr "Karte"
+
+#: ../app/Menus.qml:145 ../app/slides.js:40
+msgid "My Card"
+msgstr "Meine Karte"
+
+#: ../app/Menus.qml:146 ../app/slides.js:22
+msgid "Setup"
+msgstr "Konfiguration"
+
+#: ../app/Pages.qml:284
+msgid "Name: "
+msgstr "Name:"
+
+#: ../app/Pages.qml:353 ../app/Setup.qml:425
+msgid "Category: "
+msgstr "Kategorie:"
+
+#: ../app/Pages.qml:358
+msgid "Tagged On:"
+msgstr "Stichwort auf:"
+
+#: ../app/Pages.qml:599 ../app/Setup.qml:580
+msgid "About:"
+msgstr "Etwa:"
+
+#: ../app/Payment.qml:55
+msgid "Payment Options"
+msgstr "Zahlungsmöglichkeiten"
+
+#: ../app/Setup.qml:238
+msgid "Name:"
+msgstr "Name:"
+
+#: ../app/Setup.qml:263
+msgid "Phone:"
+msgstr "Telefon:"
+
+#: ../app/Setup.qml:274
+msgid "0 555-555-5555"
+msgstr "0 555-555-5555"
+
+#: ../app/Setup.qml:292
+msgid "Email:"
+msgstr "Email:"
+
+#: ../app/Setup.qml:302
+msgid "johndoe@example.com"
+msgstr "johndoe@example.com"
+
+#: ../app/Setup.qml:322
+msgid "Company:"
+msgstr "Unternehmen:"
+
+#: ../app/Setup.qml:332
+msgid "Company Name"
+msgstr "Name der Firma"
+
+#: ../app/Setup.qml:350
+msgid "Alias:"
+msgstr "Alias:"
+
+#: ../app/Setup.qml:362
+msgid "User Alias"
+msgstr "User Alias"
+
+#: ../app/Setup.qml:379
+msgid "Card"
+msgstr "Karte"
+
+#: ../app/Setup.qml:441
+msgid "Select Category"
+msgstr "Kategorie:"
+
+#: ../app/Setup.qml:475
+msgid "Send"
+msgstr "Senden"
+
+#: ../app/Setup.qml:498
+msgid "Alias"
+msgstr "Alias"
+
+#: ../app/Setup.qml:516
+msgid "Contact"
+msgstr "Kontakt"
+
+#: ../app/Setup.qml:553
+msgid "Main Page:"
+msgstr "Hauptseite:"
+
+#: ../app/Setup.qml:565
+msgid "Main Site for Advertising"
+msgstr "Hauptstandort für Werbung"
+
+#: ../app/Setup.qml:604
+msgid "Other Sites"
+msgstr "Weitere Webseiten"
+
+#: ../app/Setup.qml:655 ../app/Setup.qml:681 ../app/Setup.qml:706
+#: ../app/Setup.qml:732
+msgid "www.example.com"
+msgstr "www.example.com"
+
+#: ../app/Setup.qml:751
+msgid "Misc."
+msgstr "Misc."
+
+#: ../app/SlideShow.qml:134
+msgid "Pages:"
+msgstr "Seiten:"
+
+#: ../app/SlideShow.qml:172
+msgid "close"
+msgstr "schließen"
+
+#: ../app/Twitter.qml:154
+msgid "Tweets & Replies"
+msgstr "Tweets & Antworten"
+
+#: ../app/Twitter.qml:191
+msgid "Photos & Videos"
+msgstr "Fotos & Videos"
+
+#: ../app/Twitter.qml:235
+msgid "Followers"
+msgstr "Verfolger"
+
+#: ../app/slides.js:6
+msgid "Welcome"
+msgstr "Herzlich willkommen"
+
+#: ../app/slides.js:14
+msgid "OpenSeed"
+msgstr "OpenSeed"
+
+#: ../app/slides.js:15
+msgid ""
+"CafeSync uses the Openseed Network for the back end services. OpenSeed is "
+"being developed by Vague Entertainment more information will be avaible "
+"about Openseed when the API is ready for other to join the network."
+msgstr ""
+"CafeSync verwendet die Openseed Netzwerk für den Back-End-Services. OpenSeed "
+"wird von Vague Unterhaltung Weitere Informationen entwickelt wird über "
+"Openseed eingeschränkt verfügbar sein, wenn die API bereit ist, für andere, "
+"dem Netzwerk beizutreten."
+
+#: ../app/slides.js:23
+msgid ""
+"After you close this dialog, touch on the menu to the left to setup your "
+"card. You can also pull up this dialog by hitting about at the bottom of the "
+"page"
+msgstr ""
+"Nachdem Sie diesen Dialog zu schließen, Ihre Karte auf der linken Seite "
+"einrichten im Menü berühren. Sie können diesen Dialog auch nach oben ziehen, "
+"indem Sie unten auf der Seite schlagen zu"
+
+#: ../app/slides.js:31
+msgid "Card Creator"
+msgstr "Card Creator"
+
+#: ../app/slides.js:32
+msgid ""
+"Don't forget to setup your card by tapping the card image at the top of the "
+"Setup page. It will take you to the card creator pictured above."
+msgstr ""
+"Vergessen Sie Ihre Karte zu Setup nicht durch das Kartenbild an der Spitze "
+"der Setup-Seite tippen. Es wird Sie auf die Karte Schöpfer Bild oben nehmen."
+
+#: ../app/slides.js:41
+msgid ""
+"Once you have setup your card you can pull up your card information and view "
+"it as you would anyone elses card. In the Actions section of the main tab "
+"you can change what you share. From left to right Share,Use Alias,Share "
+"Contact info."
+msgstr ""
+"Sobald Sie das Setup Ihrer Karte haben, können Sie Ihre Karteninformationen "
+"nach oben ziehen und sehen, wie Sie jemand Karte elses würde. Im Abschnitt "
+"Aktionen des Haupt Reiter können Sie ändern, was Sie teilen. Von links nach "
+"rechts auszutauschen, verwenden Sie Alias, Share Kontaktinfos ."
+
+#: ../app/slides.js:49
+msgid "Thank you"
+msgstr "Vielen Dank"
+
+#: ../app/slides.js:50
+msgid ""
+"Thank you for being a part of the CafeSync Network. We hope that it serves "
+"you well. If you have any issues or questions dont hesitate to contact us "
+"via Facbook,Twitter,G+, support forums are comming soon."
+msgstr ""
+"Vielen Dank für einen Teil der CafeSync Netzwerk zu sein. Wir hoffen, dass "
+"es Ihnen gut bedient. Wenn Sie irgendwelche Probleme oder Fragen haben, "
+"zögern nicht uns per Facbook in Verbindung zu treten, Twitter, G +, Support-"
+"Foren sind kommt bald."
+
+#: /home/benjamin/Projects/build-CafeSync-UbuntuSDK_for_armhf_GCC_ubuntu_sdk_15_04_vivid-Default/po/CafeSync.desktop.in.h:1
+msgid "CafeSync"
+msgstr "CafeSync"

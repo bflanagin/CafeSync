@@ -1,0 +1,2 @@
+module UserMetrics
+plugin usermetrics-qml

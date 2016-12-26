@@ -1,0 +1,5 @@
+!StageState
+directories: !!set {etc: null, etc/xdg: null, etc/xdg/qtchooser: null}
+files: !!set {etc/xdg/qtchooser/snappy-qt5.conf: null}
+properties:
+  stage: ['*']

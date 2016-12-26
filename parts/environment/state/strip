@@ -1,0 +1,9 @@
+!StripState
+dependency_paths: !!set {home/benjamin/Projects/CafeSync/snap/usr/lib/x86_64-linux-gnu/oxide-qt: null,
+  usr/lib/x86_64-linux-gnu: null, usr/lib/x86_64-linux-gnu/libunity: null, usr/lib/x86_64-linux-gnu/mesa: null,
+  usr/lib/x86_64-linux-gnu/mesa-egl: null, usr/lib/x86_64-linux-gnu/oxide-qt: null,
+  usr/lib/x86_64-linux-gnu/pulseaudio: null}
+directories: !!set {etc: null, etc/xdg: null, etc/xdg/qtchooser: null}
+files: !!set {etc/xdg/qtchooser/snappy-qt5.conf: null}
+properties:
+  snap: ['*']
