@@ -1,6 +1,0 @@
-!BuildState
-properties:
-  configflags: [-DCMAKE_INSTALL_PREFIX=/usr, -DCLICK_MODE=off]
-  make-parameters: null
-  makefile: null
-schema_properties: [makefile, make-parameters, configflags]

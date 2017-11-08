@@ -1,3 +1,0 @@
-module com.canonical.Oxide
-plugin qmloxideplugin
-typeinfo oxide.qmltypes

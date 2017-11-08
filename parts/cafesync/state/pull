@@ -1,4 +1,0 @@
-!PullState
-properties: {source: ./, source-branch: null, source-subdir: null, source-tag: null,
-  source-type: null}
-schema_properties: [source, source-type, source-branch, source-tag, source-subdir]

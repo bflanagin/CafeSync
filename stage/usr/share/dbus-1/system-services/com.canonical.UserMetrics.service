@@ -1,5 +1,0 @@
-[D-BUS Service]
-Name=com.canonical.UserMetrics
-Exec=/usr/lib/x86_64-linux-gnu/libusermetrics/usermetricsservice
-User=usermetrics
-StandardOutput=syslog

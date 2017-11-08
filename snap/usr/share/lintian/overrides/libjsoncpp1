@@ -1,4 +1,0 @@
-# This is a C++ project, we use .shlibs instead
-# API/ABI compatiblity is watched tediously upstream.
-# Report: http://upstream.rosalinux.ru/versions/jsoncpp.html
-no-symbols-control-file
