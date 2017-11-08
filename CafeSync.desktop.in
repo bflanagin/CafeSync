@@ -1,0 +1,10 @@
+[Desktop Entry]
+_Name=CafeSync
+Comment=Your Personal Billboard and Card Collecting service
+Exec=@EXEC@
+Icon=@ICON@
+Terminal=false
+Type=Application
+X-Ubuntu-Touch=true
+X-Ubuntu-Supported-Orientations=portrait
+X-Ubuntu-Gettext-Domain=cafesync.vagueentertainment
