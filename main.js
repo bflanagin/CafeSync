@@ -241,9 +241,6 @@ function Temp_load(search,locale) {
     default:dbtable="TempCards";break;
     }
 
-
-
-
     if (search != "") {
 
      var dataStr = "SELECT * FROM "+dbtable+" WHERE (name LIKE '%"+search+"%' OR company LIKE '%"+search+"%' OR motto LIKE '%#"+search+"%')";
@@ -367,8 +364,8 @@ function Temp_load(search,locale) {
                                             company: pull.rows.item(record).company.replace(/&#x27;/g,"'"),
                                              phone:  pull.rows.item(record).phone,
                                               email:  pull.rows.item(record).email,
-            motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
-            card: pull.rows.item(record).id,
+                                         motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
+                                            card: pull.rows.item(record).id,
 
                              mainsite: main,
                              URL1: w1,
@@ -381,7 +378,7 @@ function Temp_load(search,locale) {
           //  cardtext:text,
             cardcat:pull.rows.item(record).cat,
             imgsource:ava,
-            thedesign:pull.rows.item(record).cardback,
+           // thedesign:pull.rows.item(record).cardback,
             saved:0
 
 
@@ -412,7 +409,6 @@ function Temp_load(search,locale) {
                 email:  pull.rows.item(record).email,
                 motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
                 card: pull.rows.item(record).id,
-
                 mainsite: main,
                 URL1: w1,
                 URL2: w2,
@@ -424,7 +420,7 @@ function Temp_load(search,locale) {
              //   cardtext:text,
                 cardcat:pull.rows.item(record).cat,
                 imgsource:ava,
-                thedesign:pull.rows.item(record).cardback,
+                //thedesign:pull.rows.item(record).cardback,
                 saved:0
             }); //}
              }

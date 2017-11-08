@@ -471,9 +471,9 @@ ApplicationWindow {
                 onPressed: locflick.state = "Active"
                 onReleased: locflick.state = "InActive"
                 onClicked:switch(location_switch.loc) {
-                          case 0: currentcard = -1;location_switch.loc = 1;location_selected = "Region";cardslist.clear();listget = "region";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext);break;
-                          case 1: currentcard = -1;location_switch.loc = 2;location_selected = "Global";cardslist.clear();listget = "global";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext);break;
-                          case 2: currentcard = -1;location_switch.loc = 0;location_selected = "Passers By";cardslist.clear();listget = "temp";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext);break;
+                          case 0: currentcard = -1;location_switch.loc = 1;location_selected = "Region";cardslist.clear();listget = "region";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
+                          case 1: currentcard = -1;location_switch.loc = 2;location_selected = "Global";cardslist.clear();listget = "global";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
+                          case 2: currentcard = -1;location_switch.loc = 0;location_selected = "Passers By";cardslist.clear();listget = "temp";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
                           }
 
             }
@@ -966,12 +966,12 @@ ApplicationWindow {
 
                 } */
 
-                /*  Rectangle {
+                  Rectangle {
                          width:parent.width
                          height:parent.height
                          color:"white"
 
-                  } */
+                  }
 
                 Image {
                     source: "./img/overlay.png"
@@ -1011,10 +1011,6 @@ ApplicationWindow {
                     model: ListModel {
                             id: cardslist
                             //property int indexofcard: index
-
-                            ListElement {
-                                   name: "No Cards yet"
-                            }
 
                     }
 
