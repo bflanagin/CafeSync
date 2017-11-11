@@ -42,7 +42,7 @@ Item {
         id:nameBack
         anchors.left:parent.left
         anchors.top:parent.top
-        anchors.margins:0
+        anchors.topMargin: parent.height * 0.02
         //color:"white"
         color:Qt.rgba(1,1,1,1)
         //border.color:"black"
@@ -86,13 +86,13 @@ Item {
 
             Column {
                   id:info
-                  width:nameBack.width - (img.width +img.x) -20
+                  width:nameBack.width - (img.width +img.x) - 10
                   anchors.left: img.right
-                  //height:nameBack.height
+                  clip:true
                 Text {
                     text:companyname
                     font.bold: true
-                    font.pixelSize: (nameBack.width  - companyname.length * 1.5) * 0.068
+                    font.pixelSize: (nameBack.width  - companyname.length * 1.5) * 0.064
                 }
                 Rectangle {
                     width:parent.width
@@ -102,7 +102,7 @@ Item {
 
                 Text {
                     x:10
-                    font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.05
+                    font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.04
                     text:qsTr("Name: ")+cardusername
                 }
 
@@ -291,21 +291,29 @@ Row {
 
         Row {
           id:actions
-          anchors.verticalCenter: parent.verticalCenter
+         // anchors.horizontalCenter:parent.horizontalCenter
           visible: if(cardusername == username) {false} else {true}
           spacing:width / 6
-          //height:80
-          width:parent.width
+          height:parent.height
+          x:parent.width * 0.09
+          width:parent.width * 0.9
           //x:parent.width / 2 - width /2.3
           clip: true
 
           Image {
-              width: /*units.gu(2) */ parent.width / 8
-              height: /*units.gu(2) */ parent.width / 8
-              //name: if (saved == 0) {"add"} else {"starred"}
+              width: /*units.gu(2) */ parent.width / 10
+              height: /*units.gu(2) */ parent.width / 10
+              anchors.verticalCenter: parent.verticalCenter
+
               //name:"outgoing-call"
               source:"./img/outgoing-call.svg"
               //z: -8
+
+
+              Flasher {
+                  //id:locflick
+              }
+
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true
@@ -314,12 +322,18 @@ Row {
 
           }
           Image {
-              width: /*units.gu(2) */ parent.width / 8
-              height: /*units.gu(2) */ parent.width / 8
-              //name: if (saved == 0) {"add"} else {"starred"}
+              width: /*units.gu(2) */ parent.width / 10
+              height: /*units.gu(2) */ parent.width / 10
+              anchors.verticalCenter: parent.verticalCenter
               //name:"message"
               source:"./img/message.svg"
               //z: -8
+
+
+              Flasher {
+                  //id:locflick
+              }
+
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true
@@ -328,12 +342,18 @@ Row {
 
           }
           Image {
-              width: /*units.gu(2) */ parent.width / 8
-              height: /*units.gu(2) */ parent.width / 8
-              //name: if (saved == 0) {"add"} else {"starred"}
-              //name:"email"
+
+              width: /*units.gu(2) */ parent.width / 10
+              height: /*units.gu(2) */ parent.width / 10
+              anchors.verticalCenter: parent.verticalCenter
+
               source:"./img/email.svg"
               //z: -8
+
+              Flasher {
+                  //id:locflick
+              }
+
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true
@@ -343,11 +363,16 @@ Row {
           }
 
           Image {
-              width: /*units.gu(2) */ parent.width / 8
-              height: /*units.gu(2) */ parent.width / 8
+              width: /*units.gu(2) */ parent.width / 10
+              height: /*units.gu(2) */ parent.width / 10
+              anchors.verticalCenter: parent.verticalCenter
 
               source:"./img/share.svg"
               //z: -8
+
+              Flasher {
+                  //id:locflick
+              }
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true

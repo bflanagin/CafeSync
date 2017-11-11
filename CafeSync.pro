@@ -42,10 +42,11 @@ ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_EXTRA_LIBS =
-}
 
+}
 contains(ANDROID_TARGET_ARCH,x86) {
     ANDROID_EXTRA_LIBS = \
-        $$PWD/../Nextcloud/Android/openssl/x86/libssl.so \
-        $$PWD/../Nextcloud/Android/openssl/x86/libcrypto.so
+        $$PWD/../../../Downloads/OpenSSL-for-Android-Prebuilt-master/openssl-1.0.2/x86/lib/libssl.so \
+        $$PWD/../../../Downloads/OpenSSL-for-Android-Prebuilt-master/openssl-1.0.2/x86/lib/libcrypto.so \
+        $$PWD/../../../Downloads/OpenSSL-for-Android-Prebuilt-master/openssl-1.0.2/x86/lib/libcrypto.so.1.0.0
 }

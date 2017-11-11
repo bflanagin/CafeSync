@@ -1,11 +1,11 @@
 import QtQuick 2.2
-import QtQuick.Controls 1.3
 import QtQuick.Dialogs 1.2
 //import QtWebKit 3.0
 import QtWebView 1.0
 import QtQuick.Window 2.0
 import QtGraphicalEffects 1.0
-
+import QtQuick.Controls 2.2
+import QtQuick.Controls.Material 2.2
 import QtQuick.LocalStorage 2.0 as Sql
 import "main.js" as Scripts
 import "openseed.js" as OpenSeed
@@ -145,7 +145,7 @@ Rectangle {
         anchors.top:parent.top
         anchors.topMargin: 10
         anchors.right:parent.right
-        anchors.rightMargin: width * 0.5
+        anchors.rightMargin: width * 0.6
         horizontalAlignment: Text.AlignLeft
 
         CheckBox {
@@ -157,22 +157,22 @@ Rectangle {
             //objectName: "switch_checked"
 
             checked: if(cardindex == 0) {if(stf == "true"){ return true } else {return false} } else { if(stf1 == "true"){ return true } else {return false} }
-            onCheckedChanged: if(cardindex == 0) {stf = sendCard.checked } else {stf1 = sendCard.checked}
-
+            onCheckedChanged: if(cardindex == 0) {stf = sendCard.checked }
         }
     }
 
+
   Text {
         id: nameLabel
-         width:companyLabel.width
+       //  width:companyLabel.width
         anchors.top:onlineLabel.bottom
         anchors.left:parent.left
         //anchors.left:if(layouts.width > units.gu(mobile_vert)){ cardBacking.right} else {parent.left}
-        anchors.leftMargin: 3
+       // anchors.leftMargin: 3
         //anchors.top:if(layouts.width > units.gu(mobile_vert)){cardBacking.top} else {cardBacking.bottom}
        // anchors.topMargin:if(layouts.width > units.gu(mobile_vert)){return 0} else {units.gu(.5)}
        //anchors.top:cardBacking.bottom
-        anchors.topMargin: 15
+        anchors.topMargin: 25
        //anchors.topMargin: 5
 
          text: qsTr("Name:")
@@ -182,7 +182,7 @@ Rectangle {
          id: userName
          anchors.left: parent.right
 
-         anchors.leftMargin: .5
+         anchors.leftMargin: 4
          anchors.bottom: parent.bottom
          //anchors.top: parent.top
          text:if(cardindex == 0) {username } else {username1}
@@ -191,7 +191,7 @@ Rectangle {
          placeholderText: qsTr("User Name")
          font.pixelSize: 24
         // width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
-         width:generalarea.width * 0.75
+         width:(generalarea.width * 0.98) - nameLabel.width
          clip:true
          onTextChanged: if(cardindex == 0) {username = userName.text} else {username1 = userName.text}
      }
@@ -212,12 +212,12 @@ Rectangle {
          id: userCompany
 
          anchors.left: parent.right
-         anchors.leftMargin: .5
+         anchors.leftMargin: 4
          anchors.bottom: parent.bottom
          //anchors.top: parent.top
          placeholderText: qsTr("Company Name")
          font.pixelSize: 24
-         width:generalarea.width * 0.75
+         width:(generalarea.width * 0.98) - companyLabel.width
 
 
          //width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
@@ -236,7 +236,7 @@ Rectangle {
       //anchors.bottom:avatarBacking.bottom
       anchors.top:companyLabel.bottom
       anchors.topMargin: 25
-      width:companyLabel.width
+      //width:companyLabel.width
       text: qsTr("Position:")
       font.pixelSize: 24
 
@@ -246,12 +246,12 @@ Rectangle {
          anchors.topMargin: 0
 
          anchors.left: parent.right
-         anchors.leftMargin: .5
+         anchors.leftMargin: 4
          anchors.bottom: parent.bottom
          //anchors.top: parent.top
          placeholderText: qsTr("Job Title")
          font.pixelSize: 24
-         width:generalarea.width * 0.75
+         width:(generalarea.width* 0.98) - aliasLabel.width
          //width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
          text:if(cardindex == 0) {useralias} else {useralias1}
          onTextChanged: if(cardindex == 0) {useralias = userAlias.text} else {useralias1 = userAlias.text}
@@ -328,13 +328,12 @@ Rectangle {
          id: userPhone
 
          anchors.left: parent.right
-         anchors.leftMargin: .5
+         anchors.leftMargin: 4
          anchors.bottom: parent.bottom
          //anchors.top: parent.top
          placeholderText: qsTr("0 555-555-5555")
          font.pixelSize: 24
-         width:contactarea.width * 0.80
-
+         width:(contactarea.width * 0.98) - phoneLabel.width
         // width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
          inputMethodHints: Qt.ImhDialableCharactersOnly
          text:if(cardindex == 0) {userphone} else {userphone1}
@@ -350,7 +349,7 @@ Rectangle {
      // anchors.leftMargin: units.gu(.3)
       anchors.top:phoneLabel.bottom
       anchors.topMargin: 25
-      width:phoneLabel.width
+      //width:phoneLabel.width
 
       text: qsTr("Email:")
       font.pixelSize: 24
@@ -363,7 +362,7 @@ Rectangle {
          //anchors.top: parent.top
          placeholderText: qsTr("johndoe@example.com")
          font.pixelSize: 24
-         width:contactarea.width * 0.80
+         width:(contactarea.width * 0.98) -emailLabel.width
 
        //  width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
          text:if(cardindex == 0) {useremail} else {useremail1}
@@ -415,7 +414,8 @@ Rectangle {
  anchors.top:profileSettingLabel.bottom
  anchors.topMargin:1
 
- height: pageColumn.height / 4
+ //height: pageColumn.height / 4
+ height: plinklist.y + plinklist.height + 40
  anchors.right:parent.right
  anchors.rightMargin:1
 
@@ -440,7 +440,7 @@ Rectangle {
           anchors.rightMargin:10
 
           //clip: true
-          spacing: parent.width * 0.04
+          spacing: parent.width * 0.1
 
 
           Text {
@@ -515,7 +515,7 @@ Rectangle {
               TextArea {
                   anchors.top:parent.bottom
                   anchors.topMargin: .6
-
+                  wrapMode: Text.WordWrap
                   id:personalMotto
                   width:pmottoRow.width
                   height:pmottoRow.height - 3
@@ -533,7 +533,7 @@ Rectangle {
           //anchors.top:pmottoRow.bottom
           width:parent.width
           //height:parent.height
-          spacing: 15
+          spacing: 25
 
 
 
@@ -542,8 +542,7 @@ Rectangle {
               id:websiteLabel
 
               text: "Twitter:"
-              font.pixelSize:parent.width * 0.04
-
+              font.pixelSize:25
                TextField {
                    id:websiteVar
 
@@ -551,7 +550,7 @@ Rectangle {
                    anchors.leftMargin: .5
                    anchors.verticalCenter: parent.verticalCenter
 
-                   width:rectangle1.width - websiteLabel.width - 100
+                   width:plinklist.width - websiteLabel.width
 
                    placeholderText: qsTr("www.example.com")
                    //font.pixelSize: parent.height
@@ -567,7 +566,7 @@ Rectangle {
               id:websiteLabel1
 
               text: "Tumblr:"
-              font.pixelSize:parent.width * 0.04
+              font.pixelSize:25
                TextField {
                    id:websiteVar1
 
@@ -575,7 +574,7 @@ Rectangle {
                    anchors.leftMargin: .5
                    anchors.verticalCenter: parent.verticalCenter
 
-                   width:rectangle1.width - websiteLabel.width - 100
+                   width:plinklist.width - websiteLabel1.width
 
                    placeholderText: qsTr("www.example.com")
                    //font.pixelSize: parent.height
@@ -590,7 +589,7 @@ Rectangle {
               id:websiteLabel2
 
               text: "SoundCloud:"
-              font.pixelSize:parent.width * 0.04
+              font.pixelSize:25
 
                TextField {
                    id:websiteVar2
@@ -599,7 +598,7 @@ Rectangle {
                    anchors.leftMargin: .5
                    anchors.verticalCenter: parent.verticalCenter
 
-                   width:rectangle1.width - websiteLabel.width - 100
+                   width:plinklist.width - websiteLabel2.width
 
                    placeholderText: qsTr("www.example.com")
                    //font.pixelSize: parent.height
@@ -612,7 +611,7 @@ Rectangle {
               id:websiteLabel3
 
               text: "Patreon:"
-              font.pixelSize:parent.width * 0.04
+              font.pixelSize:25
 
                TextField {
                    id:websiteVar3
@@ -621,7 +620,7 @@ Rectangle {
                    anchors.leftMargin: .5
                    anchors.verticalCenter: parent.verticalCenter
 
-                   width:rectangle1.width - websiteLabel.width - 100
+                   width:plinklist.width - websiteLabel3.width
 
                    placeholderText: qsTr("www.example.com")
                    //font.pixelSize: parent.height
@@ -686,9 +685,9 @@ DropShadow {
              text: "About"
              font.pixelSize: parent.height * 0.4
          }
-         Flasher {
-             id:aboutflash
-         }
+         /*  Flasher {
+               id:conflash
+           } */
 
          MouseArea {
              anchors.fill: parent
@@ -708,9 +707,9 @@ DropShadow {
              text: "Credits"
              font.pixelSize: parent.height * 0.4
          }
-         Flasher {
-             id:creditsflash
-         }
+         /*  Flasher {
+               id:conflash
+           } */
 
          MouseArea {
              anchors.fill: parent
@@ -729,9 +728,9 @@ DropShadow {
              text: "Contribute"
              font.pixelSize: parent.height * 0.4
          }
-         Flasher {
+       /*  Flasher {
              id:conflash
-         }
+         } */
 
          MouseArea {
              anchors.fill: parent
@@ -763,11 +762,11 @@ DropShadow {
  SlideShow {
      id:aboutscreen
 
-     width: parent.width * 0.90
-     height: parent.height * 0.75
+     width: parent.width
+     height: parent.height
      state:"InActive"
      maintitle:"About"
-     anchors.centerIn: parent
+     anchors.top: parent.top
 
 
  }

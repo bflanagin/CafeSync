@@ -210,16 +210,16 @@ function load_Card() {
 
 
     if(username.length < 1) {
-        if( username1.length < 1) {
+
             if(usercompany.length < 1) {
-                if(usercompany1.length <1) {
+
                 //cardPage.head.sections.selectedIndex = 0;
                     selection = 0;
                     cardPage.state = "settings";
                     mainScreen.state = "InActive";
                     infotab.state = "UnAvailable";
                 settingsPage.state = "show";
-        } } }
+         }
 
     }
 

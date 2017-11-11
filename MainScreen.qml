@@ -1,11 +1,4 @@
 import QtQuick 2.2
-//import Ubuntu.Components 1.2
-//import Ubuntu.Components.Pickers 0.1
-//import Ubuntu.Components.ListItems 1.0 as ListItem
-//import Ubuntu.Content 1.1
-//import Ubuntu.Layouts 1.0
-//import Ubuntu.Web 0.2
-//import Ubuntu.Components.Popups 1.0
 import QtQml 2.2
 import QtGraphicalEffects 1.0
 import QtQuick.Layouts 1.1

@@ -1,5 +1,5 @@
 import QtQuick 2.2
-import QtQuick.Controls 1.3
+import QtQuick.Controls 2.2
 import QtQuick.Dialogs 1.2
 //import QtWebKit 3.0
 import QtWebView 1.0
@@ -31,8 +31,13 @@ ApplicationWindow {
 
     property int cardindex: 0
 
-    Material.theme: Material.Light
-    //Material.accent: Material.Purple
+
+    //Theme settings //
+    property string backgroundColor: "#FFC107"
+    property string highLightColor1: "#FFE082"
+    property string barColor: "#795548"
+
+
 
 
     ////// Begin card info ///////
@@ -392,7 +397,7 @@ ApplicationWindow {
             //visible:false
             Rectangle {
                 anchors.fill:parent
-                color:"white"
+                color:barColor
             }
 
 
@@ -405,6 +410,11 @@ ApplicationWindow {
         anchors.leftMargin: parent.width * 0.03
         width:parent.height * 0.4
         height:parent.height * 0.4
+
+        Flasher {
+            id:menuflick
+        }
+
         MouseArea {
             anchors.fill:parent
             //onClicked: standardMenu.popup()
@@ -418,11 +428,11 @@ ApplicationWindow {
             }
         }
 
-        Text{
+        /*Text{
             anchors.left:parent.right
             text:numofcards
 
-        }
+        } */
 
 
     }
@@ -437,6 +447,10 @@ ApplicationWindow {
             anchors.verticalCenter: parent.verticalCenter
             width:parent.height * 0.4
           height:parent.height * 0.4
+
+          Flasher {
+              id:searchflick
+          }
 
             MouseArea {
                 anchors.fill:parent
@@ -597,7 +611,7 @@ ApplicationWindow {
             Rectangle {
                 width:parent.width
                 height:parent.height
-                color:"white"
+                color:barColor
             }
 
             Image {
@@ -715,10 +729,11 @@ ApplicationWindow {
         source:"./img/delete.svg"
         //z: -8
 
-        Flasher {
+       /* Flasher {
             id:delflick
 
-        }
+
+        } */
 
         MouseArea {
             anchors.fill: parent
@@ -974,7 +989,7 @@ ApplicationWindow {
                   }
 
                 Image {
-                    source: "./img/overlay.png"
+                    source: "./img/overlay-dark.png"
                     anchors.centerIn: parent
                     fillMode:Image.PreserveAspectFit
                     width:parent.width /2
@@ -1341,8 +1356,8 @@ Info{
 SlideShow {
     id:slideshow
 
-    width: parent.width * 0.90
-    height: parent.height * 0.75
+    width: parent.width
+    height: parent.height
     state:"InActive"
     maintitle:"About"
 
