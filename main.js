@@ -270,12 +270,15 @@ function Temp_load(search,locale) {
         var record = 0;
     while (pull.rows.length > record) {
             var testStr = "SELECT  *  FROM SavedCards WHERE id= "+pull.rows.item(record).id;
-            var duplicate = tx.executeSql(testStr);
+            //var duplicate = tx.executeSql(testStr);
+                var duplicate = 0;
+
+            var savecheck = tx.executeSql(testStr);
 
 
+           //if(duplicate.rows.length == 0) {
 
-           if(duplicate.rows.length == 0) {
-
+        if(duplicate == 0) {
                 var w1;
                  var w2;
                  var w3;
@@ -364,6 +367,7 @@ function Temp_load(search,locale) {
                                             company: pull.rows.item(record).company.replace(/&#x27;/g,"'"),
                                              phone:  pull.rows.item(record).phone,
                                               email:  pull.rows.item(record).email,
+                                         cardposition: pull.rows.item(record).alias,
                                          motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
                                             cardId: pull.rows.item(record).id.toString(),
 
@@ -379,7 +383,7 @@ function Temp_load(search,locale) {
             cardcat:pull.rows.item(record).cat,
             imgsource:ava,
            // thedesign:pull.rows.item(record).cardback,
-            saved:0
+            saved:savecheck.rows.length
 
 
         });} } } else {
@@ -407,6 +411,7 @@ function Temp_load(search,locale) {
                 company: pull.rows.item(record).company.replace(/&#x27;/g,"'"),
                 phone:  pull.rows.item(record).phone,
                 email:  pull.rows.item(record).email,
+                cardposition: pull.rows.item(record).alias,
                 motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
                 cardId: pull.rows.item(record).id.toString(),
                 mainsite: main,
@@ -421,7 +426,7 @@ function Temp_load(search,locale) {
                 cardcat:pull.rows.item(record).cat,
                 imgsource:ava,
                 //thedesign:pull.rows.item(record).cardback,
-                saved:0
+                saved:savecheck.rows.length
             }); //}
              }
 

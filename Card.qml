@@ -20,7 +20,7 @@ import "main.js" as Scripts
 import "openseed.js" as OpenSeed
 
 
-                        Flickable {
+                        Item {
 
 
                                 id: cards
@@ -29,7 +29,7 @@ import "openseed.js" as OpenSeed
                                 width: passerbyGrid.width * 0.96
 
                                // width: passerbyGrid.width * 0.90
-                                height: passerbyGrid.width * 0.3
+                                height: passerbyGrid.width * 0.45
 
 
                                  clip: true
@@ -48,7 +48,7 @@ import "openseed.js" as OpenSeed
                                     property int explodereset: 0
                                     property int lister: 0
 
-                                flickableDirection:Flickable.HorizontalFlick
+                               // flickableDirection:Flickable.HorizontalFlick
 
 
 
@@ -100,86 +100,15 @@ import "openseed.js" as OpenSeed
                                             clip:true
 
 
-
-                                           /* Item {
-                                                anchors.right:parent.right
-                                                //anchors.rightMargin:units.gu(1)
-                                                anchors.top:parent.top
-                                                //anchors.topMargin:units.gu(1)
-                                                width: parent.width / 5 // units.gu(8)
-                                                height:parent.width / 12 //units.gu(4)
-
-                                                Image {
-                                                    //anchors.fill:parent
-                                                    anchors.right:parent.right
-                                                    anchors.rightMargin:-10
-                                                    anchors.top:parent.top
-                                                    anchors.topMargin:-10
-
-                                                    width:parent.width + 30
-                                                    height:parent.height + 10
-                                                    source:"img/card/styles-b/card_opts.png"
-                                                }
-
-                                                Image {
-                                                    width: parent.width / 3.5
-                                                    height:  parent.width / 3.5
-                                                    source: if (saved == 0) {"img/add.svg"} else {"img/starred.svg"}
-                                                    anchors.verticalCenter: parent.verticalCenter
-                                                    //z: -8
-                                                    MouseArea {
-                                                        anchors.fill: parent
-                                                        preventStealing: true
-                                                         onClicked: if (saved == 0){Scripts.Cards_save(card,name,email,phone,company,"",motto,mainsite,URL1,URL2,URL3,URL4,imgsource,thedesign,cardcat);
-                                                                        cardslist.clear();
-                                                                        OpenSeed.sync_cards(userid,3);
-                                                                        Scripts.Temp_load(searchtext);}
-                                                    }
-
-                                                }
-
-                                                Image {
-                                                    width: parent.width / 3.5 //units.gu(2)
-                                                    height: parent.width / 3.5 //units.gu(2)
-                                                    source: "img/reload.svg"
-                                                    anchors.horizontalCenter: parent.horizontalCenter
-                                                    anchors.verticalCenter: parent.verticalCenter
-
-                                                    MouseArea {
-                                                        anchors.fill:parent
-                                                        preventStealing:true
-                                                        onClicked: OpenSeed.update_card(card,listget)
-                                                    }
-                                                }
-
-                                                Image {
-                                                    width: parent.width / 3.5 //units.gu(2)
-                                                    height: parent.width / 3.5 //units.gu(2)
-                                                    source: "img/delete.svg"
-                                                    anchors.right:parent.right
-                                                    anchors.verticalCenter: parent.verticalCenter
-
-                                                    MouseArea {
-                                                        anchors.fill: parent
-                                                        preventStealing: true
-                                                        onClicked:  if (saved == 0){Scripts.Delete_card(card,listget);OpenSeed.remote_delete(userid,listget,card);cardslist.clear();Scripts.Temp_load(searchtext,listget);} else {
-                                                                            Scripts.Delete_card(card,"saved");OpenSeed.remote_delete(userid,"saved",card);cardslist.clear();Scripts.Cards_load(searchtext,listget); //OpenSeed.sync_cards(userid,3);
-                                                                   }
-
-                                                    }
-                                                }
-
-
-                                            } */
-
-
-
                                             Rectangle {
                                                 id:card_avatar_backing
-                                                width: parent.width / 4
-                                                height: parent.width / 4
-                                                x:10
+                                                width: parent.height * 0.8
+                                                height: parent.height * 0.8
+                                                //x:10
                                                 anchors.verticalCenter: parent.verticalCenter
+                                               // anchors.top:parent.top
+                                                anchors.left:parent.left
+
                                                 color:"white"
                                                // border.color: "white"
                                                // border.width: 0.5
@@ -216,17 +145,43 @@ import "openseed.js" as OpenSeed
                                         Text {
                                             //x: 5
                                             id:nametag
-                                            text: if(name.length > 2) {name} else {company}
-                                            font.pixelSize:  parent.width / 20 //units.gu(2.05)
+                                            text: name
+                                            font.pixelSize:  parent.width / 17 //units.gu(2.05)
                                             font.bold: true
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             anchors.left:card_avatar_backing.right
                                            anchors.leftMargin: 4
                                             anchors.top: parent.top
-                                            anchors.topMargin: 10
+                                            anchors.topMargin: 40
                                            // wrapMode:Text.WordWrap
 
                                         }
+
+                                        Rectangle {
+                                            anchors.top:nametag.bottom
+                                            anchors.left:card_avatar_backing.right
+                                            width:parent.width * 0.6
+                                            height:3
+                                            color:highLightColor1
+                                        }
+
+                                        Text {
+                                            //x: 5
+                                            id:position
+                                            text: qsTr("Job Title: ")+cardposition
+                                            font.pixelSize:  parent.width / 24 //units.gu(2.05)
+                                            //font.bold: true
+                                           // anchors.horizontalCenter: parent.horizontalCenter
+                                            anchors.left:card_avatar_backing.right
+                                            anchors.leftMargin: 12
+                                            anchors.top: nametag.bottom
+                                            anchors.topMargin: 10
+                                            wrapMode:Text.WordWrap
+                                            width:parent.width * 0.55
+                                        }
+
+
+
                                         Text {
                                             id:comp
                                             width:parent.width - card_avatar_backing
@@ -236,7 +191,7 @@ import "openseed.js" as OpenSeed
                                            // anchors.top:nametag.bottom
                                             anchors.bottomMargin: parent.width / 25 //units.gu(2.4)
                                             //font.bold: true
-                                            font.pixelSize: parent.width * 0.05 //units.gu(1.8)
+                                            font.pixelSize: parent.width * 0.04 //units.gu(1.8)
                                            text: company
                                            wrapMode: Text.WordWrap
                                         }
@@ -312,6 +267,8 @@ import "openseed.js" as OpenSeed
                                                 mainScreen.state = "Active";
                                                 topBar.state = "person";
                                                 //topBar.saved = issaved;
+                                            currentcard_thecard = cardId;
+                                            currentcard_saved = issaved;
                                             currentcard_username = name;
                                             currentcard_userphone = phone;
                                             currentcard_useremail = email;

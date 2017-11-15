@@ -182,29 +182,7 @@ if (cid.length > 4) {
         stf= torf(send);
         atf= torf(usealias);
         ctf= torf(contact);
-} else {
-
-
-        username1 = name.replace(/&#x27;/g,"'");
-        userphone1 = phone
-        useremail1 = email;
-        usercompany1 = company.replace(/&#x27;/g,"'");
-        usercat1 = cardcat;
-        useralias1 = alias;
-        usermotto1 = motto.replace(/&#x27;/g,"'");
-
-        usermain1 = main;
-        website11 = link1;
-        website21 = link2;
-        website31 = link3;
-        website41 = link4;
-        avimg1 = avatar;
-        carddesign1 = cardbk;
-
-        stf1= torf(send);
-        atf1= torf(usealias);
-        ctf1= torf(contact);
-    }
+}
 
              }
 

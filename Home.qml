@@ -306,7 +306,7 @@ Row {
         anchors.bottom:parent.bottom
         width:parent.width
         height:parent.height * 0.1
-        color:"white"
+        color:bottombarColor
 
         Row {
           id:actions
@@ -317,7 +317,7 @@ Row {
           x:parent.width * 0.09
           width:parent.width * 0.9
           //x:parent.width / 2 - width /2.3
-          clip: true
+          //clip: true
 
           Image {
               width: /*units.gu(2) */ parent.width / 10
@@ -471,7 +471,7 @@ Row {
           height:parent.height
           x:parent.width * 0.09
           width:parent.width * 0.9
-          clip: true
+          //clip: true
 
           Image {
               width: /*units.gu(2) */ parent.width / 10

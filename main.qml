@@ -33,9 +33,10 @@ ApplicationWindow {
 
 
     //Theme settings //
-    property string backgroundColor: "#FFC107"
+    property string backgroundColor: "#EFEFEF"
     property string highLightColor1: "#FFE082"
     property string barColor: "#795548"
+    property string bottombarColor: "#684437"
 
 
 
@@ -190,7 +191,7 @@ ApplicationWindow {
     height: 800
     //width:Screen.desktopAvailableWidth
     //height:Screen.desktopAvailableHeight
-
+    background: backgroundColor
     title: "CafeSync"
 
 
@@ -721,12 +722,13 @@ ApplicationWindow {
     }
 
     Image {
+        id:saveState
         width:  parent.height * 0.8
         height: parent.height * 0.8
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
 
-        source:if (topBar.saved == 0) {"./img/add.svg"} else {"./img/starred.svg"}
+        source:if (currentcard_saved == 0) {"./img/add.svg"} else {"./img/starred.svg"}
 
         //z: -8
 
@@ -737,16 +739,19 @@ ApplicationWindow {
 
         MouseArea {
             anchors.fill:parent
-            onClicked: if (topBar.saved == 0){
+            onClicked: if (currentcard_saved == 0){
                            Scripts.Cards_save(currentcard_thecard,currentcard_username,currentcard_userphone,currentcard_useremail,currentcard_companyname,"",currentcard_motto,
                                               currentcard_mainsite,currentcard_url1,currentcard_url2,currentcard_url3,currentcard_url4,currentcard_avatarimg,currentcard_realcardback,currentcard_cardcat);
 
                            //currentcard_saved;
 
-                           cardslist.clear();
+                           //cardslist.clear();
                            OpenSeed.sync_cards(userid,3);
                            OpenSeed.get_list(userid,"saved");
-                           Scripts.Temp_load(searchtext,listget);}
+                           Scripts.Temp_load(searchtext,listget);
+
+                           saveState.source = "./img/starred.svg";
+                       }
 
         onPressed: sav1flick.state = "Active"
         onReleased: sav1flick.state = "InActive"
@@ -766,7 +771,7 @@ ApplicationWindow {
         //z: -8
 
         Flasher {
-            //id:delflick
+            id:delflick
 
 
         }
@@ -774,8 +779,8 @@ ApplicationWindow {
         MouseArea {
             anchors.fill: parent
             preventStealing: true
-            onClicked: if (topBar.saved == 0){Scripts.Delete_card(topBar.thecard,listget);OpenSeed.remote_delete(userid,listget,topBar.thecard);cardslist.clear();Scripts.Temp_load(searchtext,listget);} else {
-                                Scripts.Delete_card(topBar.thecard,"saved");OpenSeed.remote_delete(userid,"saved",topBar.thecard);cardslist.clear();Scripts.Cards_load(searchtext); //OpenSeed.sync_cards(userid,3);
+            onClicked: if (currentcard_saved == 0){Scripts.Delete_card(currentcard_thecard,listget);OpenSeed.remote_delete(userid,listget,currentcard_thecard);cardslist.clear();Scripts.Temp_load(searchtext,listget);} else {
+                                Scripts.Delete_card(currentcard_thecard,"saved");OpenSeed.remote_delete(userid,"saved",currentcard_thecard);cardslist.clear();Scripts.Cards_load(searchtext); //OpenSeed.sync_cards(userid,3);
                        }
             onPressed: delflick.state = "Active"
             onReleased: delflick.state = "InActive"
@@ -1020,7 +1025,7 @@ ApplicationWindow {
                   Rectangle {
                          width:parent.width
                          height:parent.height
-                         color:"white"
+                         color:backgroundColor
 
                   }
 
@@ -1056,7 +1061,7 @@ ApplicationWindow {
 
 
 
-                    cellHeight: passerbyGrid.width / 2.85 //passerbyGrid.height
+                    cellHeight: passerbyGrid.width / 2 //passerbyGrid.height
                     cellWidth: passerbyGrid.width
 
                     model: ListModel {
@@ -1074,7 +1079,7 @@ ApplicationWindow {
                     anchors.bottom:parent.bottom
                     width:parent.width
                     height:parent.height * 0.1
-                    color:"white"
+                    color:bottombarColor
 
                 Image {
                     anchors.right:parent.right
@@ -1095,6 +1100,17 @@ ApplicationWindow {
                     }
                 }
 
+                }
+
+                DropShadow {
+                    anchors.fill:bottomBar
+                    horizontalOffset: 0
+                    verticalOffset: -4
+                    radius: 8.0
+                    samples: 17
+                    color: "#80000000"
+                    source:bottomBar
+                    z:1
                 }
 
         }
