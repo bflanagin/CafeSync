@@ -162,6 +162,26 @@ ApplicationWindow {
     //height: units.gu(100)
 
 
+    property int currentcard_saved: 0
+    property string currentcard_thecard: ""
+
+    property string currentcard_username: ""
+    property string currentcard_userphone: ""
+    property string currentcard_useremail: ""
+    property string currentcard_companyname: ""
+    property string currentcard_motto: ""
+    property string currentcard_mainsite: ""
+    property string currentcard_url1: ""
+    property string currentcard_url2: ""
+    property string currentcard_url3: ""
+    property string currentcard_url4: ""
+    property string currentcard_avatarimg: ""
+    property string currentcard_realcardback: ""
+    property string currentcard_cardcat: ""
+
+
+
+
 
 
 
@@ -291,22 +311,7 @@ ApplicationWindow {
         z:1
         clip:true
 
-        property int saved: 0
-        property string thecard: ""
 
-        property string cardusername: ""
-        property string carduserphone: ""
-        property string carduseremail: ""
-        property string companyname: ""
-        property string motto: ""
-        property string mainsite: ""
-        property string url1: ""
-        property string url2: ""
-        property string url3: ""
-        property string url4: ""
-        property string avatarimg: ""
-        property string realcardback: ""
-        property string cardcat: ""
 
         states: [
             State {
@@ -502,7 +507,7 @@ ApplicationWindow {
             visible:false
             Rectangle {
                 anchors.fill:parent
-                color:"white"
+                color:barColor
             }
 
             Image {
@@ -537,6 +542,7 @@ ApplicationWindow {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
                 text:qsTr("Setup")
+                color:"white"
                 font.pixelSize: parent.height * 0.5
             }
 
@@ -589,7 +595,6 @@ ApplicationWindow {
                     MouseArea {
                         anchors.fill:parent
                     onClicked: {OpenSeed.datasync(userid,0);
-                                OpenSeed.datasync(userid1,1);
                                 Scripts.save_card(userid,username,useremail,userphone,usercompany,
                                         useralias,usermotto,usermain,website1,website2,website3,website4,
                                         stf,atf,ctf,avimg,carddesign,usercat,cardindex);
@@ -621,8 +626,13 @@ ApplicationWindow {
                 source: "./img/menu.svg"
                 anchors.leftMargin: parent.width * 0.03
 
-                width:parent.height * 0.6
-                height:parent.height * 0.6
+                width:parent.height * 0.4
+                height:parent.height * 0.4
+
+                Flasher {
+                   // id:setflick
+
+                }
 
                 MouseArea {
                     anchors.fill:parent
@@ -633,9 +643,12 @@ ApplicationWindow {
             //}
             TextField {
                 id:searchtextfield
+                anchors.right:back.left
+                anchors.rightMargin: parent.width * 0.01
                 anchors.left:mainMenu2.right
-                width:back.x * 0.90
+                anchors.leftMargin: parent.width * 0.01
                 anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
                 text:searchtext
                 placeholderText: qsTr(currentcat+":Search")
 
@@ -644,6 +657,8 @@ ApplicationWindow {
             }
             }
 
+
+
             Image {
                 id:back
                 anchors.right:parent.right
@@ -651,6 +666,12 @@ ApplicationWindow {
                 width:parent.height * 0.4
                 height:parent.height * 0.4
                 source: "./img/back.svg"
+
+                Flasher {
+                    //id:setflick
+
+                }
+
                 MouseArea {
                     anchors.fill:parent
                     onClicked: topBar.state = "standard", mainMenu.rotation = 0
@@ -664,9 +685,13 @@ ApplicationWindow {
             width:parent.width
             height:parent.height
             //visible:false
+
+
+
+
             Rectangle {
                 anchors.fill:parent
-                color:"white"
+                color:barColor
             }
 
 
@@ -679,6 +704,12 @@ ApplicationWindow {
         anchors.leftMargin: parent.width * 0.03
         width:parent.height * 0.4
         height:parent.height * 0.4
+
+        Flasher {
+           // id:setflick
+
+        }
+
         MouseArea {
             anchors.fill:parent
             //onClicked: standardMenu.popup()
@@ -706,7 +737,12 @@ ApplicationWindow {
 
         MouseArea {
             anchors.fill:parent
-            onClicked: if (topBar.saved == 0){Scripts.Cards_save(topBar.thecard,topBar.cardusername,topBar.carduserphone,topBar.carduseremail,topBar.companyname,"",topBar.motto,topBar.mainsite,topBar.URL1,topBar.URL2,topBar.URL3,topBar.URL4,topBar.avatarimg,topBar.realcardback,topBar.cardcat);
+            onClicked: if (topBar.saved == 0){
+                           Scripts.Cards_save(currentcard_thecard,currentcard_username,currentcard_userphone,currentcard_useremail,currentcard_companyname,"",currentcard_motto,
+                                              currentcard_mainsite,currentcard_url1,currentcard_url2,currentcard_url3,currentcard_url4,currentcard_avatarimg,currentcard_realcardback,currentcard_cardcat);
+
+                           //currentcard_saved;
+
                            cardslist.clear();
                            OpenSeed.sync_cards(userid,3);
                            OpenSeed.get_list(userid,"saved");
@@ -729,11 +765,11 @@ ApplicationWindow {
         source:"./img/delete.svg"
         //z: -8
 
-       /* Flasher {
-            id:delflick
+        Flasher {
+            //id:delflick
 
 
-        } */
+        }
 
         MouseArea {
             anchors.fill: parent
@@ -1198,7 +1234,7 @@ Setup {
                         anchors.top:osUsernameField.bottom
                          anchors.horizontalCenter: parent.horizontalCenter
                          width:parent.width - 10
-                        placeholderText: "example@email.com"
+                        placeholderText: "Passphrase"
                        horizontalAlignment: Text.AlignHCenter
                         text:osEmail
                         onTextChanged:uniquename = 0,osEmail = text,OpenSeed.checkcreds(osUsername,osEmail);

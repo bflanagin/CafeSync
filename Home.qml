@@ -38,6 +38,8 @@ Item {
         }
 
 
+
+
     Rectangle {
         id:nameBack
         anchors.left:parent.left
@@ -70,7 +72,7 @@ Item {
 
             Image {
                 id:mask
-                anchors.fill:parent
+                anchors.fill:img
                 source:"/graphics/CafeSync.png"
                 visible: false
 
@@ -104,6 +106,23 @@ Item {
                     x:10
                     font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.04
                     text:qsTr("Name: ")+cardusername
+                   /* onTextChanged: Scripts.setCurrent(
+                                       thecard,
+                                       cardusername,
+                                       carduserphone,
+                                       carduseremail,
+                                       companyname,
+                                       motto,
+                                       mainsite,
+                                       URL1,
+                                       URL2,
+                                       URL3,
+                                       URL4,
+                                       avatarimg,
+                                       realcardback,
+                                       cardcat,
+                                       saved
+                                       ) */
                 }
 
                 Item {
@@ -337,7 +356,7 @@ Row {
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true
-                  onClicked: Qt.openUrlExternally('message:'+carduserphone)
+                  onClicked: Qt.openUrlExternally('sms:'+carduserphone)
               }
 
           }
@@ -440,12 +459,207 @@ Row {
               }
 
           } */
+    }
 
+
+
+
+        Row {
+          id:youractions
+          visible: if(cardusername == username ) {true} else {false}
+          spacing:width / 6
+          height:parent.height
+          x:parent.width * 0.09
+          width:parent.width * 0.9
+          clip: true
+
+          Image {
+              width: /*units.gu(2) */ parent.width / 10
+              height: /*units.gu(2) */ parent.width / 10
+              //name: if (saved == 0) {"add"} else {"starred"}
+              visible:false
+              anchors.verticalCenter: parent.verticalCenter
+
+              //name:"account"
+              source:"./img/contact.svg"
+              //z: -8
+
+              Flasher {
+
+
+              }
+
+              MouseArea {
+                  anchors.fill: parent
+                  preventStealing: true
+                  //onClicked: Qt.openUrlExternally('qr:')
+              }
+
+          }
+
+          Image {
+              width: if(cardindex == 0) {if(stf == "true") {parent.width / 10} else {parent.width / 11} }
+              height: if(cardindex == 0) {if(stf == "true") {parent.width / 10} else {parent.width / 11} }
+              //name: if (saved == 0) {"add"} else {"starred"}
+              //name:"share"
+              source:"./img/share.svg"
+              //z: -8
+              anchors.verticalCenter: parent.verticalCenter
+
+              Flasher {
+
+
+              }
+
+              Image {
+                  //anchors.fill:parent
+                  visible: if (cardindex == 0) { if ( stf == "true") {false} else {true} }
+
+                  anchors.centerIn: parent
+                  width:parent.width * 1.17
+                  height:parent.height * 1.17
+                  source:"./img/cancel.svg"
+              }
+
+              Flasher {
+
+
+              }
+
+              MouseArea {
+                  anchors.fill: parent
+
+                  preventStealing: true
+                  onClicked: { if(cardindex == 0) {if(stf == "true") {stf = "false" } else { stf = "true" } }
+                      Scripts.save_card(userid,username,userphone,useremail,usercompany,
+                                                                                useralias,usermotto,usermain,website1,website2,website3,website4,
+                                                                                stf,atf,ctf,avimg,carddesign,usercat);
+                                                              OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
+                                                                                   useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
+                                                                                   avimg,carddesign,usercat);
+
+                  }
+              }
+
+
+
+          }
+
+
+          Image {
+              width: /*units.gu(2) */  if(cardindex == 0) {if(atf == "true") {parent.width / 10} else {parent.width / 11} }
+              height: /*units.gu(2) */  if(cardindex == 0) {if(atf == "true") {parent.width / 10} else {parent.width / 11} }
+              //name: if (saved == 0) {"add"} else {"starred"}
+              //name:"private-browsing"
+              source:"./img/private-browsing.svg"
+              //z: -8
+              anchors.verticalCenter: parent.verticalCenter
+
+              Image {
+                  //anchors.fill:parent
+                  visible: if (cardindex == 0) { if ( atf == "true") {false} else {true} }
+
+                  anchors.centerIn: parent
+                  width:parent.width * 1.17
+                  height:parent.height * 1.17
+                  source:"./img/cancel.svg"
+              }
+
+              Flasher {
+
+
+              }
+
+              MouseArea {
+                  anchors.fill: parent
+                  preventStealing: true
+                  onClicked: { if(cardindex == 0) {if(atf == "true") {atf = "false" } else { atf = "true" } }
+                      Scripts.save_card(userid,username,userphone,useremail,usercompany,
+                                                                                useralias,usermotto,usermain,website1,website2,website3,website4,
+                                                                                stf,atf,ctf,avimg,carddesign,usercat);
+                                                              OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
+                                                                                   useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
+                                                                                   avimg,carddesign,usercat);
+
+                  }
+
+
+              }
+
+          }
+
+          Image {
+              width: if(cardindex == 0) {if(ctf == "true") {parent.width / 10} else {parent.width / 11} }
+              height: if(cardindex == 0) {if(ctf == "true") {parent.width / 10} else {parent.width / 11} }
+              anchors.verticalCenter: parent.verticalCenter
+
+              //name: if (saved == 0) {"add"} else {"starred"}
+              //name:"contact"
+              source:"./img/contact.svg"
+              //z: -8
+
+              Image {
+                  //anchors.fill:parent
+                  visible:if(cardindex == 0) { if ( ctf == "true") {false} else {true} }
+
+                  anchors.centerIn: parent
+                  width:parent.width * 1.17
+                  height:parent.height * 1.17
+                  source:"./img/cancel.svg"
+              }
+
+              Flasher {
+
+
+              }
+
+              MouseArea {
+                  anchors.fill: parent
+
+                  preventStealing: true
+                  onClicked: {if(cardindex == 0) {if(ctf == "true") {ctf = "false" } else { ctf = "true" }
+
+                      Scripts.save_card(userid,username,userphone,useremail,usercompany,
+                                                                                useralias,usermotto,usermain,website1,website2,website3,website4,
+                                                                                stf,atf,ctf,avimg,carddesign,usercat);
+                                                              OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
+                                                                                   useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
+                                                                                   avimg,carddesign,usercat);
+
+                  }
+              }
+
+            }
+
+          }
+
+          Image {
+              width: /*units.gu(2) */ parent.width / 10
+              height: /*units.gu(2) */ parent.width / 10
+              anchors.verticalCenter: parent.verticalCenter
+
+              source:"./img/swap.svg"
+              //z: -8
+
+              Flasher {
+
+
+              }
+
+              MouseArea {
+                  anchors.fill: parent
+                  preventStealing: true
+                  onClicked: swapopt.state ="Active"
+              }
+
+          }
+
+    }
 
         }
 
 
-    }
+
 
     DropShadow {
         anchors.fill:bottomBar

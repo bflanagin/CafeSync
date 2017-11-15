@@ -311,27 +311,27 @@ import "openseed.js" as OpenSeed
 
                                                 mainScreen.state = "Active";
                                                 topBar.state = "person";
-                                                topBar.saved = issaved;
-                                            topBar.cardusername = name;
-                                            topBar.carduserphone = phone;
-                                            topBar.carduseremail = email;
-                                            topBar.companyname = company;
-                                            topBar.motto = motto;
-                                            topBar.mainsite = mainsite;
-                                            topBar.url1 = w1;
-                                            topBar.url2 = w2;
-                                            topBar.url3 = w3;
-                                            topBar.url4 = w4;
-                                            topBar.avatarimg = imgsource;
-                                            topBar.realcardback = cardback;
-                                            topBar.cardcat = cardcat;
+                                                //topBar.saved = issaved;
+                                            currentcard_username = name;
+                                            currentcard_userphone = phone;
+                                            currentcard_useremail = email;
+                                            currentcard_companyname = company;
+                                            currentcard_motto = motto;
+                                            currentcard_mainsite = mainsite;
+                                            currentcard_url1 = w1;
+                                            currentcard_url2 = w2;
+                                            currentcard_url3 = w3;
+                                            currentcard_url4 = w4;
+                                            currentcard_avatarimg = imgsource;
+                                            currentcard_realcardback = cardback;
+                                            currentcard_cardcat = cardcat;
 
                                                   //  infotab.state = "Available";
                                             pagelist.clear();
                                             if(issaved == 1) {
-                                             Scripts.Show_sites(card,"saved");
+                                             Scripts.Show_sites(cardId,"saved");
                                             } else {
-                                               Scripts.Show_sites(card,listget);
+                                               Scripts.Show_sites(cardId,listget);
                                             }
                                            // mainScreen.state = "Active";
                                             mainScreen.positionViewAtBeginning();

@@ -365,7 +365,7 @@ function Temp_load(search,locale) {
                                              phone:  pull.rows.item(record).phone,
                                               email:  pull.rows.item(record).email,
                                          motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
-                                            card: pull.rows.item(record).id,
+                                            cardId: pull.rows.item(record).id.toString(),
 
                              mainsite: main,
                              URL1: w1,
@@ -408,7 +408,7 @@ function Temp_load(search,locale) {
                 phone:  pull.rows.item(record).phone,
                 email:  pull.rows.item(record).email,
                 motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
-                card: pull.rows.item(record).id,
+                cardId: pull.rows.item(record).id.toString(),
                 mainsite: main,
                 URL1: w1,
                 URL2: w2,
@@ -582,7 +582,7 @@ function Cards_load(search) {
                  phone:  pull.rows.item(record).phone,
                  email:  pull.rows.item(record).email,
                  motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
-                 card: pull.rows.item(record).id,
+                 cardId: pull.rows.item(record).id.toString(),
 
                  mainsite: main,
                  URL1: w1,
@@ -610,7 +610,7 @@ function Cards_load(search) {
                      phone:  pull.rows.item(record).phone,
                      email:  pull.rows.item(record).email,
                      motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
-                     card: pull.rows.item(record).id,
+                     cardId: pull.rows.item(record).id.toString(),
 
                      mainsite: main,
                      URL1: w1,
@@ -664,6 +664,7 @@ function Show_sites(cid,list) {
     var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
     var dataStr;
 
+    console.log(cid);
 
     var dbtable = "";
     switch(list) {
@@ -727,7 +728,7 @@ function Show_sites(cid,list) {
                                pagewidth:mainScreen.width ,
                                pageheight:mainScreen.height,
                                motto:pull.rows.item(0).motto.replace(/&#x27;/g,"'"),
-                               thecard:pull.rows.item(0).id.toString(),
+                               cardId:pull.rows.item(0).id.toString(),
                                avatarimg:pull.rows.item(0).avatar,
                                companyname:pull.rows.item(0).company.replace(/&#x27;/g,"'"),
                                cardusername:pull.rows.item(0).name.replace(/&#x27;/g,"'"),
@@ -1180,5 +1181,26 @@ function Card_Set(location,num) {
     case "text":return text_Locations.split(",")[num];break;
     default:break;
     }
+
+}
+
+function setCurrent(id,username,userphone,useremail,companyname,motto,mainsite,url1,url2,url3,url4,avatarimg,realcardback,cardcat,saved) {
+
+    currentcard_saved = saved;
+    currentcard_thecard = id;
+    currentcard_username = username;
+    currentcard_userphone = userphone;
+    currentcard_useremail = useremail;
+    currentcard_companyname = companyname;
+    currentcard_motto = motto;
+    currentcard_mainsite = mainsite;
+    currentcard_url1 = url1;
+    currentcard_url2 = url2;
+    currentcard_url3 = url3;
+    currentcard_url4 = url4;
+    currentcard_avatarimg = avatarimg;
+    currentcard_realcardback = realcardback;
+    currentcard_cardcat = cardcat;
+
 
 }

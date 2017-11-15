@@ -17,6 +17,10 @@ import "webpage.js" as WebPage
 
 import "youtube.js" as YouTube
 
+
+
+
+
 Item {
     id:webthing
 
@@ -25,7 +29,7 @@ Item {
     property string page: webpage
     property int custompage: 0
     property string thesource:""
-    property string mycard: thecard
+    property string mycard: cardId
     property string thebanner:""
     property string theavatar:""
     property string thename:""

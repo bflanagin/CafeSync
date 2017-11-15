@@ -45,7 +45,5 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
 
 }
 contains(ANDROID_TARGET_ARCH,x86) {
-    ANDROID_EXTRA_LIBS = \
-        $$PWD/../../Nextcloud/Android/openssl/x86/libssl.so \
-        $$PWD/../../Nextcloud/Android/openssl/x86/libcrypto.so
+    ANDROID_EXTRA_LIBS =
 }

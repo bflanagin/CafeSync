@@ -156,8 +156,9 @@ Item {
         anchors.bottom:parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottomMargin:30
-        border.color:"black"
-        border.width:1
+       // border.color:"black"
+       // border.width:1
+        color:Qt.rgba(1,1,1,0)
         width:parent.width * 0.34
         height:parent.height * 0.08
 

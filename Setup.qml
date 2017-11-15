@@ -533,7 +533,7 @@ Rectangle {
           //anchors.top:pmottoRow.bottom
           width:parent.width
           //height:parent.height
-          spacing: 25
+          spacing: 60
 
 
 
