@@ -115,8 +115,8 @@ Item {
                                 font.pixelSize: parent.width * 0.1 - text.length * 1.2
                                text: if(title != "Category") {switch(menuitem) {
                                      case "0": qsTr("Contacts");break;
-                                     case "1": if(usercompany.length > 2) {usercompany} else {if(username.length >2) {username} else {qsTr("Card 1 not configured")}};break;
-
+                                    // case "1": if(usercompany.length > 2) {usercompany} else {if(username.length >2) {username} else {qsTr("Card 1 not configured")}};break;
+                                    case "1": qsTr("Your Card");break;
                                      case "3": qsTr("Settings");break;
 
                                      default:menuitem;break;

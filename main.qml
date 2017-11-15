@@ -36,7 +36,7 @@ ApplicationWindow {
     property string backgroundColor: "#EFEFEF"
     property string highLightColor1: "#FFE082"
     property string barColor: "#795548"
-    property string bottombarColor: "#684437"
+    property string bottombarColor: "#795548"
 
 
 
@@ -1044,7 +1044,7 @@ ApplicationWindow {
 
                     //z:-1
                     width: parent.width
-                    height: parent.height * 0.90
+                    height: parent.height * 0.95
                     topMargin:10
                     //anchors.verticalCenter: parent.verticalCenter
                     snapMode: GridView.SnapToRow
@@ -1078,14 +1078,15 @@ ApplicationWindow {
                     id:bottomBar
                     anchors.bottom:parent.bottom
                     width:parent.width
-                    height:parent.height * 0.1
+                    height:parent.height * 0.08
                     color:bottombarColor
 
                 Image {
                     anchors.right:parent.right
                     anchors.bottom:parent.bottom
                     anchors.margins: 10
-                    width:parent.width * 0.10
+                    width:parent.height * 0.7
+                    height: parent.height * 0.7
                     fillMode:Image.PreserveAspectFit
                     source:"./img/swap.svg"
 

@@ -61,9 +61,9 @@ Item {
             height:parent.height
             Image {
                 id:img
-                anchors.verticalCenter: parent.verticalCenter
-                width:if(avatarimg.length > 5) {nameBack.height * 0.90}
-                height:if(avatarimg.length > 5) {nameBack.height * 0.90}
+               // anchors.verticalCenter: parent.verticalCenter
+                width:if(avatarimg.length > 5) {nameBack.height * 0.80}
+                height:if(avatarimg.length > 5) {nameBack.height * 0.80}
                 source:avatarimg
                 //anchors.fill:parent
                 fillMode:Image.PreserveAspectFit
@@ -90,9 +90,10 @@ Item {
                   id:info
                   width:nameBack.width - (img.width +img.x) - 10
                   anchors.left: img.right
+                  spacing: 5
                   clip:true
                 Text {
-                    text:companyname
+                    text:cardusername
                     font.bold: true
                     font.pixelSize: (nameBack.width  - companyname.length * 1.5) * 0.064
                 }
@@ -105,25 +106,20 @@ Item {
                 Text {
                     x:10
                     font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.04
-                    text:qsTr("Name: ")+cardusername
-                   /* onTextChanged: Scripts.setCurrent(
-                                       thecard,
-                                       cardusername,
-                                       carduserphone,
-                                       carduseremail,
-                                       companyname,
-                                       motto,
-                                       mainsite,
-                                       URL1,
-                                       URL2,
-                                       URL3,
-                                       URL4,
-                                       avatarimg,
-                                       realcardback,
-                                       cardcat,
-                                       saved
-                                       ) */
+                    text:qsTr("Job Title: ")+cardposition
+                    width:parent.width
+                    wrapMode: Text.WordWrap
+
                 }
+                Text {
+                    x:10
+                    font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.04
+                    text:qsTr("Company: ")+companyname
+                    width:parent.width
+                    wrapMode: Text.WordWrap
+
+                }
+
 
                 Item {
                     width:parent.width
@@ -293,10 +289,10 @@ Row {
         title:qsTr("Share Card")
         type:"send"
         message:onetimecode
-        onStateChanged:if(swapopt.state =="Active") {OpenSeed.onetime(thecard,"1")}
+        onStateChanged:if(swapopt.state =="Active") {OpenSeed.onetime(cardId,"1")}
         MouseArea {
             anchors.fill:parent
-            onClicked:swapopt.state = "InActive",OpenSeed.onetime(thecard,"0")
+            onClicked:swapopt.state = "InActive",OpenSeed.onetime(cardId,"0")
         }
     }
 
@@ -305,7 +301,7 @@ Row {
         id:bottomBar
         anchors.bottom:parent.bottom
         width:parent.width
-        height:parent.height * 0.1
+        height:parent.height * 0.08
         color:bottombarColor
 
         Row {
@@ -469,8 +465,9 @@ Row {
           visible: if(cardusername == username ) {true} else {false}
           spacing:width / 6
           height:parent.height
-          x:parent.width * 0.09
+          x:parent.width * 0.24
           width:parent.width * 0.9
+
           //clip: true
 
           Image {
@@ -546,9 +543,9 @@ Row {
           }
 
 
-          Image {
-              width: /*units.gu(2) */  if(cardindex == 0) {if(atf == "true") {parent.width / 10} else {parent.width / 11} }
-              height: /*units.gu(2) */  if(cardindex == 0) {if(atf == "true") {parent.width / 10} else {parent.width / 11} }
+        /*  Image {
+              width:   if(cardindex == 0) {if(atf == "true") {parent.width / 10} else {parent.width / 11} }
+              height:  if(cardindex == 0) {if(atf == "true") {parent.width / 10} else {parent.width / 11} }
               //name: if (saved == 0) {"add"} else {"starred"}
               //name:"private-browsing"
               source:"./img/private-browsing.svg"
@@ -586,7 +583,7 @@ Row {
 
               }
 
-          }
+          } */
 
           Image {
               width: if(cardindex == 0) {if(ctf == "true") {parent.width / 10} else {parent.width / 11} }
