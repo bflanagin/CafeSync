@@ -60,7 +60,7 @@ onStateChanged: if(settingsPage.state == "show") {topBar.state = "settings";list
 
 
  Rectangle {
-     color:"white"
+     color:backgroundColor
      //y:listthing.height
      width:parent.width
      height:parent.height
@@ -70,7 +70,7 @@ onStateChanged: if(settingsPage.state == "show") {topBar.state = "settings";list
 
  Flickable {
      clip:true
-     contentHeight:parent.height * 2.0
+     contentHeight:parent.height * 2.5
     /* anchors {
          top: parent.top
          bottom:parent.bottom
@@ -120,11 +120,22 @@ Item {
      }
 
      OpacityMask {
+         id:opmask
           anchors.fill: cardsava
           source: cardsava
           maskSource: mask
       }
+     DropShadow {
+            anchors.fill: opmask
+            horizontalOffset: 0
+            verticalOffset: 4
+            radius: 8.0
+            samples: 17
+            color: "#80000000"
+            source: opmask
+            z:1
 
+        }
 
 }
 
@@ -663,14 +674,15 @@ DropShadow {
  }
 
  Rectangle {
+     id:miscborder
      anchors.horizontalCenter: parent.horizontalCenter
      anchors.top:misc_title.bottom
      anchors.topMargin:8
      width:parent.width * 0.99
      height: parent.height / 12
-     radius:6
-     border.width:1
-     border.color:"black"
+     //radius:6
+     //border.width:1
+    // border.color:"black"
 
  Column {
      anchors.fill:parent
@@ -742,6 +754,22 @@ DropShadow {
 
 
  }
+
+ }
+
+
+ DropShadow {
+
+     anchors.fill: miscborder
+     horizontalOffset: 0
+     verticalOffset: 3
+     radius: 8.0
+     samples: 17
+     color: "#80000000"
+     source: miscborder
+     z:1
+
+
 
  }
 

@@ -49,10 +49,10 @@ Item {
  Rectangle {
   width:parent.width
   height:parent.height
-  color:"white"
+  color:backgroundColor
   //radius:8
-  border.color:"black"
-  border.width:1
+ // border.color:"black"
+ // border.width:1
 
   MouseArea {
       anchors.fill:parent
@@ -90,7 +90,7 @@ Item {
                             name:"InActive"
                             PropertyChanges {
                                 target:bg
-                                color:"white"
+                                color:highLightColor1
                             }
                         }
                     ]
@@ -103,10 +103,10 @@ Item {
                         id:bg
                         width:parent.width
                         height:parent.height
-                        color:"white"
-                        //border.color:"black"
-                        //border.width:1
-                        radius: 3
+                        color:highLightColor1
+                        border.color:barColor
+                        border.width:2
+                        radius: 10
 
 
                         Text {

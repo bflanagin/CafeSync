@@ -274,7 +274,7 @@ Item {
         height:parent.height
 
 
-        FaceBook {
+      /*  FaceBook {
             state:if(custompage == 1) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
@@ -291,7 +291,7 @@ Item {
 
 
 
-        }
+        } */
         Twitter {
             state:if(custompage == 3) {"Active"} else {"InActive"}
             anchors.fill:parent
@@ -300,7 +300,7 @@ Item {
 
         }
 
-        Twitch {
+      /*  Twitch {
             state:if(custompage == 4) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
@@ -344,7 +344,7 @@ Item {
             pagesource:thesource
             service:page
 
-        }
+        } */
 
         RSS {
             state:if(hasrss) {"Active"} else {"InActive"}
@@ -361,7 +361,7 @@ Item {
             link:thelink
         }
 
-        Etsy {
+      /*  Etsy {
             state:if(custompage == 10) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
@@ -382,7 +382,7 @@ Item {
             anchors.fill:parent
             pagesource:thesource
             service:page
-        }
+        } */
 
     URL {
         state:if(custompage == 0 && hasrss == 0) {"Active"} else {"InActive"}

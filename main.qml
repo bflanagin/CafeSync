@@ -473,8 +473,8 @@ ApplicationWindow {
             property int loc:0
             source: {switch(loc) {
                 case 0:"img/location.svg";break;
-                case 1:"img/language-chooser.svg";break;
-                case 2:"img/stock_website.svg";break;
+                case 2:"img/language-chooser.svg";break;
+               // case 2:"img/stock_website.svg";break;
                 default:"img/location.svg";break;
                 }
             }
@@ -491,8 +491,8 @@ ApplicationWindow {
                 onPressed: locflick.state = "Active"
                 onReleased: locflick.state = "InActive"
                 onClicked:switch(location_switch.loc) {
-                          case 0: currentcard = -1;location_switch.loc = 1;location_selected = "Region";cardslist.clear();listget = "region";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
-                          case 1: currentcard = -1;location_switch.loc = 2;location_selected = "Global";cardslist.clear();listget = "global";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
+                          case 0: currentcard = -1;location_switch.loc = 2;location_selected = "Region";cardslist.clear();listget = "region";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
+                          //case 1: currentcard = -1;location_switch.loc = 2;location_selected = "Global";cardslist.clear();listget = "global";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
                           case 2: currentcard = -1;location_switch.loc = 0;location_selected = "Passers By";cardslist.clear();listget = "temp";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
                           }
 
@@ -518,8 +518,8 @@ ApplicationWindow {
                 source: "./img/back.svg"
                 anchors.leftMargin: parent.width * 0.03
 
-                width:parent.height * 0.6
-                height:parent.height * 0.6
+                width:parent.height * 0.4
+                height:parent.height * 0.4
 
                 Flasher {
                     id:setflick
@@ -528,8 +528,15 @@ ApplicationWindow {
 
                 MouseArea {
                     anchors.fill:parent
-                    onClicked: themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0
+                    onClicked: { Scripts.save_card(userid,username,userphone,useremail,usercompany,
+                                                                      useralias,usermotto,usermain,website1,website2,website3,website4,
+                                                                      stf,atf,ctf,avimg,carddesign,usercat);
+                                                    OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
+                                                                         useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
+                                                                         avimg,carddesign,usercat);
 
+                        themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0
+                            }
 
                    // onPressed: setflick.state = "Active"
                    // onReleased: setflick.state = "InActive"
@@ -552,8 +559,8 @@ ApplicationWindow {
                 anchors.right:parent.right
                 anchors.rightMargin:parent.width * 0.03
                 anchors.verticalCenter: parent.verticalCenter
-                width:parent.height * 0.6
-                height:parent.height * 0.6
+                width:parent.height * 0.4
+                height:parent.height * 0.4
                 source: "img/save.svg"
 
                 Flasher {
@@ -585,8 +592,8 @@ ApplicationWindow {
 
                     anchors.verticalCenter: parent.verticalCenter
                     source:"img/reset.svg"
-                    width:parent.height * 0.6
-                    height:parent.height * 0.6
+                    width:parent.height * 0.3
+                    height:parent.height * 0.3
 
                     Flasher {
                         id:updateflick
@@ -649,7 +656,7 @@ ApplicationWindow {
                 anchors.left:mainMenu2.right
                 anchors.leftMargin: parent.width * 0.01
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
+
                 text:searchtext
                 placeholderText: qsTr(currentcat+":Search")
 
@@ -663,6 +670,7 @@ ApplicationWindow {
             Image {
                 id:back
                 anchors.right:parent.right
+                anchors.rightMargin: 10
                 anchors.verticalCenter: parent.verticalCenter
                 width:parent.height * 0.4
                 height:parent.height * 0.4
@@ -779,8 +787,17 @@ ApplicationWindow {
         MouseArea {
             anchors.fill: parent
             preventStealing: true
-            onClicked: if (currentcard_saved == 0){Scripts.Delete_card(currentcard_thecard,listget);OpenSeed.remote_delete(userid,listget,currentcard_thecard);cardslist.clear();Scripts.Temp_load(searchtext,listget);} else {
-                                Scripts.Delete_card(currentcard_thecard,"saved");OpenSeed.remote_delete(userid,"saved",currentcard_thecard);cardslist.clear();Scripts.Cards_load(searchtext); //OpenSeed.sync_cards(userid,3);
+            onClicked: if (currentcard_saved == 0){
+                                Scripts.Delete_card(currentcard_thecard,listget);OpenSeed.remote_delete(userid,listget,currentcard_thecard);cardslist.clear();Scripts.Temp_load(searchtext,listget);
+                           mainScreen.state = "InActive";
+                           topBar.state="standard";
+                           mainMenu.rotation = 0;
+                       } else {
+                                Scripts.Delete_card(currentcard_thecard,"saved");OpenSeed.remote_delete(userid,"saved",currentcard_thecard);cardslist.clear();Scripts.Cards_load(searchtext);
+                                mainScreen.state = "InActive";
+                                topBar.state="standard";
+                                mainMenu.rotation = 0;
+                           //OpenSeed.sync_cards(userid,3);
                        }
             onPressed: delflick.state = "Active"
             onReleased: delflick.state = "InActive"
