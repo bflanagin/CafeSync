@@ -892,12 +892,12 @@ Item {
 
  SlideShow {
      id:aboutscreen
-
+     y:0
      width: parent.width
      height: parent.height
      state:"InActive"
      maintitle:"About"
-     anchors.top: parent.top
+     //anchors.top: parent.top
 
 
  }

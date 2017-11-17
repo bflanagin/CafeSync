@@ -155,7 +155,7 @@ Item {
     Rectangle {
         anchors.bottom:parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottomMargin:30
+        anchors.bottomMargin:90
        // border.color:"black"
        // border.width:1
         color:Qt.rgba(1,1,1,0)

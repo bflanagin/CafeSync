@@ -217,7 +217,7 @@ ApplicationWindow {
 
     Timer {
         id:gpsupdate
-        interval:2000
+        interval:1000000
         running: true
         repeat: true
         onTriggered:{
