@@ -1395,8 +1395,10 @@ Menus {
 
 Menus {
     id:catmenu
-    anchors.centerIn: parent
-
+    x:0
+    width:parent.width
+    y:topBar.height
+    height:parent.height - topBar.height
     state:"InActive"
     title:"Category"
 

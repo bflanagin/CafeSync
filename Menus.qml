@@ -140,7 +140,8 @@ Item {
             MouseArea {
                 anchors.fill:parent
                 onClicked:switch(menuitem) {
-                          case "0": settingsPage.state = "hide",cardPage.state = "show",cardPage.state = "default";popup.state = "InActive";saveded.state = "unselected";passby.state = "selected";selection=0;pages = 1,cardslist.clear(),currentcard = -1,pages = 1,cardslist.clear(),Scripts.Cards_load(searchtext);break;
+                          case "0": settingsPage.state = "hide",cardPage.state = "show",cardPage.state = "default";popup.state = "InActive";saveded.state = "unselected";passby.state = "selected";selection=0;pages = 1,cardslist.clear(),currentcard = -1,Scripts.Cards_load(searchtext)
+                             ,mainMenu.rotation=0;break;
                           case "3":settingsPage.state = "show",cardPage.state = "settings";popup.state = "InActive";saveded.state = "unselected";passby.state = "selected";cardindex = 0;break;
                           case "1":settingsPage.state = "hide",cardPage.state = "show",cardPage.state = "default";currentcard = -1;cardindex = 0;
                                             pagelist.clear();Scripts.Show_sites("local",userid);mainScreen.state = "Active";popup.state = "InActive";

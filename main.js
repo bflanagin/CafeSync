@@ -579,7 +579,8 @@ function Cards_load(search) {
              if (currentcat.length > 2 & currentcat != qsTr("All Cards") ) {
 
                  if(currentcat == pull.rows.item(record).cat) {
-             cardslist.append({ name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
+             cardslist.append({
+                 name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
                  colorCode: "white",
                  imagesource: "img/default_avatar.png",
                  cardback:"img/default_card.png",
@@ -606,7 +607,7 @@ function Cards_load(search) {
 
              }); }} else {
 
-                 ({
+                     cardslist.append({
                      name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
                      colorCode: "white",
                      imagesource: "img/default_avatar.png",
