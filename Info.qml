@@ -30,6 +30,12 @@ Item {
             PropertyChanges {
                 target: popup
                 visible:true
+
+            }
+            PropertyChanges {
+                target: codeentry
+                focus: true
+
             }
 
         },
@@ -38,6 +44,11 @@ Item {
           PropertyChanges {
               target: popup
               visible:false
+          }
+          PropertyChanges {
+              target: codeentry
+              focus: false
+
           }
         }
     ]
@@ -50,10 +61,10 @@ Item {
     Rectangle {
         visible:if(type == "send") {true} else {false}
         anchors.fill:parent
-        border.color:"black"
+        border.color:highLightColor1
 
         Rectangle {
-            color:"gray"
+            color:barColor
             width:parent.width
             height:parent.height * 0.20
 
@@ -89,10 +100,10 @@ Item {
     Rectangle {
         visible:if(type == "receive") {true} else {false}
         anchors.fill:parent
-        border.color:"black"
+        border.color:highLightColor1
 
         Rectangle {
-            color:"gray"
+            color:barColor
             width:parent.width
             height:parent.height * 0.20
 

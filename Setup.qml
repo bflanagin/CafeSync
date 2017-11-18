@@ -528,7 +528,7 @@ Item {
           anchors.rightMargin:10
 
           //clip: true
-          spacing: 20
+          spacing: 30
 
 
           Text {
@@ -630,6 +630,7 @@ Item {
                   height:pmottoRow.height - 3
                   text:if(cardindex == 0) {usermotto}
                   onTextChanged: if(cardindex == 0) {usermotto = personalMotto.text}
+                  clip:true
                  }
               }
           }
@@ -661,7 +662,7 @@ Item {
 
                    width:plinklist.width - websiteLabel.width
 
-                   placeholderText: qsTr("www.example.com")
+                   placeholderText: qsTr("www.twitter.com/username")
                    //font.pixelSize: parent.height
                    text:if(cardindex == 0) {website1} else {website11}
                    onTextChanged: if(cardindex == 0) {website1 = websiteVar.text}
@@ -719,7 +720,7 @@ Item {
               Text {
               id:websiteLabel3
 
-              text: "Patreon:"
+              text: "YouTube:"
               font.pixelSize:25
 
                TextField {

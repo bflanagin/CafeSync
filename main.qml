@@ -471,12 +471,14 @@ ApplicationWindow {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             property int loc:0
-            source: {switch(loc) {
+            source: if(selection != 1) { switch(loc) {
                 case 0:"img/location.svg";break;
                 case 2:"img/language-chooser.svg";break;
                // case 2:"img/stock_website.svg";break;
                 default:"img/location.svg";break;
-                }
+                } } else {
+                           "img/starred.svg"
+
             }
             width:parent.height /1.5
             height:parent.height /1.5
@@ -490,10 +492,11 @@ ApplicationWindow {
             //onClicked: {menuLocx = parent.x;menuLocy = parent.height;if(themenu.state == "InActive") {themenu.state = "Active"} else {themenu.state = "InActive"}}
                 onPressed: locflick.state = "Active"
                 onReleased: locflick.state = "InActive"
-                onClicked:switch(location_switch.loc) {
+                onClicked:if(selection != 1) {switch(location_switch.loc) {
                           case 0: currentcard = -1;location_switch.loc = 2;location_selected = "Region";cardslist.clear();listget = "region";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
                           //case 1: currentcard = -1;location_switch.loc = 2;location_selected = "Global";cardslist.clear();listget = "global";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
                           case 2: currentcard = -1;location_switch.loc = 0;location_selected = "Passers By";cardslist.clear();listget = "temp";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
+                          }
                           }
 
             }
@@ -656,12 +659,13 @@ ApplicationWindow {
                 anchors.left:mainMenu2.right
                 anchors.leftMargin: parent.width * 0.01
                 anchors.verticalCenter: parent.verticalCenter
+                onVisibleChanged: if(visibility == "false") {focus = false} else {focus = true}
 
                 text:searchtext
                 placeholderText: qsTr(currentcat+":Search")
 
                 onTextChanged: {cardslist.clear();
-                    if(pages == 0) {Scripts.Temp_load(searchtextfield.text,listget)} else {Scripts.Cards_load(searchtextfield.text,listget) }
+                    if(selection == 0) {Scripts.Temp_load(searchtextfield.text,listget)} else {Scripts.Cards_load(searchtextfield.text,listget) }
             }
             }
 
@@ -1114,7 +1118,7 @@ ApplicationWindow {
                         anchors.fill:parent
                         onPressed:reswap.state = "Active"
                         onReleased:reswap.state = "InActive"
-                        onClicked:grabit.state = "Active",popup.state = "InActive"
+                        onClicked:grabit.state = "Active",grabit.state = "InActive"
                     }
                 }
 

@@ -300,12 +300,12 @@ Item {
 
         }
 
-      /*  Twitch {
+       /* Twitch {
             state:if(custompage == 4) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page
-        }
+        } */
         YouTube {
             state:if(custompage == 5) {"Active"} else {"InActive"}
             anchors.fill:parent
@@ -318,6 +318,7 @@ Item {
             stats:thestats
 
         }
+        /*
         Jamendo {
             state:if(custompage == 6) {"Active"} else {"InActive"}
             anchors.fill:parent
@@ -336,7 +337,7 @@ Item {
             anchors.fill:parent
             pagesource:thesource
             service:page
-        }
+        } */
 
         Tumblr {
             state:if(custompage == 9) {"Active"} else {"InActive"}
@@ -344,7 +345,7 @@ Item {
             pagesource:thesource
             service:page
 
-        } */
+        }
 
         RSS {
             state:if(hasrss) {"Active"} else {"InActive"}
