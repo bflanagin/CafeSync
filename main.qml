@@ -1118,7 +1118,7 @@ ApplicationWindow {
                         anchors.fill:parent
                         onPressed:reswap.state = "Active"
                         onReleased:reswap.state = "InActive"
-                        onClicked:grabit.state = "Active",grabit.state = "InActive"
+                        onClicked:if(grabit.state == "InActive") {grabit.state = "Active"} else {grabit.state = "InActive"}
                     }
                 }
 

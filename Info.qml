@@ -32,11 +32,7 @@ Item {
                 visible:true
 
             }
-            PropertyChanges {
-                target: codeentry
-                focus: true
 
-            }
 
         },
         State {
@@ -45,11 +41,7 @@ Item {
               target: popup
               visible:false
           }
-          PropertyChanges {
-              target: codeentry
-              focus: false
 
-          }
         }
     ]
 
@@ -72,6 +64,8 @@ Item {
             anchors.centerIn: parent
             text:title
             font.pixelSize: parent.width* 0.1 - text.length
+            color:"white"
+
         }
 
         }
@@ -110,6 +104,7 @@ Item {
         Text {
             anchors.centerIn: parent
             text:title
+            color:"white"
             font.pixelSize: parent.width* 0.1 - text.length
         }
 
