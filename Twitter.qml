@@ -233,14 +233,14 @@ Item {
                  height:links.height * 0.08
                  Rectangle {
                      anchors.fill:parent
-                     color:"lightgray"
+                     color:highLightColor1
                      opacity:0.4
                  }
 
-                 Flasher {
+                 /*Flasher {
                      //anchors.fill:parent
                      id:wrflasher
-                 }
+                 } */
 
                /* Image {
                      source:"./img/message-sent.svg"
@@ -279,16 +279,22 @@ Item {
             Item {
                 width:links.width * 0.30
                  height:links.height * 0.08
-                 Flasher {
+              /*   Flasher {
                      //anchors.fill:parent
                      id:mediaflasher
-                 }
+                 } */
 
                /* Image {
                      source:"./img/message.svg"
                          width:parent.height * 0.80
                          height:parent.height * 0.80
                          anchors.verticalCenter: parent.verticalCenter */
+
+                 Rectangle {
+                     anchors.fill:parent
+                     color:highLightColor1
+                     opacity:0.4
+                 }
 
                  Text {
                         id:pav
@@ -322,14 +328,14 @@ Item {
 
                  Rectangle {
                      anchors.fill:parent
-                     color:"lightgray"
+                     color:highLightColor1
                      opacity:0.4
                  }
 
-                 Flasher {
+               /*  Flasher {
                      //anchors.fill:parent
                      id:followersflasher
-                 }
+                 } */
 
                 /*Image {
                      source:"./img/contact-group.svg"

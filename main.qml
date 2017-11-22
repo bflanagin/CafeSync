@@ -659,7 +659,7 @@ ApplicationWindow {
                 anchors.left:mainMenu2.right
                 anchors.leftMargin: parent.width * 0.01
                 anchors.verticalCenter: parent.verticalCenter
-                onVisibleChanged: if(visibility == "false") {focus = false} else {focus = true}
+
 
                 text:searchtext
                 placeholderText: qsTr(currentcat+":Search")
@@ -1176,8 +1176,8 @@ Setup {
        x:0
       // y:0
        //anchors.fill:parent
-       width:parent.width
-       height:parent.height
+       width:parent.width * 0.5
+       height:parent.height * 0.5
       // anchors.top:topBar.bottom
 
       // anchors.margins: 50
@@ -1209,8 +1209,8 @@ Setup {
                    //anchors.margins: 100
                  //  x: parent.width * 0.1
                   // y: parent.height * 0.1
-                   width: parent.width
-                   height: parent.height
+                   width: parent.width * 2
+                   height: parent.height *2
                   // radius: 6
                  //  border.width:1
                   // border.color:"black"
