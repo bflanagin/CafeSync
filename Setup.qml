@@ -1,11 +1,11 @@
 import QtQuick 2.2
-import QtQuick.Controls 1.3
 import QtQuick.Dialogs 1.2
 //import QtWebKit 3.0
 import QtWebView 1.0
 import QtQuick.Window 2.0
 import QtGraphicalEffects 1.0
-
+import QtQuick.Controls 2.2
+import QtQuick.Controls.Material 2.2
 import QtQuick.LocalStorage 2.0 as Sql
 import "main.js" as Scripts
 import "openseed.js" as OpenSeed
@@ -60,7 +60,8 @@ onStateChanged: if(settingsPage.state == "show") {topBar.state = "settings";list
 
 
  Rectangle {
-     color:"white"
+     color:backgroundColor
+    // color: "white"
      //y:listthing.height
      width:parent.width
      height:parent.height
@@ -70,7 +71,7 @@ onStateChanged: if(settingsPage.state == "show") {topBar.state = "settings";list
 
  Flickable {
      clip:true
-     contentHeight:parent.height * 2.0
+     contentHeight:parent.height * 2.5
     /* anchors {
          top: parent.top
          bottom:parent.bottom
@@ -93,21 +94,24 @@ onStateChanged: if(settingsPage.state == "show") {topBar.state = "settings";list
          } */
          width:parent.width
          height:parent.height
+         spacing:10
 
          //clip:true
-Item {
 
-     height:parent.height
+    Item {
+
+     height:parent.height * 0.1
      width:parent.width
 
      Image {
          id:cardsava
          width:parent.width * 0.35
          height: parent.width * 0.35
+         anchors.verticalCenter: parent.verticalCenter
          anchors.horizontalCenter: parent.horizontalCenter
-         anchors.margins: 4
+         //anchors.margins: 4
          visible: false
-         source: if(cardindex == 0) {avimg} else {avimg1}
+         source: if(cardindex == 0) {avimg}
 
      }
 
@@ -120,32 +124,62 @@ Item {
      }
 
      OpacityMask {
+         id:opmask
           anchors.fill: cardsava
           source: cardsava
           maskSource: mask
+
+
       }
+    DropShadow {
+            anchors.fill: opmask
+            horizontalOffset: 0
+            verticalOffset: 4
+            radius: 8.0
+            samples: 17
+            color: "#80000000"
+            source: opmask
+            z:1
+
+        }
+
 
 
 }
 
-Rectangle {
+Text {
+    text: qsTr("General Settings")
+    anchors.left:parent.left
+    font.pixelSize: 24
+    anchors.leftMargin: 8
+}
+
+Item {
+    width:parent.width
+    height:parent.height * 0.13
+
+ Rectangle {
     id:generalarea
     clip:true
-    y:cardsava.y + cardsava.height + 10
+   // y:cardsava.y + cardsava.height + 10
     anchors.horizontalCenter: parent.horizontalCenter
     width:parent.width * 0.98
-    height:parent.height * 0.13
+    height:parent.height
     color:"white"
-
+   Column {
+       y:20
+       width:parent.width
+       height:parent.height
+       spacing:25
 
     Text {
         id:onlineLabel
         text: qsTr("Send Card")
         font.pointSize: 12
-        anchors.top:parent.top
-        anchors.topMargin: 10
+      //  anchors.top:parent.top
+       // anchors.topMargin: 10
         anchors.right:parent.right
-        anchors.rightMargin: width * 0.5
+        anchors.rightMargin: width * 0.8
         horizontalAlignment: Text.AlignLeft
 
         CheckBox {
@@ -156,23 +190,34 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
             //objectName: "switch_checked"
 
-            checked: if(cardindex == 0) {if(stf == "true"){ return true } else {return false} } else { if(stf1 == "true"){ return true } else {return false} }
-            onCheckedChanged: if(cardindex == 0) {stf = sendCard.checked } else {stf1 = sendCard.checked}
-
+            checked: if(cardindex == 0) {if(stf == "true"){ return true } else {return false} }
+            onCheckedChanged: if(cardindex == 0) {stf = sendCard.checked }
         }
+
+
     }
+
+    Rectangle {
+        width: parent.width * 0.98
+        height:3
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        color:highLightColor1
+
+    }
+
 
   Text {
         id: nameLabel
-         width:companyLabel.width
-        anchors.top:onlineLabel.bottom
+       //  width:companyLabel.width
+       //anchors.top:onlineLabel.bottom
         anchors.left:parent.left
         //anchors.left:if(layouts.width > units.gu(mobile_vert)){ cardBacking.right} else {parent.left}
-        anchors.leftMargin: 3
+       // anchors.leftMargin: 3
         //anchors.top:if(layouts.width > units.gu(mobile_vert)){cardBacking.top} else {cardBacking.bottom}
        // anchors.topMargin:if(layouts.width > units.gu(mobile_vert)){return 0} else {units.gu(.5)}
        //anchors.top:cardBacking.bottom
-        anchors.topMargin: 15
+       // anchors.topMargin: 25
        //anchors.topMargin: 5
 
          text: qsTr("Name:")
@@ -182,18 +227,18 @@ Rectangle {
          id: userName
          anchors.left: parent.right
 
-         anchors.leftMargin: .5
+         anchors.leftMargin: 4
          anchors.bottom: parent.bottom
          //anchors.top: parent.top
-         text:if(cardindex == 0) {username } else {username1}
+         text:if(cardindex == 0) {username }
          //verticalAlignment: TextInput.AlignTop
 
          placeholderText: qsTr("User Name")
          font.pixelSize: 24
         // width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
-         width:generalarea.width * 0.75
+         width:(generalarea.width * 0.98) - nameLabel.width
          clip:true
-         onTextChanged: if(cardindex == 0) {username = userName.text} else {username1 = userName.text}
+         onTextChanged: if(cardindex == 0) {username = userName.text}
      }
  }
 
@@ -202,8 +247,8 @@ Rectangle {
       anchors.left:parent.left
 
     //  anchors.leftMargin: units.gu(.3)
-      anchors.top:nameLabel.bottom
-      anchors.topMargin: 25
+     // anchors.top:nameLabel.bottom
+     // anchors.topMargin: 25
 
       text: qsTr("Company:")
       font.pixelSize: 24
@@ -212,17 +257,17 @@ Rectangle {
          id: userCompany
 
          anchors.left: parent.right
-         anchors.leftMargin: .5
+         anchors.leftMargin: 4
          anchors.bottom: parent.bottom
          //anchors.top: parent.top
          placeholderText: qsTr("Company Name")
          font.pixelSize: 24
-         width:generalarea.width * 0.75
+         width:(generalarea.width * 0.98) - companyLabel.width
 
 
          //width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
-         text:if(cardindex == 0) {usercompany} else {usercompany1}
-         onTextChanged: if(cardindex == 0) {usercompany = userCompany.text} else {usercompany1 = userCompany.text}
+         text:if(cardindex == 0) {usercompany}
+         onTextChanged: if(cardindex == 0) {usercompany = userCompany.text}
      }
 }
 
@@ -231,12 +276,12 @@ Rectangle {
       id: aliasLabel
 
 
-      anchors.left:companyLabel.left
+    //  anchors.left:companyLabel.left
     //  anchors.leftMargin: units.gu(.3)
       //anchors.bottom:avatarBacking.bottom
-      anchors.top:companyLabel.bottom
-      anchors.topMargin: 25
-      width:companyLabel.width
+     // anchors.top:companyLabel.bottom
+     // anchors.topMargin: 25
+      //width:companyLabel.width
       text: qsTr("Position:")
       font.pixelSize: 24
 
@@ -246,21 +291,25 @@ Rectangle {
          anchors.topMargin: 0
 
          anchors.left: parent.right
-         anchors.leftMargin: .5
+         anchors.leftMargin: 4
          anchors.bottom: parent.bottom
          //anchors.top: parent.top
          placeholderText: qsTr("Job Title")
          font.pixelSize: 24
-         width:generalarea.width * 0.75
+         width:(generalarea.width* 0.98) - aliasLabel.width
          //width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
-         text:if(cardindex == 0) {useralias} else {useralias1}
-         onTextChanged: if(cardindex == 0) {useralias = userAlias.text} else {useralias1 = userAlias.text}
+         text:if(cardindex == 0) {useralias}
+         onTextChanged: if(cardindex == 0) {useralias = userAlias.text}
      }
-}
+
 
 }
 
-DropShadow {
+   }
+
+}
+
+ DropShadow {
 
     anchors.fill: generalarea
     horizontalOffset: 0
@@ -275,17 +324,38 @@ DropShadow {
 
 }
 
-Rectangle {
+     }
+
+Text {
+    text: qsTr("Contact")
+    anchors.left:parent.left
+
+    anchors.leftMargin: 8
+    font.pixelSize: 24
+
+}
+
+Item {
+    width:parent.width
+    height:parent.height * 0.1
+
+
+ Rectangle {
     id:contactarea
     clip:true
    // y:cardsava.y + cardsava.height + 10
-    anchors.top:generalarea.bottom
-    anchors.topMargin:20
+  //  anchors.top:generalarea.bottom
+   //  anchors.topMargin:20
     width:parent.width * 0.98
-    height:parent.height * 0.1
+    height:parent.height
     color:"white"
     anchors.horizontalCenter: parent.horizontalCenter
 
+    Column {
+        y:20
+        width:parent.width
+        height:parent.height
+        spacing: 25
 
     Text {
         id:contactLabel
@@ -293,10 +363,10 @@ Rectangle {
         font.pointSize: 12
         //font.bold: true
         horizontalAlignment: Text.AlignLeft
-        anchors.top:parent.top
-        anchors.topMargin: 10
+       // anchors.top:parent.top
+       // anchors.topMargin: 10
         anchors.right:parent.right
-        anchors.rightMargin: width / 3
+        anchors.rightMargin:  width * 0.5
 
         CheckBox {
            id:sendContact
@@ -306,9 +376,19 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
             objectName: "switch_checked"
 
-            checked: if(cardindex == 0) { if(ctf == "true"){ return true } else { return false} } else { if(ctf1 == "true"){ return true } else { return false} }
-            onCheckedChanged: if(cardindex == 0) {ctf = sendContact.checked } else {ctf1 = sendContact.checked}
+            checked: if(cardindex == 0) { if(ctf == "true"){ return true } else { return false} }
+            onCheckedChanged: if(cardindex == 0) {ctf = sendContact.checked }
         }
+    }
+
+
+    Rectangle {
+        width: parent.width * 0.98
+        height:3
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        color:highLightColor1
+
     }
 
 
@@ -319,8 +399,8 @@ Rectangle {
 
       anchors.left:parent.left
      // anchors.leftMargin: units.gu(.3)
-      anchors.top:contactLabel.bottom
-      anchors.topMargin: 25
+      //anchors.top:contactLabel.bottom
+    //  anchors.topMargin: 25
       text: qsTr("Phone:")
       font.pixelSize: 24
 
@@ -328,17 +408,16 @@ Rectangle {
          id: userPhone
 
          anchors.left: parent.right
-         anchors.leftMargin: .5
+         anchors.leftMargin: 4
          anchors.bottom: parent.bottom
          //anchors.top: parent.top
          placeholderText: qsTr("0 555-555-5555")
          font.pixelSize: 24
-         width:contactarea.width * 0.80
-
+         width:(contactarea.width * 0.98) - phoneLabel.width
         // width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
          inputMethodHints: Qt.ImhDialableCharactersOnly
-         text:if(cardindex == 0) {userphone} else {userphone1}
-          onTextChanged: if(cardindex == 0) {userphone = userPhone.text} else {userphone1 = userPhone.text}
+         text:if(cardindex == 0) {userphone}
+          onTextChanged: if(cardindex == 0) {userphone = userPhone.text}
      }
   }
 
@@ -348,9 +427,9 @@ Rectangle {
 
       anchors.left:phoneLabel.left
      // anchors.leftMargin: units.gu(.3)
-      anchors.top:phoneLabel.bottom
-      anchors.topMargin: 25
-      width:phoneLabel.width
+     // anchors.top:phoneLabel.bottom
+     // anchors.topMargin: 25
+      //width:phoneLabel.width
 
       text: qsTr("Email:")
       font.pixelSize: 24
@@ -363,17 +442,20 @@ Rectangle {
          //anchors.top: parent.top
          placeholderText: qsTr("johndoe@example.com")
          font.pixelSize: 24
-         width:contactarea.width * 0.80
+         width:(contactarea.width * 0.98) -emailLabel.width
 
        //  width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
          text:if(cardindex == 0) {useremail} else {useremail1}
-         onTextChanged: if(cardindex == 0) {useremail = userEmail.text} else {useremail1 = userEmail.text}
+         onTextChanged: if(cardindex == 0) {useremail = userEmail.text}
      }
 
   }
 
+    }
+
 
 }
+
 
 DropShadow {
 
@@ -391,31 +473,37 @@ DropShadow {
 }
 
 
-
+}
 
 Text {
  id: profileSettingLabel
  //x: units.gu(1)
 // y: 208
  anchors.left:parent.left
- anchors.leftMargin: 2
- anchors.top:contactarea.bottom//avatarBacking.bottom
- anchors.topMargin: 10
+ anchors.leftMargin: 8
+ //anchors.top:contactarea.bottom//avatarBacking.bottom
+ //anchors.topMargin: 10
  text: qsTr("Info")
  style: Text.Normal
  font.pixelSize: 24
 }
 
-Rectangle {
+Item {
+    width:parent.width
+    height: plinklist.y + plinklist.height + 40
+
+ Rectangle {
  id: rectangle1
 
 
  anchors.left:parent.left
  anchors.leftMargin:1
- anchors.top:profileSettingLabel.bottom
- anchors.topMargin:1
+// anchors.top:profileSettingLabel.bottom
+ // anchors.topMargin:1
 
- height: pageColumn.height / 4
+ //height: pageColumn.height / 4
+
+ height:parent.height
  anchors.right:parent.right
  anchors.rightMargin:1
 
@@ -440,7 +528,7 @@ Rectangle {
           anchors.rightMargin:10
 
           //clip: true
-          spacing: parent.width * 0.04
+          spacing: 30
 
 
           Text {
@@ -448,33 +536,54 @@ Rectangle {
               text:"Category: "
 
              Rectangle {
-                 width:if(cardindex == 0) {10*usercat.length + catText.width} else {10*usercat1.length + catText.width}
+                    id:catbutton
+                 width:if(cardindex == 0) {10*usercat.length + catText.width}
                  height:parent.height * 1.1
+
                  anchors.left:parent.right
                  anchors.verticalCenter: parent.verticalCenter
                  //border.color:"black"
-                // radius: 3
+                 radius: 3
+                 color:highLightColor1
                  clip:true
+
               Text {
                      id:catText
                   //anchors.left:parent.right
                      anchors.centerIn: parent
                   font.pixelSize:24
                  // anchors.verticalCenter: parent.verticalCenter
-                  text:if(cardindex == 0) { if(usercat.length < 2) {qsTr("Select Category")} else {usercat}} else {if(usercat1.length < 2) {qsTr("Select Category")} else {usercat1}}
+                  text:if(cardindex == 0) { if(usercat.length < 2) {qsTr("Select Category")} else {usercat}}
                  }
                   MouseArea {
                       anchors.fill:parent
                       onClicked: catmenu.state = "Active"
                   }
               }
+
+             DropShadow {
+
+                 anchors.fill: catbutton
+                 horizontalOffset: 0
+                 verticalOffset: 3
+                 radius: 8.0
+                 samples: 17
+                 color: "#80000000"
+                 source: catbutton
+                 z:1
+
+
+
+             }
+
+
           }
 
           Rectangle {
               //anchors.top:row0.bottom
               width:parent.width
               height:3
-              color:"gray"
+              color:highLightColor1
 
 
           }
@@ -482,7 +591,7 @@ Rectangle {
 
           Text {
            id:mainadvert
-           text: qsTr("URL:")
+           text: qsTr("URL: ")
            font.pixelSize: 18
            TextField {
               id: userMain
@@ -491,15 +600,15 @@ Rectangle {
               anchors.verticalCenter: parent.verticalCenter
 
               anchors.left: parent.right
-              anchors.leftMargin: parent.width * 0.04
+              anchors.leftMargin: parent.width * 0.06
              // anchors.bottom: parent.bottom
              // anchors.top: parent.top
               placeholderText: qsTr("Main Site for Advertising")
               //font.pixelSize: units.gu(2.4)
               //width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
               width:(rectangle1.width - parent.width) * 0.90
-              text:if(cardindex == 0) {usermain} else {usermain1}
-              onTextChanged: if(cardindex == 0) {usermain = userMain.text} else {usermain1 = userMain.text}
+              text:if(cardindex == 0) {usermain}
+              onTextChanged: if(cardindex == 0) {usermain = userMain.text}
           }
           }
 
@@ -515,12 +624,13 @@ Rectangle {
               TextArea {
                   anchors.top:parent.bottom
                   anchors.topMargin: .6
-
+                  wrapMode: Text.WordWrap
                   id:personalMotto
                   width:pmottoRow.width
                   height:pmottoRow.height - 3
-                  text:if(cardindex == 0) {usermotto} else {usermotto1}
-                  onTextChanged: if(cardindex == 0) {usermotto = personalMotto.text} else {usermotto1 = personalMotto.text}
+                  text:if(cardindex == 0) {usermotto}
+                  onTextChanged: if(cardindex == 0) {usermotto = personalMotto.text}
+                  clip:true
                  }
               }
           }
@@ -533,7 +643,7 @@ Rectangle {
           //anchors.top:pmottoRow.bottom
           width:parent.width
           //height:parent.height
-          spacing: 15
+          spacing: 30
 
 
 
@@ -542,8 +652,7 @@ Rectangle {
               id:websiteLabel
 
               text: "Twitter:"
-              font.pixelSize:parent.width * 0.04
-
+              font.pixelSize:25
                TextField {
                    id:websiteVar
 
@@ -551,12 +660,12 @@ Rectangle {
                    anchors.leftMargin: .5
                    anchors.verticalCenter: parent.verticalCenter
 
-                   width:rectangle1.width - websiteLabel.width - 100
+                   width:plinklist.width - websiteLabel.width
 
-                   placeholderText: qsTr("www.example.com")
+                   placeholderText: qsTr("www.twitter.com/username")
                    //font.pixelSize: parent.height
                    text:if(cardindex == 0) {website1} else {website11}
-                   onTextChanged: if(cardindex == 0) {website1 = websiteVar.text} else {website11 = websiteVar.text}
+                   onTextChanged: if(cardindex == 0) {website1 = websiteVar.text}
 
                }
 
@@ -567,7 +676,7 @@ Rectangle {
               id:websiteLabel1
 
               text: "Tumblr:"
-              font.pixelSize:parent.width * 0.04
+              font.pixelSize:25
                TextField {
                    id:websiteVar1
 
@@ -575,22 +684,22 @@ Rectangle {
                    anchors.leftMargin: .5
                    anchors.verticalCenter: parent.verticalCenter
 
-                   width:rectangle1.width - websiteLabel.width - 100
+                   width:plinklist.width - websiteLabel1.width
 
                    placeholderText: qsTr("www.example.com")
                    //font.pixelSize: parent.height
                    text:if(cardindex == 0) {website2} else {website21}
-                   onTextChanged: if(cardindex == 0) {website2 = websiteVar1.text} else {website21 = websiteVar1.text}
+                   onTextChanged: if(cardindex == 0) {website2 = websiteVar1.text}
 
                }
 
            }
 
-              Text {
+            /*  Text {
               id:websiteLabel2
 
               text: "SoundCloud:"
-              font.pixelSize:parent.width * 0.04
+              font.pixelSize:25
 
                TextField {
                    id:websiteVar2
@@ -599,20 +708,20 @@ Rectangle {
                    anchors.leftMargin: .5
                    anchors.verticalCenter: parent.verticalCenter
 
-                   width:rectangle1.width - websiteLabel.width - 100
+                   width:plinklist.width - websiteLabel2.width
 
                    placeholderText: qsTr("www.example.com")
                    //font.pixelSize: parent.height
                    text:if(cardindex == 0) {website3} else {website31}
-                   onTextChanged: if(cardindex == 0) {website3 = websiteVar2.text} else {website31 = websiteVar2.text}
+                   onTextChanged: if(cardindex == 0) {website3 = websiteVar2.text}
                }
 
-           }
+           } */
               Text {
               id:websiteLabel3
 
-              text: "Patreon:"
-              font.pixelSize:parent.width * 0.04
+              text: "YouTube:"
+              font.pixelSize:25
 
                TextField {
                    id:websiteVar3
@@ -621,12 +730,12 @@ Rectangle {
                    anchors.leftMargin: .5
                    anchors.verticalCenter: parent.verticalCenter
 
-                   width:rectangle1.width - websiteLabel.width - 100
+                   width:plinklist.width - websiteLabel3.width
 
                    placeholderText: qsTr("www.example.com")
                    //font.pixelSize: parent.height
                    text:if(cardindex == 0) {website4} else {website41}
-                   onTextChanged: if(cardindex == 0) {website4 = websiteVar3.text} else {website41 = websiteVar3.text}
+                   onTextChanged: if(cardindex == 0) {website4 = websiteVar3.text}
 
                }
 
@@ -636,7 +745,9 @@ Rectangle {
       }
 }
 
-DropShadow {
+
+
+ DropShadow {
 
     anchors.fill: rectangle1
     horizontalOffset: 0
@@ -651,27 +762,34 @@ DropShadow {
 
 }
 
-
+}
 
 
  Text {
      anchors.left:parent.left
      anchors.leftMargin: 8
-     anchors.top:rectangle1.bottom
-     anchors.topMargin:8
+    // anchors.top:rectangle1.bottom
+    // anchors.topMargin:8
      text: qsTr("Misc.")
+     font.pixelSize: 24
      id:misc_title
  }
 
- Rectangle {
+ Item {
+     width:parent.width
+     height:parent.height / 12
+
+
+  Rectangle {
+     id:miscborder
      anchors.horizontalCenter: parent.horizontalCenter
-     anchors.top:misc_title.bottom
-     anchors.topMargin:8
+    // anchors.top:misc_title.bottom
+   //  anchors.topMargin:8
      width:parent.width * 0.99
-     height: parent.height / 12
-     radius:6
-     border.width:1
-     border.color:"black"
+     height: parent.height
+     //radius:6
+     //border.width:1
+    // border.color:"black"
 
  Column {
      anchors.fill:parent
@@ -685,9 +803,6 @@ DropShadow {
              anchors.verticalCenter: parent.verticalCenter
              text: "About"
              font.pixelSize: parent.height * 0.4
-         }
-         Flasher {
-             id:aboutflash
          }
 
          MouseArea {
@@ -708,9 +823,6 @@ DropShadow {
              text: "Credits"
              font.pixelSize: parent.height * 0.4
          }
-         Flasher {
-             id:creditsflash
-         }
 
          MouseArea {
              anchors.fill: parent
@@ -729,9 +841,7 @@ DropShadow {
              text: "Contribute"
              font.pixelSize: parent.height * 0.4
          }
-         Flasher {
-             id:conflash
-         }
+
 
          MouseArea {
              anchors.fill: parent
@@ -746,14 +856,35 @@ DropShadow {
 
  }
 
+
+  DropShadow {
+
+     anchors.fill: miscborder
+     horizontalOffset: 0
+     verticalOffset: 3
+     radius: 8.0
+     samples: 17
+     color: "#80000000"
+     source: miscborder
+     z:1
+
+
+
+ }
+
+ }
+
      }
     }
 
 
  Menus {
      id:catmenu
-     anchors.centerIn: parent
-
+     //anchors.centerIn: parent
+     x:0
+     width:parent.width
+    // y:topBar.height
+     height:parent.height - topBar.height
      state:"InActive"
      title:"Category Select"
 
@@ -762,12 +893,12 @@ DropShadow {
 
  SlideShow {
      id:aboutscreen
-
-     width: parent.width * 0.90
-     height: parent.height * 0.75
+     y:0
+     width: parent.width
+     height: parent.height
      state:"InActive"
      maintitle:"About"
-     anchors.centerIn: parent
+     //anchors.top: parent.top
 
 
  }

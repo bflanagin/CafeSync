@@ -3,6 +3,7 @@ import QtQuick.Window 2.2
 //import QtQuick.Controls 1.3
 //import QtQuick.Controls.Styles 1.3
 //import Ubuntu.Components 1.2
+import QtQuick.Controls.Material 2.0
 
 import "main.js" as Scripts
 
@@ -11,7 +12,7 @@ Rectangle {
     id:popup
     property string number: "0"
     property string list:""
-    radius: 5
+    radius: width / 2
 
     //clip: true
 
@@ -33,7 +34,11 @@ Rectangle {
           PropertyChanges {
               target: popup
               //z: -2
-              visible:false
+              visible:true
+              //color: Qt.rgba(0.5,0.5,0.5,0.5)
+              color:highLightColor1
+                z:-1
+                opacity: 0.8
           }
         },
         State {
@@ -43,11 +48,14 @@ Rectangle {
               //z: -2
               visible:true
               color:Qt.rgba(1.0,0.0,0.0,0.5)
+              z:-1
           }
         }
     ]
 
-    anchors.fill:parent
+    anchors.centerIn: parent
+    width:parent.width * 1.2
+    height:parent.height * 1.2
 
 
 }

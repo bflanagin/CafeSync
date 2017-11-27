@@ -17,6 +17,10 @@ import "webpage.js" as WebPage
 
 import "youtube.js" as YouTube
 
+
+
+
+
 Item {
     id:webthing
 
@@ -25,7 +29,7 @@ Item {
     property string page: webpage
     property int custompage: 0
     property string thesource:""
-    property string mycard: thecard
+    property string mycard: cardId
     property string thebanner:""
     property string theavatar:""
     property string thename:""
@@ -270,7 +274,7 @@ Item {
         height:parent.height
 
 
-        FaceBook {
+      /*  FaceBook {
             state:if(custompage == 1) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
@@ -287,7 +291,7 @@ Item {
 
 
 
-        }
+        } */
         Twitter {
             state:if(custompage == 3) {"Active"} else {"InActive"}
             anchors.fill:parent
@@ -296,12 +300,12 @@ Item {
 
         }
 
-        Twitch {
+       /* Twitch {
             state:if(custompage == 4) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page
-        }
+        } */
         YouTube {
             state:if(custompage == 5) {"Active"} else {"InActive"}
             anchors.fill:parent
@@ -314,6 +318,7 @@ Item {
             stats:thestats
 
         }
+        /*
         Jamendo {
             state:if(custompage == 6) {"Active"} else {"InActive"}
             anchors.fill:parent
@@ -332,7 +337,7 @@ Item {
             anchors.fill:parent
             pagesource:thesource
             service:page
-        }
+        } */
 
         Tumblr {
             state:if(custompage == 9) {"Active"} else {"InActive"}
@@ -357,7 +362,7 @@ Item {
             link:thelink
         }
 
-        Etsy {
+      /*  Etsy {
             state:if(custompage == 10) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
@@ -378,7 +383,7 @@ Item {
             anchors.fill:parent
             pagesource:thesource
             service:page
-        }
+        } */
 
     URL {
         state:if(custompage == 0 && hasrss == 0) {"Active"} else {"InActive"}

@@ -49,10 +49,10 @@ Item {
  Rectangle {
   width:parent.width
   height:parent.height
-  color:"white"
+  color:backgroundColor
   //radius:8
-  border.color:"black"
-  border.width:1
+ // border.color:"black"
+ // border.width:1
 
   MouseArea {
       anchors.fill:parent
@@ -90,7 +90,7 @@ Item {
                             name:"InActive"
                             PropertyChanges {
                                 target:bg
-                                color:"white"
+                                color:highLightColor1
                             }
                         }
                     ]
@@ -103,10 +103,10 @@ Item {
                         id:bg
                         width:parent.width
                         height:parent.height
-                        color:"white"
-                        //border.color:"black"
-                        //border.width:1
-                        radius: 3
+                        color:highLightColor1
+                        border.color:barColor
+                        border.width:2
+                        radius: 10
 
 
                         Text {
@@ -114,9 +114,8 @@ Item {
                                 anchors.verticalCenter: parent.verticalCenter
                                 font.pixelSize: parent.width * 0.1 - text.length * 1.2
                                text: if(title != "Category") {switch(menuitem) {
-                                     case "0": qsTr("Contacts");break;
-                                     case "1": if(usercompany.length > 2) {usercompany} else {if(username.length >2) {username} else {qsTr("Card 1 not configured")}};break;
-
+                                     case "0": if(selection == 0) {qsTr("Contacts")} else {qsTr("Passers By")};break;
+                                    case "1": qsTr("Your Card");break;
                                      case "3": qsTr("Settings");break;
 
                                      default:menuitem;break;
@@ -140,7 +139,23 @@ Item {
             MouseArea {
                 anchors.fill:parent
                 onClicked:switch(menuitem) {
-                          case "0": settingsPage.state = "hide",cardPage.state = "show",cardPage.state = "default";popup.state = "InActive";saveded.state = "unselected";passby.state = "selected";selection=0;pages = 1,cardslist.clear(),currentcard = -1,pages = 1,cardslist.clear(),Scripts.Cards_load(searchtext);break;
+                          case "0": {settingsPage.state = "hide",
+                                     cardPage.state = "show",
+                                     cardPage.state = "default";
+                                     popup.state = "InActive";
+                                     saveded.state = "unselected";
+                                     passby.state = "selected";
+                                     pages = 1,cardslist.clear(),currentcard = -1
+                             ,mainMenu.rotation=0;
+                              if(selection == 0) {
+                              selection = 1;
+                                  Scripts.Cards_load(searchtext);
+                               } else {
+                                  selection = 0;
+                                  Scripts.Temp_load(searchtext,"temp");
+                              }
+
+                          }break;
                           case "3":settingsPage.state = "show",cardPage.state = "settings";popup.state = "InActive";saveded.state = "unselected";passby.state = "selected";cardindex = 0;break;
                           case "1":settingsPage.state = "hide",cardPage.state = "show",cardPage.state = "default";currentcard = -1;cardindex = 0;
                                             pagelist.clear();Scripts.Show_sites("local",userid);mainScreen.state = "Active";popup.state = "InActive";
@@ -149,13 +164,6 @@ Item {
                                             //}
                                              mainScreen.state = "Active",topBar.state = "person"
                                             break;
-                        /*  case "2":settingsPage.state = "hide",cardPage.state = "show",cardPage.state = "default";currentcard = -1;cardindex = 0;
-                                            pagelist.clear();Scripts.Show_sites("local",userid1);mainScreen.state = "Active";popup.state = "InActive";
-                                            //if(layouts.width < units.gu(mobile_vert)) {
-                                               // if(infotab.state == "Available" || infotab.state == "Active") {mainScreen.state = "Active",infotab.state = "InActive",cardPage.header.hide()} else {mainScreen.state = "InActive",infotab.state = "Active",cardPage.header.show()}
-                                            //}
-                                             mainScreen.state = "Active",infotab.state = "InActive"
-                                            break; */
 
                           default:if(title == "Category") {currentcat = menuitem;
                                                                     cardslist.clear();
@@ -184,9 +192,7 @@ Item {
                                             menuitem: "1"
                                     }
 
-                                  /*  ListElement {
-                                            menuitem: "2"
-                                    } */
+
                                     ListElement {
                                             menuitem: "3"
                                     }

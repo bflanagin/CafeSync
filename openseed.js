@@ -3,8 +3,8 @@
 function oseed_auth(name,email) {
 
     var http = new XMLHttpRequest();
-    //var url = "https://openseed.vagueentertainment.com/corescripts/auth.php?devid=" + devId + "&appid=" + appId + "&username="+ name + "&email=" + email ;
-    var url = "https://openseed.vagueentertainment.com/corescripts/authPOST.php";
+    //var url = "http://104.236.15.191:8675/corescripts/auth.php?devid=" + devId + "&appid=" + appId + "&username="+ name + "&email=" + email ;
+    var url = "http://104.236.15.191:8675/corescripts/authPOST.php";
    // console.log(url)
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
@@ -34,7 +34,7 @@ function oseed_auth(name,email) {
 function heartbeat() {
 
     var http = new XMLHttpRequest();
-    var url = "https://openseed.vagueentertainment.com/corescripts/heartbeat.php";
+    var url = "http://104.236.15.191:8675/corescripts/heartbeat.php";
    // console.log(url)
 
     http.onreadystatechange = function() {
@@ -77,8 +77,8 @@ function heartbeat() {
 function checkcreds(name,email) {
 
     var http = new XMLHttpRequest();
-    //var url = "https://openseed.vagueentertainment.com/corescripts/auth.php?devid=" + devId + "&appid=" + appId + "&username="+ name + "&email=" + email ;
-    var url = "https://openseed.vagueentertainment.com/corescripts/authCHECK.php";
+    //var url = "http://104.236.15.191:8675/corescripts/auth.php?devid=" + devId + "&appid=" + appId + "&username="+ name + "&email=" + email ;
+    var url = "http://104.236.15.191:8675/corescripts/authCHECK.php";
     console.log("sending "+name+" , "+email);
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
@@ -91,7 +91,7 @@ function checkcreds(name,email) {
             } else {
                 console.log(http.responseText);
                 //id = http.responseText;
-                uniquename = http.responseText;
+                uniquename = http.responseText.toString();
 
             }
 
@@ -111,7 +111,7 @@ function checkcreds(name,email) {
 function datasync (id,cnum) {
         console.log("datasync:" + id);
     var http = new XMLHttpRequest();
-    var url = "https://openseed.vagueentertainment.com/devs/" + devId + "/" + appId + "/scripts/sync.php?id=" + id;
+    var url = "http://104.236.15.191:8675/devs/" + devId + "/" + appId + "/scripts/sync.php?id=" + id;
     var carddata = "";
 
     console.log(url);
@@ -182,29 +182,7 @@ if (cid.length > 4) {
         stf= torf(send);
         atf= torf(usealias);
         ctf= torf(contact);
-} else {
-
-
-        username1 = name.replace(/&#x27;/g,"'");
-        userphone1 = phone
-        useremail1 = email;
-        usercompany1 = company.replace(/&#x27;/g,"'");
-        usercat1 = cardcat;
-        useralias1 = alias;
-        usermotto1 = motto.replace(/&#x27;/g,"'");
-
-        usermain1 = main;
-        website11 = link1;
-        website21 = link2;
-        website31 = link3;
-        website41 = link4;
-        avimg1 = avatar;
-        carddesign1 = cardbk;
-
-        stf1= torf(send);
-        atf1= torf(usealias);
-        ctf1= torf(contact);
-    }
+}
 
              }
 
@@ -227,10 +205,10 @@ function upload_data(Id,name,phone,email,company,ali,motto,send,ua,sc,main,l1,l2
 
     //motto = motto.replace(/\'/g,"&#x27;");
     var http = new XMLHttpRequest();
-   /* var url = "https://openseed.vagueentertainment.com/devs/" + devId + "/" + appId + "/scripts/addcard.php?id=" + Id + "&name=" + name + "&phone="+ phone + "&email=" + email +
+   /* var url = "http://104.236.15.191:8675/devs/" + devId + "/" + appId + "/scripts/addcard.php?id=" + Id + "&name=" + name + "&phone="+ phone + "&email=" + email +
                 "&company=" + company + "&alias=" + ali + "&motto=" + motto + "&send=" + send + "&ua=" + ua + "&sc=" + sc +"&main=" + main + "&l1=" + l1 + "&l2=" + l2 + "&l3=" + l3
                 + "&l4=" + l4 + "&avatar=" + av + "&cardback=" + cardback + "&cardcat=" + cardcat +"&cardsav=" + cardsav + "&cardtem="+cardtem+"&cardsop="+ cardsop; */
-    var url = "https://openseed.vagueentertainment.com/devs/" + devId + "/" + appId + "/scripts/addcardPOST.php";
+    var url = "http://104.236.15.191:8675/devs/" + devId + "/" + appId + "/scripts/addcardPOST.php";
 
     console.log(send,ua,sc);
 
@@ -268,7 +246,7 @@ function retrieve_data(id) {
 
 
     var http = new XMLHttpRequest();
-    var url = "https://openseed.vagueentertainment.com/devs/" + devId + "/" + appId + "/scripts/updateloc.php";
+    var url = "http://104.236.15.191:8675/devs/" + devId + "/" + appId + "/scripts/updateloc.php";
 
 
     var carddata = "";
@@ -355,10 +333,10 @@ function sync_cards(id,opt) {
                 //console.log("Syncing Saved Remote Cards");
             if(opt == 2) {
 
-                url = "https://openseed.vagueentertainment.com/devs/" + devId + "/" + appId + "/scripts/updatecards.php?id=" + id+"&cardsav="+cardsyncsaved+"&cardtem="+cardsynctemp;
+                url = "http://104.236.15.191:8675/devs/" + devId + "/" + appId + "/scripts/updatecards.php?id=" + id+"&cardsav="+cardsyncsaved+"&cardtem="+cardsynctemp;
             } else {
 
-                url = "https://openseed.vagueentertainment.com/devs/" + devId + "/" + appId + "/scripts/updatecards.php?id=" + id+"&cardsav="+cardsyncsaved;
+                url = "http://104.236.15.191:8675/devs/" + devId + "/" + appId + "/scripts/updatecards.php?id=" + id+"&cardsav="+cardsyncsaved;
             }
                 //console.log("Uploading list:"+cardsyncsaved);
 
@@ -401,7 +379,7 @@ function sync_cards(id,opt) {
 
         if (opt == 3) {
 
-                url = "https://openseed.vagueentertainment.com/devs/" + devId + "/" + appId + "/scripts/updatecards.php?id=" + id+"&cardsav="+cardsyncsaved;
+                url = "http://104.236.15.191:8675/devs/" + devId + "/" + appId + "/scripts/updatecards.php?id=" + id+"&cardsav="+cardsyncsaved;
 
                 //console.log("Uploading list:"+cardsyncsaved);
 
@@ -446,7 +424,7 @@ function get_list(id,list) {
 
     switch(list) {
     case "saved":
-        url = "https://openseed.vagueentertainment.com/devs/" + devId + "/" + appId + "/scripts/getlists.php?id=" + id+"&list="+list;
+        url = "http://104.236.15.191:8675/devs/" + devId + "/" + appId + "/scripts/getlists.php?id=" + id+"&list="+list;
         carddata = "";
         //console.log(url);
         http.onreadystatechange = function() {
@@ -476,7 +454,7 @@ function get_list(id,list) {
 
 
     case "temp":
-        url = "https://openseed.vagueentertainment.com/devs/" + devId + "/" + appId + "/scripts/getlists.php?id=" + id+"&list="+list;
+        url = "http://104.236.15.191:8675/devs/" + devId + "/" + appId + "/scripts/getlists.php?id=" + id+"&list="+list;
         carddata = "";
         //console.log(url);
         http.onreadystatechange = function() {
@@ -516,7 +494,7 @@ function get_list(id,list) {
 
 
     case "region":
-        url = "https://openseed.vagueentertainment.com/devs/" + devId + "/" + appId + "/scripts/getlists.php?id=" + id+"&list="+list;
+        url = "http://104.236.15.191:8675/devs/" + devId + "/" + appId + "/scripts/getlists.php?id=" + id+"&list="+list;
         carddata = "";
 
         http.onreadystatechange = function() {
@@ -557,7 +535,7 @@ function get_list(id,list) {
         break;
 
     case "global":
-        url = "https://openseed.vagueentertainment.com/devs/" + devId + "/" + appId + "/scripts/getlists.php?id=" + id+"&list="+list;
+        url = "http://104.236.15.191:8675/devs/" + devId + "/" + appId + "/scripts/getlists.php?id=" + id+"&list="+list;
         carddata = "";
         console.debug(url);
         http.onreadystatechange = function() {
@@ -608,7 +586,7 @@ function update_card(id,list) {
   //  console.log("getting card "+id);
 
     var http = new XMLHttpRequest();
-    var url = "https://openseed.vagueentertainment.com/devs/" + devId + "/" + appId + "/scripts/updatecard.php?id=" + userid+"&cid="+id;
+    var url = "http://104.236.15.191:8675/devs/" + devId + "/" + appId + "/scripts/updatecard.php?id=" + userid+"&cid="+id;
     //console.log(url);
 
     var carddata = "";
@@ -727,7 +705,7 @@ function remote_delete(id,list,cid) {
 
     switch(list) {
     case "saved":
-        url = "https://openseed.vagueentertainment.com/devs/" + devId + "/" + appId + "/scripts/deleteref.php?id=" + id+"&list="+list+"&cid="+cid;
+        url = "http://104.236.15.191:8675/devs/" + devId + "/" + appId + "/scripts/deleteref.php?id=" + id+"&list="+list+"&cid="+cid;
         carddata = "";
         //console.log("removing from server saved");
        //console.log(url);
@@ -758,7 +736,7 @@ function remote_delete(id,list,cid) {
 
 
     case "temp":
-        url = "https://openseed.vagueentertainment.com/devs/" + devId + "/" + appId + "/scripts/deleteref.php?id=" + id+"&list="+list+"&cid="+cid;
+        url = "http://104.236.15.191:8675/devs/" + devId + "/" + appId + "/scripts/deleteref.php?id=" + id+"&list="+list+"&cid="+cid;
         carddata = "";
         //console.log(url);
         //console.log("removing from server temp");
@@ -805,7 +783,7 @@ function website_snap(id,url,sitenum) {
     var url;
      var carddata = "";
 
-    url = "https://openseed.vagueentertainment.com/devs/" + devId + "/" + appId + "/scripts/snaps.php?id="+id+"&url="+url+"&sitenum="+sitenum;
+    url = "http://104.236.15.191:8675/devs/" + devId + "/" + appId + "/scripts/snaps.php?id="+id+"&url="+url+"&sitenum="+sitenum;
     //carddata = "";
     //console.log(url);
 
@@ -838,7 +816,7 @@ function onetime(id,action) {
      var carddata = "";
     var url = "";
     if (action < 3) {
-     url = "https://openseed.vagueentertainment.com/corescripts/onetime.php?devid=" + devId + "&appid=" + appId + "&cardid="+ id+"&create="+action;
+     url = "http://104.236.15.191:8675/corescripts/onetime.php?devid=" + devId + "&appid=" + appId + "&cardid="+ id+"&create="+action;
     //carddata = "";
     //console.log(url);
 
@@ -864,7 +842,7 @@ function onetime(id,action) {
     http.open('GET', url.trim(), true);
     http.send(null);
 } else {
-        url = "https://openseed.vagueentertainment.com/corescripts/onetime.php?devid=" + devId + "&appid=" + appId + "&cardid="+ id+"&create="+action;
+        url = "http://104.236.15.191:8675/corescripts/onetime.php?devid=" + devId + "&appid=" + appId + "&cardid="+ id+"&create="+action;
        //carddata = "";
        //console.log(url);
 

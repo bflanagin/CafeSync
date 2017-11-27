@@ -41,9 +41,9 @@ Item {
     Rectangle {
         anchors.fill:parent
         color:"white"
-        radius:6
-        border.width:1
-        border.color:"black"
+        //radius:6
+        //border.width:1
+       // border.color:"black"
 
 
     }
@@ -155,9 +155,10 @@ Item {
     Rectangle {
         anchors.bottom:parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottomMargin:20
-        border.color:"black"
-        border.width:1
+        anchors.bottomMargin:90
+       // border.color:"black"
+       // border.width:1
+        color:Qt.rgba(1,1,1,0)
         width:parent.width * 0.34
         height:parent.height * 0.08
 

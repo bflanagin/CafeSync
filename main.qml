@@ -1,5 +1,5 @@
 import QtQuick 2.2
-import QtQuick.Controls 1.3
+import QtQuick.Controls 2.2
 import QtQuick.Dialogs 1.2
 //import QtWebKit 3.0
 import QtWebView 1.0
@@ -31,8 +31,14 @@ ApplicationWindow {
 
     property int cardindex: 0
 
-    Material.theme: Material.Light
-    //Material.accent: Material.Purple
+
+    //Theme settings //
+    property string backgroundColor: "#EFEFEF"
+    property string highLightColor1: "#FFE082"
+    property string barColor: "#795548"
+    property string bottombarColor: "#795548"
+
+
 
 
     ////// Begin card info ///////
@@ -157,6 +163,26 @@ ApplicationWindow {
     //height: units.gu(100)
 
 
+    property int currentcard_saved: 0
+    property string currentcard_thecard: ""
+
+    property string currentcard_username: ""
+    property string currentcard_userphone: ""
+    property string currentcard_useremail: ""
+    property string currentcard_companyname: ""
+    property string currentcard_motto: ""
+    property string currentcard_mainsite: ""
+    property string currentcard_url1: ""
+    property string currentcard_url2: ""
+    property string currentcard_url3: ""
+    property string currentcard_url4: ""
+    property string currentcard_avatarimg: ""
+    property string currentcard_realcardback: ""
+    property string currentcard_cardcat: ""
+
+
+
+
 
 
 
@@ -165,7 +191,7 @@ ApplicationWindow {
     height: 800
     //width:Screen.desktopAvailableWidth
     //height:Screen.desktopAvailableHeight
-
+    background: backgroundColor
     title: "CafeSync"
 
 
@@ -191,7 +217,7 @@ ApplicationWindow {
 
     Timer {
         id:gpsupdate
-        interval:2000
+        interval:1000000
         running: true
         repeat: true
         onTriggered:{
@@ -286,22 +312,7 @@ ApplicationWindow {
         z:1
         clip:true
 
-        property int saved: 0
-        property string thecard: ""
 
-        property string cardusername: ""
-        property string carduserphone: ""
-        property string carduseremail: ""
-        property string companyname: ""
-        property string motto: ""
-        property string mainsite: ""
-        property string url1: ""
-        property string url2: ""
-        property string url3: ""
-        property string url4: ""
-        property string avatarimg: ""
-        property string realcardback: ""
-        property string cardcat: ""
 
         states: [
             State {
@@ -392,7 +403,7 @@ ApplicationWindow {
             //visible:false
             Rectangle {
                 anchors.fill:parent
-                color:"white"
+                color:barColor
             }
 
 
@@ -405,6 +416,11 @@ ApplicationWindow {
         anchors.leftMargin: parent.width * 0.03
         width:parent.height * 0.4
         height:parent.height * 0.4
+
+        Flasher {
+            id:menuflick
+        }
+
         MouseArea {
             anchors.fill:parent
             //onClicked: standardMenu.popup()
@@ -418,11 +434,11 @@ ApplicationWindow {
             }
         }
 
-        Text{
+        /*Text{
             anchors.left:parent.right
             text:numofcards
 
-        }
+        } */
 
 
     }
@@ -438,6 +454,10 @@ ApplicationWindow {
             width:parent.height * 0.4
           height:parent.height * 0.4
 
+          Flasher {
+              id:searchflick
+          }
+
             MouseArea {
                 anchors.fill:parent
             onClicked: topBar.state = "search"
@@ -451,12 +471,14 @@ ApplicationWindow {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             property int loc:0
-            source: {switch(loc) {
+            source: if(selection != 1) { switch(loc) {
                 case 0:"img/location.svg";break;
-                case 1:"img/language-chooser.svg";break;
-                case 2:"img/stock_website.svg";break;
+                case 2:"img/language-chooser.svg";break;
+               // case 2:"img/stock_website.svg";break;
                 default:"img/location.svg";break;
-                }
+                } } else {
+                           "img/starred.svg"
+
             }
             width:parent.height /1.5
             height:parent.height /1.5
@@ -470,10 +492,11 @@ ApplicationWindow {
             //onClicked: {menuLocx = parent.x;menuLocy = parent.height;if(themenu.state == "InActive") {themenu.state = "Active"} else {themenu.state = "InActive"}}
                 onPressed: locflick.state = "Active"
                 onReleased: locflick.state = "InActive"
-                onClicked:switch(location_switch.loc) {
-                          case 0: currentcard = -1;location_switch.loc = 1;location_selected = "Region";cardslist.clear();listget = "region";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext);break;
-                          case 1: currentcard = -1;location_switch.loc = 2;location_selected = "Global";cardslist.clear();listget = "global";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext);break;
-                          case 2: currentcard = -1;location_switch.loc = 0;location_selected = "Passers By";cardslist.clear();listget = "temp";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext);break;
+                onClicked:if(selection != 1) {switch(location_switch.loc) {
+                          case 0: currentcard = -1;location_switch.loc = 2;location_selected = "Region";cardslist.clear();listget = "region";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
+                          //case 1: currentcard = -1;location_switch.loc = 2;location_selected = "Global";cardslist.clear();listget = "global";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
+                          case 2: currentcard = -1;location_switch.loc = 0;location_selected = "Passers By";cardslist.clear();listget = "temp";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
+                          }
                           }
 
             }
@@ -488,7 +511,7 @@ ApplicationWindow {
             visible:false
             Rectangle {
                 anchors.fill:parent
-                color:"white"
+                color:barColor
             }
 
             Image {
@@ -498,8 +521,8 @@ ApplicationWindow {
                 source: "./img/back.svg"
                 anchors.leftMargin: parent.width * 0.03
 
-                width:parent.height * 0.6
-                height:parent.height * 0.6
+                width:parent.height * 0.4
+                height:parent.height * 0.4
 
                 Flasher {
                     id:setflick
@@ -508,8 +531,15 @@ ApplicationWindow {
 
                 MouseArea {
                     anchors.fill:parent
-                    onClicked: themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0
+                    onClicked: { Scripts.save_card(userid,username,userphone,useremail,usercompany,
+                                                                      useralias,usermotto,usermain,website1,website2,website3,website4,
+                                                                      stf,atf,ctf,avimg,carddesign,usercat);
+                                                    OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
+                                                                         useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
+                                                                         avimg,carddesign,usercat);
 
+                        themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0
+                            }
 
                    // onPressed: setflick.state = "Active"
                    // onReleased: setflick.state = "InActive"
@@ -523,6 +553,7 @@ ApplicationWindow {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
                 text:qsTr("Setup")
+                color:"white"
                 font.pixelSize: parent.height * 0.5
             }
 
@@ -531,8 +562,8 @@ ApplicationWindow {
                 anchors.right:parent.right
                 anchors.rightMargin:parent.width * 0.03
                 anchors.verticalCenter: parent.verticalCenter
-                width:parent.height * 0.6
-                height:parent.height * 0.6
+                width:parent.height * 0.4
+                height:parent.height * 0.4
                 source: "img/save.svg"
 
                 Flasher {
@@ -564,8 +595,8 @@ ApplicationWindow {
 
                     anchors.verticalCenter: parent.verticalCenter
                     source:"img/reset.svg"
-                    width:parent.height * 0.6
-                    height:parent.height * 0.6
+                    width:parent.height * 0.3
+                    height:parent.height * 0.3
 
                     Flasher {
                         id:updateflick
@@ -575,7 +606,6 @@ ApplicationWindow {
                     MouseArea {
                         anchors.fill:parent
                     onClicked: {OpenSeed.datasync(userid,0);
-                                OpenSeed.datasync(userid1,1);
                                 Scripts.save_card(userid,username,useremail,userphone,usercompany,
                                         useralias,usermotto,usermain,website1,website2,website3,website4,
                                         stf,atf,ctf,avimg,carddesign,usercat,cardindex);
@@ -597,7 +627,7 @@ ApplicationWindow {
             Rectangle {
                 width:parent.width
                 height:parent.height
-                color:"white"
+                color:barColor
             }
 
             Image {
@@ -607,8 +637,13 @@ ApplicationWindow {
                 source: "./img/menu.svg"
                 anchors.leftMargin: parent.width * 0.03
 
-                width:parent.height * 0.6
-                height:parent.height * 0.6
+                width:parent.height * 0.4
+                height:parent.height * 0.4
+
+                Flasher {
+                   // id:setflick
+
+                }
 
                 MouseArea {
                     anchors.fill:parent
@@ -619,24 +654,37 @@ ApplicationWindow {
             //}
             TextField {
                 id:searchtextfield
+                anchors.right:back.left
+                anchors.rightMargin: parent.width * 0.01
                 anchors.left:mainMenu2.right
-                width:back.x * 0.90
+                anchors.leftMargin: parent.width * 0.01
                 anchors.verticalCenter: parent.verticalCenter
+
+
                 text:searchtext
                 placeholderText: qsTr(currentcat+":Search")
 
                 onTextChanged: {cardslist.clear();
-                    if(pages == 0) {Scripts.Temp_load(searchtextfield.text,listget)} else {Scripts.Cards_load(searchtextfield.text,listget) }
+                    if(selection == 0) {Scripts.Temp_load(searchtextfield.text,listget)} else {Scripts.Cards_load(searchtextfield.text,listget) }
             }
             }
+
+
 
             Image {
                 id:back
                 anchors.right:parent.right
+                anchors.rightMargin: 10
                 anchors.verticalCenter: parent.verticalCenter
                 width:parent.height * 0.4
                 height:parent.height * 0.4
                 source: "./img/back.svg"
+
+                Flasher {
+                    //id:setflick
+
+                }
+
                 MouseArea {
                     anchors.fill:parent
                     onClicked: topBar.state = "standard", mainMenu.rotation = 0
@@ -650,9 +698,13 @@ ApplicationWindow {
             width:parent.width
             height:parent.height
             //visible:false
+
+
+
+
             Rectangle {
                 anchors.fill:parent
-                color:"white"
+                color:barColor
             }
 
 
@@ -665,6 +717,12 @@ ApplicationWindow {
         anchors.leftMargin: parent.width * 0.03
         width:parent.height * 0.4
         height:parent.height * 0.4
+
+        Flasher {
+           // id:setflick
+
+        }
+
         MouseArea {
             anchors.fill:parent
             //onClicked: standardMenu.popup()
@@ -676,12 +734,13 @@ ApplicationWindow {
     }
 
     Image {
+        id:saveState
         width:  parent.height * 0.8
         height: parent.height * 0.8
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
 
-        source:if (topBar.saved == 0) {"./img/add.svg"} else {"./img/starred.svg"}
+        source:if (currentcard_saved == 0) {"./img/add.svg"} else {"./img/starred.svg"}
 
         //z: -8
 
@@ -692,11 +751,19 @@ ApplicationWindow {
 
         MouseArea {
             anchors.fill:parent
-            onClicked: if (topBar.saved == 0){Scripts.Cards_save(topBar.thecard,topBar.cardusername,topBar.carduserphone,topBar.carduseremail,topBar.companyname,"",topBar.motto,topBar.mainsite,topBar.URL1,topBar.URL2,topBar.URL3,topBar.URL4,topBar.avatarimg,topBar.realcardback,topBar.cardcat);
-                           cardslist.clear();
+            onClicked: if (currentcard_saved == 0){
+                           Scripts.Cards_save(currentcard_thecard,currentcard_username,currentcard_userphone,currentcard_useremail,currentcard_companyname,"",currentcard_motto,
+                                              currentcard_mainsite,currentcard_url1,currentcard_url2,currentcard_url3,currentcard_url4,currentcard_avatarimg,currentcard_realcardback,currentcard_cardcat);
+
+                           //currentcard_saved;
+
+                           //cardslist.clear();
                            OpenSeed.sync_cards(userid,3);
                            OpenSeed.get_list(userid,"saved");
-                           Scripts.Temp_load(searchtext,listget);}
+                           Scripts.Temp_load(searchtext,listget);
+
+                           saveState.source = "./img/starred.svg";
+                       }
 
         onPressed: sav1flick.state = "Active"
         onReleased: sav1flick.state = "InActive"
@@ -718,13 +785,23 @@ ApplicationWindow {
         Flasher {
             id:delflick
 
+
         }
 
         MouseArea {
             anchors.fill: parent
             preventStealing: true
-            onClicked: if (topBar.saved == 0){Scripts.Delete_card(topBar.thecard,listget);OpenSeed.remote_delete(userid,listget,topBar.thecard);cardslist.clear();Scripts.Temp_load(searchtext,listget);} else {
-                                Scripts.Delete_card(topBar.thecard,"saved");OpenSeed.remote_delete(userid,"saved",topBar.thecard);cardslist.clear();Scripts.Cards_load(searchtext); //OpenSeed.sync_cards(userid,3);
+            onClicked: if (currentcard_saved == 0){
+                                Scripts.Delete_card(currentcard_thecard,listget);OpenSeed.remote_delete(userid,listget,currentcard_thecard);cardslist.clear();Scripts.Temp_load(searchtext,listget);
+                           mainScreen.state = "InActive";
+                           topBar.state="standard";
+                           mainMenu.rotation = 0;
+                       } else {
+                                Scripts.Delete_card(currentcard_thecard,"saved");OpenSeed.remote_delete(userid,"saved",currentcard_thecard);cardslist.clear();Scripts.Cards_load(searchtext);
+                                mainScreen.state = "InActive";
+                                topBar.state="standard";
+                                mainMenu.rotation = 0;
+                           //OpenSeed.sync_cards(userid,3);
                        }
             onPressed: delflick.state = "Active"
             onReleased: delflick.state = "InActive"
@@ -966,15 +1043,15 @@ ApplicationWindow {
 
                 } */
 
-                /*  Rectangle {
+                  Rectangle {
                          width:parent.width
                          height:parent.height
-                         color:"white"
+                         color:backgroundColor
 
-                  } */
+                  }
 
                 Image {
-                    source: "./img/overlay.png"
+                    source: "./img/overlay-dark.png"
                     anchors.centerIn: parent
                     fillMode:Image.PreserveAspectFit
                     width:parent.width /2
@@ -988,7 +1065,7 @@ ApplicationWindow {
 
                     //z:-1
                     width: parent.width
-                    height: parent.height * 0.90
+                    height: parent.height * 0.95
                     topMargin:10
                     //anchors.verticalCenter: parent.verticalCenter
                     snapMode: GridView.SnapToRow
@@ -1005,16 +1082,12 @@ ApplicationWindow {
 
 
 
-                    cellHeight: passerbyGrid.width / 2.85 //passerbyGrid.height
+                    cellHeight: passerbyGrid.width / 2 //passerbyGrid.height
                     cellWidth: passerbyGrid.width
 
                     model: ListModel {
                             id: cardslist
                             //property int indexofcard: index
-
-                            ListElement {
-                                   name: "No Cards yet"
-                            }
 
                     }
 
@@ -1026,14 +1099,15 @@ ApplicationWindow {
                     id:bottomBar
                     anchors.bottom:parent.bottom
                     width:parent.width
-                    height:parent.height * 0.1
-                    color:"white"
+                    height:parent.height * 0.08
+                    color:bottombarColor
 
                 Image {
                     anchors.right:parent.right
                     anchors.bottom:parent.bottom
                     anchors.margins: 10
-                    width:parent.width * 0.10
+                    width:parent.height * 0.7
+                    height: parent.height * 0.7
                     fillMode:Image.PreserveAspectFit
                     source:"./img/swap.svg"
 
@@ -1044,10 +1118,21 @@ ApplicationWindow {
                         anchors.fill:parent
                         onPressed:reswap.state = "Active"
                         onReleased:reswap.state = "InActive"
-                        onClicked:grabit.state = "Active",popup.state = "InActive"
+                        onClicked:if(grabit.state == "InActive") {grabit.state = "Active"} else {grabit.state = "InActive"}
                     }
                 }
 
+                }
+
+                DropShadow {
+                    anchors.fill:bottomBar
+                    horizontalOffset: 0
+                    verticalOffset: -4
+                    radius: 8.0
+                    samples: 17
+                    color: "#80000000"
+                    source:bottomBar
+                    z:1
                 }
 
         }
@@ -1091,8 +1176,8 @@ Setup {
        x:0
       // y:0
        //anchors.fill:parent
-       width:parent.width
-       height:parent.height
+       width:parent.width * 0.5
+       height:parent.height * 0.5
       // anchors.top:topBar.bottom
 
       // anchors.margins: 50
@@ -1124,8 +1209,8 @@ Setup {
                    //anchors.margins: 100
                  //  x: parent.width * 0.1
                   // y: parent.height * 0.1
-                   width: parent.width
-                   height: parent.height
+                   width: parent.width * 2
+                   height: parent.height *2
                   // radius: 6
                  //  border.width:1
                   // border.color:"black"
@@ -1187,7 +1272,7 @@ Setup {
                         anchors.top:osUsernameField.bottom
                          anchors.horizontalCenter: parent.horizontalCenter
                          width:parent.width - 10
-                        placeholderText: "example@email.com"
+                        placeholderText: "Passphrase"
                        horizontalAlignment: Text.AlignHCenter
                         text:osEmail
                         onTextChanged:uniquename = 0,osEmail = text,OpenSeed.checkcreds(osUsername,osEmail);
@@ -1314,8 +1399,10 @@ Menus {
 
 Menus {
     id:catmenu
-    anchors.centerIn: parent
-
+    x:0
+    width:parent.width
+    y:topBar.height
+    height:parent.height - topBar.height
     state:"InActive"
     title:"Category"
 
@@ -1345,8 +1432,8 @@ Info{
 SlideShow {
     id:slideshow
 
-    width: parent.width * 0.90
-    height: parent.height * 0.75
+    width: parent.width
+    height: parent.height
     state:"InActive"
     maintitle:"About"
 

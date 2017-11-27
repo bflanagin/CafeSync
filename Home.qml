@@ -38,11 +38,13 @@ Item {
         }
 
 
+
+
     Rectangle {
         id:nameBack
         anchors.left:parent.left
         anchors.top:parent.top
-        anchors.margins:0
+        anchors.topMargin: parent.height * 0.02
         //color:"white"
         color:Qt.rgba(1,1,1,1)
         //border.color:"black"
@@ -59,9 +61,9 @@ Item {
             height:parent.height
             Image {
                 id:img
-                anchors.verticalCenter: parent.verticalCenter
-                width:if(avatarimg.length > 5) {nameBack.height * 0.90}
-                height:if(avatarimg.length > 5) {nameBack.height * 0.90}
+               // anchors.verticalCenter: parent.verticalCenter
+                width:if(avatarimg.length > 5) {nameBack.height * 0.80}
+                height:if(avatarimg.length > 5) {nameBack.height * 0.80}
                 source:avatarimg
                 //anchors.fill:parent
                 fillMode:Image.PreserveAspectFit
@@ -70,7 +72,7 @@ Item {
 
             Image {
                 id:mask
-                anchors.fill:parent
+                anchors.fill:img
                 source:"/graphics/CafeSync.png"
                 visible: false
 
@@ -86,13 +88,14 @@ Item {
 
             Column {
                   id:info
-                  width:nameBack.width - (img.width +img.x) -20
+                  width:nameBack.width - (img.width +img.x) - 10
                   anchors.left: img.right
-                  //height:nameBack.height
+                  spacing: 5
+                  clip:true
                 Text {
-                    text:companyname
+                    text:cardusername
                     font.bold: true
-                    font.pixelSize: (nameBack.width  - companyname.length * 1.5) * 0.068
+                    font.pixelSize: (nameBack.width  - companyname.length * 1.5) * 0.064
                 }
                 Rectangle {
                     width:parent.width
@@ -102,9 +105,21 @@ Item {
 
                 Text {
                     x:10
-                    font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.05
-                    text:qsTr("Name: ")+cardusername
+                    font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.04
+                    text:qsTr("Job Title: ")+cardposition
+                    width:parent.width
+                    wrapMode: Text.WordWrap
+
                 }
+                Text {
+                    x:10
+                    font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.04
+                    text:qsTr("Company: ")+companyname
+                    width:parent.width
+                    wrapMode: Text.WordWrap
+
+                }
+
 
                 Item {
                     width:parent.width
@@ -274,10 +289,10 @@ Row {
         title:qsTr("Share Card")
         type:"send"
         message:onetimecode
-        onStateChanged:if(swapopt.state =="Active") {OpenSeed.onetime(thecard,"1")}
+        onStateChanged:if(swapopt.state =="Active") {OpenSeed.onetime(cardId,"1")}
         MouseArea {
             anchors.fill:parent
-            onClicked:swapopt.state = "InActive",OpenSeed.onetime(thecard,"0")
+            onClicked:swapopt.state = "InActive",OpenSeed.onetime(cardId,"0")
         }
     }
 
@@ -286,26 +301,34 @@ Row {
         id:bottomBar
         anchors.bottom:parent.bottom
         width:parent.width
-        height:parent.height * 0.1
-        color:"white"
+        height:parent.height * 0.08
+        color:bottombarColor
 
         Row {
           id:actions
-          anchors.verticalCenter: parent.verticalCenter
+         // anchors.horizontalCenter:parent.horizontalCenter
           visible: if(cardusername == username) {false} else {true}
           spacing:width / 6
-          //height:80
-          width:parent.width
+          height:parent.height
+          x:parent.width * 0.09
+          width:parent.width * 0.9
           //x:parent.width / 2 - width /2.3
-          clip: true
+          //clip: true
 
           Image {
-              width: /*units.gu(2) */ parent.width / 8
-              height: /*units.gu(2) */ parent.width / 8
-              //name: if (saved == 0) {"add"} else {"starred"}
+              width: /*units.gu(2) */ parent.width / 10
+              height: /*units.gu(2) */ parent.width / 10
+              anchors.verticalCenter: parent.verticalCenter
+
               //name:"outgoing-call"
               source:"./img/outgoing-call.svg"
               //z: -8
+
+
+              Flasher {
+                  //id:locflick
+              }
+
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true
@@ -314,26 +337,38 @@ Row {
 
           }
           Image {
-              width: /*units.gu(2) */ parent.width / 8
-              height: /*units.gu(2) */ parent.width / 8
-              //name: if (saved == 0) {"add"} else {"starred"}
+              width: /*units.gu(2) */ parent.width / 10
+              height: /*units.gu(2) */ parent.width / 10
+              anchors.verticalCenter: parent.verticalCenter
               //name:"message"
               source:"./img/message.svg"
               //z: -8
+
+
+              Flasher {
+                  //id:locflick
+              }
+
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true
-                  onClicked: Qt.openUrlExternally('message:'+carduserphone)
+                  onClicked: Qt.openUrlExternally('sms:'+carduserphone)
               }
 
           }
           Image {
-              width: /*units.gu(2) */ parent.width / 8
-              height: /*units.gu(2) */ parent.width / 8
-              //name: if (saved == 0) {"add"} else {"starred"}
-              //name:"email"
+
+              width: /*units.gu(2) */ parent.width / 10
+              height: /*units.gu(2) */ parent.width / 10
+              anchors.verticalCenter: parent.verticalCenter
+
               source:"./img/email.svg"
               //z: -8
+
+              Flasher {
+                  //id:locflick
+              }
+
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true
@@ -343,11 +378,16 @@ Row {
           }
 
           Image {
-              width: /*units.gu(2) */ parent.width / 8
-              height: /*units.gu(2) */ parent.width / 8
+              width: /*units.gu(2) */ parent.width / 10
+              height: /*units.gu(2) */ parent.width / 10
+              anchors.verticalCenter: parent.verticalCenter
 
               source:"./img/share.svg"
               //z: -8
+
+              Flasher {
+                  //id:locflick
+              }
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true
@@ -415,12 +455,208 @@ Row {
               }
 
           } */
+    }
 
+
+
+
+        Row {
+          id:youractions
+          visible: if(cardusername == username ) {true} else {false}
+          spacing:width / 6
+          height:parent.height
+          x:parent.width * 0.24
+          width:parent.width * 0.9
+
+          //clip: true
+
+          Image {
+              width: /*units.gu(2) */ parent.width / 10
+              height: /*units.gu(2) */ parent.width / 10
+              //name: if (saved == 0) {"add"} else {"starred"}
+              visible:false
+              anchors.verticalCenter: parent.verticalCenter
+
+              //name:"account"
+              source:"./img/contact.svg"
+              //z: -8
+
+              Flasher {
+
+
+              }
+
+              MouseArea {
+                  anchors.fill: parent
+                  preventStealing: true
+                  //onClicked: Qt.openUrlExternally('qr:')
+              }
+
+          }
+
+          Image {
+              width: if(cardindex == 0) {if(stf == "true") {parent.width / 10} else {parent.width / 11} }
+              height: if(cardindex == 0) {if(stf == "true") {parent.width / 10} else {parent.width / 11} }
+              //name: if (saved == 0) {"add"} else {"starred"}
+              //name:"share"
+              source:"./img/share.svg"
+              //z: -8
+              anchors.verticalCenter: parent.verticalCenter
+
+              Flasher {
+
+
+              }
+
+              Image {
+                  //anchors.fill:parent
+                  visible: if (cardindex == 0) { if ( stf == "true") {false} else {true} }
+
+                  anchors.centerIn: parent
+                  width:parent.width * 1.17
+                  height:parent.height * 1.17
+                  source:"./img/cancel.svg"
+              }
+
+              Flasher {
+
+
+              }
+
+              MouseArea {
+                  anchors.fill: parent
+
+                  preventStealing: true
+                  onClicked: { if(cardindex == 0) {if(stf == "true") {stf = "false" } else { stf = "true" } }
+                      Scripts.save_card(userid,username,userphone,useremail,usercompany,
+                                                                                useralias,usermotto,usermain,website1,website2,website3,website4,
+                                                                                stf,atf,ctf,avimg,carddesign,usercat);
+                                                              OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
+                                                                                   useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
+                                                                                   avimg,carddesign,usercat);
+
+                  }
+              }
+
+
+
+          }
+
+
+        /*  Image {
+              width:   if(cardindex == 0) {if(atf == "true") {parent.width / 10} else {parent.width / 11} }
+              height:  if(cardindex == 0) {if(atf == "true") {parent.width / 10} else {parent.width / 11} }
+              //name: if (saved == 0) {"add"} else {"starred"}
+              //name:"private-browsing"
+              source:"./img/private-browsing.svg"
+              //z: -8
+              anchors.verticalCenter: parent.verticalCenter
+
+              Image {
+                  //anchors.fill:parent
+                  visible: if (cardindex == 0) { if ( atf == "true") {false} else {true} }
+
+                  anchors.centerIn: parent
+                  width:parent.width * 1.17
+                  height:parent.height * 1.17
+                  source:"./img/cancel.svg"
+              }
+
+              Flasher {
+
+
+              }
+
+              MouseArea {
+                  anchors.fill: parent
+                  preventStealing: true
+                  onClicked: { if(cardindex == 0) {if(atf == "true") {atf = "false" } else { atf = "true" } }
+                      Scripts.save_card(userid,username,userphone,useremail,usercompany,
+                                                                                useralias,usermotto,usermain,website1,website2,website3,website4,
+                                                                                stf,atf,ctf,avimg,carddesign,usercat);
+                                                              OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
+                                                                                   useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
+                                                                                   avimg,carddesign,usercat);
+
+                  }
+
+
+              }
+
+          } */
+
+          Image {
+              width: if(cardindex == 0) {if(ctf == "true") {parent.width / 10} else {parent.width / 11} }
+              height: if(cardindex == 0) {if(ctf == "true") {parent.width / 10} else {parent.width / 11} }
+              anchors.verticalCenter: parent.verticalCenter
+
+              //name: if (saved == 0) {"add"} else {"starred"}
+              //name:"contact"
+              source:"./img/contact.svg"
+              //z: -8
+
+              Image {
+                  //anchors.fill:parent
+                  visible:if(cardindex == 0) { if ( ctf == "true") {false} else {true} }
+
+                  anchors.centerIn: parent
+                  width:parent.width * 1.17
+                  height:parent.height * 1.17
+                  source:"./img/cancel.svg"
+              }
+
+              Flasher {
+
+
+              }
+
+              MouseArea {
+                  anchors.fill: parent
+
+                  preventStealing: true
+                  onClicked: {if(cardindex == 0) {if(ctf == "true") {ctf = "false" } else { ctf = "true" }
+
+                      Scripts.save_card(userid,username,userphone,useremail,usercompany,
+                                                                                useralias,usermotto,usermain,website1,website2,website3,website4,
+                                                                                stf,atf,ctf,avimg,carddesign,usercat);
+                                                              OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
+                                                                                   useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
+                                                                                   avimg,carddesign,usercat);
+
+                  }
+              }
+
+            }
+
+          }
+
+          Image {
+              width: /*units.gu(2) */ parent.width / 10
+              height: /*units.gu(2) */ parent.width / 10
+              anchors.verticalCenter: parent.verticalCenter
+
+              source:"./img/swap.svg"
+              //z: -8
+
+              Flasher {
+
+
+              }
+
+              MouseArea {
+                  anchors.fill: parent
+                  preventStealing: true
+                  onClicked: swapopt.state ="Active"
+              }
+
+          }
+
+    }
 
         }
 
 
-    }
+
 
     DropShadow {
         anchors.fill:bottomBar

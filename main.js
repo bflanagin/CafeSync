@@ -210,16 +210,16 @@ function load_Card() {
 
 
     if(username.length < 1) {
-        if( username1.length < 1) {
+
             if(usercompany.length < 1) {
-                if(usercompany1.length <1) {
+
                 //cardPage.head.sections.selectedIndex = 0;
                     selection = 0;
                     cardPage.state = "settings";
                     mainScreen.state = "InActive";
                     infotab.state = "UnAvailable";
                 settingsPage.state = "show";
-        } } }
+         }
 
     }
 
@@ -240,9 +240,6 @@ function Temp_load(search,locale) {
     case "global":dbtable="GlobCards";break;
     default:dbtable="TempCards";break;
     }
-
-
-
 
     if (search != "") {
 
@@ -273,12 +270,15 @@ function Temp_load(search,locale) {
         var record = 0;
     while (pull.rows.length > record) {
             var testStr = "SELECT  *  FROM SavedCards WHERE id= "+pull.rows.item(record).id;
-            var duplicate = tx.executeSql(testStr);
+            //var duplicate = tx.executeSql(testStr);
+                var duplicate = 0;
+
+            var savecheck = tx.executeSql(testStr);
 
 
+           //if(duplicate.rows.length == 0) {
 
-           if(duplicate.rows.length == 0) {
-
+        if(duplicate == 0) {
                 var w1;
                  var w2;
                  var w3;
@@ -367,8 +367,9 @@ function Temp_load(search,locale) {
                                             company: pull.rows.item(record).company.replace(/&#x27;/g,"'"),
                                              phone:  pull.rows.item(record).phone,
                                               email:  pull.rows.item(record).email,
-            motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
-            card: pull.rows.item(record).id,
+                                         cardposition: pull.rows.item(record).alias,
+                                         motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
+                                            cardId: pull.rows.item(record).id.toString(),
 
                              mainsite: main,
                              URL1: w1,
@@ -381,8 +382,8 @@ function Temp_load(search,locale) {
           //  cardtext:text,
             cardcat:pull.rows.item(record).cat,
             imgsource:ava,
-            thedesign:pull.rows.item(record).cardback,
-            saved:0
+           // thedesign:pull.rows.item(record).cardback,
+            saved:savecheck.rows.length
 
 
         });} } } else {
@@ -410,9 +411,9 @@ function Temp_load(search,locale) {
                 company: pull.rows.item(record).company.replace(/&#x27;/g,"'"),
                 phone:  pull.rows.item(record).phone,
                 email:  pull.rows.item(record).email,
+                cardposition: pull.rows.item(record).alias,
                 motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
-                card: pull.rows.item(record).id,
-
+                cardId: pull.rows.item(record).id.toString(),
                 mainsite: main,
                 URL1: w1,
                 URL2: w2,
@@ -424,8 +425,8 @@ function Temp_load(search,locale) {
              //   cardtext:text,
                 cardcat:pull.rows.item(record).cat,
                 imgsource:ava,
-                thedesign:pull.rows.item(record).cardback,
-                saved:0
+                //thedesign:pull.rows.item(record).cardback,
+                saved:savecheck.rows.length
             }); //}
              }
 
@@ -578,7 +579,8 @@ function Cards_load(search) {
              if (currentcat.length > 2 & currentcat != qsTr("All Cards") ) {
 
                  if(currentcat == pull.rows.item(record).cat) {
-             cardslist.append({ name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
+             cardslist.append({
+                 name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
                  colorCode: "white",
                  imagesource: "img/default_avatar.png",
                  cardback:"img/default_card.png",
@@ -586,7 +588,7 @@ function Cards_load(search) {
                  phone:  pull.rows.item(record).phone,
                  email:  pull.rows.item(record).email,
                  motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
-                 card: pull.rows.item(record).id,
+                 cardId: pull.rows.item(record).id.toString(),
 
                  mainsite: main,
                  URL1: w1,
@@ -594,9 +596,9 @@ function Cards_load(search) {
                  URL3: w3,
                  URL4: w4,
 
-                                  cardback:card,
-                                  cardsymbol:symbol,
-                                  cardtext:text,
+                 cardback:card,
+                 cardsymbol:symbol,
+                  cardtext:text,
                  cardcat:pull.rows.item(record).cat,
                  imgsource:ava,
                  thedesign:pull.rows.item(record).cardback,
@@ -605,16 +607,17 @@ function Cards_load(search) {
 
              }); }} else {
 
-                 ({
+                     cardslist.append({
                      name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
                      colorCode: "white",
                      imagesource: "img/default_avatar.png",
                      cardback:"img/default_card.png",
                      company: pull.rows.item(record).company.replace(/&#x27;/g,"'"),
+                        cardposition: pull.rows.item(record).alias,
                      phone:  pull.rows.item(record).phone,
                      email:  pull.rows.item(record).email,
                      motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
-                     card: pull.rows.item(record).id,
+                     cardId: pull.rows.item(record).id.toString(),
 
                      mainsite: main,
                      URL1: w1,
@@ -622,9 +625,9 @@ function Cards_load(search) {
                      URL3: w3,
                      URL4: w4,
 
-                                      cardback:card,
-                                      cardsymbol:symbol,
-                                      cardtext:text,
+                     cardback:card,
+                     cardsymbol:symbol,
+                     cardtext:text,
                      cardcat:pull.rows.item(record).cat,
                      imgsource:ava,
                      thedesign:pull.rows.item(record).cardback,
@@ -668,6 +671,7 @@ function Show_sites(cid,list) {
     var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
     var dataStr;
 
+    console.log(cid);
 
     var dbtable = "";
     switch(list) {
@@ -731,12 +735,13 @@ function Show_sites(cid,list) {
                                pagewidth:mainScreen.width ,
                                pageheight:mainScreen.height,
                                motto:pull.rows.item(0).motto.replace(/&#x27;/g,"'"),
-                               thecard:pull.rows.item(0).id.toString(),
+                               cardId:pull.rows.item(0).id.toString(),
                                avatarimg:pull.rows.item(0).avatar,
                                companyname:pull.rows.item(0).company.replace(/&#x27;/g,"'"),
                                cardusername:pull.rows.item(0).name.replace(/&#x27;/g,"'"),
                                carduserphone:phonenumber,
                                carduseremail:emailaddress,
+                               cardposition: pull.rows.item(0).alias,
                                cardbackimg:cardbackis,
                                //pageindex:pages,
                                cardcat:pull.rows.item(0).cat,
@@ -1184,5 +1189,26 @@ function Card_Set(location,num) {
     case "text":return text_Locations.split(",")[num];break;
     default:break;
     }
+
+}
+
+function setCurrent(id,username,userphone,useremail,companyname,motto,mainsite,url1,url2,url3,url4,avatarimg,realcardback,cardcat,saved) {
+
+    currentcard_saved = saved;
+    currentcard_thecard = id;
+    currentcard_username = username;
+    currentcard_userphone = userphone;
+    currentcard_useremail = useremail;
+    currentcard_companyname = companyname;
+    currentcard_motto = motto;
+    currentcard_mainsite = mainsite;
+    currentcard_url1 = url1;
+    currentcard_url2 = url2;
+    currentcard_url3 = url3;
+    currentcard_url4 = url4;
+    currentcard_avatarimg = avatarimg;
+    currentcard_realcardback = realcardback;
+    currentcard_cardcat = cardcat;
+
 
 }
