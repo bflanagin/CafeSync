@@ -180,7 +180,7 @@ ApplicationWindow {
     property string currentcard_realcardback: ""
     property string currentcard_cardcat: ""
 
-
+    property var db: Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
 
 

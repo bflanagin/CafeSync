@@ -114,7 +114,7 @@ function datasync (id,cnum) {
     var url = "http://104.236.15.191:8675/devs/" + devId + "/" + appId + "/scripts/sync.php?id=" + id;
     var carddata = "";
 
-    console.log(url);
+    //console.log(url);
 
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
@@ -300,7 +300,7 @@ function sync_cards(id,opt) {
         //console.log("remotesaved = "+remotesaved.length+" and contains"+remotesaved);
         var dataStr = "SELECT * FROM SavedCards WHERE 1";
         db.transaction(function(tx) {
-        tx.executeSql('CREATE TABLE IF NOT EXISTS SavedCards(id INT UNIQUE, name TEXT, phone TEXT,email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,cat TEXT)');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS SavedCards(id INT UNIQUE, name TEXT, phone TEXT,email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,cat TEXT,cardsop INT)');
 
         var pull =  tx.executeSql(dataStr);
                 var record = 0;
@@ -316,7 +316,7 @@ function sync_cards(id,opt) {
 
     var dataStrt = "SELECT * FROM TempCards WHERE 1";
     db.transaction(function(tx) {
-    tx.executeSql('CREATE TABLE IF NOT EXISTS TempCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT)');
+    tx.executeSql('CREATE TABLE IF NOT EXISTS TempCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT,cardsop INT)');
 
     var pull =  tx.executeSql(dataStr);
             var record = 0;
@@ -624,19 +624,20 @@ function update_card(id,list) {
                 var avatar = cardpos[12];
                 var cardbk = cardpos[13];
                 var cardcat = cardpos[14];
+                var cardsop = cardpos[15];
 
 
                 //console.log(cardpos);
-                var data = [cid,name,phone,email,company,calias,motto,main,link1,link2,link3,link4,avatar,cardbk,cardcat];
-                var dataT = [cid,name,phone,email,company,calias,motto,main,link1,link2,link3,link4,avatar,cardbk,Date.now(),cardcat];
+                var data = [cid,name,phone,email,company,calias,motto,main,link1,link2,link3,link4,avatar,cardbk,cardcat,cardsop];
+                var dataT = [cid,name,phone,email,company,calias,motto,main,link1,link2,link3,link4,avatar,cardbk,Date.now(),cardcat,cardsop];
 
 
                 var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
-                var dataStr = "INSERT INTO SavedCards VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                var dataStrT = "INSERT INTO TempCards VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                var dataStrR = "INSERT INTO RegCards VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                var dataStrG = "INSERT INTO GlobCards VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                var dataStr = "INSERT INTO SavedCards VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                var dataStrT = "INSERT INTO TempCards VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                var dataStrR = "INSERT INTO RegCards VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                var dataStrG = "INSERT INTO GlobCards VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 
                 var update = "UPDATE SavedCards SET name='"+name+"', email='"+email+"', phone='"+phone+"', company='"+company+"', motto='"+motto+"', main='"+main+"',website1='"+link1+"', website2='"+link2+"', website3='"+link3+"', website4='"+link4+"', avatar='"+avatar+"', cardback='"+cardbk+"', cat='"+cardcat+"'  WHERE id='"+id+"'";
@@ -659,11 +660,11 @@ function update_card(id,list) {
 
                 db.transaction(function(tx) {
 
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS SavedCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT, website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,cat TEXT)');
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS TempCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT, website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT)');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS SavedCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT, website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,cat TEXT,cardsop INT)');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS TempCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT, website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT,cardsop INT)');
 
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS GlobCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT, website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT)');
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS RegCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT, website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT)');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS GlobCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT, website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT,cardsop INT)');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS RegCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT, website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT,cardsop INT)');
 
                         var duplicate;
                     switch(list) {

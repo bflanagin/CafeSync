@@ -54,7 +54,7 @@ function save_card(id,username,userphone,useremail,usercompany,useralias,usermot
 
 
 
-    var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
+    //var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
     var userStr = "INSERT INTO Card VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     var data = [id,username,userphone,useremail,usercompany,useralias,usermotto,main,website1,website2,website3,website4,avatar,cardback,cardcat];
@@ -111,7 +111,7 @@ return 1;
 function load_Card() {
 
 
-     var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
+    // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
      var dataStr = "SELECT * FROM Card WHERE 1";
 
     db.transaction(function(tx) {
@@ -232,7 +232,7 @@ function Temp_load(search,locale) {
 
   //  console.log(locale);
 
-    var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
+   // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
     var dbtable = "";
     switch(locale) {
     case "temp":dbtable="TempCards";break;
@@ -253,13 +253,13 @@ function Temp_load(search,locale) {
 
         db.transaction(function(tx) {
 
-            tx.executeSql('CREATE TABLE IF NOT EXISTS TempCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS TempCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT,cardsop INT)');
 
-            tx.executeSql('CREATE TABLE IF NOT EXISTS RegCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS RegCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT,cardsop INT)');
 
-            tx.executeSql('CREATE TABLE IF NOT EXISTS SavedCards(id INT UNIQUE, name TEXT,phone TEXT,email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,cat TEXT)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS SavedCards(id INT UNIQUE, name TEXT,phone TEXT,email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,cat TEXT,cardsop INT)');
 
-            tx.executeSql('CREATE TABLE IF NOT EXISTS GlobCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS GlobCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT,cardsop INT)');
 
 
         var pull =  tx.executeSql(dataStr);
@@ -377,12 +377,13 @@ function Temp_load(search,locale) {
                              URL3: w3,
                              URL4: w4,
 
-            //cardback:card,
+            cardb:pull.rows.item(record).cardback,
            // cardsymbol:symbol,
           //  cardtext:text,
             cardcat:pull.rows.item(record).cat,
             imgsource:ava,
            // thedesign:pull.rows.item(record).cardback,
+              cardsop:pull.rows.item(record).cardsop,
             saved:savecheck.rows.length
 
 
@@ -426,6 +427,8 @@ function Temp_load(search,locale) {
                 cardcat:pull.rows.item(record).cat,
                 imgsource:ava,
                 //thedesign:pull.rows.item(record).cardback,
+                 cardb:pull.rows.item(record).cardback,
+                cardsop:pull.rows.item(record).cardsop,
                 saved:savecheck.rows.length
             }); //}
              }
@@ -458,14 +461,14 @@ function Cards_save(id,username,userphone,useremail,usercompany,useralias,usermo
 
     console.log(id,username,userphone,useremail);
 
-   var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
-    var userStr = "INSERT INTO SavedCards VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+   //var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
+    var userStr = "INSERT INTO SavedCards VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     var data = [id,username,userphone,useremail,usercompany,useralias,usermotto,main,website1,website2,website3,website4,avatar,cardback,cardcat];
 
        console.log(data);
         db.transaction(function(tx) {
            //tx.executeSql("DROP TABLE Card");
-            tx.executeSql('CREATE TABLE IF NOT EXISTS SavedCards(id INT UNIQUE, name TEXT,phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT, website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT,cardback TEXT,cat TEXT)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS SavedCards(id INT UNIQUE, name TEXT,phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT, website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT,cardback TEXT,cat TEXT,cardsop INT)');
 
             if(id != 0) {
                // console.log("Saved card "+id);
@@ -484,7 +487,7 @@ return 1;
 }
 
 function Cards_load(search) {
-    var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
+    //var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
     cardsyncsaved = "";
     if (search.length > 0) {
@@ -495,7 +498,7 @@ function Cards_load(search) {
 }
 
        db.transaction(function(tx) {
-       tx.executeSql('CREATE TABLE IF NOT EXISTS SavedCards(id INT UNIQUE, name TEXT, phone TEXT,email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,cat TEXT)');
+       tx.executeSql('CREATE TABLE IF NOT EXISTS SavedCards(id INT UNIQUE, name TEXT, phone TEXT,email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,cat TEXT,cardsop INT)');
 
        var pull =  tx.executeSql(dataStr);
 
@@ -602,6 +605,7 @@ function Cards_load(search) {
                  cardcat:pull.rows.item(record).cat,
                  imgsource:ava,
                  thedesign:pull.rows.item(record).cardback,
+                 cardsop:pull.rows.item(record).cardsop,
                  saved:1
 
 
@@ -631,6 +635,7 @@ function Cards_load(search) {
                      cardcat:pull.rows.item(record).cat,
                      imgsource:ava,
                      thedesign:pull.rows.item(record).cardback,
+                     cardsop:pull.rows.item(record).cardsop,
                      saved:1
                  });
 
@@ -668,7 +673,7 @@ function torf (num) {
 
 function Show_sites(cid,list) {
 
-    var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
+   // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
     var dataStr;
 
     console.log(cid);
@@ -705,7 +710,7 @@ function Show_sites(cid,list) {
 
        db.transaction(function(tx) {
 
-      //tx.executeSql('CREATE TABLE IF NOT EXISTS TempCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT)');
+      //tx.executeSql('CREATE TABLE IF NOT EXISTS TempCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT,cardsop INT)');
 
        var pull =  tx.executeSql(dataStr);
 
@@ -744,6 +749,7 @@ function Show_sites(cid,list) {
                                cardposition: pull.rows.item(0).alias,
                                cardbackimg:cardbackis,
                                //pageindex:pages,
+                               cardsop:pull.rows.item(0).cardsop.toString(),
                                cardcat:pull.rows.item(0).cat,
                                saved:0,
                                realcardback:pull.rows.item(0).cardback,
@@ -754,7 +760,7 @@ function Show_sites(cid,list) {
                                URL3:pull.rows.item(0).website3,
                                URL4:pull.rows.item(0).website4,
 
-
+                               pageindex:pages
 
 
                            });
@@ -784,7 +790,7 @@ function Show_sites(cid,list) {
                                     carduseremail:"",
                                     cardbackimg:"",
                                     motto:"",
-
+                                    cardsop:"",
                                     pageindex:pages
                                 });
 
@@ -817,7 +823,7 @@ function Show_sites(cid,list) {
                                    carduseremail:"",
                                    cardbackimg:"",
                                    motto:"",
-
+                                    cardsop:"",
 
                                    pageindex:pages
                                });
@@ -850,7 +856,7 @@ function Show_sites(cid,list) {
                                    carduseremail:"",
                                    cardbackimg:"",
                                    motto:"",
-
+                                    cardsop:"",
                                    pageindex:pages
                                });
                  }
@@ -881,6 +887,7 @@ function Show_sites(cid,list) {
                                    carduseremail:"",
                                    cardbackimg:"",
                                    motto:"",
+                                   cardsop:"",
 
 
                                    pageindex:pages
@@ -915,6 +922,7 @@ function Show_sites(cid,list) {
                                    carduseremail:"",
                                    cardbackimg:"",
                                    motto:"",
+                                   cardsop:"",
 
 
                                    pageindex:pages
@@ -933,13 +941,13 @@ function Show_sites(cid,list) {
 function Temp_elapsed(cid) {
     var date = Date.now();
 
-    var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
+   // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
     var dataStr = "SELECT * FROM TempCards WHERE 1";
     var deleted = 0;
 
      db.transaction(function(tx) {
 
-         tx.executeSql('CREATE TABLE IF NOT EXISTS TempCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT)');
+         tx.executeSql('CREATE TABLE IF NOT EXISTS TempCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT,cardsop INT)');
 
         var pull = tx.executeSql(dataStr);
 
@@ -975,7 +983,7 @@ return deleted;
 
 function Delete_card(cid,list) {
 
-    var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
+    // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
      if(list == "temp"){
          db.transaction(function(tx) {
@@ -1017,7 +1025,7 @@ function Delete_card(cid,list) {
 function Category_search() {
 menuList.clear();
 
-     var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
+    // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
     var num = 0;
     while(category_list.split(",")[num] != undefined) {
@@ -1031,7 +1039,7 @@ menuList.clear();
 function Category_set() {
 menuList.clear();
 
-     var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
+   //  var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
     var num = 0;
     while(category_list.split(",")[num] != undefined) {
@@ -1043,7 +1051,7 @@ menuList.clear();
 
 
 function updateDB() {
-    var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
+  //  var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
     db.transaction(function(tx) {
          tx.executeSql('DROP TABLE SavedCards');
         tx.executeSql('DROP TABLE TempCards');

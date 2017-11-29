@@ -29,7 +29,7 @@ import "openseed.js" as OpenSeed
                                 width: passerbyGrid.width * 0.96
 
                                // width: passerbyGrid.width * 0.90
-                                height: passerbyGrid.width * 0.45
+                                height: if(cardsop == 1) {passerbyGrid.width * 0.45} else {passerbyGrid.width * 0.45}
 
 
                                  clip: true
@@ -57,7 +57,8 @@ import "openseed.js" as OpenSeed
                                         onTriggered: {
 
                                                 if(issaved != 1) {
-                                                    if(explodereset == 10000) {
+                                                    if(cardsop != 2) {
+                                                        if(explodereset == 10000) {
 
                                                         if(Scripts.Temp_elapsed(card) == 1) {
                                                              OpenSeed.remote_delete(userid,listget,card);
@@ -67,7 +68,7 @@ import "openseed.js" as OpenSeed
                                                         explodereset = 0;
                                                     } else {explodereset = explodereset + 1;}
 
-
+                                                }
 
                                                 }
                                                 //Scripts.Temp_load(searchtext);
@@ -136,6 +137,7 @@ import "openseed.js" as OpenSeed
                                                      anchors.fill: cardsava
                                                      source: cardsava
                                                      maskSource: mask
+                                                    visible:if(cardsop == 1) {true} else {false}
                                                  }
 
 
@@ -145,6 +147,7 @@ import "openseed.js" as OpenSeed
                                         Text {
                                             //x: 5
                                             id:nametag
+                                            visible:if(cardsop == 1) {true} else {false}
                                             text: name
                                             font.pixelSize:  parent.width / 17 //units.gu(2.05)
                                             font.bold: true
@@ -158,6 +161,7 @@ import "openseed.js" as OpenSeed
                                         }
 
                                         Rectangle {
+                                            visible:if(cardsop == 1) {true} else {false}
                                             anchors.top:nametag.bottom
                                             anchors.left:card_avatar_backing.right
                                             width:parent.width * 0.6
@@ -168,6 +172,7 @@ import "openseed.js" as OpenSeed
                                         Text {
                                             //x: 5
                                             id:position
+                                            visible:if(cardsop == 1) {true} else {false}
                                             text: qsTr("Job Title: ")+cardposition
                                             font.pixelSize:  parent.width / 24 //units.gu(2.05)
                                             //font.bold: true
@@ -184,6 +189,7 @@ import "openseed.js" as OpenSeed
 
                                         Text {
                                             id:comp
+                                            visible:if(cardsop == 1) {true} else {false}
                                             width:parent.width - card_avatar_backing
                                             anchors.right:parent.right
                                             anchors.bottom:parent.bottom
@@ -194,7 +200,14 @@ import "openseed.js" as OpenSeed
                                             font.pixelSize: parent.width * 0.04 //units.gu(1.8)
                                            text: company
                                            wrapMode: Text.WordWrap
+                                          /* Image {
+                                               anchors.fill: parent
+                                               source:compImg
+                                               fillMode:Image.PreserveAspectFit
+                                           } */
                                         }
+
+
 
 
                                        /* Text {
@@ -213,6 +226,15 @@ import "openseed.js" as OpenSeed
                                             //y:70
                                         }
                                         } */
+
+                                        Image {
+                                            visible:if(cardsop == 2) {true} else {false}
+                                            source:cardb
+                                            anchors.fill:parent
+                                            height:parent.height
+
+                                            fillMode:Image.PreserveAspectFit
+                                        }
 
 
                                     }

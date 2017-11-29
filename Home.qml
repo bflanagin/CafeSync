@@ -93,7 +93,7 @@ Item {
                   spacing: 5
                   clip:true
                 Text {
-                    text:cardusername
+                    text:if(cardsop == 1) {cardusername} else {companyname}
                     font.bold: true
                     font.pixelSize: (nameBack.width  - companyname.length * 1.5) * 0.064
                 }
@@ -106,7 +106,7 @@ Item {
                 Text {
                     x:10
                     font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.04
-                    text:qsTr("Job Title: ")+cardposition
+                    text:if(cardsop == 1) {qsTr("Job Title: ")+cardposition} else {qsTr("Category: ")+cardcat}
                     width:parent.width
                     wrapMode: Text.WordWrap
 
@@ -114,7 +114,7 @@ Item {
                 Text {
                     x:10
                     font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.04
-                    text:qsTr("Company: ")+companyname
+                    text:if(cardsop == 1) {qsTr("Company: ")+companyname} else {""}
                     width:parent.width
                     wrapMode: Text.WordWrap
 
