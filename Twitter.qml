@@ -155,7 +155,7 @@ Item {
         id:blinder
         width:parent.width
         height:parent.height
-        color:"white"
+
         radius:10
         border.color:"black"
 
@@ -165,6 +165,7 @@ Item {
                     PropertyChanges {
                      target:blinder
                         y:0
+                        color:backgroundColor
                     }
                     PropertyChanges {
                         target:links
@@ -178,6 +179,7 @@ Item {
                    target:blinder
                     y:parent.height * 0.90
                     radius:0
+                    color:barColor
                     }
                     PropertyChanges {
                         target:links
@@ -191,7 +193,7 @@ Item {
 
        transitions: Transition {
             PropertyAnimation { target: blinder
-                                      properties:"y,radius"; duration: 500 }
+                                      properties:"y,radius,color"; duration: 500 }
         }
 
     Item {
@@ -224,7 +226,7 @@ Item {
             //anchors.top:accountname.bottom
             anchors.left:parent.left
             anchors.verticalCenter: servicelogo.verticalCenter
-            anchors.margins:20
+            anchors.margins:12
             spacing:10
 
 
@@ -234,7 +236,7 @@ Item {
                  Rectangle {
                      anchors.fill:parent
                      color:highLightColor1
-                     opacity:0.4
+                     opacity:0.9
                  }
 
                  /*Flasher {
@@ -293,7 +295,7 @@ Item {
                  Rectangle {
                      anchors.fill:parent
                      color:highLightColor1
-                     opacity:0.4
+                     opacity:0.9
                  }
 
                  Text {
@@ -329,7 +331,7 @@ Item {
                  Rectangle {
                      anchors.fill:parent
                      color:highLightColor1
-                     opacity:0.4
+                     opacity:0.9
                  }
 
                /*  Flasher {

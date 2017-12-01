@@ -230,7 +230,7 @@ Item {
                  }
 
                 Image {
-                     source:"./img/message-sent.svg"
+                     source:"./img/message.svg"
                          width:parent.height * 0.80
                          height:parent.height * 0.80
                          anchors.verticalCenter: parent.verticalCenter

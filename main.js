@@ -457,13 +457,13 @@ function Temp_load(search,locale) {
 
 
 
-function Cards_save(id,username,userphone,useremail,usercompany,useralias,usermotto,main,website1,website2,website3,website4,avatar,cardback,cardcat) {
+function Cards_save(id,username,userphone,useremail,usercompany,useralias,usermotto,main,website1,website2,website3,website4,avatar,cardback,cardcat,cardsop) {
 
-    console.log(id,username,userphone,useremail);
+   // console.log(id,username,userphone,useremail);
 
    //var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
     var userStr = "INSERT INTO SavedCards VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    var data = [id,username,userphone,useremail,usercompany,useralias,usermotto,main,website1,website2,website3,website4,avatar,cardback,cardcat];
+    var data = [id,username,userphone,useremail,usercompany,useralias,usermotto,main,website1,website2,website3,website4,avatar,cardback,cardcat,cardsop];
 
        console.log(data);
         db.transaction(function(tx) {
@@ -675,6 +675,7 @@ function Show_sites(cid,list) {
 
    // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
     var dataStr;
+    var usesop;
 
     console.log(cid);
 
@@ -682,19 +683,23 @@ function Show_sites(cid,list) {
     switch(list) {
     case "temp":dbtable="TempCards";break;
     case "region":dbtable="RegCards";break;
-    case "global":dbtable="GlobCards";break;
+    //case "global":dbtable="GlobCards";break;
     //default:dbtable="TempCards";break;
     }
 
     if(cid != "local") {
         if(list != "saved") {
      dataStr = "SELECT * FROM "+dbtable+" WHERE id ='"+cid+"'";
+             usesop =1;
         } else {
             dataStr = "SELECT * FROM SavedCards WHERE id ='"+cid+"'";
+             usesop =1;
         }
+
 } else {
         //console.log("showing info for "+list);
         dataStr = "SELECT * FROM Card WHERE id ='"+list+"'";
+        usesop = 0;
     }
         //console.log("showing sites for " + cid + " in "+dbtable);
 
@@ -703,6 +708,8 @@ function Show_sites(cid,list) {
         webview3 = "empty.html";
         webview4 = "empty.html";
         mainview = "empty.html";
+
+        var sop;
 
 
         var cardbackis;
@@ -734,6 +741,12 @@ function Show_sites(cid,list) {
                emailaddress = pull.rows.item(0).email
            }
 
+            if(usesop == 1) {
+             sop = pull.rows.item(0).cardsop;
+            } else {
+                sop = 1;
+            }
+
            pagelist.append({
                             webpage:"empty.html",
                             thestate:"Home",
@@ -749,7 +762,7 @@ function Show_sites(cid,list) {
                                cardposition: pull.rows.item(0).alias,
                                cardbackimg:cardbackis,
                                //pageindex:pages,
-                               cardsop:pull.rows.item(0).cardsop.toString(),
+                               cardsop:sop.toString(),
                                cardcat:pull.rows.item(0).cat,
                                saved:0,
                                realcardback:pull.rows.item(0).cardback,
@@ -782,7 +795,7 @@ function Show_sites(cid,list) {
                                     pagewidth:mainScreen.width ,
                                     pageheight:mainScreen.height,
                                     thecard:pull.rows.item(0).id.toString(),
-
+                                    cardId:"",
                                     avatarimg:"",
                                     companyname: "",
                                     cardusername:"",
@@ -815,7 +828,7 @@ function Show_sites(cid,list) {
                                    pagewidth:mainScreen.width ,
                                    pageheight:mainScreen.height,
                                    thecard:pull.rows.item(0).id.toString(),
-
+                                    cardId:"",
                                    avatarimg:"",
                                    companyname: "",
                                    cardusername:"",
@@ -848,7 +861,7 @@ function Show_sites(cid,list) {
                                    pagewidth:mainScreen.width ,
                                    pageheight:mainScreen.height,
                                    thecard:pull.rows.item(0).id.toString(),
-
+                                    cardId:"",
                                    avatarimg:"",
                                    companyname: "",
                                    cardusername:"",
@@ -879,7 +892,7 @@ function Show_sites(cid,list) {
                                    pagewidth:mainScreen.width ,
                                    pageheight:mainScreen.height,
                                    thecard:pull.rows.item(0).id.toString(),
-
+                                    cardId:"",
                                    avatarimg:"",
                                    companyname: "",
                                    cardusername:"",
@@ -914,7 +927,7 @@ function Show_sites(cid,list) {
                                    pagewidth:mainScreen.width ,
                                    pageheight:mainScreen.height,
                                    thecard:pull.rows.item(0).id.toString(),
-
+                                    cardId:"",
                                    avatarimg:"",
                                    companyname: "",
                                    cardusername:"",
@@ -1200,13 +1213,14 @@ function Card_Set(location,num) {
 
 }
 
-function setCurrent(id,username,userphone,useremail,companyname,motto,mainsite,url1,url2,url3,url4,avatarimg,realcardback,cardcat,saved) {
+function setCurrent(id,username,userphone,position,useremail,companyname,motto,mainsite,url1,url2,url3,url4,avatarimg,realcardback,cardcat,cardsop,saved) {
 
     currentcard_saved = saved;
     currentcard_thecard = id;
     currentcard_username = username;
     currentcard_userphone = userphone;
     currentcard_useremail = useremail;
+    currentcard_cardposition = position;
     currentcard_companyname = companyname;
     currentcard_motto = motto;
     currentcard_mainsite = mainsite;
@@ -1217,6 +1231,7 @@ function setCurrent(id,username,userphone,useremail,companyname,motto,mainsite,u
     currentcard_avatarimg = avatarimg;
     currentcard_realcardback = realcardback;
     currentcard_cardcat = cardcat;
+    currentcard_cardsop = cardsop;
 
 
 }

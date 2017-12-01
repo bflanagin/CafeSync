@@ -1,6 +1,6 @@
 
 
-function oseed_auth(name,email) {
+function oseed_auth(name,email,passphrase) {
 
     var http = new XMLHttpRequest();
     //var url = "http://104.236.15.191:8675/corescripts/auth.php?devid=" + devId + "&appid=" + appId + "&username="+ name + "&email=" + email ;
@@ -25,7 +25,7 @@ function oseed_auth(name,email) {
     http.open('POST', url.trim(), true);
     //http.send(null);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    http.send("devid=" + devId + "&appid=" + appId + "&username="+ name + "&email=" + email);
+    http.send("devid=" + devId + "&appid=" + appId + "&username="+ name + "&email=" + email + "&passphrase=" + passphrase);
 }
 
 
@@ -74,12 +74,12 @@ function heartbeat() {
 }
 
 
-function checkcreds(name,email) {
+function checkcreds(name,passphrase) {
 
     var http = new XMLHttpRequest();
     //var url = "http://104.236.15.191:8675/corescripts/auth.php?devid=" + devId + "&appid=" + appId + "&username="+ name + "&email=" + email ;
     var url = "http://104.236.15.191:8675/corescripts/authCHECK.php";
-    console.log("sending "+name+" , "+email);
+    console.log("sending "+name+" , "+passphrase);
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
             //console.log(http.responseText);
@@ -100,7 +100,7 @@ function checkcreds(name,email) {
     http.open('POST', url.trim(), true);
     //http.send(null);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    http.send("devid=" + devId + "&appid=" + appId + "&username="+ name + "&email=" + email);
+    http.send("devid=" + devId + "&appid=" + appId + "&username="+ name + "&email=" + passphrase);
 
 
 }
@@ -237,6 +237,8 @@ function upload_data(Id,name,phone,email,company,ali,motto,send,ua,sc,main,l1,l2
               "&company=" + company + "&alias=" + ali + "&motto=" + motto + "&send=" + send + "&ua=" + ua + "&sc=" + sc +"&main=" + main + "&l1=" + l1 + "&l2=" + l2 + "&l3=" + l3
               + "&l4=" + l4 + "&avatar=" + av + "&cardback=" + cardback + "&cardcat=" + cardcat +"&cardsav=" + cardsav + "&cardtem="+cardtem+"&cardsop="+ cardsop);
 
+    gc();
+
 }
 
 function retrieve_data(id) {
@@ -272,7 +274,7 @@ function retrieve_data(id) {
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     http.send("devid=" + devId + "&appid=" + appId + "&id=" + id + "&cords="+ currentcords);
 
-
+gc();
 //return 0;
 }
 
@@ -294,7 +296,7 @@ function sync_cards(id,opt) {
         var http = new XMLHttpRequest();
         var url;
          var carddata = "";
-        var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
+        //var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
 
         //console.log("remotesaved = "+remotesaved.length+" and contains"+remotesaved);
@@ -409,7 +411,7 @@ function sync_cards(id,opt) {
 
 
 
-
+gc();
 
 }
 
@@ -482,7 +484,7 @@ function get_list(id,list) {
 
                         //console.log("updatig temp list");
                        // cardlist_update.running = true;
-                        cardload.running = true;
+                       // cardload.running = true;
 
 
                 }
@@ -522,7 +524,7 @@ function get_list(id,list) {
 
                         //console.log("updatig region list");
                         //cardlist_update.running = true;
-                        cardload.running = true;
+                        //cardload.running = true;
 
                         //sync_cards(userid,0);
                         //console.log("from interwebs temp "+carddata);
@@ -632,7 +634,7 @@ function update_card(id,list) {
                 var dataT = [cid,name,phone,email,company,calias,motto,main,link1,link2,link3,link4,avatar,cardbk,Date.now(),cardcat,cardsop];
 
 
-                var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
+               // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
                 var dataStr = "INSERT INTO SavedCards VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 var dataStrT = "INSERT INTO TempCards VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -694,7 +696,7 @@ function update_card(id,list) {
     http.send(null);
 
 
-
+gc();
 }
 
 function remote_delete(id,list,cid) {

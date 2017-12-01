@@ -40,8 +40,8 @@ GridView {
             name:"Active"
             PropertyChanges {
                 target: ms
-                visible:true
-
+             //   visible:true
+                x:0
             }
 
         },
@@ -49,12 +49,31 @@ GridView {
           name:"InActive"
           PropertyChanges {
               target: ms
-              visible:false
+             // visible:false
+              x:-1* width
           }
         }
     ]
 
+    transitions: [
+        Transition {
+            from: "InActive"
+            to: "Active"
+            reversible: true
+
+            NumberAnimation {
+                target: ms
+                property: "x"
+                duration: 200
+                easing.type: Easing.InOutQuad
+            }
+        }
+
+
+    ]
+
     delegate: Pages {}
+
 
  }
 

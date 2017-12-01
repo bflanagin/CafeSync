@@ -53,6 +53,9 @@ import "openseed.js" as OpenSeed
 
 
 
+
+
+
                                     Timer {id:selfdestruct;interval:300; running: true; repeat: true
                                         onTriggered: {
 
@@ -294,6 +297,7 @@ import "openseed.js" as OpenSeed
                                             currentcard_username = name;
                                             currentcard_userphone = phone;
                                             currentcard_useremail = email;
+                                            currentcard_cardposition = cardposition;
                                             currentcard_companyname = company;
                                             currentcard_motto = motto;
                                             currentcard_mainsite = mainsite;
@@ -304,6 +308,7 @@ import "openseed.js" as OpenSeed
                                             currentcard_avatarimg = imgsource;
                                             currentcard_realcardback = cardback;
                                             currentcard_cardcat = cardcat;
+                                            currentcard_cardsop = cardsop;
 
                                                   //  infotab.state = "Available";
                                             pagelist.clear();

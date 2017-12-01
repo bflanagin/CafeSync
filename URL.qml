@@ -13,6 +13,7 @@ Item {
     property string list:""
     property string service: ""
     property string pagesource: ""
+    property string thesource:""
 
     clip: true
 

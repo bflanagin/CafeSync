@@ -29,7 +29,7 @@ Item {
 
     clip: true
 
-    onStateChanged: if(popup.state == "Active") {OpenSeed.website_snap(mycard,page,index),Site.get_html(service);}
+    onStateChanged: if(popup.state == "Active") {Site.get_html(service);}
 
 
     states: [
@@ -235,7 +235,7 @@ Item {
         width:parent.width
         opacity:0
 
-        Image {
+       /* Image {
             id:servicelogo
             source:pluginlogo
             width:parent.width * 0.10
@@ -298,7 +298,7 @@ Item {
                         showurl = page+extrathing+"chat"
                         fullWeb.state = "show"
                         cardPage.header.hide()
-                    } */
+                    }
 
                     onClicked:Qt.openUrlExternally(page);
 
@@ -309,7 +309,7 @@ Item {
 
 
 
-        }
+        } */
     }
 
     }
@@ -375,7 +375,7 @@ Item {
 
     MouseArea {
         anchors.fill:parent
-        onPressed:wrflasher.state = "Active"
+        //onPressed:wrflasher.state = "Active"
         /*onClicked: {
             //console.log(page);
             showurl = page

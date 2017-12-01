@@ -123,6 +123,7 @@ ApplicationWindow {
    property string appId: "vagCaf-01010"
     property string osUsername: ""
     property string osEmail: ""
+    property string osPassphrase: ""
     property int cardloaded: 0
     property int numofcards: 0
     property int currentcard: -1
@@ -169,6 +170,7 @@ ApplicationWindow {
     property string currentcard_username: ""
     property string currentcard_userphone: ""
     property string currentcard_useremail: ""
+     property string currentcard_cardposition: ""
     property string currentcard_companyname: ""
     property string currentcard_motto: ""
     property string currentcard_mainsite: ""
@@ -179,6 +181,7 @@ ApplicationWindow {
     property string currentcard_avatarimg: ""
     property string currentcard_realcardback: ""
     property string currentcard_cardcat: ""
+    property string currentcard_cardsop: ""
 
     property var db: Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
@@ -191,7 +194,7 @@ ApplicationWindow {
     height: 800
     //width:Screen.desktopAvailableWidth
     //height:Screen.desktopAvailableHeight
-    background: backgroundColor
+   // background: backgroundColor
     title: "CafeSync"
 
 
@@ -235,15 +238,16 @@ ApplicationWindow {
 
     Timer {
         id:get_list_updater
-        interval:60000; running: true; repeat: true
+        interval:80000; running: true; repeat: true
             onTriggered: {
-                            console.log("Updating List");
+                           // console.log("Updating List");
                         OpenSeed.retrieve_data(userid);
                         //OpenSeed.retrieve_data(userid1);
                    // if(listget == "temp") {
 
                     //cardslist.clear();
-                        OpenSeed.get_list(userid,listget);
+                        OpenSeed.get_list(userid,"temp");
+                        OpenSeed.get_list(userid,"region");
                         OpenSeed.get_list(userid,"saved");
                     //}
 
@@ -254,7 +258,7 @@ ApplicationWindow {
 
     Timer {
             id:cardload
-            interval:1000; running: true; repeat:false
+            interval:80; running: true; repeat:false
 
                 onTriggered: {
                           //  console.log("loading "+ listget);
@@ -557,7 +561,7 @@ ApplicationWindow {
                 font.pixelSize: parent.height * 0.5
             }
 
-            Image {
+         /*   Image {
                 id:saveme
                 anchors.right:parent.right
                 anchors.rightMargin:parent.width * 0.03
@@ -614,7 +618,7 @@ ApplicationWindow {
                     onReleased: updateflick.state = "InActive"
 
                     }
-                }
+                } */
 
         }
 
@@ -740,7 +744,12 @@ ApplicationWindow {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
 
-        source:if (currentcard_saved == 0) {"./img/add.svg"} else {"./img/starred.svg"}
+        source:switch(currentcard_saved) {
+               case 0: "./img/add.svg";break;
+               case 1: "./img/starred.svg";break;
+               case 2: "./img/edit.svg";break;
+               default: "./img/add.svg";break;
+               }
 
         //z: -8
 
@@ -751,18 +760,21 @@ ApplicationWindow {
 
         MouseArea {
             anchors.fill:parent
-            onClicked: if (currentcard_saved == 0){
-                           Scripts.Cards_save(currentcard_thecard,currentcard_username,currentcard_userphone,currentcard_useremail,currentcard_companyname,"",currentcard_motto,
-                                              currentcard_mainsite,currentcard_url1,currentcard_url2,currentcard_url3,currentcard_url4,currentcard_avatarimg,currentcard_realcardback,currentcard_cardcat);
+            onClicked: switch (currentcard_saved){
+                       case 0: Scripts.Cards_save(currentcard_thecard,currentcard_username,currentcard_userphone,currentcard_useremail,currentcard_companyname,currentcard_cardposition,currentcard_motto,
+                                              currentcard_mainsite,currentcard_url1,currentcard_url2,currentcard_url3,currentcard_url4,currentcard_avatarimg,currentcard_realcardback,currentcard_cardcat,currentcard_cardsop);
 
                            //currentcard_saved;
 
-                           //cardslist.clear();
+                           cardslist.clear();
                            OpenSeed.sync_cards(userid,3);
                            OpenSeed.get_list(userid,"saved");
                            Scripts.Temp_load(searchtext,listget);
 
-                           saveState.source = "./img/starred.svg";
+                            currentcard_saved = 1;
+                           break;
+                       case 2:settingsPage.state = "Active";mainScreen.state = "InActive";break;
+
                        }
 
         onPressed: sav1flick.state = "Active"
@@ -829,7 +841,7 @@ ApplicationWindow {
        }
 
 
-   Rectangle {
+   /* Rectangle {
     id: listthing
     anchors.bottom: parent.bottom
     height:parent.height * 0.04
@@ -968,7 +980,7 @@ ApplicationWindow {
     }
 
 
-   }
+   } */
 
 
 
@@ -1091,6 +1103,14 @@ ApplicationWindow {
 
                     }
 
+                    add: Transition {
+                            NumberAnimation { properties: "y"; from: 0; duration: 200 }
+                        }
+
+
+                    onContentYChanged: if(contentY < -200 && draggingVertically == false) {
+                                            cardload.running = true;
+                                       }
 
 
                 }
@@ -1138,9 +1158,7 @@ ApplicationWindow {
         }
 
 
-Setup {
-    id:settingsPage
-}
+
 
  MainScreen {
     id:mainScreen
@@ -1170,6 +1188,16 @@ Setup {
 
 
 }
+
+ Setup {
+     id:settingsPage
+
+     width:parent.width
+     height:parent.height
+        y:topBar.height
+         state: "InActive"
+
+ }
 
 
    Item {
@@ -1258,28 +1286,46 @@ Setup {
                    TextField{
                         id:osUsernameField
                         anchors.top:diaSubTitle.bottom
-                        anchors.topMargin:20
+                        anchors.topMargin:10
                         anchors.horizontalCenter: parent.horizontalCenter
                         width:parent.width - 10
                         placeholderText: qsTr("User Name")
                         horizontalAlignment: Text.AlignHCenter
                         text:osUsername
-                        onTextChanged: uniquename = 0, osUsername = text,OpenSeed.checkcreds(osUsername,osEmail);
+                        onTextChanged: uniquename = 0, osUsername = text,OpenSeed.checkcreds(osUsername,osPassphrase);
 
                     }
+
+                   TextField{
+                       id:osEmailField
+                       anchors.top:osUsernameField.bottom
+                       anchors.topMargin:10
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width:parent.width - 10
+                       placeholderText: qsTr("Email")
+                      horizontalAlignment: Text.AlignHCenter
+                       text:osEmail
+                       onTextChanged:uniquename = 0,osEmail = text,OpenSeed.checkcreds(osUsername,osPassphrase);
+
+                   }
+
                     TextField{
-                        id:osEmailField
-                        anchors.top:osUsernameField.bottom
+                        id:osPassField
+                        anchors.top:osEmailField.bottom
+                        anchors.topMargin:10
                          anchors.horizontalCenter: parent.horizontalCenter
                          width:parent.width - 10
-                        placeholderText: "Passphrase"
-                       horizontalAlignment: Text.AlignHCenter
-                        text:osEmail
-                        onTextChanged:uniquename = 0,osEmail = text,OpenSeed.checkcreds(osUsername,osEmail);
+                        placeholderText: qsTr("Passphrase")
+                        horizontalAlignment: Text.AlignHCenter
+                        echoMode: TextInput.Password
+                        text:osPassphrase
+                        onTextChanged:uniquename = 0,osPassphrase = text,OpenSeed.checkcreds(osUsername,osPassphrase);
 
                     }
 
-                    Text {
+
+
+                   /* Text {
                                text:switch(uniquename) {
                                     case 0:qsTr("In Use");break;
                                     case 1:qsTr("Available");break;
@@ -1295,9 +1341,9 @@ Setup {
 
                                anchors.horizontalCenter: parent.horizontalCenter
                                font.pixelSize: 24
-                               anchors.top:osEmailField.bottom
+                               anchors.top:osPassField.bottom
 
-                           }
+                           } */
 
 
 
@@ -1318,11 +1364,12 @@ Setup {
                             { if(osEmail.length > 2) {
                                if(osUsername.length > 2) {
                                     console.log("sending info to server");
-                                    OpenSeed.oseed_auth(osUsernameField.text,osEmailField.text);
+                                    OpenSeed.oseed_auth(osUsernameField.text,osEmailField.text,osPassField.text);
 
                                             //OpenSeed.datasync(userid);
                                            //Scripts.load_Card();
                                             //OpenSeed.retrieve_data(userid);
+                                            settingsPage.state = "Active";
                                             slideshow.state = "Active";
                                            firstrun.state = "close";
                         }}}
@@ -1339,7 +1386,7 @@ Setup {
 
 
 
-   ToggleUpDown {
+  /* ToggleUpDown {
        id:infotab
        x:passerbyGrid.width / 2 - width / 2
        //anchors.bottom:passerbyGrid.bottom
@@ -1356,7 +1403,7 @@ Setup {
                }
            }
        }
-   }
+   } */
 
 
   /*CCreator {

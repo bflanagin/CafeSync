@@ -172,5 +172,6 @@
         <file>img/starred.svg</file>
         <file>img/stock_website.svg</file>
         <file>img/swap.svg</file>
+        <file>img/edit.svg</file>
     </qresource>
 </RCC>

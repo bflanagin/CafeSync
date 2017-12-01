@@ -27,24 +27,22 @@ Item {
 
  states: [
      State {
-         name: "show"
+         name: "Active"
          PropertyChanges {
              target:settingsPage
-             width:parent.width
-             height:parent.height
+
              x:0
-             y:topBar.height
+
 
          }
      },
      State {
-          name: "hide"
+          name: "InActive"
           PropertyChanges {
               target:settingsPage
-              width:parent.width
-              height:parent.height
-              x:0
-              y:parent.height
+
+              x:width * -1
+
 
           }
      }
@@ -53,10 +51,28 @@ Item {
 
  ]
 
+ transitions: [
+     Transition {
+         from: "InActive"
+         to: "Active"
+         reversible: true
 
-onStateChanged: if(settingsPage.state == "show") {topBar.state = "settings";listthing.state = "settings";} else {topBar.state = "standard";listthing.state = "cards";}
 
- state: "hide"
+         NumberAnimation {
+             target: settingsPage
+             property: "x"
+             duration: 200
+             easing.type: Easing.InOutQuad
+         }
+     }
+
+
+ ]
+
+
+onStateChanged: if(settingsPage.state == "Active") {topBar.state = "settings";} else {topBar.state = "standard";}
+
+
 
 
  Rectangle {
@@ -695,10 +711,10 @@ Item {
 
            }
 
-            /*  Text {
+              Text {
               id:websiteLabel2
 
-              text: "SoundCloud:"
+              text: "Kickstarter:"
               font.pixelSize:25
 
                TextField {
@@ -716,11 +732,11 @@ Item {
                    onTextChanged: if(cardindex == 0) {website3 = websiteVar2.text}
                }
 
-           } */
+           }
               Text {
               id:websiteLabel3
 
-              text: "YouTube:"
+              text: "SoundCloud:"
               font.pixelSize:25
 
                TextField {
@@ -882,6 +898,7 @@ Item {
      id:catmenu
      //anchors.centerIn: parent
      x:0
+     y:topBar.height
      width:parent.width
     // y:topBar.height
      height:parent.height - topBar.height

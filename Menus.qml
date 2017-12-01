@@ -28,10 +28,16 @@ Item {
             name:"Active"
             PropertyChanges {
                 target: popup
-                visible:true
+                //visible:true
                // height:parent.height * 0.80
                 //width:if(layouts.width > units.gu(mobile_vert)){parent.width * 0.40} else {parent.width * 0.90}
               //  width: parent.width * 0.90
+                y:switch(title) {
+                  case "Category": topBar.height;break;
+                  case "Category Select": 0;break;
+                  default: topBar.height;
+               }
+
             }
 
         },
@@ -39,12 +45,30 @@ Item {
           name:"InActive"
           PropertyChanges {
               target: popup
-              visible:false
+             // visible:false
+              y:height * - 1
           }
         }
     ]
 
-    //anchors.centerIn: parent
+
+
+    transitions: [
+        Transition {
+            from: "InActive"
+            to: "Active"
+            reversible: true
+
+
+            NumberAnimation {
+                target: popup
+                property: "y"
+                duration: 200
+                easing.type: Easing.InOutQuad
+            }
+
+        }
+    ]
 
  Rectangle {
   width:parent.width
@@ -71,7 +95,7 @@ Item {
         //anchors.leftMargin: parent.width * 0.04
         clip:true
         width:parent.width * 0.98
-        height:parent.height * 0.88
+        height:if(title != "Category") {parent.height * 0.88} else {parent.height * 0.98}
         flickableDirection: Flickable.VerticalFlick
         //contentHeight:notopdiscript.height
         spacing: height / 9
@@ -116,7 +140,7 @@ Item {
                                text: if(title != "Category") {switch(menuitem) {
                                      case "0": if(selection == 0) {qsTr("Contacts")} else {qsTr("Passers By")};break;
                                     case "1": qsTr("Your Card");break;
-                                     case "3": qsTr("Settings");break;
+                                     case "3": qsTr("Setup");break;
 
                                      default:menuitem;break;
                                      }
@@ -139,12 +163,12 @@ Item {
             MouseArea {
                 anchors.fill:parent
                 onClicked:switch(menuitem) {
-                          case "0": {settingsPage.state = "hide",
+                          case "0": {settingsPage.state = "InActive",
                                      cardPage.state = "show",
                                      cardPage.state = "default";
                                      popup.state = "InActive";
-                                     saveded.state = "unselected";
-                                     passby.state = "selected";
+                                     //saveded.state = "unselected";
+                                    // passby.state = "selected";
                                      pages = 1,cardslist.clear(),currentcard = -1
                              ,mainMenu.rotation=0;
                               if(selection == 0) {
@@ -156,9 +180,10 @@ Item {
                               }
 
                           }break;
-                          case "3":settingsPage.state = "show",cardPage.state = "settings";popup.state = "InActive";saveded.state = "unselected";passby.state = "selected";cardindex = 0;break;
-                          case "1":settingsPage.state = "hide",cardPage.state = "show",cardPage.state = "default";currentcard = -1;cardindex = 0;
+                          case "3":settingsPage.state = "Active",cardPage.state = "settings";popup.state = "InActive";cardindex = 0;break;
+                          case "1":settingsPage.state = "InActive",cardPage.state = "show",cardPage.state = "default";currentcard = -1;cardindex = 0;
                                             pagelist.clear();Scripts.Show_sites("local",userid);mainScreen.state = "Active";popup.state = "InActive";
+                                            currentcard_saved = 2;
                                             //if(layouts.width < units.gu(mobile_vert)) {
                                                // if(infotab.state == "Available" || infotab.state == "Active") {mainScreen.state = "Active",infotab.state = "InActive",cardPage.header.hide()} else {mainScreen.state = "InActive",infotab.state = "Active",cardPage.header.show()}
                                             //}

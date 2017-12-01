@@ -59,11 +59,14 @@ Item {
             y:0
             width:parent.width
             height:parent.height
+
+            Item {
+                width:if(avatarimg.length > 5 && cardsop == 1) {nameBack.height * 0.80} else {nameBack.height * 0.01}
+                height:if(avatarimg.length > 5 && cardsop == 1) {nameBack.height * 0.80} else {nameBack.height * 0.01}
             Image {
                 id:img
                // anchors.verticalCenter: parent.verticalCenter
-                width:if(avatarimg.length > 5) {nameBack.height * 0.80}
-                height:if(avatarimg.length > 5) {nameBack.height * 0.80}
+                anchors.fill: parent
                 source:avatarimg
                 //anchors.fill:parent
                 fillMode:Image.PreserveAspectFit
@@ -83,13 +86,15 @@ Item {
                  anchors.fill: img
                  source: img
                  maskSource: mask
+                 visible: if(cardsop == 1) {true} else {false}
              }
 
+             }
 
             Column {
                   id:info
                   width:nameBack.width - (img.width +img.x) - 10
-                  anchors.left: img.right
+                  //anchors.left: img.right
                   spacing: 5
                   clip:true
                 Text {

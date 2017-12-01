@@ -14,7 +14,7 @@ Item {
     property string service:""
     property string extrathing:""
     property string sitedata:""
-    property string pluginlogo:"img/overlay.png"
+    property string pluginlogo:"img/overlay-dark.png"
     property string avatar: ""
     property string name: ""
     property string banner: ""
@@ -174,7 +174,7 @@ Item {
           anchors.fill:parent
              //onClicked: showurl = link,fullWeb.state = "show"
             // ,cardPage.header.hide()
-                onClicked:Qt.openUrlExternally(link);
+                onPressAndHold:Qt.openUrlExternally(link);
 
 
          }
@@ -186,9 +186,9 @@ Item {
         id:blinder
         width:parent.width
         height:parent.height
-        color:"white"
-        radius:10
-        border.color:"black"
+        color:backgroundColor
+        //radius:10
+        //border.color:highLightColor1
         z:2
 
         states: [
@@ -197,6 +197,7 @@ Item {
                     PropertyChanges {
                      target:blinder
                         y:0
+                        color:backgroundColor
                     }
                     PropertyChanges {
                         target:links
@@ -211,6 +212,7 @@ Item {
                     y:parent.height * 0.94
                    opacity: 1
                     radius:0
+                    color:barColor
                     }
 
                     PropertyChanges {
@@ -226,7 +228,7 @@ Item {
 
        transitions: Transition {
             PropertyAnimation { target: blinder
-                                      properties:"y,radius"; duration: 500 }
+                                      properties:"y,radius,color"; duration: 500 }
         }
 
     Item {
@@ -249,6 +251,7 @@ Item {
             font.underline: true
             font.pixelSize: servicelogo.height * 0.6
             text:service
+            color:highLightColor1
         }
     }
 

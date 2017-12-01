@@ -70,6 +70,7 @@ Item {
 
     onStateChanged: {
 
+
         //if(layouts.width < mobile_width) {
 
 
@@ -246,6 +247,7 @@ Item {
 
         Transition {
         //id:sanimation
+
            NumberAnimation { properties: "x,y"; easing.type: Easing.InOutQuad;duration:500;}
        },
         Transition {
@@ -274,7 +276,7 @@ Item {
         height:parent.height
 
 
-      /*  FaceBook {
+        /*FaceBook {
             state:if(custompage == 1) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
@@ -292,6 +294,7 @@ Item {
 
 
         } */
+
         Twitter {
             state:if(custompage == 3) {"Active"} else {"InActive"}
             anchors.fill:parent
@@ -306,7 +309,7 @@ Item {
             pagesource:thesource
             service:page
         } */
-        YouTube {
+       /* YouTube {
             state:if(custompage == 5) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
@@ -317,9 +320,9 @@ Item {
             message:themessage
             stats:thestats
 
-        }
-        /*
-        Jamendo {
+        } */
+
+       /* Jamendo {
             state:if(custompage == 6) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
@@ -330,14 +333,14 @@ Item {
             anchors.fill:parent
             pagesource:thesource
             service:page
-        }
+        } */
 
         SoundCloud {
             state:if(custompage == 8) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page
-        } */
+        }
 
         Tumblr {
             state:if(custompage == 9) {"Active"} else {"InActive"}
@@ -362,13 +365,13 @@ Item {
             link:thelink
         }
 
-      /*  Etsy {
+      /* Etsy {
             state:if(custompage == 10) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page
 
-        }
+        } */
 
         Kickstarter {
             state:if(custompage == 11) {"Active"} else {"InActive"}
@@ -383,14 +386,14 @@ Item {
             anchors.fill:parent
             pagesource:thesource
             service:page
-        } */
+        }
 
-    URL {
+    /*URL {
         state:if(custompage == 0 && hasrss == 0) {"Active"} else {"InActive"}
         anchors.fill:parent
         pagesource:thesource
         service:page
-    }
+    } */
 
 
 

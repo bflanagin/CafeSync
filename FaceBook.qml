@@ -165,7 +165,7 @@ Item {
                     y:if (personal == 1) {parent.height} else {parent.height * 0.90}
                     radius:0
                     }
-                    //when: bg.status == Image.Ready
+                    when: bg.status == Image.Ready
             }
 
         ]
