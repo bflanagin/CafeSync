@@ -3,7 +3,8 @@ TEMPLATE = app
 QT += qml quick svg sql
 CONFIG += c++11
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    myio.cpp
 
 RESOURCES += qml.qrc
 
@@ -49,3 +50,6 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
 contains(ANDROID_TARGET_ARCH,x86) {
     ANDROID_EXTRA_LIBS =
 }
+
+HEADERS += \
+    myio.h

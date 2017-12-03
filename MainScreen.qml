@@ -13,6 +13,8 @@ import QtQuick.LocalStorage 2.0 as Sql
 import "main.js" as Scripts
 import "openseed.js" as OpenSeed
 
+
+
 GridView {
     id:ms
     property string number: "0"
@@ -27,10 +29,12 @@ GridView {
     flow:GridView.FlowTopToBottom
     boundsBehavior: Flickable.DragAndOvershootBounds
     flickableDirection: Flickable.VerticalFlick
+   // highlightFollowsCurrentItem: true
+    focus:true
     visible: true
     //cellHeight: units.gu(26)
     clip:true
-
+    cacheBuffer : 80
     cellHeight:parent.height //passerbyGrid.height
     cellWidth: mainScreen.width
 
@@ -73,6 +77,34 @@ GridView {
     ]
 
     delegate: Pages {}
+
+    Row {
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom:parent.bottom
+        anchors.bottomMargin: parent.height * 0.11
+        spacing: 10
+    Repeater {
+            model:ms.count
+            id:pageIndicator
+            Rectangle {
+                       width: 10
+                       height: 10
+                       border.width: 1
+                       border.color:barColor
+                       color: if(index == ms.indexAt(ms.contentX,0)) {highLightColor1} else {Qt.rgba(9,9,9,0);}
+                       radius:width /2
+
+
+
+
+                        MouseArea {
+                            anchors.fill:parent
+                            onClicked: ms.positionViewAtIndex(index,GridView.Center)
+                        }
+                   }
+
+            }
+    }
 
 
  }

@@ -48,6 +48,7 @@ import "openseed.js" as OpenSeed
                                     property int explodereset: 0
                                     property int lister: 0
 
+
                                // flickableDirection:Flickable.HorizontalFlick
 
 
@@ -56,15 +57,15 @@ import "openseed.js" as OpenSeed
 
 
 
-                                    Timer {id:selfdestruct;interval:300; running: true; repeat: true
+                                    Timer {id:selfdestruct;interval:3000; running: true; repeat: true
                                         onTriggered: {
 
                                                 if(issaved != 1) {
                                                     if(cardsop != 2) {
                                                         if(explodereset == 10000) {
 
-                                                        if(Scripts.Temp_elapsed(card) == 1) {
-                                                             OpenSeed.remote_delete(userid,listget,card);
+                                                        if(Scripts.Temp_elapsed(cardId) == 1) {
+                                                             OpenSeed.remote_delete(userid,listget,cardId);
                                                             cardslist.remove(index);
 
                                                             }
@@ -79,6 +80,27 @@ import "openseed.js" as OpenSeed
                                     }
 
 
+                                    Timer {
+                                        id:updatecard
+                                        interval: 10000
+                                        running: true
+                                        repeat: true
+
+                                        onTriggered:OpenSeed.update_card(cardId,listget)
+
+
+                                    }
+
+                                    Timer {
+                                        id:updateinfo
+                                        interval: 15000
+                                        running: true
+                                        repeat: true
+
+                                        //onTriggered:OpenSeed.update_card(cardId,listget)
+
+
+                                    }
 
 
 
@@ -94,7 +116,7 @@ import "openseed.js" as OpenSeed
                                             id:thecard
                                             width: parent.width * 0.98
                                             height: parent.height * 0.98
-                                            color: colorCode
+                                            color: cardcolor
                                             radius: 2
                                             //border.color: "black"
                                            // border.width: 1
@@ -113,7 +135,7 @@ import "openseed.js" as OpenSeed
                                                // anchors.top:parent.top
                                                 anchors.left:parent.left
 
-                                                color:"white"
+                                                color:cardcolor
                                                // border.color: "white"
                                                // border.width: 0.5
                                                // radius: width / 2

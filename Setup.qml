@@ -87,7 +87,7 @@ onStateChanged: if(settingsPage.state == "Active") {topBar.state = "settings";} 
 
  Flickable {
      clip:true
-     contentHeight:parent.height * 2.5
+     contentHeight:parent.height * 2.9
     /* anchors {
          top: parent.top
          bottom:parent.bottom
@@ -121,8 +121,8 @@ onStateChanged: if(settingsPage.state == "Active") {topBar.state = "settings";} 
 
      Image {
          id:cardsava
-         width:parent.width * 0.35
-         height: parent.width * 0.35
+         width:parent.width * 0.5
+         height: parent.width * 0.5
          anchors.verticalCenter: parent.verticalCenter
          anchors.horizontalCenter: parent.horizontalCenter
          //anchors.margins: 4
@@ -158,6 +158,11 @@ onStateChanged: if(settingsPage.state == "Active") {topBar.state = "settings";} 
             z:1
 
         }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked:sourceSelector.state = "Active"
+    }
 
 
 
@@ -506,7 +511,7 @@ Text {
 
 Item {
     width:parent.width
-    height: plinklist.y + plinklist.height + 40
+    height: personalMotto.y + (personalMotto.height * 1.4)
 
  Rectangle {
  id: rectangle1
@@ -549,7 +554,9 @@ Item {
 
           Text {
               font.pixelSize: 24
-              text:"Category: "
+              text:qsTr("Category: ")
+              anchors.right:parent.right
+              anchors.rightMargin: catbutton.width * 1.1
 
              Rectangle {
                     id:catbutton
@@ -631,11 +638,16 @@ Item {
           Row {
               id:pmottoRow
               width: parent.width
-              height: parent.height / 3
+              height: settingsPage.height / 2
 
               Text {
                   text:qsTr("About:")
 
+                  Rectangle {
+                      anchors.fill: personalMotto
+                      border.color:highLightColor1
+                      border.width: 1
+                  }
 
               TextArea {
                   anchors.top:parent.bottom
@@ -647,117 +659,12 @@ Item {
                   text:if(cardindex == 0) {usermotto}
                   onTextChanged: if(cardindex == 0) {usermotto = personalMotto.text}
                   clip:true
+
+
                  }
+
               }
           }
-
-
-
-      Column {
-          id:plinklist
-          //x:0
-          //anchors.top:pmottoRow.bottom
-          width:parent.width
-          //height:parent.height
-          spacing: 30
-
-
-
-
-              Text {
-              id:websiteLabel
-
-              text: "Twitter:"
-              font.pixelSize:25
-               TextField {
-                   id:websiteVar
-
-                   anchors.left: parent.right
-                   anchors.leftMargin: .5
-                   anchors.verticalCenter: parent.verticalCenter
-
-                   width:plinklist.width - websiteLabel.width
-
-                   placeholderText: qsTr("www.twitter.com/username")
-                   //font.pixelSize: parent.height
-                   text:if(cardindex == 0) {website1} else {website11}
-                   onTextChanged: if(cardindex == 0) {website1 = websiteVar.text}
-
-               }
-
-           }
-
-
-              Text {
-              id:websiteLabel1
-
-              text: "Tumblr:"
-              font.pixelSize:25
-               TextField {
-                   id:websiteVar1
-
-                   anchors.left: parent.right
-                   anchors.leftMargin: .5
-                   anchors.verticalCenter: parent.verticalCenter
-
-                   width:plinklist.width - websiteLabel1.width
-
-                   placeholderText: qsTr("www.example.com")
-                   //font.pixelSize: parent.height
-                   text:if(cardindex == 0) {website2} else {website21}
-                   onTextChanged: if(cardindex == 0) {website2 = websiteVar1.text}
-
-               }
-
-           }
-
-              Text {
-              id:websiteLabel2
-
-              text: "Kickstarter:"
-              font.pixelSize:25
-
-               TextField {
-                   id:websiteVar2
-
-                   anchors.left: parent.right
-                   anchors.leftMargin: .5
-                   anchors.verticalCenter: parent.verticalCenter
-
-                   width:plinklist.width - websiteLabel2.width
-
-                   placeholderText: qsTr("www.example.com")
-                   //font.pixelSize: parent.height
-                   text:if(cardindex == 0) {website3} else {website31}
-                   onTextChanged: if(cardindex == 0) {website3 = websiteVar2.text}
-               }
-
-           }
-              Text {
-              id:websiteLabel3
-
-              text: "SoundCloud:"
-              font.pixelSize:25
-
-               TextField {
-                   id:websiteVar3
-
-                   anchors.left: parent.right
-                   anchors.leftMargin: .5
-                   anchors.verticalCenter: parent.verticalCenter
-
-                   width:plinklist.width - websiteLabel3.width
-
-                   placeholderText: qsTr("www.example.com")
-                   //font.pixelSize: parent.height
-                   text:if(cardindex == 0) {website4} else {website41}
-                   onTextChanged: if(cardindex == 0) {website4 = websiteVar3.text}
-
-               }
-
-           }
-
-        }
       }
 }
 
@@ -777,6 +684,401 @@ Item {
 
 
 }
+
+}
+
+Text {
+ //id: profileSettingLabel
+ //x: units.gu(1)
+// y: 208
+ anchors.left:parent.left
+ anchors.leftMargin: 8
+ //anchors.top:contactarea.bottom//avatarBacking.bottom
+ //anchors.topMargin: 10
+ text: qsTr("Social Networks")
+ style: Text.Normal
+ font.pixelSize: 24
+}
+
+Item {
+   //
+    height:socialNetworks.height
+    width:parent.width
+
+Rectangle {
+    id:socialNetworks
+    color:"white"
+    anchors.fill: parent
+    width:parent.width
+    height:soundcloudButton.y + soundcloudButton.height + 40
+        clip:true
+
+                    /* Text {
+                          id:websiteLabel
+
+                          text: "Twitter:"
+                          font.pixelSize: 18
+
+                         TextField {
+                            id:websiteVar
+
+                           anchors.left: parent.right
+                            anchors.leftMargin: .5
+                             anchors.verticalCenter: parent.verticalCenter
+
+                                 width:plinklist.width - websiteLabel.width
+
+                                    placeholderText: qsTr("www.twitter.com/username")
+                                     //font.pixelSize: parent.height
+                                     text:if(cardindex == 0) {website1} else {website11}
+                                 onTextChanged: if(cardindex == 0) {website1 = websiteVar.text}
+
+                        }
+
+
+                     } */
+
+                     Item {
+                         id:twitterButton
+                         anchors.horizontalCenter: parent.horizontalCenter
+                         anchors.top:parent.top
+                         anchors.topMargin: 20
+                         width:parent.width * 0.95
+                         height:80
+
+                     Rectangle {
+                         id:twb
+                         anchors.fill: parent
+                         color:"lightblue"
+                         radius:5
+                         border.color: "white"
+
+                         Row {
+                             anchors.horizontalCenter: parent.horizontalCenter
+                             width:parent.width * 0.98
+                             height:parent.height
+                             clip:true
+                             spacing: 10
+                             Image {
+                                 source:"./img/twitter.png"
+                                 height:parent.height * 0.9
+                                 width:parent.height * 0.9
+                                 anchors.verticalCenter: parent.verticalCenter
+
+                             }
+
+                             Rectangle {
+                                 height:parent.height * 0.9
+                                 color:"white"
+                                 width:3
+                                 anchors.verticalCenter: parent.verticalCenter
+                             }
+
+                             Text {
+                                 anchors.verticalCenter: parent.verticalCenter
+                                 text:"Twitter not connected"
+                                 color:"white"
+                                 width:parent.width
+                                 font.pixelSize: parent.height * 0.3
+                                 wrapMode: Text.WordWrap
+                             }
+                         }
+                       }
+
+                     DropShadow {
+
+                        anchors.fill: twb
+                        horizontalOffset: 0
+                        verticalOffset: 3
+                        radius: 8.0
+                        samples: 17
+                        color: "#80000000"
+                        source: twb
+                        z:1
+
+
+
+                          }
+                      }
+
+                    Item {
+                        id:tumblrButton
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.top:twitterButton.bottom
+                        anchors.topMargin: 20
+                        width:parent.width * 0.95
+                        height:80
+
+                    Rectangle {
+                        id:trb
+                       anchors.fill: parent
+                        color:"#343460"
+                        radius:5
+                        border.color: "white"
+
+                        Row {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            width:parent.width * 0.98
+                            height:parent.height
+                            clip:true
+                            spacing: 10
+                            Image {
+                                source:"./img/tumblr.png"
+                                height:parent.height * 0.9
+                                width:parent.height * 0.9
+                                anchors.verticalCenter: parent.verticalCenter
+
+                            }
+
+                            Rectangle {
+                                height:parent.height * 0.9
+                                color:"white"
+                                width:3
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+
+                            Text {
+                                anchors.verticalCenter: parent.verticalCenter
+                                text:"Tumblr not connected"
+                                color:"white"
+                                width:parent.width
+                                font.pixelSize: parent.height * 0.3
+                                wrapMode: Text.WordWrap
+                            }
+                        }
+                    }
+
+                    DropShadow {
+
+                       anchors.fill: trb
+                       horizontalOffset: 0
+                       verticalOffset: 3
+                       radius: 8.0
+                       samples: 17
+                       color: "#80000000"
+                       source: trb
+                       z:1
+
+
+
+                         }
+                     }
+
+                    Item {
+                        id:kickstarterButton
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.top:tumblrButton.bottom
+                        anchors.topMargin: 20
+                        width:parent.width * 0.95
+                        height:80
+
+                     Rectangle {
+                        id:ksb
+                        anchors.fill: parent
+                        color:"#3DA1B3"
+                        radius:5
+                        border.color: "white"
+
+                        Row {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            width:parent.width * 0.98
+                            height:parent.height
+                            clip:true
+                            spacing: 10
+                            Image {
+                                source:"./img/kickstarter-logo-k-color.png"
+                                height:parent.height * 0.9
+                                width:parent.height * 0.9
+                                anchors.verticalCenter: parent.verticalCenter
+
+                            }
+
+                            Rectangle {
+                                height:parent.height * 0.9
+                                color:"white"
+                                width:3
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+
+                            Text {
+                                anchors.verticalCenter: parent.verticalCenter
+                                text:"Kickstarter not connected"
+                                color:"white"
+                                width:parent.width
+                                font.pixelSize: parent.height * 0.3
+                                wrapMode: Text.WordWrap
+                            }
+                        }
+                    }
+
+                     DropShadow {
+
+                        anchors.fill: ksb
+                        horizontalOffset: 0
+                        verticalOffset: 3
+                        radius: 8.0
+                        samples: 17
+                        color: "#80000000"
+                        source: ksb
+                        z:1
+
+
+
+                          }
+                      }
+
+                     Item {
+                         id:soundcloudButton
+                         anchors.horizontalCenter: parent.horizontalCenter
+                         anchors.top:kickstarterButton.bottom
+                         anchors.topMargin: 20
+                         width:parent.width * 0.95
+                         height:80
+
+
+                    Rectangle {
+                        id:scb
+                        anchors.fill: parent
+                        color:"orange"
+                        radius:5
+                        border.color: "white"
+
+                        Row {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            width:parent.width * 0.98
+                            height:parent.height
+                            clip:true
+                            spacing: 10
+                            Image {
+                                source:"./img/soundcloud.png"
+                                height:parent.height * 0.9
+                                width:parent.height * 0.9
+                                anchors.verticalCenter: parent.verticalCenter
+
+                            }
+
+                            Rectangle {
+                                height:parent.height * 0.9
+                                color:"white"
+                                width:3
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+
+                            Text {
+                                anchors.verticalCenter: parent.verticalCenter
+                                text:"SoundCloud not connected"
+                                color:"white"
+                                font.pixelSize: parent.height * 0.3
+                                width:parent.width
+                                wrapMode: Text.WordWrap
+                            }
+                        }
+                    }
+
+                    DropShadow {
+
+                       anchors.fill: scb
+                       horizontalOffset: 0
+                       verticalOffset: 3
+                       radius: 8.0
+                       samples: 17
+                       color: "#80000000"
+                       source: scb
+                       z:1
+
+
+
+                         }
+                     }
+
+
+      /*  Text {
+        id:websiteLabel1
+
+        text: "Tumblr:"
+        font.pixelSize: 18
+         TextField {
+             id:websiteVar1
+
+             anchors.left: parent.right
+             anchors.leftMargin: .5
+             anchors.verticalCenter: parent.verticalCenter
+
+             width:plinklist.width - websiteLabel1.width
+
+             placeholderText: qsTr("www.example.com")
+             //font.pixelSize: parent.height
+             text:if(cardindex == 0) {website2} else {website21}
+             onTextChanged: if(cardindex == 0) {website2 = websiteVar1.text}
+
+         }
+
+     } */
+
+
+
+       /* Text {
+        id:websiteLabel2
+
+        text: "Kickstarter:"
+        font.pixelSize: 18
+
+         TextField {
+             id:websiteVar2
+
+             anchors.left: parent.right
+             anchors.leftMargin: .5
+             anchors.verticalCenter: parent.verticalCenter
+
+             width:plinklist.width - websiteLabel2.width
+
+             placeholderText: qsTr("www.example.com")
+             //font.pixelSize: parent.height
+             text:if(cardindex == 0) {website3} else {website31}
+             onTextChanged: if(cardindex == 0) {website3 = websiteVar2.text}
+         }
+
+     } */
+      /*  Text {
+        id:websiteLabel3
+
+        text: "SoundCloud:"
+        font.pixelSize: 18
+
+         TextField {
+             id:websiteVar3
+
+             anchors.left: parent.right
+             anchors.leftMargin: .5
+             anchors.verticalCenter: parent.verticalCenter
+
+             width:plinklist.width - websiteLabel3.width
+
+             placeholderText: qsTr("www.example.com")
+             //font.pixelSize: parent.height
+             text:if(cardindex == 0) {website4} else {website41}
+             onTextChanged: if(cardindex == 0) {website4 = websiteVar3.text}
+
+         }
+
+     } */
+
+}
+
+    DropShadow {
+
+       anchors.fill: socialNetworks
+       horizontalOffset: 0
+       verticalOffset: 3
+       radius: 8.0
+       samples: 17
+       color: "#80000000"
+       source: socialNetworks
+       z:1
+
+
+
+   }
 
 }
 
@@ -920,5 +1222,15 @@ Item {
 
  }
 
+ SourceSelection {
+        id:sourceSelector
+        width:parent.width
+        height:parent.height - topBar.height
+        state:"InActive"
+
  }
+
+ }
+
+
 

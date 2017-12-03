@@ -120,7 +120,6 @@
         <file>img/OpenSeed.png</file>
         <file>img/opts1.png</file>
         <file>img/opts2.png</file>
-        <file>img/overlay-dark.png</file>
         <file>img/overlay.png</file>
         <file>img/paypal.png</file>
         <file>img/sc_st_gradient_96x58.png</file>
@@ -173,5 +172,22 @@
         <file>img/stock_website.svg</file>
         <file>img/swap.svg</file>
         <file>img/edit.svg</file>
+        <file>img/overlay-dark.png</file>
+        <file>SourceSelection.qml</file>
+        <file>img/kickstarter-logo-k-color.png</file>
+        <file>GetPic.qml</file>
+        <file>Preview.qml</file>
+        <file>img/camera-photo.svg</file>
+        <file>img/FA.png</file>
+        <file>img/Fauto.png</file>
+        <file>img/Fcount.png</file>
+        <file>img/Fhyper.png</file>
+        <file>img/Finf.png</file>
+        <file>img/Fmacro.png</file>
+        <file>img/FO.png</file>
+        <file>img/frontC.png</file>
+        <file>img/FS.png</file>
+        <file>img/backC.png</file>
+        <file>img/gravatarlogo.jpg</file>
     </qresource>
 </RCC>

@@ -38,7 +38,7 @@ Rectangle {
               //color: Qt.rgba(0.5,0.5,0.5,0.5)
               color:highLightColor1
                 z:-1
-                opacity: 0.8
+                opacity: 0.9
           }
         },
         State {
@@ -50,7 +50,17 @@ Rectangle {
               color:Qt.rgba(1.0,0.0,0.0,0.5)
               z:-1
           }
-        }
+        },
+                State {
+                  name:"Enabled"
+                  PropertyChanges {
+                      target: popup
+                      //z: -2
+                      visible:true
+                      color:activeColor
+                      z:-1
+                  }
+                }
     ]
 
     anchors.centerIn: parent

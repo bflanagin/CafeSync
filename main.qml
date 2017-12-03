@@ -8,13 +8,15 @@ import QtPositioning 5.2
 import QtQuick.Controls.Material 2.2
 import QtGraphicalEffects 1.0
 
+import IO 1.0
+
 import QtQuick.LocalStorage 2.0 as Sql
 import "main.js" as Scripts
 import "openseed.js" as OpenSeed
 
 ApplicationWindow {
 
-    id:mainWindow
+    id:mainView
 
 
     property int onsaved: 0
@@ -37,8 +39,10 @@ ApplicationWindow {
     property string highLightColor1: "#FFE082"
     property string barColor: "#795548"
     property string bottombarColor: "#795548"
+    property string activeColor: "#6E4879"
+    property string cardcolor: Qt.rgba(0.98,0.98,0.98,1)
 
-
+    property string paths:""
 
 
     ////// Begin card info ///////
@@ -53,6 +57,7 @@ ApplicationWindow {
    property string usermotto: ""
     property string userid: ""
     property string usercat: ""
+    property string usercard: ""
 
     property string stf: "false"
     property string atf: "false"
@@ -201,7 +206,7 @@ ApplicationWindow {
 
 
     Timer {
-            //id:get_list_updater
+            id:startup
             interval:10; running:true; repeat: false
             onTriggered: {
             Scripts.load_Card();
@@ -258,7 +263,7 @@ ApplicationWindow {
 
     Timer {
             id:cardload
-            interval:80; running: true; repeat:false
+            interval:800; running: true; repeat:false
 
                 onTriggered: {
                           //  console.log("loading "+ listget);
@@ -474,18 +479,16 @@ ApplicationWindow {
            // anchors.right:search.left
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
-            property int loc:0
+            property int loc:if(listget == "temp") {0} else {2}
             source: if(selection != 1) { switch(loc) {
-                case 0:"img/location.svg";break;
-                case 2:"img/language-chooser.svg";break;
-               // case 2:"img/stock_website.svg";break;
-                default:"img/location.svg";break;
-                } } else {
-                           "img/starred.svg"
-
-            }
-            width:parent.height /1.5
-            height:parent.height /1.5
+                                             case 0:"img/location.svg";break;
+                                             case 2:"img/language-chooser.svg";break;
+                                          // case 2:"img/stock_website.svg";break;
+                                              default:"img/location.svg";break;
+                                            }
+                                    }else {"img/overlay-dark.png"}
+            width:parent.height * 0.7
+            height:parent.height * 0.7
 
             Flasher {
                 id:locflick
@@ -497,11 +500,13 @@ ApplicationWindow {
                 onPressed: locflick.state = "Active"
                 onReleased: locflick.state = "InActive"
                 onClicked:if(selection != 1) {switch(location_switch.loc) {
-                          case 0: currentcard = -1;location_switch.loc = 2;location_selected = "Region";cardslist.clear();listget = "region";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
-                          //case 1: currentcard = -1;location_switch.loc = 2;location_selected = "Global";cardslist.clear();listget = "global";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
-                          case 2: currentcard = -1;location_switch.loc = 0;location_selected = "Passers By";cardslist.clear();listget = "temp";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
-                          }
-                          }
+                                                 case 0: currentcard = -1;/*location_switch.loc = 2;*/location_selected = "Region";cardslist.clear();listget = "region";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
+                                                 //case 1: currentcard = -1;location_switch.loc = 2;location_selected = "Global";cardslist.clear();listget = "global";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
+                                                 case 2: currentcard = -1;/*location_switch.loc = 0;*/location_selected = "Passers By";cardslist.clear();listget = "temp";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
+                                                 }
+                            } else {
+                                if(grabit.state == "InActive") {grabit.state = "Active"} else {grabit.state = "InActive"}
+                            }
 
             }
         }
@@ -542,7 +547,7 @@ ApplicationWindow {
                                                                          useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
                                                                          avimg,carddesign,usercat);
 
-                        themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0
+                        themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0,topBar.state = "person"
                             }
 
                    // onPressed: setflick.state = "Active"
@@ -561,7 +566,7 @@ ApplicationWindow {
                 font.pixelSize: parent.height * 0.5
             }
 
-         /*   Image {
+            Image {
                 id:saveme
                 anchors.right:parent.right
                 anchors.rightMargin:parent.width * 0.03
@@ -592,6 +597,7 @@ ApplicationWindow {
                 }
             }
 
+            /*
                 Image {
                     id:updatebutton
                     anchors.right:saveme.left
@@ -651,7 +657,7 @@ ApplicationWindow {
 
                 MouseArea {
                     anchors.fill:parent
-                    onClicked: catmenu.state = "Active"
+                    onClicked: if(catmenu.state == "InActive") {catmenu.state = "Active",mainMenu2.rotation = 90} else {catmenu.state = "InActive",mainMenu2.rotation = 0}
                 }
             }
 
@@ -739,16 +745,16 @@ ApplicationWindow {
 
     Image {
         id:saveState
-        width:  parent.height * 0.8
-        height: parent.height * 0.8
+        width:  parent.height * 0.7
+        height: parent.height * 0.7
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
 
         source:switch(currentcard_saved) {
-               case 0: "./img/add.svg";break;
-               case 1: "./img/starred.svg";break;
-               case 2: "./img/edit.svg";break;
-               default: "./img/add.svg";break;
+               case 0: "./img/overlay-dark.png";break;
+               case 1: "./img/overlay-dark.png";break;
+               case 2: "./img/overlay-dark.png";break;
+               default: "./img/overlay-dark.png";break;
                }
 
         //z: -8
@@ -761,7 +767,7 @@ ApplicationWindow {
         MouseArea {
             anchors.fill:parent
             onClicked: switch (currentcard_saved){
-                       case 0: Scripts.Cards_save(currentcard_thecard,currentcard_username,currentcard_userphone,currentcard_useremail,currentcard_companyname,currentcard_cardposition,currentcard_motto,
+                      /* case 0: Scripts.Cards_save(currentcard_thecard,currentcard_username,currentcard_userphone,currentcard_useremail,currentcard_companyname,currentcard_cardposition,currentcard_motto,
                                               currentcard_mainsite,currentcard_url1,currentcard_url2,currentcard_url3,currentcard_url4,currentcard_avatarimg,currentcard_realcardback,currentcard_cardcat,currentcard_cardsop);
 
                            //currentcard_saved;
@@ -772,8 +778,11 @@ ApplicationWindow {
                            Scripts.Temp_load(searchtext,listget);
 
                             currentcard_saved = 1;
-                           break;
-                       case 2:settingsPage.state = "Active";mainScreen.state = "InActive";break;
+                           break; */
+                       //case 2:settingsPage.state = "Active";mainScreen.state = "InActive";break;
+                       case 2:swapopt.state ="Active";break;
+                        case 1:swapopt.state ="Active";break;
+                        case 0:swapopt.state ="Active";break;
 
                        }
 
@@ -791,7 +800,7 @@ ApplicationWindow {
         anchors.rightMargin: parent.width * 0.03
         anchors.verticalCenter: parent.verticalCenter
 
-        source:"./img/delete.svg"
+        source:if(currentcard_saved == 2) {"./img/edit.svg"} else {"./img/delete.svg"}
         //z: -8
 
         Flasher {
@@ -803,17 +812,24 @@ ApplicationWindow {
         MouseArea {
             anchors.fill: parent
             preventStealing: true
-            onClicked: if (currentcard_saved == 0){
-                                Scripts.Delete_card(currentcard_thecard,listget);OpenSeed.remote_delete(userid,listget,currentcard_thecard);cardslist.clear();Scripts.Temp_load(searchtext,listget);
+            onClicked: switch(currentcard_saved ) {
+
+                       case 0: Scripts.Delete_card(currentcard_thecard,listget);OpenSeed.remote_delete(userid,listget,currentcard_thecard);cardslist.clear();Scripts.Temp_load(searchtext,listget);
                            mainScreen.state = "InActive";
                            topBar.state="standard";
-                           mainMenu.rotation = 0;
-                       } else {
+                           mainMenu.rotation = 0; break;
+                       case 1:
                                 Scripts.Delete_card(currentcard_thecard,"saved");OpenSeed.remote_delete(userid,"saved",currentcard_thecard);cardslist.clear();Scripts.Cards_load(searchtext);
                                 mainScreen.state = "InActive";
                                 topBar.state="standard";
-                                mainMenu.rotation = 0;
-                           //OpenSeed.sync_cards(userid,3);
+                                mainMenu.rotation = 0; break;
+
+                       case 2: settingsPage.state = "Active";break;
+
+                       default:Scripts.Delete_card(currentcard_thecard,listget);OpenSeed.remote_delete(userid,listget,currentcard_thecard);cardslist.clear();Scripts.Temp_load(searchtext,listget);
+                           mainScreen.state = "InActive";
+                           topBar.state="standard";
+                           mainMenu.rotation = 0; break;
                        }
             onPressed: delflick.state = "Active"
             onReleased: delflick.state = "InActive"
@@ -1068,6 +1084,7 @@ ApplicationWindow {
                     fillMode:Image.PreserveAspectFit
                     width:parent.width /2
                     height:parent.height /2
+                    opacity:0.4
                 }
 
 
@@ -1115,6 +1132,28 @@ ApplicationWindow {
 
                 }
 
+
+                Text {
+                    id: notification
+                    anchors.horizontalCenter: passerbyGrid.horizontalCenter
+                    anchors.verticalCenter: passerbyGrid.verticalCenter
+                    anchors.verticalCenterOffset: -40
+                    horizontalAlignment:Text.AlignHCenter
+                    text: qsTr("No Cards found.\n(Try tapping the center top button)")
+                    color:"white"
+                    font.pointSize: 20
+                    Rectangle {
+                        anchors.centerIn: parent
+                        width:parent.width * 1.1
+                        height:parent.height * 1.1
+                        z:-1
+                        color:Qt.rgba(0.2,0.2,0.2,0.4)
+                        radius:5
+                    }
+                    visible: if(cardload.running == false && passerbyGrid.count == 0) {true} else {false}
+                }
+
+
                 Rectangle {
                     id:bottomBar
                     anchors.bottom:parent.bottom
@@ -1123,24 +1162,39 @@ ApplicationWindow {
                     color:bottombarColor
 
                 Image {
-                    anchors.right:parent.right
-                    anchors.bottom:parent.bottom
-                    anchors.margins: 10
+                    id:privimg
+                    anchors.centerIn: parent
                     width:parent.height * 0.7
                     height: parent.height * 0.7
                     fillMode:Image.PreserveAspectFit
-                    source:"./img/swap.svg"
+                    source:if(stf == "true") {"./img/share.svg"} else {"./img/private-browsing.svg"}
 
                     Flasher{
-                        id:reswap
+                        id:privateb
+                       // state: if(stf =="true") {"InActive"} else {"Enabled"}
                     }
                     MouseArea {
-                        anchors.fill:parent
-                        onPressed:reswap.state = "Active"
-                        onReleased:reswap.state = "InActive"
-                        onClicked:if(grabit.state == "InActive") {grabit.state = "Active"} else {grabit.state = "InActive"}
+                        anchors.centerIn: parent
+                        width:parent.width * 1.2
+                        height:parent.height * 1.2
+                        //onPressed:privateb.state = "Active"
+                      //  onReleased:privateb.state = "InActive"
+
+                        preventStealing: true
+                        onClicked: { if(stf == "true") {stf = "false"; } else { stf = "true";}
+                            Scripts.save_card(userid,username,userphone,useremail,usercompany,
+                                                                                      useralias,usermotto,usermain,website1,website2,website3,website4,
+                                                                                      stf,atf,ctf,avimg,carddesign,usercat);
+                                                                    OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
+                                                                                         useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
+                                                                                         avimg,carddesign,usercat);
+
+                        }
+
+
                     }
                 }
+
 
                 }
 
@@ -1476,6 +1530,24 @@ Info{
     message:""
 }
 
+
+Info {
+    id:swapopt
+    //width:if(window_width > mobile_width) {parent.width * 0.50} else {parent.width * 0.95}
+    width:parent.width * 0.95
+    height:parent.height * 0.40
+    state:"InActive"
+    title:qsTr("Share Card")+"("+currentcard_thecard+")"
+    type:"send"
+    message:onetimecode
+    onStateChanged:if(swapopt.state =="Active") {OpenSeed.onetime(currentcard_thecard,"1")}
+    MouseArea {
+        anchors.fill:parent
+        onClicked:swapopt.state = "InActive",OpenSeed.onetime(currentcard_thecard,"0")
+    }
+}
+
+
 SlideShow {
     id:slideshow
 
@@ -1487,6 +1559,20 @@ SlideShow {
 
 
 }
+
+MyIOout {
+    id:fileio
+
+        Component.onCompleted: {
+         fileio.create = "makestuff"
+
+            paths = fileio.create
+
+        }
+
+}
+
+
 
 
 }

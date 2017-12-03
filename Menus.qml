@@ -95,10 +95,10 @@ Item {
         //anchors.leftMargin: parent.width * 0.04
         clip:true
         width:parent.width * 0.98
-        height:if(title != "Category") {parent.height * 0.88} else {parent.height * 0.98}
+        height:if(title != "Category") {parent.height * 0.98} else {parent.height * 0.98}
         flickableDirection: Flickable.VerticalFlick
         //contentHeight:notopdiscript.height
-        spacing: height / 9
+        spacing: height * 0.01
 
         delegate: Item {
                         id:listItem
@@ -107,56 +107,134 @@ Item {
                                 name:"Active"
                                 PropertyChanges {
                                     target:bg
-                                    color:"gray"
+                                    color:highLightColor1
                                 }
                         },
                         State {
                             name:"InActive"
                             PropertyChanges {
                                 target:bg
-                                color:highLightColor1
+                                color:cardcolor
                             }
                         }
                     ]
                     state:"InActive"
 
-                    width:menulistview.width * 0.9
-                    height:menulistview.height / 4
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    width:menulistview.width
+                    height:menulistview.height *0.1
+                    //anchors.horizontalCenter: parent.horizontalCenter
+                    Item {
+                        id:menuSeperator
+                        visible: if(type==1) {false} else {true}
+                        width:parent.width
+                        height:parent.height
+
+
+
+                        Column {
+                            width:parent.width
+                            height:parent.height * 0.8
+                            anchors.bottom: parent.bottom
+                            spacing: 10
+
+                            Text {
+                                anchors.left: parent.left
+                                anchors.leftMargin: 5
+                                font.pixelSize: 25
+                                text:switch(section) {
+                                     case "1": qsTr("General");break;
+                                     case "2": qsTr("Social");break;
+                                     default: qsTr("Unknown Section ")+section;break;
+                                     }
+                            }
+
+                        Rectangle {
+                            color:highLightColor1
+                            width:parent.width
+                            height:3
+                        }
+                        }
+                    }
+
+                    Item {
+                        id:menuItem
+                        visible: if(type==2) {false} else {true}
+                        width:parent.width
+                        height:parent.height
                     Rectangle {
                         id:bg
                         width:parent.width
                         height:parent.height
-                        color:highLightColor1
-                        border.color:barColor
-                        border.width:2
-                        radius: 10
+                        color:cardcolor
+                        clip:true
 
+                        radius: 1
 
                         Text {
-                                anchors.horizontalCenter: parent.horizontalCenter
+                                //anchors.horizontalCenter: parent.horizontalCenter
                                 anchors.verticalCenter: parent.verticalCenter
-                                font.pixelSize: parent.width * 0.1 - text.length * 1.2
+                                width:parent.width * 0.89
+                                anchors.left:parent.left
+                                anchors.leftMargin: 10
+                                horizontalAlignment: Text.AlignLeft
+                                //font.pixelSize: parent.width * 0.1 - text.length * 1.2
+
+                                font.pixelSize: 20
                                text: if(title != "Category") {switch(menuitem) {
                                      case "0": if(selection == 0) {qsTr("Contacts")} else {qsTr("Passers By")};break;
                                     case "1": qsTr("Your Card");break;
-                                     case "3": qsTr("Setup");break;
+                                     case "3": qsTr("Chat ");break;
+                                     case "4": qsTr("Messages ");break;
+                                     case "5": qsTr("Requests ");break;
+                                     case "6": qsTr("Events ");break;
 
                                      default:menuitem;break;
                                      }
                                      } else {menuitem}
 
                         }
+
+                        Text {
+                            anchors.right:parent.right
+                            anchors.rightMargin: 10
+                            //width: parent.width * 0.10
+                            font.pixelSize: 20
+                            horizontalAlignment: Text.AlignRight
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: if(title != "Category") {switch(menuitem) {
+                                  case "0": if(selection == 0) {qsTr("(0)")} else {qsTr("(0)")};break;
+                                 case "1":"";break;
+                                  case "3": qsTr("(Coming Soon)");break;
+                                  case "4": qsTr("(Coming Soon)");break;
+                                  case "5": qsTr("(Coming Soon)");break;
+                                  case "6": qsTr("(Coming Soon)");break;
+
+                                  default:"";break;
+                                  }
+                                  } else {""}
+
+                            Rectangle {
+                                anchors.right:parent.left
+                                anchors.rightMargin: 10
+                                width:1
+                                height:parent.height * 1.4
+                                anchors.verticalCenter: parent.verticalCenter
+                                color:barColor
+                                visible: if(parent.text !="") {true} else {false}
+
+                            }
+
+                        }
              }
                     DropShadow {
                         anchors.fill: bg
-                        horizontalOffset: 0
-                        verticalOffset: 4
+                        horizontalOffset: 1
+                        verticalOffset: 2
                         radius: 8.0
                         samples: 17
                         color: "#80000000"
                         source: bg
-                        z:1
+                       // z:1
 
                     }
 
@@ -176,11 +254,12 @@ Item {
                                   Scripts.Cards_load(searchtext);
                                } else {
                                   selection = 0;
-                                  Scripts.Temp_load(searchtext,"temp");
+                                  listget = "temp"
+                                  Scripts.Temp_load(searchtext,listget);
                               }
 
                           }break;
-                          case "3":settingsPage.state = "Active",cardPage.state = "settings";popup.state = "InActive";cardindex = 0;break;
+                          case "3": /*settingsPage.state = "Active",cardPage.state = "settings";popup.state = "InActive";cardindex = 0;*/break;
                           case "1":settingsPage.state = "InActive",cardPage.state = "show",cardPage.state = "default";currentcard = -1;cardindex = 0;
                                             pagelist.clear();Scripts.Show_sites("local",userid);mainScreen.state = "Active";popup.state = "InActive";
                                             currentcard_saved = 2;
@@ -190,6 +269,10 @@ Item {
                                              mainScreen.state = "Active",topBar.state = "person"
                                             break;
 
+                          case "4": break;
+                          case "5": break;
+                          case "6": break;
+
                           default:if(title == "Category") {currentcat = menuitem;
                                                                     cardslist.clear();
                                                                        if (selection == 0) {
@@ -197,11 +280,13 @@ Item {
                                                                        }else {
                                                                         Scripts.Cards_load(searchtextfield.text);}
 
-                                                                        } else {if(cardindex == 0) {usercat = menuitem;} else {usercat1 = menuitem;}} popup.state = "InActive";break;
+                                                                        } else {if(cardindex == 0) {usercat = menuitem;} else {usercat1 = menuitem;}} popup.state = "InActive",mainMenu2.rotation = 0;break;
                           }
                 onPressed:listItem.state = "Active"
                 onReleased:listItem.state = "InActive"
             }
+
+                    }
         }
 
         model:
@@ -210,17 +295,45 @@ Item {
                                     id:menuList
 
                                     ListElement {
+                                            section: "1"
+                                            type:2
+                                    }
+
+                                    ListElement {
                                             menuitem: "0"
+                                            type:1
                                     }
 
                                     ListElement {
                                             menuitem: "1"
+                                            type:1
                                     }
 
+                                    ListElement {
+                                            section: "2"
+                                            type:2
+                                    }
 
                                     ListElement {
                                             menuitem: "3"
+                                            type:1
                                     }
+
+                                    ListElement {
+                                            menuitem: "4"
+                                            type:1
+                                    }
+
+                                    ListElement {
+                                            menuitem: "5"
+                                            type:1
+                                    }
+
+                                    ListElement {
+                                            menuitem: "6"
+                                            type:1
+                                    }
+
                                 }
 
 

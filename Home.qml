@@ -14,6 +14,7 @@ Item {
     id:popup
     property string number: "0"
     property string list:""
+    property string backgroundColor:Qt.rgba(0.98,0.98,0.98,1)
 
     clip: true
 
@@ -34,7 +35,7 @@ Item {
 
         Rectangle {
             anchors.fill:parent
-            color:Qt.rgba(1,1,1,1)
+            color:backgroundColor
         }
 
 
@@ -46,7 +47,7 @@ Item {
         anchors.top:parent.top
         anchors.topMargin: parent.height * 0.02
         //color:"white"
-        color:Qt.rgba(1,1,1,1)
+        color:backgroundColor
         //border.color:"black"
         //radius: units.gu(1)
         //anchors.fill: parent
@@ -61,8 +62,8 @@ Item {
             height:parent.height
 
             Item {
-                width:if(avatarimg.length > 5 && cardsop == 1) {nameBack.height * 0.80} else {nameBack.height * 0.01}
-                height:if(avatarimg.length > 5 && cardsop == 1) {nameBack.height * 0.80} else {nameBack.height * 0.01}
+                width:if(avatarimg.length > 5 && cardsop == 1) {nameBack.height * 0.99} else {nameBack.height * 0.01}
+                height:if(avatarimg.length > 5 && cardsop == 1) {nameBack.height * 0.99} else {nameBack.height * 0.01}
             Image {
                 id:img
                // anchors.verticalCenter: parent.verticalCenter
@@ -128,7 +129,7 @@ Item {
 
                 Item {
                     width:parent.width
-                    height: (phone.height + email.height) * 2
+                    height:phone.height /2
                     //height:nameBack.height
                     //color:"gray"
                 }
@@ -153,101 +154,17 @@ Item {
 
     }
 
-/* Rectangle {
-id:statsBack
-anchors.top:nameBack.bottom
-anchors.left:nameBack.left
-anchors.right:nameBack.right
-//anchors.bottom:parent.bottom
-anchors.topMargin:10
-height:statsContents.height * 1.02
-//color:"white"
-color:Qt.rgba(1,1,1,.9)
-border.color:"black"
-border.width:1
-clip:true
 
-Column {
-  spacing:4
-  id:statsContents
-Text {
-anchors.left:parent.left
-anchors.leftMargin:10
-width:parent.width - 10
-wrapMode: Text.WordWrap
-//text:if( cardusername == username) {"Stats:"} else {"Actions:"}
-  text:"Actions:"
-font.pixelSize: statsBack.width * 0.04
-}
-Rectangle {
-width:statsBack.width
-height:2
-color:"black"
-}
-Row {
-id:statRow1
-width:statsBack.width
-x:5
-  //visible: if( cardusername == username) {true} else {false}
-  visible: false
-Text {
-    width:statsBack.width /2
-    text:qsTr("Category: "+cardcat)
-}
-
-Text {
-    width:statsBack.width /2
-    text:qsTr("Tagged On:") + "12/1/2015"
-}
-
-}
-Row {
-id:statRow2
-width:statsBack.width
-x:5
-//visible: if( cardusername == username) {true} else {false}
-      visible: false
-Text {
-    width:statsBack.width /2
-    text:"Collected: 20"
-}
-
-Text {
-    width:statsBack.width /2
-    text:"Collected by: 5"
-}
-
-}
-
-Row {
-  height:80
-  id:badges
-  spacing:3
-  visible: if( cardusername == username || cardusername == username1 ) {true} else {false}
-}
-
-
-
-
-
-
-}
-} */
 
     Rectangle {
         id:mottoBack
-        //x:statsBack.width
-        //y:0
-        //anchors.right:statsBack.right
+
         anchors.top:nameBack.bottom
-        //anchors.top:statsBack.bottom
-        anchors.topMargin:5
-       // anchors.rightMargin: 0
-        //color:"white"
-        color:Qt.rgba(1,1,1,1)
-       // border.color:"black"
-        //radius: units.gu(1)
-        //anchors.fill: parent
+
+        anchors.topMargin:10
+
+        color:backgroundColor
+
         width:parent.width
         height:parent.height * 0.95
         clip:true
@@ -291,7 +208,7 @@ Row {
         width:parent.width * 0.95
         height:parent.height * 0.40
         state:"InActive"
-        title:qsTr("Share Card")
+        title:qsTr("Share Card")+" ("+cardId+")"
         type:"send"
         message:onetimecode
         onStateChanged:if(swapopt.state =="Active") {OpenSeed.onetime(cardId,"1")}
@@ -387,7 +304,7 @@ Row {
               height: /*units.gu(2) */ parent.width / 10
               anchors.verticalCenter: parent.verticalCenter
 
-              source:"./img/share.svg"
+              source:if(currentcard_saved ==0) {"./img/add.svg"} else {"./img/contact.svg"}
               //z: -8
 
               Flasher {
@@ -396,7 +313,21 @@ Row {
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true
-                  onClicked: swapopt.state ="Active"
+                 // onClicked: swapopt.state ="Active"
+
+                  onClicked: {Scripts.Cards_save(currentcard_thecard,currentcard_username,currentcard_userphone,currentcard_useremail,currentcard_companyname,currentcard_cardposition,currentcard_motto,
+                                                                currentcard_mainsite,currentcard_url1,currentcard_url2,currentcard_url3,currentcard_url4,currentcard_avatarimg,currentcard_realcardback,currentcard_cardcat,currentcard_cardsop);
+
+                                             //currentcard_saved;
+
+                                             cardslist.clear();
+                                             OpenSeed.sync_cards(userid,3);
+                                             OpenSeed.get_list(userid,"saved");
+                                             Scripts.Temp_load(searchtext,listget);
+
+                                              currentcard_saved = 1;
+                                        }
+
               }
 
           }
@@ -467,12 +398,12 @@ Row {
 
         Row {
           id:youractions
-          visible: if(cardusername == username ) {true} else {false}
+          visible: if(cardusername == username && companyname == usercompany) {true} else {false}
           spacing:width / 6
           height:parent.height
           x:parent.width * 0.24
           width:parent.width * 0.9
-
+          onVisibleChanged: if(visible == true) {currentcard_thecard = usercard}
           //clip: true
 
           Image {
@@ -500,39 +431,28 @@ Row {
           }
 
           Image {
-              width: if(cardindex == 0) {if(stf == "true") {parent.width / 10} else {parent.width / 11} }
-              height: if(cardindex == 0) {if(stf == "true") {parent.width / 10} else {parent.width / 11} }
+              width: parent.width / 11
+              height: parent.width / 11
               //name: if (saved == 0) {"add"} else {"starred"}
               //name:"share"
-              source:"./img/share.svg"
+              source: if(stf == "true") {"./img/share.svg"} else {"./img/private-browsing.svg"}
               //z: -8
               anchors.verticalCenter: parent.verticalCenter
 
               Flasher {
-
-
+                id:privateb
+               // state: if(stf =="true") {"InActive"} else {"Enabled"}
               }
 
-              Image {
-                  //anchors.fill:parent
-                  visible: if (cardindex == 0) { if ( stf == "true") {false} else {true} }
-
-                  anchors.centerIn: parent
-                  width:parent.width * 1.17
-                  height:parent.height * 1.17
-                  source:"./img/cancel.svg"
-              }
-
-              Flasher {
 
 
-              }
+
 
               MouseArea {
                   anchors.fill: parent
 
                   preventStealing: true
-                  onClicked: { if(cardindex == 0) {if(stf == "true") {stf = "false" } else { stf = "true" } }
+                  onClicked: { if(cardindex == 0) {if(stf == "true") {stf = "false";} else { stf = "true";  } }
                       Scripts.save_card(userid,username,userphone,useremail,usercompany,
                                                                                 useralias,usermotto,usermain,website1,website2,website3,website4,
                                                                                 stf,atf,ctf,avimg,carddesign,usercat);
@@ -591,8 +511,8 @@ Row {
           } */
 
           Image {
-              width: if(cardindex == 0) {if(ctf == "true") {parent.width / 10} else {parent.width / 11} }
-              height: if(cardindex == 0) {if(ctf == "true") {parent.width / 10} else {parent.width / 11} }
+              width: if(cardindex == 0) {if(ctf == "true") {parent.width / 11} else {parent.width / 11} }
+              height: if(cardindex == 0) {if(ctf == "true") {parent.width / 11} else {parent.width / 11} }
               anchors.verticalCenter: parent.verticalCenter
 
               //name: if (saved == 0) {"add"} else {"starred"}
@@ -636,11 +556,11 @@ Row {
           }
 
           Image {
-              width: /*units.gu(2) */ parent.width / 10
-              height: /*units.gu(2) */ parent.width / 10
+              width: /*units.gu(2) */ parent.width / 11
+              height: /*units.gu(2) */ parent.width / 11
               anchors.verticalCenter: parent.verticalCenter
 
-              source:"./img/swap.svg"
+              source:"./img/reload.svg"
               //z: -8
 
               Flasher {
@@ -651,7 +571,7 @@ Row {
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true
-                  onClicked: swapopt.state ="Active"
+                 // onClicked: swapopt.state = "Active"
               }
 
           }

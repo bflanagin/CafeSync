@@ -357,7 +357,7 @@ function Temp_load(search,locale) {
                                     currentlist =  ":"+pull.rows.item(record).id;
                                               }
 
-                    if(pull.rows.item(record).name.replace(/&#x27;/g,"'") != username) {
+                    if(pull.rows.item(record).name.replace(/&#x27;/g,"'") != username && pull.rows.item(record).alias != useralias && pull.rows.item(record).company.replace(/&#x27;/g,"'") != usercompany ) {
 
                     cardslist.append({
                                     name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
@@ -387,7 +387,9 @@ function Temp_load(search,locale) {
             saved:savecheck.rows.length
 
 
-        });} } } else {
+        });} else {usercard = pull.rows.item(record).id.toString();}
+
+            } } else {
 
 
 
@@ -401,7 +403,7 @@ function Temp_load(search,locale) {
                                 currentlist = ":"+pull.rows.item(record).id;
                                           }
 
-            if(pull.rows.item(record).name.replace(/&#x27;/g,"'") != username ) {
+            if(pull.rows.item(record).name.replace(/&#x27;/g,"'") != username && pull.rows.item(record).alias != useralias && pull.rows.item(record).company.replace(/&#x27;/g,"'") != usercompany ) {
 
 
             cardslist.append({
@@ -431,7 +433,7 @@ function Temp_load(search,locale) {
                 cardsop:pull.rows.item(record).cardsop,
                 saved:savecheck.rows.length
             }); //}
-             }
+            } else {usercard = pull.rows.item(record).id.toString();}
 
         }
 
