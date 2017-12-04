@@ -325,6 +325,27 @@ ApplicationWindow {
 
         states: [
             State {
+                name:"Wizard"
+                PropertyChanges {
+                    target:standardbuttons
+                    visible:false
+                }
+                PropertyChanges {
+                    target:settingsbutton
+                    visible:false
+                }
+                PropertyChanges {
+                    target:searchBar
+                    visible:false
+                }
+                PropertyChanges {
+                    target:personBar
+                    visible:false
+                }
+            },
+
+
+            State {
                 name:"standard"
                 PropertyChanges {
                     target:standardbuttons
@@ -405,11 +426,12 @@ ApplicationWindow {
         ]
         state:"standard"
 
+
         Item {
             id:standardbuttons
             width:parent.width
             height:parent.height
-            //visible:false
+            visible:false
             Rectangle {
                 anchors.fill:parent
                 color:barColor
@@ -1254,188 +1276,12 @@ ApplicationWindow {
  }
 
 
-   Item {
-       x:0
-      // y:0
-       //anchors.fill:parent
-       width:parent.width * 0.5
-       height:parent.height * 0.5
-      // anchors.top:topBar.bottom
-
-      // anchors.margins: 50
-       id: firstrun
-
-       states: [
-           State {
-               name: "close"
-               PropertyChanges {
-                   target: firstrun
-                   x:0
-                   y:parent.height
-               }
-           },
-           State {
-               name: "show"
-               PropertyChanges {
-                   target: firstrun
-                   x:0
-                   y:parent.height * 0.02
-               }
-           }
-
-       ]
-       state: "close"
-
-       Rectangle {
-                   //anchors.fill:parent
-                   //anchors.margins: 100
-                 //  x: parent.width * 0.1
-                  // y: parent.height * 0.1
-                   width: parent.width * 2
-                   height: parent.height *2
-                  // radius: 6
-                 //  border.width:1
-                  // border.color:"black"
-                   color:"white"
-                   clip: true
-
-                    id: dialogue
-
-
-
-                    Image {
-                        id:logo
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.top:parent.top
-                        anchors.topMargin: parent.height * 0.2
-                        source:"img/OpenSeed.png"
-                        fillMode: Image.PreserveAspectFit
-                        //height:parent.height * 0.14
-                        width:parent.width * 0.5
-                    }
-
-                    Text {
-                    id:diaTitle
-                    anchors.top:logo.bottom
-                    anchors.horizontalCenter:parent.horizontalCenter
-                    anchors.topMargin: 5
-                    text: qsTr("Connect to OpenSeed")
-                    horizontalAlignment: Text.AlignHCenter
-                    color:"black"
-                       }
-                    Text {
-
-                    id:diaSubTitle
-                    anchors.top:diaTitle.bottom
-                    anchors.topMargin: 5
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    width:parent.width - 10
-                    text: qsTr("CafeSync uses the Openseed network for app and user authentication.")
-                    wrapMode:Text.Wrap
-                    horizontalAlignment: Text.AlignHCenter
-                    color:"black"
-                       }
-
-
-                   TextField{
-                        id:osUsernameField
-                        anchors.top:diaSubTitle.bottom
-                        anchors.topMargin:10
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        width:parent.width - 10
-                        placeholderText: qsTr("User Name")
-                        horizontalAlignment: Text.AlignHCenter
-                        text:osUsername
-                        onTextChanged: uniquename = 0, osUsername = text,OpenSeed.checkcreds(osUsername,osPassphrase);
-
-                    }
-
-                   TextField{
-                       id:osEmailField
-                       anchors.top:osUsernameField.bottom
-                       anchors.topMargin:10
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        width:parent.width - 10
-                       placeholderText: qsTr("Email")
-                      horizontalAlignment: Text.AlignHCenter
-                       text:osEmail
-                       onTextChanged:uniquename = 0,osEmail = text,OpenSeed.checkcreds(osUsername,osPassphrase);
-
-                   }
-
-                    TextField{
-                        id:osPassField
-                        anchors.top:osEmailField.bottom
-                        anchors.topMargin:10
-                         anchors.horizontalCenter: parent.horizontalCenter
-                         width:parent.width - 10
-                        placeholderText: qsTr("Passphrase")
-                        horizontalAlignment: Text.AlignHCenter
-                        echoMode: TextInput.Password
-                        text:osPassphrase
-                        onTextChanged:uniquename = 0,osPassphrase = text,OpenSeed.checkcreds(osUsername,osPassphrase);
-
-                    }
-
-
-
-                   /* Text {
-                               text:switch(uniquename) {
-                                    case 0:qsTr("In Use");break;
-                                    case 1:qsTr("Available");break;
-                                    case 2:if(osUsername.length > 2) {qsTr("Welcome Back")} else {qsTr("No User Name")};break;
-                                    default:qsTr("No User Name");break;
-                                    }
-                               color:switch(uniquename) {
-                                     case 0:"Red";break;
-                                     case 1:"Black";break;
-                                     case 2:"Black";break;
-                                     default:"white";break;
-                                     }
-
-                               anchors.horizontalCenter: parent.horizontalCenter
-                               font.pixelSize: 24
-                               anchors.top:osPassField.bottom
-
-                           } */
-
-
-
-                   Row {
-                       spacing: 10
-                       anchors.bottom:parent.bottom
-                       anchors.bottomMargin:10
-                       anchors.horizontalCenter: parent.horizontalCenter
-
-                       Button {
-                           text: qsTr("Cancel")
-                           onClicked: firstrun.state = "close",Qt.quit();
-                       }
-
-                    Button {
-                        text: qsTr("Okay")
-                        onClicked:
-                            { if(osEmail.length > 2) {
-                               if(osUsername.length > 2) {
-                                    console.log("sending info to server");
-                                    OpenSeed.oseed_auth(osUsernameField.text,osEmailField.text,osPassField.text);
-
-                                            //OpenSeed.datasync(userid);
-                                           //Scripts.load_Card();
-                                            //OpenSeed.retrieve_data(userid);
-                                            settingsPage.state = "Active";
-                                            slideshow.state = "Active";
-                                           firstrun.state = "close";
-                        }}}
-
-                    }
-
-                   }
-
-                }
-
-   }
-
+Wizard {
+    id:firstrun
+    width: parent.width
+    height: parent.height * 0.98
+    state: "InActive"
+}
 
 
 

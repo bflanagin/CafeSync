@@ -217,7 +217,7 @@ function load_Card() {
                     selection = 0;
                     cardPage.state = "settings";
                     mainScreen.state = "InActive";
-                    infotab.state = "UnAvailable";
+                    //infotab.state = "UnAvailable";
                 settingsPage.state = "show";
          }
 

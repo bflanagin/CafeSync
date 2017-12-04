@@ -189,5 +189,6 @@
         <file>img/FS.png</file>
         <file>img/backC.png</file>
         <file>img/gravatarlogo.jpg</file>
+        <file>Wizard.qml</file>
     </qresource>
 </RCC>
