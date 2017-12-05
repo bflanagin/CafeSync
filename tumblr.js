@@ -1,4 +1,6 @@
-function get_html(url) {
+function get_html(account) {
+
+    var url = "https://"+account.split("::")[1]+".tumblr.com/";
 
 var http = new XMLHttpRequest();
 

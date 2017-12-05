@@ -14,7 +14,12 @@ Item {
     property string service: ""
     property string avatar: ""
     property string profilename: "none"
+    property string type: ""
 
+    MouseArea {
+        anchors.fill:parent
+
+    }
 
     states: [
 
@@ -83,13 +88,15 @@ Item {
                                  anchors.fill:parent
 
                              fillMode: Image.PreserveAspectFit
-                            source: switch(service) {
+                            source: if(avatar == "") {switch(service) {
                                     case "gravatar": "./img/gravatarlogo.jpg";break;
                                     case "twitter": "./img/twitter.png";break;
                                     case "tumblr": "./img/tumblr.png";break;
                                     case "soundcloud":"./img/soundcloud.png";break;
+                                    case "kickstarter":"./img/kickstarter.png";break;
                                     default: "";break;
                                     }
+                                    } else {""}
                                 visible: false
 
                                 Image {
@@ -99,6 +106,8 @@ Item {
                                     fillMode: Image.PreserveAspectFit
                                    source:avatar
                                        //visible: false
+
+
                                    }
                             }
 
@@ -128,21 +137,26 @@ Item {
                         samples: 17
                         color: "#80000000"
                      source:opmask
-                     z:1
+
                  }
 
-            }
+                        Image {
+                            width:32
+                            height:32
+                            anchors.right:parent.right
+                            anchors.bottom:parent.bottom
+                            //anchors.bottomMargin: parent.width * 0.2
+                            source:if(avatar != ""){switch(service) {
+                                       case "gravatar": "./img/gravatarlogo.jpg";break;
+                                       case "twitter": "./img/twitter.png";break;
+                                       case "tumblr": "./img/tumblr.png";break;
+                                       case "soundcloud":"./img/soundcloud.png";break;
+                                       case "kickstarter":"./img/kickstarter.png";break;
+                                       default: "";break;
+                                       }
+                                   } else {""}
+                        }
 
-            Text {
-                text:switch(service) {
-                     case "gravtar":"Connect to Gravtar";break;
-                     case "soundcloud":"Connect to SoundCloud";break;
-                     case "twitter":"Connect to Twitter";break;
-                     case "tumblr":"Connect to Tumblr";break;
-                     }
-
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: 32
             }
 
             Text {
@@ -169,7 +183,9 @@ Item {
 
                     Image {
                         anchors.centerIn: parent
-                        source:"./img/check.svg"
+                        width:parent.width * 0.7
+                        height:parent.height * 0.7
+                        source:"./img/find.svg"
                     }
 
                     MouseArea {
@@ -194,13 +210,45 @@ Item {
 
             Image {
                 anchors.centerIn: parent
+                width:parent.width * 0.7
+                height:parent.height * 0.7
                 source:"./img/check.svg"
             }
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: thisWindow.state = "InActive", avimg = avatar.source
+                onClicked: {
+                            if (type == "avatar") {
+                                    avimg = avatar;
+                                }
+                            if(type == "intergration") {
+                                 switch(service) {
+                                    case "twitter": website1 = "twitter::"+account.text;break;
+                                    case "tumblr": website2 = "tumblr::"+account.text;break;
+                                    case "kickstarter": website3 = "kickstarter::"+account.text;break;
+                                    case "soundcloud": website4 = "soundcloud::"+account.text;break;
+                                 }
+                            }
+
+                            thisWindow.state = "InActive";
+                    }
             }
+        }
+
+        Text {
+            text:switch(service) {
+                 case "gravatar":"Gravtar";break;
+                 case "soundcloud":"SoundCloud";break;
+                 case "twitter":"Twitter";break;
+                 case "tumblr":"Tumblr";break;
+                 case "kickstarter":"KickStarter";break;
+                 }
+
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 20
+
+            font.pixelSize: 32
         }
 
         Rectangle {
@@ -214,6 +262,8 @@ Item {
 
             Image {
                 anchors.centerIn: parent
+                width:parent.width * 0.7
+                height:parent.height * 0.7
                 source:"./img/close.svg"
             }
 

@@ -1,4 +1,6 @@
-function get_html(url) {
+function get_html(account) {
+
+    var url = "http://www.kickstarter.com/"+account.split("::")[1];
 
 var http = new XMLHttpRequest();
 

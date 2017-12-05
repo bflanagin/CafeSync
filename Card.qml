@@ -142,12 +142,22 @@ import "openseed.js" as OpenSeed
 
                                                 clip:true
 
+
+
                                                 Image {
                                                     id:cardsava
                                                     anchors.fill:parent
                                                     anchors.margins: 4
                                                     visible: false
                                                     source: imgsource
+
+                                                    Image {
+
+                                                        anchors.fill:parent
+                                                        visible: true
+                                                        source: "./img/default_avatar.png"
+                                                        z:-1
+                                                    }
                                                 }
 
                                                 Image {

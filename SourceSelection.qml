@@ -117,7 +117,7 @@ Item {
                     height:if(parent.width > parent.height) {parent.height} else {parent.width * 0.99}
 
                     fillMode: Image.PreserveAspectCrop
-                    source:avimg
+                    source:if(avimg ==""){"./img/default_avatar.png" }else { if(avimg.search("/9j/4A") != -1) {"data:image/jpeg;base64, "+avimg.replace(/ /g, "+")} else {avimg} }
                    // visible: if(camera.cameraState == 1) {true} else {false}
                 }
 
@@ -209,6 +209,7 @@ Item {
                             anchors.fill: parent;
                             onClicked: {
                                         if(camera.cameraState == 1) {
+                                            check.source = "";
                                             camera.start();
                                         } else {
 
@@ -234,6 +235,8 @@ Item {
                 radius:width /2
                 border.color:"black"
 
+
+
             MouseArea {
                 anchors.fill:parent
                 onClicked:{
@@ -244,11 +247,14 @@ Item {
                             //console.log(comment.text);
                             fileio.store ="library,"+thefile+","+userid
                             Scripts.store_img("Library",fileio.store,isPrivate)
+                            camera.stop();
+                            avimg = "file://"+thefile;
+                            Scripts.listimages();
                             thesource = ""
                             //comment.text = ""
                             //reload.running = true
                              check.source = ""
-                           // if(heart == "Online") {OpenSeed.sync_library()}
+                           // if(heart == "Online") {OpenSeed.sendimage(userid,fileio.store,isPrivate)}
                            // window_container.state = "Hide"
                             }
 
@@ -516,7 +522,7 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: current.source = imgsource
+                    onClicked: avimg = imgsource
                 }
 
             }
@@ -608,7 +614,7 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: sConnect.state = "Active",sConnect.service = "gravatar"
+                    onClicked: sConnect.state = "Active",sConnect.service = "gravatar", sConnect.type = "avatar"
                 }
           }
 
@@ -677,7 +683,7 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: sConnect.state = "Active",sConnect.service = "soundcloud"
+            onClicked: sConnect.state = "Active",sConnect.service = "soundcloud", sConnect.type = "avatar"
         }
 
          }
@@ -752,7 +758,7 @@ Item {
 
          MouseArea {
              anchors.fill: parent
-             onClicked: sConnect.state = "Active",sConnect.service = "twitter"
+             onClicked: sConnect.state = "Active",sConnect.service = "twitter", sConnect.type = "avatar"
          }
           }
 
@@ -820,7 +826,7 @@ Item {
              }
         MouseArea {
             anchors.fill: parent
-            onClicked: sConnect.state = "Active",sConnect.service = "tumblr"
+            onClicked: sConnect.state = "Active",sConnect.service = "tumblr", sConnect.type = "avatar"
         }
          }
     }
@@ -878,7 +884,7 @@ Item {
             Text {
                 anchors.centerIn: parent
                 color:"black"
-                text:qsTr("Cancel")
+                text:qsTr("Close")
                 font.pixelSize: 20
             }
 

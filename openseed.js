@@ -67,7 +67,7 @@ function heartbeat() {
    // console.log(http.statusText);
     //http.send(null);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    http.send("devid=" + devId + "&appid=" + appId + "&userid="+ id);
+    http.send("devid=" + devId + "&appid=" + appId + "&userid="+ userid);
 
     heartbeats.interval = updateinterval;
 
@@ -210,7 +210,34 @@ function upload_data(Id,name,phone,email,company,ali,motto,send,ua,sc,main,l1,l2
                 + "&l4=" + l4 + "&avatar=" + av + "&cardback=" + cardback + "&cardcat=" + cardcat +"&cardsav=" + cardsav + "&cardtem="+cardtem+"&cardsop="+ cardsop; */
     var url = "http://104.236.15.191:8675/devs/" + devId + "/" + appId + "/scripts/addcardPOST.php";
 
-    console.log(send,ua,sc);
+    if(av.split("/")[0] == "file:") {
+             var test = av.split("/");
+                var last = av.split("/")[test.length - 1];
+        var dataStr = "SELECT * FROM `LIBRARY` WHERE file = '"+last+"'";
+
+        db.transaction(function(tx) {
+            var base64 = "";
+
+            var pull =  tx.executeSql(dataStr);
+
+            if(pull.rows.length != 0) {
+                base64 = pull.rows.item(0).base64;
+               // sendimage(userid,base64.toString().replace(/ /g,"+"),0);
+                av = base64.toString().replace(/+/g," ");
+                //av = base64.toString().substring(0,20);
+          // av = "http://104.236.15.191:8675/profilePic/"+userid.substring(0,6);
+
+            //av = pull.rows.item(0).file;
+            }
+
+        });
+
+
+
+    }
+
+
+    //console.log(send,ua,sc);
 
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
@@ -1066,10 +1093,10 @@ function announcement_seen(type) {
 } */
 
 
-function sendimage(userid,file,effect,comment,date,private) {
+function sendimage(userid,file,private) {
 
     var http = new XMLHttpRequest();
-    var url = "http://104.236.15.191:8675/corescripts/sync.php";
+    var url = "http://104.236.15.191:8675/corescripts/profilePic.php";
 
     //var sending = file.split(":;:")[0];
     var retrieved;
@@ -1079,11 +1106,11 @@ function sendimage(userid,file,effect,comment,date,private) {
 
     var d = new Date();
     var thedate = d.getMonth()+1+"-"+d.getDate()+"-"+d.getFullYear();
-    if(date == " ") {
+   /* if(date == " ") {
         date = thedate;
     } else {
         date = date;
-    }
+    } */
 
     http.onreadystatechange = function() {
 
@@ -1096,8 +1123,8 @@ function sendimage(userid,file,effect,comment,date,private) {
             } else {
                 retrieved = http.responseText;
                 console.log(retrieved);
-
-                update_index(file,effect,date,retrieved);
+                //return retrieved;
+                //update_index(file,retrieved);
             }
 
         }
@@ -1107,14 +1134,12 @@ function sendimage(userid,file,effect,comment,date,private) {
    // console.log(http.statusText);
     //http.send(null);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    http.send("devid=" + devId + "&appid=" + appId + "&id="+ userid + "&username="+username+"&file="+
-              file.trim()+"&effect="+effect+"&comment="+comment+"&date="+date+"&private="+private+"&flattr="+flattr+
-              "&patreon="+patreon+"&type=IMAGE &action=sending" );
+    http.send("devid=" + devId + "&appid=" + appId + "&id="+ userid + "&file="+file.trim()+"&private="+private+"&type=IMAGE&action=sending" );
 
 }
 
 
-function update_index(file,effect,date,retrieved) {
+function update_index(file,retrieved) {
 
    // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1000000);
 
@@ -1122,14 +1147,14 @@ function update_index(file,effect,date,retrieved) {
 
             var base64 = file.split(":;:")[0].replace(/ /g,"+");
 
-        info = "Updating Index";
+       // info = "Updating Index";
 
 
 
-     var insert = "UPDATE LIBRARY SET picture_index='"+retrieved+"' WHERE file='"+thefile+"' AND base64 = '"+base64+"' AND thedate='"+date+"' AND effect='"+effect+"'";
+     var insert = "UPDATE LIBRARY SET picture_index='"+retrieved+"' WHERE file='"+thefile+"' AND base64 = '"+base64+"'";
     db.transaction(function(tx) {
 
-        tx.executeSql('CREATE TABLE IF NOT EXISTS LIBRARY (id TEXT,thedir TEXT,file TEXT,effect INT,comment TEXT,thedate TEXT,private INT,picture_index INT,base64 BLOB)');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS LIBRARY (id TEXT,thedir TEXT,file TEXT,thedate TEXT,private INT,picture_index INT,base64 BLOB)');
 
             //var pull = tx.executeSql(testStr);
 
@@ -1140,8 +1165,8 @@ function update_index(file,effect,date,retrieved) {
     });
 
 
-    progress.visible = false;
-    info = " ";
+    //progress.visible = false;
+  //  info = " ";
 
 }
 
@@ -1292,30 +1317,39 @@ http.send(null);
 
 case "gravatar": {
 
-    http.onreadystatechange = function() {
+    var url = "http://104.236.15.191:8675/corescripts/gravatar.php?email="+account
 
-        if (http.readyState == 4) {
+   // var profileavatar;
+   // var name;
+        http.onreadystatechange = function() {
+    if (http.readyState == 4) {
 
-            if(http.responseText == 100) {
-                console.log("Incorrect DevID");
-            } else if(http.responseText == 101) {
-                console.log("Incorrect AppID");
-            } else {
-                retrieved = http.responseText;
-                console.log(retrieved);
+        pagedata = http.responseText;
 
-                avatar = "https://www.gravatar.com/avatar/"+retrieved;
-                profilename = "retrieved";
-            }
+        if(http.responseText == 100) {
+            console.log(http.responseText);
+
+        } else if(http.responseText == 101) {
+            console.log(http.responseText);
+
+        } else {
+
+            pagedata = http.responseText;
+
+
+            avatar = pagedata;
+
+
 
         }
 
     }
-    http.open('POST', 'http://www.gravatar.com/avatar/'+account, true);
-   // console.log(http.statusText);
-    //http.send(null);
-    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    http.send("?s=80&d=mm&r=g");
+
+}
+
+http.open('GET', url.trim(), true);
+http.send(null);
+
 
 
         }break;

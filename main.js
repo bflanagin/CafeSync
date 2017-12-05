@@ -201,6 +201,7 @@ function load_Card() {
 
             cardloaded = 1;
 
+            heartbeats.running = true;
 
 
         } else {
@@ -341,7 +342,10 @@ function Temp_load(search,locale) {
 
                   }
 
-                   if(pull.rows.item(record).avatar.length < 4) { ava = "img/default_avatar.png"} else {ava = pull.rows.item(record).avatar}
+                   if(pull.rows.item(record).avatar.length < 4) { ava = "img/default_avatar.png"} else {ava = pull.rows.item(record).avatar
+                                if(ava.search("/9j/4A") != -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
+
+                   }
 
 
         if (currentcat.length > 2 & currentcat != qsTr("All Cards") ) {
@@ -579,7 +583,10 @@ function Cards_load(search) {
 
 
 
-             if(pull.rows.item(record).avatar.length < 4) { ava = "img/default_avatar.png"} else {ava = pull.rows.item(record).avatar}
+             if(pull.rows.item(record).avatar.length < 4) { ava = "img/default_avatar.png"} else {ava = pull.rows.item(record).avatar
+                if(ava.search("/9j/4A") != -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
+
+             }
 
              if (currentcat.length > 2 & currentcat != qsTr("All Cards") ) {
 
@@ -678,6 +685,7 @@ function Show_sites(cid,list) {
    // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
     var dataStr;
     var usesop;
+    var ava;
 
     console.log(cid);
 
@@ -749,6 +757,11 @@ function Show_sites(cid,list) {
                 sop = 1;
             }
 
+            if(pull.rows.item(0).avatar.length < 4) { ava = "img/default_avatar.png"} else {ava = pull.rows.item(0).avatar
+               if(ava.search("/9j/4A") != -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
+
+            }
+
            pagelist.append({
                             webpage:"empty.html",
                             thestate:"Home",
@@ -756,7 +769,7 @@ function Show_sites(cid,list) {
                                pageheight:mainScreen.height,
                                motto:pull.rows.item(0).motto.replace(/&#x27;/g,"'"),
                                cardId:pull.rows.item(0).id.toString(),
-                               avatarimg:pull.rows.item(0).avatar,
+                               avatarimg:ava,
                                companyname:pull.rows.item(0).company.replace(/&#x27;/g,"'"),
                                cardusername:pull.rows.item(0).name.replace(/&#x27;/g,"'"),
                                carduserphone:phonenumber,

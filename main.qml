@@ -32,6 +32,8 @@ ApplicationWindow {
     property string onetimecode:"Generating"
 
     property int cardindex: 0
+    property string heart: "OffLine"
+    property int updateinterval: 0
 
 
     //Theme settings //
@@ -202,6 +204,14 @@ ApplicationWindow {
    // background: backgroundColor
     title: "CafeSync"
 
+
+    Timer {
+        id:heartbeats
+        interval: 2000
+        running:false
+        repeat:true
+        onTriggered:OpenSeed.heartbeat()
+    }
 
 
 

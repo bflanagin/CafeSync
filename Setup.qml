@@ -179,7 +179,8 @@ Item {
          anchors.horizontalCenter: parent.horizontalCenter
          //anchors.margins: 4
          visible: false
-         source: if(cardindex == 0) {avimg}
+         fillMode: Image.PreserveAspectCrop
+         source: if(cardindex == 0) {if(avimg.search("/9j/4A") != -1) {"data:image/jpeg;base64, "+avimg.replace(/ /g, "+")} else {avimg} }
 
      }
 
@@ -660,8 +661,75 @@ Item {
           anchors.rightMargin:10
 
           //clip: true
-          spacing: 30
+          spacing: 20
 
+          Item {
+              width:parent.width
+              height: 1
+          }
+
+          Text {
+           id:mainadvert
+           text: qsTr("URL: ")
+           font.pixelSize: 18
+           TextField {
+              id: userMain
+              //anchors.bottomMargin: 0
+              //anchors.topMargin: 0
+              anchors.verticalCenter: parent.verticalCenter
+
+              anchors.left: parent.right
+              anchors.leftMargin: parent.width * 0.06
+             // anchors.bottom: parent.bottom
+             // anchors.top: parent.top
+              placeholderText: qsTr("Main Site for Advertising")
+              //font.pixelSize: units.gu(2.4)
+              //width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
+              width:(rectangle1.width - parent.width) * 0.90
+              text:if(cardindex == 0) {usermain}
+              onTextChanged: if(cardindex == 0) {usermain = userMain.text}
+          }
+          }
+
+          Row {
+              id:pmottoRow
+              width: parent.width
+              height: settingsPage.height / 2
+
+              Text {
+                  text:qsTr("About:")
+
+                  Rectangle {
+                      anchors.fill: personalMotto
+                      border.color:"gray"
+                      border.width: 1
+                  }
+
+              TextArea {
+                  anchors.top:parent.bottom
+                  anchors.topMargin: .6
+                  wrapMode: Text.WordWrap
+                  id:personalMotto
+                  width:pmottoRow.width
+                  height:pmottoRow.height - 3
+                  text:if(cardindex == 0) {usermotto}
+                  onTextChanged: if(cardindex == 0) {usermotto = personalMotto.text}
+                  clip:true
+
+
+                 }
+
+              }
+          }
+
+          Rectangle {
+              //anchors.top:row0.bottom
+              width:parent.width
+              height:3
+              color:"black"
+
+
+          }
 
           Text {
               font.pixelSize: 24
@@ -713,69 +781,9 @@ Item {
 
           }
 
-          Rectangle {
-              //anchors.top:row0.bottom
-              width:parent.width
-              height:3
-              color:highLightColor1
 
 
-          }
 
-
-          Text {
-           id:mainadvert
-           text: qsTr("URL: ")
-           font.pixelSize: 18
-           TextField {
-              id: userMain
-              //anchors.bottomMargin: 0
-              //anchors.topMargin: 0
-              anchors.verticalCenter: parent.verticalCenter
-
-              anchors.left: parent.right
-              anchors.leftMargin: parent.width * 0.06
-             // anchors.bottom: parent.bottom
-             // anchors.top: parent.top
-              placeholderText: qsTr("Main Site for Advertising")
-              //font.pixelSize: units.gu(2.4)
-              //width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
-              width:(rectangle1.width - parent.width) * 0.90
-              text:if(cardindex == 0) {usermain}
-              onTextChanged: if(cardindex == 0) {usermain = userMain.text}
-          }
-          }
-
-          Row {
-              id:pmottoRow
-              width: parent.width
-              height: settingsPage.height / 2
-
-              Text {
-                  text:qsTr("About:")
-
-                  Rectangle {
-                      anchors.fill: personalMotto
-                      border.color:highLightColor1
-                      border.width: 1
-                  }
-
-              TextArea {
-                  anchors.top:parent.bottom
-                  anchors.topMargin: .6
-                  wrapMode: Text.WordWrap
-                  id:personalMotto
-                  width:pmottoRow.width
-                  height:pmottoRow.height - 3
-                  text:if(cardindex == 0) {usermotto}
-                  onTextChanged: if(cardindex == 0) {usermotto = personalMotto.text}
-                  clip:true
-
-
-                 }
-
-              }
-          }
       }
 }
 
@@ -897,7 +905,7 @@ Rectangle {
 
                              Text {
                                  anchors.verticalCenter: parent.verticalCenter
-                                 text:"Twitter not connected"
+                                 text:if(website1.search("twitter") == -1){"Twitter not connected"} else {website1.split("::")[1]}
                                  color:"white"
                                  width:parent.width
                                  font.pixelSize: parent.height * 0.3
@@ -920,6 +928,11 @@ Rectangle {
 
 
                           }
+
+                     MouseArea {
+                         anchors.fill: parent
+                         onClicked: sConnect.state = "Active",sConnect.service = "twitter", sConnect.type = "intergration"
+                     }
                       }
 
                     Item {
@@ -960,7 +973,7 @@ Rectangle {
 
                             Text {
                                 anchors.verticalCenter: parent.verticalCenter
-                                text:"Tumblr not connected"
+                                text:if(website2.search("tumblr") == -1){"Tumblr not connected"} else {website2.split("::")[1]}
                                 color:"white"
                                 width:parent.width
                                 font.pixelSize: parent.height * 0.3
@@ -979,13 +992,16 @@ Rectangle {
                        color: "#80000000"
                        source: trb
                        z:1
-
-
-
                          }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: sConnect.state = "Active",sConnect.service = "tumblr", sConnect.type = "intergration"
+                    }
+
                      }
 
-                    Item {
+                   /* Item {
                         id:kickstarterButton
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.top:tumblrButton.bottom
@@ -1023,7 +1039,7 @@ Rectangle {
 
                             Text {
                                 anchors.verticalCenter: parent.verticalCenter
-                                text:"Kickstarter not connected"
+                                text:if(website3.search("kickstarter") == -1){"Kickstarter not connected"} else {website3.split("::")[1]}
                                 color:"white"
                                 width:parent.width
                                 font.pixelSize: parent.height * 0.3
@@ -1042,16 +1058,18 @@ Rectangle {
                         color: "#80000000"
                         source: ksb
                         z:1
-
-
-
                           }
-                      }
+
+                     MouseArea {
+                         anchors.fill: parent
+                         onClicked: sConnect.state = "Active",sConnect.service = "kickstarter", sConnect.type = "intergration"
+                     }
+                      } */
 
                      Item {
                          id:soundcloudButton
                          anchors.horizontalCenter: parent.horizontalCenter
-                         anchors.top:kickstarterButton.bottom
+                         anchors.top:tumblrButton.bottom
                          anchors.topMargin: 20
                          width:parent.width * 0.95
                          height:80
@@ -1087,7 +1105,7 @@ Rectangle {
 
                             Text {
                                 anchors.verticalCenter: parent.verticalCenter
-                                text:"SoundCloud not connected"
+                                text:if(website4.search("soundcloud") == -1){"SoundCloud not connected"} else {website4.split("::")[1]}
                                 color:"white"
                                 font.pixelSize: parent.height * 0.3
                                 width:parent.width
@@ -1106,10 +1124,12 @@ Rectangle {
                        color: "#80000000"
                        source: scb
                        z:1
-
-
-
                          }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: sConnect.state = "Active",sConnect.service = "soundcloud", sConnect.type = "intergration"
+                    }
+
                      }
 
 

@@ -70,7 +70,7 @@ Item {
                 anchors.fill: parent
                 source:avatarimg
                 //anchors.fill:parent
-                fillMode:Image.PreserveAspectFit
+                fillMode:Image.PreserveAspectCrop
                 visible: false
             }
 
