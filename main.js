@@ -1215,7 +1215,7 @@ function Card_Set(location,num) {
 
 }
 
-function setCurrent(id,username,userphone,position,useremail,companyname,motto,mainsite,url1,url2,url3,url4,avatarimg,realcardback,cardcat,cardsop,saved) {
+/*function setCurrent(id,username,userphone,position,useremail,companyname,motto,mainsite,url1,url2,url3,url4,avatarimg,realcardback,cardcat,cardsop,saved) {
 
     currentcard_saved = saved;
     currentcard_thecard = id;
@@ -1234,6 +1234,66 @@ function setCurrent(id,username,userphone,position,useremail,companyname,motto,m
     currentcard_realcardback = realcardback;
     currentcard_cardcat = cardcat;
     currentcard_cardsop = cardsop;
+
+
+} */
+
+
+function listimages() {
+    var dataStr = "SELECT  *  FROM LIBRARY WHERE 1";
+    var num = 0;
+
+    previousimages.clear();
+
+    db.transaction(function(tx) {
+
+        var pull =  tx.executeSql(dataStr);
+
+        tx.executeSql('CREATE TABLE IF NOT EXISTS LIBRARY (id TEXT,thedir TEXT,file TEXT,thedate TEXT,private INT,picture_index INT, base64 BLOB)');
+
+        while( num < pull.rows.length) {
+
+            previousimages.append({
+                           imgsource:"file://"+paths.split(",")[2].trim()+pull.rows.item(num).file,
+
+                        });
+
+            num = num + 1;
+        }
+
+
+
+    });
+}
+
+
+//Image stuff //
+
+function store_img (where,file,private) {
+
+   //  var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1000000);
+
+    var testStr = "SELECT  *  FROM LIBRARY WHERE 1";
+
+    var d = new Date();
+
+
+    var thedate = d.getMonth()+1+"-"+d.getDate()+"-"+d.getFullYear();
+
+    var base64 = file.split(":;:")[1];
+
+    var data = [userid,where,file.split(":;:")[2]+".jpg",thedate,private,9999999,base64];
+
+     var insert = "INSERT INTO LIBRARY VALUES(?,?,?,?,?,?,?)";
+
+    db.transaction(function(tx) {
+
+        tx.executeSql('CREATE TABLE IF NOT EXISTS LIBRARY (id TEXT,thedir TEXT,file TEXT,thedate TEXT,private INT,picture_index INT, base64 BLOB)');
+
+            tx.executeSql(insert,data);
+
+    });
+
 
 
 }

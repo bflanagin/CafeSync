@@ -1,8 +1,28 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
+import QtMultimedia 5.9
+import QtQuick.Controls 1.3
+
+import QtQuick.LocalStorage 2.0 as Sql
+
+
+import "main.js" as Scripts
+import "openseed.js" as OpenSeed
+
 
 Item {
     property int selectedAsspect: 90
+    property string thesource:""
+    property string thefile:""
+    property int selectedEffect:0
+    property int isPrivate: 0
+    property int capturedAsspect:0
+    property int setFlash:0
+    property int setExpos:0
+    property int setFocus: 0
+
+    property string theComment:""
+
     id:thisWindow
     states: [
 
@@ -44,7 +64,9 @@ Item {
      ]
 
 
-     onStateChanged: if(thisWindow.state == "Active"){photo.state ="Show"} else {photo.state ="Hide"}
+     onStateChanged: if(thisWindow.state == "Active"){Scripts.listimages()} else {camera.stop()}
+
+
 
 
     Rectangle {
@@ -59,29 +81,445 @@ Item {
             height:parent.height
             spacing:15
 
-        GetPic {
+       /* GetPic {
                id:photo
                //anchors.centerIn: center
                 width:parent.width
                 height:parent.height * 0.5
                state:"Show"
+            } */
+
+        Item {
+            id:photo
+            width:parent.width
+            height:parent.height * 0.5
+
+
+
+            Item {
+                id:photoframe
+                width:parent.width * 0.6
+                height:parent.width * 0.6
+                visible: false
+                anchors.horizontalCenter: parent.horizontalCenter
+               // anchors.centerIn: parent
+
+
+
+                Image {
+                    id:current
+                    anchors.horizontalCenter:parent.horizontalCenter
+
+                    anchors.top:parent.top
+                    anchors.topMargin: parent.height * 0.00
+
+                    width:if(parent.width > parent.height) {parent.width * 0.80} else {parent.width}
+                    height:if(parent.width > parent.height) {parent.height} else {parent.width * 0.99}
+
+                    fillMode: Image.PreserveAspectCrop
+                    source:avimg
+                   // visible: if(camera.cameraState == 1) {true} else {false}
+                }
+
+            VideoOutput {
+                    id:viewport
+                    source: camera
+                    //anchors.fill: parent
+                    //anchors.centerIn: parent
+                    anchors.horizontalCenter:parent.horizontalCenter
+                   // anchors.horizontalCenterOffset: if(parent.width > parent.height) {-parent.width * 0.1} else {0}
+                    anchors.top:parent.top
+                    anchors.topMargin: parent.height * 0.00
+                    //width:parent.width * 0.8
+                    //height:parent.height * 0.8
+                    width:if(parent.width > parent.height) {parent.width * 0.80} else {parent.width}
+                    height:if(parent.width > parent.height) {parent.height} else {parent.width * 0.99}
+
+                    //rotation:90
+
+                    fillMode: Image.PreserveAspectCrop
+                    focus : visible // to receive focus and capture key events when visible
+
+                }
+
+
+            Image {
+                id:check
+                anchors.fill:viewport
+                fillMode: Image.PreserveAspectCrop
+                //visible: if(Image.Ready == 1) {true}
             }
+
+
+            }
+
+            Image {
+                id:mask
+                anchors.fill:parent
+                source:"/graphics/CafeSync.png"
+                visible: false
+
+            }
+
+            OpacityMask {
+                id:opmask
+                 anchors.fill: photoframe
+                 source: photoframe
+                 maskSource: mask
+
+             }
+
+            DropShadow {
+                anchors.fill:opmask
+                horizontalOffset: 2
+                verticalOffset: 4
+                radius: 8.0
+                samples: 17
+                color: "#80000000"
+                source:opmask
+                z:1
+            }
+
+
+
+
+            Rectangle {
+                id:camerabutton
+                //anchors.bottom:parent.bottom
+                //anchors.bottomMargin: parent.height * 0.01
+                //anchors.verticalCenter: parent.verticalCenter
+                anchors.top:photoframe.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+                width:if(mainView.width > mainView.height) {parent.width * 0.5}else {parent.height * 0.2}
+                height:if(mainView.width > mainView.height){parent.width * 0.5} else {parent.height * 0.2}
+
+                color:highLightColor1
+                radius:width /2
+                border.color:"black"
+
+                Image {
+                    anchors.centerIn: parent
+                    source:"./img/camera-photo.svg"
+                    width:parent.width * 0.8
+                    height:parent.height * 0.8
+                    fillMode:Image.PreserveAspectFit
+                }
+
+                MouseArea {
+                            anchors.fill: parent;
+                            onClicked: {
+                                        if(camera.cameraState == 1) {
+                                            camera.start();
+                                        } else {
+
+                                    capturedAsspect = selectedAsspect;
+                                camera.imageCapture.captureToLocation(paths.split(",")[2].trim());
+                                camera.imageCapture.capture();
+                                        }
+                            }
+                        }
+            }
+
+            Rectangle {
+                id:savepicture
+
+                anchors.bottom:camerabutton.bottom
+                anchors.left:camerabutton.right
+                visible: if(check.source == "") {false} else {true}
+                //anchors.horizontalCenter: parent.horizontalCenter
+                width:if(mainView.width > mainView.height) {parent.width * 0.5}else {parent.height * 0.1}
+                height:if(mainView.width > mainView.height){parent.width * 0.5} else {parent.height * 0.1}
+
+                color:"green"
+                radius:width /2
+                border.color:"black"
+
+            MouseArea {
+                anchors.fill:parent
+                onClicked:{
+
+                            if(camera.position == 2) {
+                                capturedAsspect = -90;
+                            }
+                            //console.log(comment.text);
+                            fileio.store ="library,"+thefile+","+userid
+                            Scripts.store_img("Library",fileio.store,isPrivate)
+                            thesource = ""
+                            //comment.text = ""
+                            //reload.running = true
+                             check.source = ""
+                           // if(heart == "Online") {OpenSeed.sync_library()}
+                           // window_container.state = "Hide"
+                            }
+
+            }
+
+            }
+
+            Rectangle {
+                id:cancelpicture
+
+                anchors.bottom:camerabutton.bottom
+                anchors.right:camerabutton.left
+                //anchors.horizontalCenter: parent.horizontalCenter
+                width:if(mainView.width > mainView.height) {parent.width * 0.5}else {parent.height * 0.1}
+                height:if(mainView.width > mainView.height){parent.width * 0.5} else {parent.height * 0.1}
+                visible: if(check.source == "") {false} else {true}
+
+
+                color:"red"
+                radius:width /2
+                border.color:"black"
+
+            MouseArea {
+                anchors.fill:parent
+                onClicked:{
+                    check.source = ""; }
+                          /*  if(camera.position == 2) {
+                                capturedAsspect = -90;
+                            }
+                            console.log(comment.text);
+                            fileio.store ="library,"+thefile+","+id
+                            Scripts.store_img("Library",fileio.store,selectedEffect+":;:"+capturedAsspect,isPrivate,theComment),
+                            thesource = ""
+                            comment.text = ""
+                            reload.running = true
+                            if(heart == "Online") {OpenSeed.sync_library()}
+                            window_container.state = "Hide"
+                            } */
+
+
+
+            }
+
+            }
+
+
+            Column {
+
+                anchors.left:photoframe.right
+                anchors.leftMargin:if(mainView.width > mainView.height){-camerabutton.width / 2.5 } else {parent.height * 0.02}
+                width:camerabutton.height * 0.8
+                height: parent.height - camerabutton.y
+                //y:if(mainView.width > mainView.height){camerabutton.height * 1.1 + camerabutton.y } else {camerabutton.y - width * 0.5}
+                anchors.top:photoframe.top
+                anchors.topMargin:photoframe.height * 0.2
+                spacing:parent.height * 0.07
+
+
+            Rectangle {
+                id:switchcamera
+                //anchors.bottom:parent.bottom
+                //anchors.bottomMargin: parent.height * 0.01
+                width:parent.width
+                height:parent.width
+
+                color:highLightColor1
+                radius:width /2
+                border.color:"black"
+
+                Image {
+                    id:cameratype
+                    anchors.centerIn: parent
+                    source:"./img/backC.png"
+                    width:parent.width * 0.6
+                    height:parent.height * 0.6
+                    fillMode:Image.PreserveAspectFit
+                }
+
+                MouseArea {
+                            anchors.fill: parent;
+                            onClicked:if(camera.position == 1) {camera.position = 2;cameratype.source ="./img/frontC.png"}
+                                      else {camera.position = 1;cameratype.source ="./img/backC.png"}
+            }
+            }
+
+
+
+            }
+
+
+
+            Column  {
+
+                anchors.right:photoframe.left
+                anchors.rightMargin:if(mainView.width > mainView.height){-camerabutton.width / 2.5 } else {parent.height * 0.02}
+                width:camerabutton.height * 0.8
+                height: parent.height - camerabutton.y
+                anchors.top:photoframe.top
+                anchors.topMargin: photoframe.height * 0.2
+               // y:if(mainView.width > mainView.height){camerabutton.height * 1.1 + camerabutton.y } else {camerabutton.y - width * 0.5}
+                spacing:parent.height * 0.07
+
+                Rectangle {
+                    //id:switchcamera
+                    //anchors.bottom:parent.bottom
+                    //anchors.bottomMargin: parent.height * 0.01
+                    width:parent.width
+                    height:parent.width
+
+                    color:highLightColor1
+                    radius:width /2
+                    border.color:"black"
+
+                    Image {
+                        id:flashtype
+                        anchors.centerIn: parent
+                        source:"./img/FA.png"
+                        width:parent.width * 0.6
+                        height:parent.height * 0.6
+                        fillMode:Image.PreserveAspectFit
+                    }
+
+                    MouseArea {
+                                anchors.fill: parent;
+                                onClicked:switch(setFlash) {
+                                          case 0: setFlash =1;flashtype.source = "./img/FO.png";break;
+                                          case 1: setFlash = 2;flashtype.source = "./img/FS.png";break;
+                                          case 2: setFlash = 0;flashtype.source = "./img/FA.png";break;
+                                          }
+                }
+                }
+
+
+
+
+           /* Rectangle {
+                //id:switchasspect
+                //anchors.bottom:parent.bottom
+                //anchors.bottomMargin: parent.height * 0.01
+
+                width:parent.width
+                height:parent.width
+
+                color:highLightColor1
+                radius:width / 2
+                border.color:"black"
+
+                Image {
+                    id:focustype
+                    anchors.centerIn: parent
+                    source:"./img/Fauto.png"
+                    width:parent.width * 0.6
+                    height:parent.height * 0.6
+                    fillMode:Image.PreserveAspectFit
+                }
+
+                MouseArea {
+                            anchors.fill: parent;
+                            onClicked: switch(setFocus) {
+                                       case 0: setFocus =1;focustype.source = "./img/Fcount.png";break;
+                                       case 1: setFocus = 2;focustype.source = "./img/Fhyper.png";break;
+                                       case 2: setFocus = 3;focustype.source = "./img/Finf.png";break;
+                                       case 3: setFocus = 4;focustype.source = "./img/Fmacro.png";break;
+                                       case 4: setFocus = 0;focustype.source = "./img/Fauto.png";break;
+                                       }
+                        }
+            }
+
+
+           Rectangle {
+                //id:switchcamera
+                //anchors.bottom:parent.bottom
+                //anchors.bottomMargin: parent.height * 0.01
+                width:parent.width
+                height:parent.width
+
+                color:highLightColor1
+                radius:width /2
+                border.color:"black"
+
+
+                Text {
+                    id:expostype
+                    anchors.centerIn: parent
+                    width:parent.width * 0.6
+                    height:parent.height * 0.6
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    color:"#9d9d9d"
+                    text:"Au"
+                    font.pixelSize: height - text.length
+                }
+
+                MouseArea {
+                            anchors.fill: parent;
+                            onClicked:switch(setExpos) {
+                                      case 0: setExpos =1;expostype.text = "LS";break;
+                                      case 1: setExpos = 2;expostype.text = "Nt";break;
+                                      case 2: setExpos = 3;expostype.text = "Sp";break;
+                                      case 3: setExpos = 0;expostype.text = "Au";break;
+                                      }
+            }
+            } */
+
+            }
+
+
+        }
+
+
+
+
+
+
 
         Rectangle {
             width:parent.width
             height:4
             color:highLightColor1
         }
-       /* Text {
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr("Previous Photos")
-            font.pixelSize: 18
 
-        } */
 
         ListView {
             width:parent.width
             height: 64
+            orientation: ListView.Horizontal
+            spacing: 10
+
+            model: ListModel {
+                   id: previousimages
+                }
+
+            delegate: Item {
+                        height:parent.height *1.4
+                        width:parent.height *1.4
+                        anchors.verticalCenter: parent.verticalCenter
+                Image {
+                    id:cardsava
+                    anchors.fill:parent
+                    anchors.margins: 4
+                    visible: false
+                    source: imgsource
+                    fillMode: Image.PreserveAspectCrop
+                }
+
+
+                OpacityMask {
+                        id:itemb
+                     anchors.fill: cardsava
+                     source: cardsava
+                     maskSource: mask
+                   // visible:if(cardsop == 1) {true} else {false}
+                 }
+
+                DropShadow {
+                    anchors.fill:itemb
+                    horizontalOffset: 2
+                    verticalOffset: 4
+                    radius: 8.0
+                    samples: 17
+                    color: "#80000000"
+                    source:itemb
+                    z:1
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: current.source = imgsource
+                }
+
+            }
 
         }
 
@@ -149,6 +587,8 @@ Item {
                     wrapMode: Text.WordWrap
                 }
             }
+
+
         }
 
          DropShadow {
@@ -165,6 +605,11 @@ Item {
 
 
               }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: sConnect.state = "Active",sConnect.service = "gravatar"
+                }
           }
 
          Item {
@@ -229,6 +674,12 @@ Item {
 
 
              }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: sConnect.state = "Active",sConnect.service = "soundcloud"
+        }
+
          }
     }
 
@@ -298,6 +749,11 @@ Item {
 
 
               }
+
+         MouseArea {
+             anchors.fill: parent
+             onClicked: sConnect.state = "Active",sConnect.service = "twitter"
+         }
           }
 
          Item {
@@ -362,6 +818,10 @@ Item {
 
 
              }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: sConnect.state = "Active",sConnect.service = "tumblr"
+        }
          }
     }
 
@@ -441,5 +901,71 @@ Item {
         source:bottomBar
         z:1
     }
+
+
+    Camera {
+            id:camera
+
+
+
+            imageProcessing {
+
+                whiteBalanceMode: CameraImageProcessing.WhiteBalanceAuto
+            }
+
+            exposure {
+                exposureCompensation: -1.0
+                exposureMode: switch(setExpos) {
+                              case 0:Camera.ExposureAuto;break;
+                              case 1:Camera.ExposureLandscape;break;
+                              case 2:Camera.ExposureNight;break;
+                              case 3:Camera.ExposureSports;break;
+                              default:Camera.ExposureAuto;break;
+
+                              }
+
+            }
+
+            focus {
+                        focusMode: switch(setFocus) {
+
+                                   case 0:Camera.FocusAuto;break;
+                                   case 1:Camera.FocusContinuous;break;
+                                   case 2:Camera.FocusHyperfocal;break;
+                                   case 3:Camera.FocusInfinity;break;
+                                   case 4:Camera.FocusMacro;break;
+                                   default:Camera.FocusAuto;break;
+
+                                   }
+                        focusPointMode: Camera.FocusPointAuto
+                    }
+
+
+
+            flash.mode: switch(setFlash) {
+                        case 0: Camera.FlashAuto;break;
+                        case 1: Camera.FlashOff;break;
+                        case 2: Camera.FlashSlowSyncFrontCurtain;break;
+                        default:Camera.FlashRedEyeReduction;break;
+                        }
+
+            imageCapture {
+
+                onImageCaptured: {
+                    check.source = preview
+                    //thesource = preview  // Show the preview in an Image
+
+                    //check.visible = true;
+
+                }
+                onImageSaved: {
+                    thefile = path
+
+                }
+            }
+
+
+
+        }
 
 }

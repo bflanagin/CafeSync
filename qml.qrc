@@ -190,5 +190,8 @@
         <file>img/backC.png</file>
         <file>img/gravatarlogo.jpg</file>
         <file>Wizard.qml</file>
+        <file>SocialConnect.qml</file>
+        <file>img/check.svg</file>
+        <file>img/close.svg</file>
     </qresource>
 </RCC>

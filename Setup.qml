@@ -110,19 +110,71 @@ onStateChanged: if(settingsPage.state == "Active") {topBar.state = "settings";} 
          } */
          width:parent.width
          height:parent.height
-         spacing:10
+         spacing:20
 
          //clip:true
 
-    Item {
+         Item {
+             width:parent.width
+             height:parent.height * 0.01
 
-     height:parent.height * 0.1
-     width:parent.width
+        }
+
+         Text {
+             text: qsTr("General Settings")
+             anchors.left:parent.left
+             font.pixelSize: 24
+             anchors.leftMargin: 4
+             //anchors.verticalCenter: parent.verticalCenter
+         }
+         Rectangle {
+             width: parent.width * 0.98
+             height:3
+             anchors.horizontalCenter: parent.horizontalCenter
+
+             color:highLightColor1
+
+         }
+
+
+
+Item {
+    width:parent.width
+    height:parent.height * 0.12
+
+
+
+ Rectangle {
+    id:generalarea
+    clip:true
+   // y:cardsava.y + cardsava.height + 10
+    anchors.horizontalCenter: parent.horizontalCenter
+    width:parent.width * 0.98
+    height:parent.height
+    color:"white"
+
+   Column {
+       y:10
+       width:parent.width
+       height:parent.height
+       spacing:20
+
+
+
+    Row {
+        width:parent.width
+        height: parent.height * 0.65
+        clip:true
+
+    Item {
+           id:imagearea
+     height:parent.width * 0.4
+     width:parent.width * 0.4
 
      Image {
          id:cardsava
-         width:parent.width * 0.5
-         height: parent.width * 0.5
+         width:parent.width
+         height: parent.width
          anchors.verticalCenter: parent.verticalCenter
          anchors.horizontalCenter: parent.horizontalCenter
          //anchors.margins: 4
@@ -167,66 +219,12 @@ onStateChanged: if(settingsPage.state == "Active") {topBar.state = "settings";} 
 
 
 }
-
-Text {
-    text: qsTr("General Settings")
-    anchors.left:parent.left
-    font.pixelSize: 24
-    anchors.leftMargin: 8
-}
-
-Item {
-    width:parent.width
-    height:parent.height * 0.13
-
- Rectangle {
-    id:generalarea
-    clip:true
-   // y:cardsava.y + cardsava.height + 10
-    anchors.horizontalCenter: parent.horizontalCenter
-    width:parent.width * 0.98
-    height:parent.height
-    color:"white"
-   Column {
-       y:20
-       width:parent.width
-       height:parent.height
-       spacing:25
-
-    Text {
-        id:onlineLabel
-        text: qsTr("Send Card")
-        font.pointSize: 12
-      //  anchors.top:parent.top
-       // anchors.topMargin: 10
-        anchors.right:parent.right
-        anchors.rightMargin: width * 0.8
-        horizontalAlignment: Text.AlignLeft
-
-        CheckBox {
-           id:sendCard
-
-            anchors.left: onlineLabel.right
-            anchors.leftMargin: 4
-            anchors.verticalCenter: parent.verticalCenter
-            //objectName: "switch_checked"
-
-            checked: if(cardindex == 0) {if(stf == "true"){ return true } else {return false} }
-            onCheckedChanged: if(cardindex == 0) {stf = sendCard.checked }
-        }
-
-
-    }
-
-    Rectangle {
-        width: parent.width * 0.98
-        height:3
-        anchors.horizontalCenter: parent.horizontalCenter
-
-        color:highLightColor1
-
-    }
-
+    Column {
+        y:20
+        width:parent.width * 0.6
+        height:parent.height * 0.9
+        spacing:15
+        anchors.verticalCenter: parent.verticalCenter
 
   Text {
         id: nameLabel
@@ -240,51 +238,113 @@ Item {
        //anchors.top:cardBacking.bottom
        // anchors.topMargin: 25
        //anchors.topMargin: 5
+        width:parent.width * 0.98
+        // text: qsTr("Name:")
+        text:username
+         font.pixelSize:  26
 
-         text: qsTr("Name:")
-         font.pixelSize:  24
+         MouseArea {
+             anchors.fill: parent
+             onClicked: userName.visible = true
+         }
 
       TextField {
          id: userName
-         anchors.left: parent.right
-
-         anchors.leftMargin: 4
-         anchors.bottom: parent.bottom
+         anchors.left: parent.left
+        visible: false
+        // anchors.leftMargin: 4
+         anchors.verticalCenter: parent.verticalCenter
          //anchors.top: parent.top
          text:if(cardindex == 0) {username }
          //verticalAlignment: TextInput.AlignTop
-
+           onVisibleChanged: if(visible == true) {focus = true}
+            onFocusChanged: if(focus == false) {visible = false}
          placeholderText: qsTr("User Name")
-         font.pixelSize: 24
+         font.pixelSize: 20
         // width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
-         width:(generalarea.width * 0.98) - nameLabel.width
+         width:parent.width
          clip:true
          onTextChanged: if(cardindex == 0) {username = userName.text}
      }
  }
 
   Text {
+      id: aliasLabel
+
+
+      anchors.left:parent.left
+      anchors.leftMargin: parent.width * 0.10
+      //anchors.bottom:avatarBacking.bottom
+     // anchors.top:companyLabel.bottom
+     // anchors.topMargin: 25
+      width:parent.width * 0.90
+      //text: qsTr("Position:")
+      text:useralias
+
+      font.pixelSize: 18
+
+      MouseArea {
+          anchors.fill: parent
+          onClicked: userAlias.visible = true
+      }
+
+      TextField {
+         id: userAlias
+
+          anchors.verticalCenter: parent.verticalCenter
+            visible: false
+            onVisibleChanged: if(visible == true) {focus = true}
+            onFocusChanged: if(focus == false) {visible = false}
+         anchors.left: parent.left
+         //anchors.leftMargin: 4
+        // anchors.bottom: parent.bottom
+         //anchors.top: parent.top
+         placeholderText: qsTr("Job Title")
+         font.pixelSize: 18
+         width:parent.width
+         //width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
+         text:if(cardindex == 0) {useralias}
+         onTextChanged: if(cardindex == 0) {useralias = userAlias.text}
+     }
+
+
+}
+
+  Item {
+      height:40
+      width:parent.width
+
+  }
+
+  Text {
       id: companyLabel
       anchors.left:parent.left
-
+        horizontalAlignment: Text.AlignRight
     //  anchors.leftMargin: units.gu(.3)
      // anchors.top:nameLabel.bottom
      // anchors.topMargin: 25
-
-      text: qsTr("Company:")
+        width:parent.width * 0.98
+      //text: qsTr("Company:")
+      text:usercompany
       font.pixelSize: 24
+
+      MouseArea {
+          anchors.fill: parent
+          onClicked: userCompany.visible = true
+      }
 
       TextField {
          id: userCompany
-
-         anchors.left: parent.right
-         anchors.leftMargin: 4
-         anchors.bottom: parent.bottom
+         visible: false
+         anchors.left: parent.left
+         //anchors.leftMargin: 4
+          anchors.verticalCenter: parent.verticalCenter
          //anchors.top: parent.top
          placeholderText: qsTr("Company Name")
-         font.pixelSize: 24
-         width:(generalarea.width * 0.98) - companyLabel.width
-
+         font.pixelSize: 20
+         width:parent.width
+         onVisibleChanged: if(visible == true) {focus = true}
+            onFocusChanged: if(focus == false) {visible = false}
 
          //width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
          text:if(cardindex == 0) {usercompany}
@@ -293,38 +353,63 @@ Item {
 }
 
 
-  Text {
-      id: aliasLabel
 
 
-    //  anchors.left:companyLabel.left
-    //  anchors.leftMargin: units.gu(.3)
-      //anchors.bottom:avatarBacking.bottom
-     // anchors.top:companyLabel.bottom
-     // anchors.topMargin: 25
-      //width:companyLabel.width
-      text: qsTr("Position:")
-      font.pixelSize: 24
+    }
 
-      TextField {
-         id: userAlias
-         anchors.bottomMargin: 0
-         anchors.topMargin: 0
+    }
 
-         anchors.left: parent.right
+    Rectangle {
+        width: parent.width * 0.98
+        height:3
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        //color:highLightColor1
+        color:"black"
+
+    }
+
+    Item {
+        width: parent.width
+        height:parent.height * 0.12
+        clip:true
+
+    Text {
+        anchors.left:parent.left
+        anchors.leftMargin: 10
+        text: qsTr("(tap to edit)")
+        anchors.verticalCenter: parent.verticalCenter
+    }
+
+ Text {
+     id:onlineLabel
+     text: qsTr("Send Card")
+     font.pointSize: 12
+   //  anchors.top:parent.top
+    // anchors.topMargin: 10
+     anchors.right:parent.right
+     anchors.rightMargin: width * 0.8
+     horizontalAlignment: Text.AlignLeft
+     anchors.verticalCenter: parent.verticalCenter
+
+     CheckBox {
+        id:sendCard
+
+         anchors.left: onlineLabel.right
          anchors.leftMargin: 4
-         anchors.bottom: parent.bottom
-         //anchors.top: parent.top
-         placeholderText: qsTr("Job Title")
-         font.pixelSize: 24
-         width:(generalarea.width* 0.98) - aliasLabel.width
-         //width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
-         text:if(cardindex == 0) {useralias}
-         onTextChanged: if(cardindex == 0) {useralias = userAlias.text}
+         anchors.verticalCenter: parent.verticalCenter
+         //objectName: "switch_checked"
+
+         checked: if(cardindex == 0) {if(stf == "true"){ return true } else {return false} }
+         onCheckedChanged: if(cardindex == 0) {stf = sendCard.checked }
      }
 
 
-}
+ }
+
+    }
+
+
 
    }
 
@@ -355,6 +440,14 @@ Text {
     font.pixelSize: 24
 
 }
+Rectangle {
+    width: parent.width * 0.98
+    height:3
+    anchors.horizontalCenter: parent.horizontalCenter
+
+    color:highLightColor1
+
+}
 
 Item {
     width:parent.width
@@ -376,41 +469,12 @@ Item {
         y:20
         width:parent.width
         height:parent.height
-        spacing: 25
+        spacing: 30
 
-    Text {
-        id:contactLabel
-        text: qsTr("Send Contact Info")
-        font.pointSize: 12
-        //font.bold: true
-        horizontalAlignment: Text.AlignLeft
-       // anchors.top:parent.top
-       // anchors.topMargin: 10
-        anchors.right:parent.right
-        anchors.rightMargin:  width * 0.5
-
-        CheckBox {
-           id:sendContact
-
-            anchors.left: contactLabel.right
-            anchors.leftMargin: 5
-            anchors.verticalCenter: parent.verticalCenter
-            objectName: "switch_checked"
-
-            checked: if(cardindex == 0) { if(ctf == "true"){ return true } else { return false} }
-            onCheckedChanged: if(cardindex == 0) {ctf = sendContact.checked }
+        Item {
+            width:parent.width
+            height:parent.height * 0.01
         }
-    }
-
-
-    Rectangle {
-        width: parent.width * 0.98
-        height:3
-        anchors.horizontalCenter: parent.horizontalCenter
-
-        color:highLightColor1
-
-    }
 
 
 
@@ -472,6 +536,43 @@ Item {
 
   }
 
+
+  Rectangle {
+      width: parent.width * 0.98
+      height:3
+      anchors.horizontalCenter: parent.horizontalCenter
+
+      //color:highLightColor1
+      color:"black"
+
+  }
+
+  Text {
+      id:contactLabel
+      text: qsTr("Share Contact Info")
+      font.pointSize: 12
+      //font.bold: true
+      horizontalAlignment: Text.AlignLeft
+     // anchors.top:parent.top
+     // anchors.topMargin: 10
+      anchors.right:parent.right
+      anchors.rightMargin:  width * 0.5
+
+      CheckBox {
+         id:sendContact
+
+          anchors.left: contactLabel.right
+          anchors.leftMargin: 5
+          anchors.verticalCenter: parent.verticalCenter
+          objectName: "switch_checked"
+
+          checked: if(cardindex == 0) { if(ctf == "true"){ return true } else { return false} }
+          onCheckedChanged: if(cardindex == 0) {ctf = sendContact.checked }
+      }
+  }
+
+
+
     }
 
 
@@ -507,6 +608,16 @@ Text {
  text: qsTr("Info")
  style: Text.Normal
  font.pixelSize: 24
+}
+
+Rectangle {
+    width: parent.width * 0.98
+    height:3
+    anchors.horizontalCenter: parent.horizontalCenter
+
+   color:highLightColor1
+    //color:"black"
+
 }
 
 Item {
@@ -698,6 +809,16 @@ Text {
  text: qsTr("Social Networks")
  style: Text.Normal
  font.pixelSize: 24
+}
+
+Rectangle {
+    width: parent.width * 0.98
+    height:3
+    anchors.horizontalCenter: parent.horizontalCenter
+
+   color:highLightColor1
+    //color:"black"
+
 }
 
 Item {
@@ -1093,6 +1214,16 @@ Rectangle {
      id:misc_title
  }
 
+ Rectangle {
+     width: parent.width * 0.98
+     height:3
+     anchors.horizontalCenter: parent.horizontalCenter
+
+    color:highLightColor1
+     //color:"black"
+
+ }
+
  Item {
      width:parent.width
      height:parent.height / 12
@@ -1229,6 +1360,15 @@ Rectangle {
         state:"InActive"
 
  }
+
+SocialConnect {
+    id:sConnect
+    width:parent.width
+    height:parent.height
+    state:"InActive"
+}
+
+
 
  }
 
