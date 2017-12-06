@@ -280,7 +280,7 @@ Item {
                                                                        }else {
                                                                         Scripts.Cards_load(searchtextfield.text);}
 
-                                                                        } else {if(cardindex == 0) {usercat = menuitem;} else {usercat1 = menuitem;}} popup.state = "InActive",mainMenu2.rotation = 0;break;
+                                                                        } else {usercat = menuitem;} popup.state = "InActive",mainMenu2.rotation = 0;break;
                           }
                 onPressed:listItem.state = "Active"
                 onReleased:listItem.state = "InActive"

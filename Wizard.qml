@@ -17,11 +17,20 @@ Item {
     id:thisWindow
 
 
-    property string name: ""
+  /*  property string name: ""
+    property string position: ""
     property string email: ""
     property string phone: ""
+    property string company: ""
     property string about: ""
     property string mainsite: ""
+
+    property string web1: ""
+    property string web2: ""
+    property string web3: ""
+    property string web4: "" */
+
+
 
     states: [
         State {
@@ -72,6 +81,7 @@ Item {
         cellWidth: thisWindow.width
 
 
+
         delegate: Item {
                     width:slideview.cellWidth
                      height:slideview.cellHeight
@@ -85,12 +95,20 @@ Item {
                         color:cardcolor
                         clip: true
 
+                        Text {
+                            visible: false
+                            text:if(slideview.indexAt(slideview.contentX,0) == 2) {
+                                     "bla"} else {"bleh"}
+                            onTextChanged: if(text == "bla" && userid == "") {slideview.interactive = false} else {slideview.interactive = true}
+                        }
+
                         Column {
                             anchors.verticalCenter: parent.verticalCenter
                             width: parent.width
                             height: parent.height * 0.90
                             spacing: 20
                         Text {
+                            //visible: if(type != 8) {true} else {false}
                             text: thetitle
                             anchors.horizontalCenter: parent.horizontalCenter
                             font.pixelSize: 48
@@ -98,6 +116,7 @@ Item {
                         }
 
                         Rectangle {
+                           //  visible: if(type != 8) {true} else {false}
                             anchors.horizontalCenter: parent.horizontalCenter
                             width: parent.width * 0.9
                             height: 3
@@ -105,6 +124,7 @@ Item {
                         }
 
                         Text {
+                           //  visible: if(type != 8) {true} else {false}
                             width:parent.width * 0.9
                             wrapMode: Text.WordWrap
                             horizontalAlignment: Text.AlignHCenter
@@ -115,6 +135,7 @@ Item {
                         }
 
                         Rectangle {
+                           //  visible: if(type != 8) {true} else {false}
                             anchors.horizontalCenter: parent.horizontalCenter
                             width: parent.width * 0.9
                             height: 3
@@ -124,7 +145,22 @@ Item {
                         Item {
                             visible: if(type == 3) {true} else {false}
                             width: parent.width
-                            height: parent.height * 0.1
+                            height: parent.height * 0.5
+
+                            Text {
+                                visible: if(userid != "") {true} else {false}
+                                anchors.centerIn: parent
+                                text:qsTr("Connected!\n\n You May Continue -->")
+                                color:"black"
+                                horizontalAlignment: Text.AlignHCenter
+                                font.pixelSize: 30
+                                wrapMode: Text.WordWrap
+                                onVisibleChanged: slideview.interactive = true
+                            }
+
+                        Item {
+                            anchors.fill: parent
+                            visible: if(userid == "") {true} else {false}
 
                         TextField{
                              id:osUsernameField
@@ -179,6 +215,7 @@ Item {
                              radius:4
 
                               Text {
+                                  id:cb
                                   anchors.centerIn: parent
                                   text:qsTr("Connect")
                                   color:"black"
@@ -193,7 +230,7 @@ Item {
                                      if(osUsername.length > 2) {
                                         //  console.log("sending info to server");
                                           OpenSeed.oseed_auth(osUsernameField.text,osEmailField.text,osPassField.text);
-
+                                                    cb.text = qsTr("Loading");
                                                   //OpenSeed.datasync(userid);
                                                  //Scripts.load_Card();
                                                   //OpenSeed.retrieve_data(userid);
@@ -216,9 +253,437 @@ Item {
                              z:1
                          }
 
-                  }
+                  }}
 
-            }
+
+                        Item {
+                            visible: if(type == 4) {true} else {false}
+                            width: parent.width
+                            height: parent.height * 0.8
+
+
+                             TextField{
+                               id:usernameField
+                               text:username
+                               placeholderText: "Name"
+                               width:parent.width * 0.95
+                               anchors.horizontalCenter: parent.horizontalCenter
+                               anchors.top: parent.top
+                               onTextChanged: username = text
+                             }
+
+                             Text {
+                                 anchors.left: about.left
+                                 anchors.bottom: about.top
+                                 text:qsTr("About:")
+                             }
+                             Rectangle {
+                                 anchors.centerIn: about
+                                 width:about.width
+                                 height: about.height
+                                 border.width: 1
+                                 color:"white"
+                                 border.color: "gray"
+                             }
+
+                             TextArea {
+                                 id:about
+                                 anchors.horizontalCenter: parent.horizontalCenter
+                                 anchors.top: usernameField.bottom
+                                 anchors.topMargin: 20
+                                 text:usermotto
+                                 height: parent.height * 0.6
+                                 width: parent.width * 0.95
+                                 wrapMode: Text.WordWrap
+                                 onTextChanged: usermotto = text
+
+                             }
+
+                        }
+
+
+                        Item {
+                            visible: if(type == 5) {true} else {false}
+                            width: parent.width
+                            height: parent.height * 0.8
+
+
+                             TextField{
+                                 id:job
+                                 text:useralias
+                                 placeholderText: "Job Title"
+                                 width:parent.width * 0.95
+                                 anchors.horizontalCenter: parent.horizontalCenter
+                                 anchors.top: parent.top
+                                  onTextChanged: useralias = text
+                             }
+
+                             TextField{
+                                 id:companyField
+                                 text:usercompany
+                                 placeholderText: "Company Name"
+                                 width:parent.width * 0.95
+                                 anchors.horizontalCenter: parent.horizontalCenter
+                                 anchors.top: job.bottom
+                                 anchors.topMargin: 20
+                                  onTextChanged: usercompany = text
+                             }
+
+                             Text {
+                                 font.pixelSize: 24
+                                 text:qsTr("Category: ")
+                                 anchors.right:parent.right
+                                 anchors.rightMargin: catbutton.width * 1.1
+                                 anchors.top: companyField.bottom
+                                 anchors.topMargin: 20
+
+                                Rectangle {
+                                       id:catbutton
+                                    width:if(cardindex == 0) {10*usercat.length + catText.width}
+                                    height:parent.height * 1.1
+
+                                    anchors.left:parent.right
+                                    anchors.verticalCenter: parent.verticalCenter
+
+                                    //border.color:"black"
+                                    radius: 3
+                                    color:highLightColor1
+                                    clip:true
+
+                                 Text {
+                                        id:catText
+                                     //anchors.left:parent.right
+                                        anchors.centerIn: parent
+                                     font.pixelSize:24
+                                    // anchors.verticalCenter: parent.verticalCenter
+                                     text: if(currentcat.length < 2) {qsTr("Select Category")} else {currentcat}
+                                    }
+                                     MouseArea {
+                                         anchors.fill:parent
+                                         onClicked: catmenu.state = "Active"
+                                     }
+                                 }
+
+                                DropShadow {
+
+                                    anchors.fill: catbutton
+                                    horizontalOffset: 0
+                                    verticalOffset: 3
+                                    radius: 8.0
+                                    samples: 17
+                                    color: "#80000000"
+                                    source: catbutton
+                                    z:1
+
+
+
+                                }
+
+
+                             }
+
+                        }
+
+
+
+                        Item {
+                            visible: if(type == 6) {true} else {false}
+                            width: parent.width
+                            height: parent.height * 0.1
+
+
+                            TextField{
+                                id:phoneField
+                                text:userphone
+                                inputMethodHints: Qt.ImhDialableCharactersOnly
+                                placeholderText: "Phone Number"
+                                width:parent.width * 0.95
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                anchors.top: parent.top
+                                 onTextChanged: userphone = text
+                            }
+
+                            TextField{
+                                id:emailField
+                                text:useremail
+                                placeholderText: "Email Address"
+                                width:parent.width * 0.95
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                anchors.top: phoneField.bottom
+                                anchors.topMargin: 20
+                                onTextChanged: useremail = text
+                            }
+
+                        }
+
+                        Item {
+                            visible: if(type == 7) {true} else {false}
+                            width: parent.width
+                            height: parent.height * 0.1
+
+
+                            Item {
+                                id:twitterButton
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                anchors.top:parent.top
+                                anchors.topMargin: 20
+                                width:parent.width * 0.95
+                                height:80
+
+                            Rectangle {
+                                id:twb
+                                anchors.fill: parent
+                                color:"lightblue"
+                                radius:5
+                                border.color: "white"
+
+                                Row {
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    width:parent.width * 0.98
+                                    height:parent.height
+                                    clip:true
+                                    spacing: 10
+                                    Image {
+                                        source:"./img/twitter.png"
+                                        height:parent.height * 0.9
+                                        width:parent.height * 0.9
+                                        anchors.verticalCenter: parent.verticalCenter
+
+                                    }
+
+                                    Rectangle {
+                                        height:parent.height * 0.9
+                                        color:"white"
+                                        width:3
+                                        anchors.verticalCenter: parent.verticalCenter
+                                    }
+
+                                    Text {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        text:if(website1.search("twitter") == -1){"Twitter not connected"} else {website1.split("::")[1]}
+                                        color:"white"
+                                        width:parent.width
+                                        font.pixelSize: parent.height * 0.3
+                                        wrapMode: Text.WordWrap
+                                    }
+                                }
+                              }
+
+                            DropShadow {
+
+                               anchors.fill: twb
+                               horizontalOffset: 0
+                               verticalOffset: 3
+                               radius: 8.0
+                               samples: 17
+                               color: "#80000000"
+                               source: twb
+                               z:1
+
+
+
+                                 }
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: sConnect.state = "Active",sConnect.service = "twitter", sConnect.type = "intergration"
+                            }
+                             }
+
+                           Item {
+                               id:tumblrButton
+                               anchors.horizontalCenter: parent.horizontalCenter
+                               anchors.top:twitterButton.bottom
+                               anchors.topMargin: 20
+                               width:parent.width * 0.95
+                               height:80
+
+                           Rectangle {
+                               id:trb
+                              anchors.fill: parent
+                               color:"#343460"
+                               radius:5
+                               border.color: "white"
+
+                               Row {
+                                   anchors.horizontalCenter: parent.horizontalCenter
+                                   width:parent.width * 0.98
+                                   height:parent.height
+                                   clip:true
+                                   spacing: 10
+                                   Image {
+                                       source:"./img/tumblr.png"
+                                       height:parent.height * 0.9
+                                       width:parent.height * 0.9
+                                       anchors.verticalCenter: parent.verticalCenter
+
+                                   }
+
+                                   Rectangle {
+                                       height:parent.height * 0.9
+                                       color:"white"
+                                       width:3
+                                       anchors.verticalCenter: parent.verticalCenter
+                                   }
+
+                                   Text {
+                                       anchors.verticalCenter: parent.verticalCenter
+                                       text:if(website2.search("tumblr") == -1){"Tumblr not connected"} else {website2.split("::")[1]}
+                                       color:"white"
+                                       width:parent.width
+                                       font.pixelSize: parent.height * 0.3
+                                       wrapMode: Text.WordWrap
+                                   }
+                               }
+                           }
+
+                           DropShadow {
+
+                              anchors.fill: trb
+                              horizontalOffset: 0
+                              verticalOffset: 3
+                              radius: 8.0
+                              samples: 17
+                              color: "#80000000"
+                              source: trb
+                              z:1
+                                }
+
+                           MouseArea {
+                               anchors.fill: parent
+                               onClicked: sConnect.state = "Active",sConnect.service = "tumblr", sConnect.type = "intergration"
+                           }
+
+                            }
+
+
+
+                            Item {
+                                id:soundcloudButton
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                anchors.top:tumblrButton.bottom
+                                anchors.topMargin: 20
+                                width:parent.width * 0.95
+                                height:80
+
+
+                           Rectangle {
+                               id:scb
+                               anchors.fill: parent
+                               color:"orange"
+                               radius:5
+                               border.color: "white"
+
+                               Row {
+                                   anchors.horizontalCenter: parent.horizontalCenter
+                                   width:parent.width * 0.98
+                                   height:parent.height
+                                   clip:true
+                                   spacing: 10
+                                   Image {
+                                       source:"./img/soundcloud.png"
+                                       height:parent.height * 0.9
+                                       width:parent.height * 0.9
+                                       anchors.verticalCenter: parent.verticalCenter
+
+                                   }
+
+                                   Rectangle {
+                                       height:parent.height * 0.9
+                                       color:"white"
+                                       width:3
+                                       anchors.verticalCenter: parent.verticalCenter
+                                   }
+
+                                   Text {
+                                       anchors.verticalCenter: parent.verticalCenter
+                                       text:if(website4.search("soundcloud") == -1){"SoundCloud not connected"} else {website4.split("::")[1]}
+                                       color:"white"
+                                       font.pixelSize: parent.height * 0.3
+                                       width:parent.width
+                                       wrapMode: Text.WordWrap
+                                   }
+                               }
+                           }
+
+                           DropShadow {
+
+                              anchors.fill: scb
+                              horizontalOffset: 0
+                              verticalOffset: 3
+                              radius: 8.0
+                              samples: 17
+                              color: "#80000000"
+                              source: scb
+                              z:1
+                                }
+                           MouseArea {
+                               anchors.fill: parent
+                               onClicked: sConnect.state = "Active",sConnect.service = "soundcloud", sConnect.type = "intergration"
+                           }
+
+                            }
+
+
+                        }
+
+                      /*  Item {
+                            visible: if(type == 8) {true} else {false}
+                            width: parent.width
+                            height: parent.height
+
+                            SourceSelection {
+                                width: parent.width
+                                height: parent.height
+                                state:"InActive"
+                            }
+
+
+                        } */
+
+                        Item {
+                            visible: if(type == 9) {true} else {false}
+                            width:parent.width
+                            height: parent.height * 0.1
+                           // anchors.bottom: parent.bottom
+
+                            Rectangle {
+
+                                width: parent.width * 0.3
+                                height: parent.height * 0.98
+                                anchors.centerIn: parent
+                                color:highLightColor1
+
+                                Text {
+                                    anchors.centerIn:parent
+                                    text:qsTr("Finish")
+                                    font.pixelSize: 24
+                                    color:"black"
+                                }
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: {
+                                                    usercat = currentcat;
+                                                Scripts.save_card(userid,usernameField.text.replace(/'/g," "),phoneField.text,emailField.text,companyField.text,job.text,about.text," ",
+                                                                 website1,website2,website3,website4,0,0,0," "," ",usercat);
+                                                OpenSeed.upload_data(userid,usernameField.text.replace(/'/g," "),phoneField.text,emailField.text,companyField.text,
+                                                             job.text,about.text,0,0,0," ",website1,website2,website3,website4,
+                                                             " "," ",usercat);
+                                                    currentcat = "All Cards";
+                                                    thisWindow.state = "InActive"
+                                                 }
+                                }
+                            }
+
+
+
+                        }
+
+
+                        }
+
+
 
                         Image {
                             id: logo
@@ -268,13 +733,13 @@ Item {
         }
         ListElement {
             thetitle: qsTr("EULA")
-            message:qsTr("")
+            message:qsTr("We haven't written one yet. It will be pretty bog standard though. No hacking,cracking, or pretending to be someone else. So on and So forth")
             type:2
             image:"./img/OpenSeed.png"
         }
         ListElement {
             thetitle: qsTr("OpenSeed Connect")
-            message:qsTr("OpenSeed's network is used for app and user authentication as well as the background services that relies on.\n\n(Note: If you don't have an account the system will create one for you.) ")
+            message:qsTr("OpenSeed's network is used for app and user authentication as well as the background services that CafeSync relies on.\n\n(Note: If you don't have an account the system will create one for you.) ")
             type:3
             image:"./img/OpenSeed.png"
         }
@@ -313,7 +778,7 @@ Item {
             image:"./img/stock_website.svg"
         }
 
-        ListElement {
+       /* ListElement {
             thetitle: qsTr("Say Cheese!")
             message:qsTr("A picture is worth a thousand words. How do you want the world to know you.\n Take a picture or choose from a list of compatable services on the nex page!")
             type:1
@@ -325,7 +790,17 @@ Item {
             message:""
             type:8
             image:"./img/camera-photo.svg"
+        } */
+
+        ListElement {
+            thetitle: qsTr("Congratulations!")
+            message:  qsTr("We're all set. Tapping finish will close this dialog and let you start using the network. \n Note: Due to our commitment to your privacy your card is set to private.\
+ Change this by hitting the center bottom button.")
+            type:9
+            image:"./img/overlay-dark.png"
         }
+
+
     }
 
 
@@ -585,7 +1060,7 @@ Item {
         height:parent.height * 0.08
         color:bottombarColor
 
-    Row {
+  /*  Row {
         spacing: 10
         anchors.bottom:parent.bottom
         anchors.bottomMargin:10
@@ -615,7 +1090,7 @@ Item {
 
      }
 
-    }
+    } */
 
     }
 
@@ -630,5 +1105,32 @@ Item {
         z:1
     }
 
+    Row {
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom:parent.bottom
+        anchors.bottomMargin: parent.height * 0.11
+        spacing: 10
+    Repeater {
+            model:slideview.count
+            id:pageIndicator
+            Rectangle {
+                       width: 10
+                       height: 10
+                       border.width: 1
+                       border.color:barColor
+                       color: if(index == slideview.indexAt(slideview.contentX,0)) {highLightColor1} else {Qt.rgba(9,9,9,0);}
+                       radius:width /2
+
+
+
+
+                        MouseArea {
+                            anchors.fill:parent
+                            onClicked: ms.positionViewAtIndex(index,GridView.Center)
+                        }
+                   }
+
+            }
+    }
 
 }

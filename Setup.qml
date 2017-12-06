@@ -497,6 +497,7 @@ Item {
          anchors.leftMargin: 4
          anchors.bottom: parent.bottom
          //anchors.top: parent.top
+
          placeholderText: qsTr("0 555-555-5555")
          font.pixelSize: 24
          width:(contactarea.width * 0.98) - phoneLabel.width
@@ -842,30 +843,7 @@ Rectangle {
     height:soundcloudButton.y + soundcloudButton.height + 40
         clip:true
 
-                    /* Text {
-                          id:websiteLabel
 
-                          text: "Twitter:"
-                          font.pixelSize: 18
-
-                         TextField {
-                            id:websiteVar
-
-                           anchors.left: parent.right
-                            anchors.leftMargin: .5
-                             anchors.verticalCenter: parent.verticalCenter
-
-                                 width:plinklist.width - websiteLabel.width
-
-                                    placeholderText: qsTr("www.twitter.com/username")
-                                     //font.pixelSize: parent.height
-                                     text:if(cardindex == 0) {website1} else {website11}
-                                 onTextChanged: if(cardindex == 0) {website1 = websiteVar.text}
-
-                        }
-
-
-                     } */
 
                      Item {
                          id:twitterButton
@@ -1001,70 +979,7 @@ Rectangle {
 
                      }
 
-                   /* Item {
-                        id:kickstarterButton
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.top:tumblrButton.bottom
-                        anchors.topMargin: 20
-                        width:parent.width * 0.95
-                        height:80
 
-                     Rectangle {
-                        id:ksb
-                        anchors.fill: parent
-                        color:"#3DA1B3"
-                        radius:5
-                        border.color: "white"
-
-                        Row {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            width:parent.width * 0.98
-                            height:parent.height
-                            clip:true
-                            spacing: 10
-                            Image {
-                                source:"./img/kickstarter-logo-k-color.png"
-                                height:parent.height * 0.9
-                                width:parent.height * 0.9
-                                anchors.verticalCenter: parent.verticalCenter
-
-                            }
-
-                            Rectangle {
-                                height:parent.height * 0.9
-                                color:"white"
-                                width:3
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-
-                            Text {
-                                anchors.verticalCenter: parent.verticalCenter
-                                text:if(website3.search("kickstarter") == -1){"Kickstarter not connected"} else {website3.split("::")[1]}
-                                color:"white"
-                                width:parent.width
-                                font.pixelSize: parent.height * 0.3
-                                wrapMode: Text.WordWrap
-                            }
-                        }
-                    }
-
-                     DropShadow {
-
-                        anchors.fill: ksb
-                        horizontalOffset: 0
-                        verticalOffset: 3
-                        radius: 8.0
-                        samples: 17
-                        color: "#80000000"
-                        source: ksb
-                        z:1
-                          }
-
-                     MouseArea {
-                         anchors.fill: parent
-                         onClicked: sConnect.state = "Active",sConnect.service = "kickstarter", sConnect.type = "intergration"
-                     }
-                      } */
 
                      Item {
                          id:soundcloudButton
@@ -1381,12 +1296,7 @@ Rectangle {
 
  }
 
-SocialConnect {
-    id:sConnect
-    width:parent.width
-    height:parent.height
-    state:"InActive"
-}
+
 
 
 

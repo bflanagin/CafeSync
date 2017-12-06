@@ -150,6 +150,7 @@ import "openseed.js" as OpenSeed
                                                     anchors.margins: 4
                                                     visible: false
                                                     source: imgsource
+                                                    fillMode: Image.PreserveAspectCrop
 
                                                     Image {
 

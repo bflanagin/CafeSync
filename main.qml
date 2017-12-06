@@ -352,6 +352,11 @@ ApplicationWindow {
                     target:personBar
                     visible:false
                 }
+
+                PropertyChanges {
+                    target:wizardBar
+                    visible:true
+                }
             },
 
 
@@ -373,6 +378,10 @@ ApplicationWindow {
                     target:personBar
                     visible:false
                 }
+                PropertyChanges {
+                    target:wizardBar
+                    visible:false
+                }
             },
               State {
                 name:"settings"
@@ -390,6 +399,10 @@ ApplicationWindow {
                 }
                 PropertyChanges {
                     target:searchBar
+                    visible:false
+                }
+                PropertyChanges {
+                    target:wizardBar
                     visible:false
                 }
             },
@@ -411,6 +424,10 @@ ApplicationWindow {
                   target:searchBar
                   visible:true
               }
+              PropertyChanges {
+                  target:wizardBar
+                  visible:false
+              }
           },
 
             State {
@@ -431,10 +448,34 @@ ApplicationWindow {
                   target:personBar
                   visible:true
               }
+              PropertyChanges {
+                  target:wizardBar
+                  visible:false
+              }
           }
 
         ]
         state:"standard"
+
+
+        Item {
+            id:wizardBar
+            width:parent.width
+            height:parent.height
+            visible:false
+            Rectangle {
+                anchors.fill:parent
+                color:barColor
+
+                Text {
+                    anchors.centerIn: parent
+                    text: qsTr("Wizard")
+                    font.pixelSize: 30
+                    color:"white"
+                }
+            }
+
+        }
 
 
         Item {
@@ -614,10 +655,10 @@ ApplicationWindow {
 
                 MouseArea {
                     anchors.fill:parent
-                onClicked: {Scripts.save_card(userid,username,userphone,useremail,usercompany,
+                onClicked: {Scripts.save_card(userid,username.replace(/'/g," "),userphone,useremail,usercompany,
                                               useralias,usermotto,usermain,website1,website2,website3,website4,
                                               stf,atf,ctf,avimg,carddesign,usercat);
-                            OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
+                            OpenSeed.upload_data(userid,username.replace(/'/g," "),userphone,useremail,usercompany,
                                                  useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
                                                  avimg,carddesign,usercat);
 
@@ -1414,6 +1455,14 @@ SlideShow {
 
 
 
+}
+
+SocialConnect {
+    id:sConnect
+    y:topBar.height
+    width:parent.width
+    height:parent.height - topBar.height
+    state:"InActive"
 }
 
 MyIOout {

@@ -219,7 +219,9 @@ function load_Card() {
                     cardPage.state = "settings";
                     mainScreen.state = "InActive";
                     //infotab.state = "UnAvailable";
-                settingsPage.state = "show";
+               // settingsPage.state = "show";
+                topBar.state = "Wizard";
+
          }
 
     }
@@ -1260,9 +1262,9 @@ function listimages() {
 
     db.transaction(function(tx) {
 
-        var pull =  tx.executeSql(dataStr);
-
         tx.executeSql('CREATE TABLE IF NOT EXISTS LIBRARY (id TEXT,thedir TEXT,file TEXT,thedate TEXT,private INT,picture_index INT, base64 BLOB)');
+
+        var pull =  tx.executeSql(dataStr);
 
         while( num < pull.rows.length) {
 
