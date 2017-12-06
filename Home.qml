@@ -47,12 +47,13 @@ Item {
         anchors.top:parent.top
         anchors.topMargin: parent.height * 0.02
         //color:"white"
-        color:backgroundColor
+        color:cardcolor
         //border.color:"black"
         //radius: units.gu(1)
         //anchors.fill: parent
+        //anchors.horizontalCenter: parent.horizontalCenter
         width:parent.width
-        height:info.height + 10
+        height:info.height + 40
         clip:true
 
         Row {
@@ -62,8 +63,8 @@ Item {
             height:parent.height
 
             Item {
-                width:if(avatarimg.length > 5 && cardsop == 1) {nameBack.height * 0.99} else {nameBack.height * 0.01}
-                height:if(avatarimg.length > 5 && cardsop == 1) {nameBack.height * 0.99} else {nameBack.height * 0.01}
+                width:if(avatarimg.length > 5 && cardsop == 1) {nameBack.height * 0.96} else {nameBack.height * 0.01}
+                height:if(avatarimg.length > 5 && cardsop == 1) {nameBack.height * 0.96} else {nameBack.height * 0.01}
             Image {
                 id:img
                // anchors.verticalCenter: parent.verticalCenter
@@ -106,7 +107,7 @@ Item {
                 Rectangle {
                     width:parent.width
                     height:3
-                    color:"gray"
+                    color:highLightColor1
                 }
 
                 Text {
@@ -129,7 +130,7 @@ Item {
 
                 Item {
                     width:parent.width
-                    height:phone.height /2
+                    height:phone.height
                     //height:nameBack.height
                     //color:"gray"
                 }
@@ -137,14 +138,14 @@ Item {
                     id:phone
                     //x:10
                     font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.03
-                    text:qsTr("Phone: ")+carduserphone
+                    text:carduserphone
                     anchors.right:parent.right
                 }
                 Text {
                     id:email
                     x:10
                     font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.03
-                    text:qsTr("Email: ")+carduseremail
+                    text:carduseremail
                     anchors.right:parent.right
                 }
             }
@@ -154,46 +155,99 @@ Item {
 
     }
 
+    DropShadow {
+           anchors.fill: nameBack
+           horizontalOffset: 0
+           verticalOffset: 4
+           radius: 8.0
+           samples: 17
+           color: "#80000000"
+           source: nameBack
 
+       }
 
-    Rectangle {
-        id:mottoBack
-
+    Flickable {
+        id:infoFlick
         anchors.top:nameBack.bottom
-
+        flickableDirection:Flickable.VerticalFlick
         anchors.topMargin:10
-
-        color:backgroundColor
-
-        width:parent.width
-        height:parent.height * 0.95
+        width:parent.width * 0.98
+        height:parent.height - nameBack.height
+        contentWidth: parent.width
+        contentHeight: parent.height * 1.2
         clip:true
-          Column {
-              spacing:4
-        Text {
-            anchors.left:parent.left
-            anchors.leftMargin:10
-            width:parent.width - 10
-            wrapMode: Text.WordWrap
-            text:qsTr("About:")
-            font.pixelSize: mottoBack.width * 0.04
-        }
-        Rectangle {
-            width:mottoBack.width
-            height:2
-            color:"gray"
-        }
 
+        Column {
+            anchors.horizontalCenter: parent.horizontalCenter
+            width:popup.width * 0.98
+            height:parent.height * 1.2
+            spacing:20
 
-        Text {
-            anchors.left:parent.left
-            anchors.leftMargin:10
-            width:parent.width - 10
-            wrapMode: Text.WordWrap
-            text:motto
-        }
-          }
+            Item {
+                width:parent.width
+                height:20
+            }
 
+            Item {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width * 0.98
+                height:aboutcontent.height + aboutcontent.y
+                visible: if(motto.length > 2) {true} else {false}
+
+                 Rectangle {
+                     id:aboutbox
+                     width:parent.width * 0.98
+                     height:parent.height * 0.98
+                     anchors.centerIn: parent
+                     color:cardcolor
+
+                 Column {
+                     width:parent.width
+                     height:parent.height
+                     spacing:10
+
+                        Text {
+
+                             anchors.left:parent.left
+                             anchors.margins:10
+                             width:parent.width - 10
+                             wrapMode: Text.WordWrap
+                             text:qsTr("About:")
+                             font.pixelSize: 24
+                        }
+
+                       Rectangle {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                width:parent.width * 0.98
+                                height:3
+                                color:highLightColor1
+                            }
+
+                    Text {
+                            id:aboutcontent
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            width:parent.width - 10
+                            wrapMode: Text.WordWrap
+                             text:motto
+                        }
+
+                    }
+
+                 }
+
+                 DropShadow {
+                        anchors.fill: aboutbox
+                        horizontalOffset: 0
+                        verticalOffset: 4
+                        radius: 8.0
+                        samples: 17
+                        color: "#80000000"
+                        source: aboutbox
+
+                    }
+            }
+
+    }
 
 
 

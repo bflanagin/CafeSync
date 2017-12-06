@@ -77,18 +77,19 @@ Item {
         anchors.topMargin:10
         anchors.horizontalCenter: parent.horizontalCenter
         width:parent.width * 0.98
-        height:parent.width * 0.15
-        color:Qt.rgba(0.2,0.2,0.2,0.8)
-        radius:10
-        border.color: "white"
-        border.width:2
+        height:parent.height * 0.12
+        color:Qt.rgba(0.5,0.5,0.5,0.8)
+        radius:4
+        clip:true
+       // border.color: "white"
+       // border.width:1
         z:1
         Image {
             id:avimage
             anchors.left:parent.left
             anchors.verticalCenter: parent.verticalCenter
-            width:parent.height * 0.85
-            height:parent.height * 0.85
+            width:parent.height * 0.80
+            height:parent.height * 0.80
             fillMode:Image.PreserveAspectFit
             source:avatar
 
@@ -105,8 +106,10 @@ Item {
             anchors.left:avimage.right
             anchors.top:blogtitle.bottom
             text:message
-            font.pixelSize: blogtitle.height * 0.30 - message.length
+            font.pixelSize: blogtitle.height * 0.25 - message.length
             color:"white"
+            wrapMode: Text.WordWrap
+            width:parent.width * 0.80
         }
 
     }
@@ -126,6 +129,7 @@ Item {
 
         Item {
             id:postcontent
+            anchors.horizontalCenter: parent.horizontalCenter
             width:parent.width * 0.98
             height:parent.height * 0.95
             Text {
@@ -151,7 +155,7 @@ Item {
             Image {
                 visible: if(postimage.length > 2) {true} else {false}
                 anchors.top:postsplitter.bottom
-                //width:parent.width * 0.90
+                width:parent.width * 0.98
                 height:if(postimage.length > 2) {parent.height * 0.70} else {10}
                 fillMode: Image.PreserveAspectFit
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -189,6 +193,7 @@ Item {
                     PropertyChanges {
                      target:blinder
                         y:0
+                        color:cardcolor
                     }
                     PropertyChanges {
                         target:links
@@ -200,9 +205,10 @@ Item {
 
                     PropertyChanges {
                    target:blinder
-                    y:parent.height * 0.99
+                    y:parent.height
                    opacity: 1
                     radius:0
+                    color:barColor
                     }
 
                     PropertyChanges {
@@ -230,18 +236,21 @@ Item {
         Image {
             id:servicelogo
             source:pluginlogo
-            width:parent.width * 0.05
-            height:parent.height * 0.05
+            width:parent.width * 0.07
+            height:parent.height * 0.07
             fillMode:Image.PreserveAspectFit
+            anchors.left:parent.left
+            anchors.leftMargin: parent.width * 0.01
+
 
         }
-        Text {
+       /* Text {
             anchors.left:servicelogo.right
             anchors.verticalCenter:servicelogo.verticalCenter
             font.underline: true
-            font.pixelSize: servicelogo.height * 0.6
+            font.pixelSize: servicelogo.height * 0.5
             text:service
-        }
+        } */
     }
 
     }

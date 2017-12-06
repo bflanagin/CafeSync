@@ -1,5 +1,6 @@
 import QtQuick 2.3
 import QtQuick.Window 2.2
+import QtGraphicalEffects 1.0
 
 
 import "main.js" as Scripts
@@ -14,7 +15,7 @@ Item {
     property string service:""
     property string extrathing:""
     property string sitedata:""
-    property string pluginlogo:"img/overlay-dark.png"
+    property string pluginlogo:"./img/stock_website.svg"
     property string avatar: ""
     property string name: ""
     property string banner: ""
@@ -79,10 +80,10 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         width:parent.width * 0.98
         height:parent.width * 0.15
-        color:Qt.rgba(0.2,0.2,0.2,0.5)
-        radius:10
-        border.color: "white"
-        border.width:2
+        color:Qt.rgba(0.5,0.5,0.5,0.8)
+        radius:5
+       // border.color: "white"
+      //  border.width:1
         z:1
         Image {
             id:avimage
@@ -209,8 +210,8 @@ Item {
 
                     PropertyChanges {
                    target:blinder
-                    y:parent.height * 0.94
-                   opacity: 1
+                    y:parent.height
+
                     radius:0
                     color:barColor
                     }
@@ -240,21 +241,35 @@ Item {
         Image {
             id:servicelogo
             source:pluginlogo
-            width:parent.width * 0.05
-            height:parent.height * 0.05
+            width:parent.width * 0.07
+            height:parent.height * 0.07
             fillMode:Image.PreserveAspectFit
+            anchors.left:parent.left
+            anchors.leftMargin: parent.width * 0.01
 
         }
-        Text {
+       /* Text {
             anchors.left:servicelogo.right
             anchors.verticalCenter:servicelogo.verticalCenter
             font.underline: true
-            font.pixelSize: servicelogo.height * 0.6
+            font.pixelSize: servicelogo.height * 0.5
             text:service
-            color:highLightColor1
-        }
+            color:"black"
+        } */
     }
 
+    }
+
+
+    DropShadow {
+        anchors.fill:blinder
+        horizontalOffset: 0
+        verticalOffset: -4
+        radius: 8.0
+        samples: 17
+        color: "#80000000"
+        source:blinder
+        z:1
     }
 
     Image {

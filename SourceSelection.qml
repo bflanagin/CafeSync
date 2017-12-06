@@ -1,7 +1,8 @@
-import QtQuick 2.0
+import QtQuick 2.3
 import QtGraphicalEffects 1.0
 import QtMultimedia 5.9
-import QtQuick.Controls 1.3
+import QtQuick.Controls 2.2
+import QtQuick.Controls.Material 2.2
 
 import QtQuick.LocalStorage 2.0 as Sql
 
@@ -135,7 +136,7 @@ Item {
                     width:if(parent.width > parent.height) {parent.width * 0.80} else {parent.width}
                     height:if(parent.width > parent.height) {parent.height} else {parent.width * 0.99}
 
-                    //rotation:90
+                    rotation:90
 
                     fillMode: Image.PreserveAspectCrop
                     focus : visible // to receive focus and capture key events when visible
@@ -199,7 +200,7 @@ Item {
 
                 Image {
                     anchors.centerIn: parent
-                    source:"./img/camera-photo.svg"
+                    source:if(check.source =="" ) {"./img/camera-photo.svg"} else {"./img/reset.svg"}
                     width:parent.width * 0.8
                     height:parent.height * 0.8
                     fillMode:Image.PreserveAspectFit
@@ -212,10 +213,11 @@ Item {
                                             check.source = "";
                                             camera.start();
                                         } else {
-
+                                            if(check.source == "") {
                                     capturedAsspect = selectedAsspect;
                                 camera.imageCapture.captureToLocation(paths.split(",")[2].trim());
                                 camera.imageCapture.capture();
+                                            } else { check.source = "";}
                                         }
                             }
                         }
@@ -226,14 +228,22 @@ Item {
 
                 anchors.bottom:camerabutton.bottom
                 anchors.left:camerabutton.right
+                anchors.leftMargin: 10
                 visible: if(check.source == "") {false} else {true}
                 //anchors.horizontalCenter: parent.horizontalCenter
-                width:if(mainView.width > mainView.height) {parent.width * 0.5}else {parent.height * 0.1}
-                height:if(mainView.width > mainView.height){parent.width * 0.5} else {parent.height * 0.1}
+                width:if(mainView.width > mainView.height) {parent.width * 0.5}else {parent.height * 0.13}
+                height:if(mainView.width > mainView.height){parent.width * 0.5} else {parent.height * 0.13}
 
-                color:"green"
+                color:Qt.rgba(0,0.6,0,0.6)
                 radius:width /2
                 border.color:"black"
+
+                Image {
+                    anchors.centerIn: parent
+                    width:parent.width * 0.9
+                    height:parent.width * 0.9
+                    source:"./img/check.svg"
+                }
 
 
 
@@ -267,20 +277,29 @@ Item {
 
                 anchors.bottom:camerabutton.bottom
                 anchors.right:camerabutton.left
+                anchors.rightMargin: 10
                 //anchors.horizontalCenter: parent.horizontalCenter
-                width:if(mainView.width > mainView.height) {parent.width * 0.5}else {parent.height * 0.1}
-                height:if(mainView.width > mainView.height){parent.width * 0.5} else {parent.height * 0.1}
+                width:if(mainView.width > mainView.height) {parent.width * 0.5}else {parent.height * 0.13}
+                height:if(mainView.width > mainView.height){parent.width * 0.5} else {parent.height * 0.13}
                 visible: if(check.source == "") {false} else {true}
 
 
-                color:"red"
+                color:Qt.rgba(0.6,0,0,0.6)
                 radius:width /2
                 border.color:"black"
+
+                Image {
+                    anchors.centerIn: parent
+                    width:parent.width * 0.9
+                    height:parent.width * 0.9
+                    source:"./img/close.svg"
+                }
 
             MouseArea {
                 anchors.fill:parent
                 onClicked:{
-                    check.source = ""; }
+                    check.source = "";
+                    camera.stop(); }
                           /*  if(camera.position == 2) {
                                 capturedAsspect = -90;
                             }
@@ -479,7 +498,7 @@ Item {
 
         ListView {
             width:parent.width
-            height: 64
+            height: parent.height * 0.1
             orientation: ListView.Horizontal
             spacing: 10
 
@@ -554,7 +573,7 @@ Item {
            // anchors.top:tumblrButton.bottom
            // anchors.topMargin: 20
             width:parent.width * 0.49
-            height:60
+            height:thisWindow.height * 0.08
 
          Rectangle {
             id:ksb
@@ -624,7 +643,7 @@ Item {
              //anchors.top:kickstarterButton.bottom
             // anchors.topMargin: 20
              width:parent.width * 0.49
-             height:60
+             height:thisWindow.height * 0.08
 
 
         Rectangle {
@@ -700,7 +719,7 @@ Item {
             //anchors.top:tumblrButton.bottom
            // anchors.topMargin: 20
             width:parent.width * 0.49
-            height:60
+            height:thisWindow.height * 0.08
 
          Rectangle {
             id:twb
@@ -768,7 +787,7 @@ Item {
              //anchors.top:kickstarterButton.bottom
             // anchors.topMargin: 20
              width:parent.width * 0.49
-             height:60
+             height:thisWindow.height * 0.08
 
 
         Rectangle {

@@ -242,7 +242,7 @@ Item {
         width:parent.width * 0.98
         // text: qsTr("Name:")
         text:username
-         font.pixelSize:  26
+         font.pixelSize:  (parent.width  - username.length * 1.5) * 0.12
 
          MouseArea {
              anchors.fill: parent
@@ -282,7 +282,7 @@ Item {
       //text: qsTr("Position:")
       text:useralias
 
-      font.pixelSize: 18
+      font.pixelSize: (parent.width  - useralias.length * 1.5) * 0.08
 
       MouseArea {
           anchors.fill: parent
@@ -327,7 +327,7 @@ Item {
         width:parent.width * 0.98
       //text: qsTr("Company:")
       text:usercompany
-      font.pixelSize: 24
+      font.pixelSize: (parent.width  - usercompany.length * 1.5) * 0.08
 
       MouseArea {
           anchors.fill: parent

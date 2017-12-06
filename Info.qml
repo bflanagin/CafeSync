@@ -30,6 +30,7 @@ Item {
             PropertyChanges {
                 target: popup
                 visible:true
+                enabled:true
 
             }
 
@@ -40,6 +41,7 @@ Item {
           PropertyChanges {
               target: popup
               visible:false
+              enabled:false
           }
 
         }

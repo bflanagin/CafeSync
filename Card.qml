@@ -128,8 +128,8 @@ import "openseed.js" as OpenSeed
 
                                             Rectangle {
                                                 id:card_avatar_backing
-                                                width: parent.height * 0.8
-                                                height: parent.height * 0.8
+                                                width: parent.height * 0.9
+                                                height: parent.height * 0.9
                                                 //x:10
                                                 anchors.verticalCenter: parent.verticalCenter
                                                // anchors.top:parent.top

@@ -68,112 +68,53 @@ Item {
 
 
 
-    onStateChanged: {
+    onStateChanged: { if(state == "Active") {
 
 
         //if(layouts.width < mobile_width) {
 
 
         if(page.search("facebook") != -1) {
+                    custompage = 1;
 
-                                custompage = 1;
-                                //FaceBook.get_html(page);
-                                //OpenSeed.website_snap(mycard,page,index)
+        } else if(page.search("linkedin") != -1) {
+                    custompage = 2;
 
-                } else {
-                    if(page.search("linkedin") != -1) {
-                            //Linkedin.get_html(page);
-                            custompage = 2;
-                            //OpenSeed.website_snap(mycard,page,index)
-            } else {
-                    if(page.search("twitter") != -1) {
+        } else if(page.search("twitter") != -1) {
+                     custompage = 3;
 
-                            custompage = 3;
+        } else if(page.search("twitch") != -1) {
+                     custompage = 4;
 
-                            //Twitter.get_html(page);
-                            //OpenSeed.website_snap(mycard,page,index);
-            } else {
-                    if(page.search("twitch") != -1) {
+        } else if(page.search("youtube") != -1) {
+                    custompage = 5;
 
-                            custompage = 4;
+        } else if(page.search("jamendo") != -1) {
+                    custompage = 6;
 
-                            //OpenSeed.website_snap(mycard,page,index);
-            } else {
+        } else if(page.search("vimeo") != -1) {
+                    custompage = 7;
 
-                    if(page.search("youtube") != -1) {
+        } else if(page.search("soundcloud") != -1) {
+                     custompage = 8;
 
-                            custompage = 5;
+        } else if(page.search("tumblr") != -1) {
+                     custompage = 9;
 
-                            //YouTube.get_html(page);
+        } else if(page.search("etsy") != -1) {
+                    custompage = 10;
 
-                            //OpenSeed.website_snap(mycard,page,index);
-            } else {
+        } else if(page.search("kickstarter") != -1) {
+                   custompage = 11;
 
-                    if(page.search("jamendo") != -1) {
+       } else if(page.search("gofundme") != -1) {
+                 custompage = 12;
+        } else if(custompage == 0) {
+                 WebPage.get_html(page);
+                   }
 
-                            custompage = 6;
+    }
 
-                            //OpenSeed.website_snap(mycard,page,index);
-            } else {
-
-                    if(page.search("vimeo") != -1) {
-
-                            custompage = 7;
-
-                           // OpenSeed.website_snap(mycard,page,index);
-            } else {
-                    if(page.search("soundcloud") != -1) {
-
-                            custompage = 8;
-
-                            //Soundcloud.get_html(page);
-            } else {
-
-                    if(page.search("tumblr") != -1) {
-
-                            custompage = 9;
-
-                            //Tumblr.get_html(page);
-
-                           // OpenSeed.website_snap(mycard,page,index);
-            } else {
-
-                        if(page.search("etsy") != -1) {
-
-                                custompage = 10;
-
-                                //Etsy.get_html(page);
-
-                               // OpenSeed.website_snap(mycard,page,index);
-                } else {
-
-                            if(page.search("kickstarter") != -1) {
-
-                                    custompage = 11;
-
-                                    //Kickstarter.get_html(page);
-
-                                    //OpenSeed.website_snap(mycard,page,index);
-                    } else {
-
-                                if(page.search("gofundme") != -1) {
-
-                                        custompage = 12;
-
-                                       // GoFundMe.get_html(page);
-
-                                       // OpenSeed.website_snap(mycard,page,index);
-                        }
-
-             } } } } } } } } } } }
-
-                if(custompage == 0) {
-                    WebPage.get_html(page);
-                    //console.log("Found feed: "+hasrss);
-
-                }
-
-        //}
     }
 
 
@@ -188,6 +129,7 @@ Item {
             PropertyChanges {
                 target: web
                 visible:true
+                enabled:true
             }
             PropertyChanges {
                 target: home
@@ -204,6 +146,7 @@ Item {
           PropertyChanges {
               target: web
               visible:false
+              enabled:false
           }
           PropertyChanges {
               target: home
@@ -233,6 +176,7 @@ Item {
           PropertyChanges {
               target: web
               visible:false
+              enabled:false
           }
           PropertyChanges {
               target: home

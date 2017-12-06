@@ -164,7 +164,6 @@
         <file>img/outgoing-call.svg</file>
         <file>img/private-browsing.svg</file>
         <file>img/reload.svg</file>
-        <file>img/reset.svg</file>
         <file>img/save.svg</file>
         <file>img/sc_square_84.png</file>
         <file>img/share.svg</file>
@@ -193,5 +192,6 @@
         <file>SocialConnect.qml</file>
         <file>img/check.svg</file>
         <file>img/close.svg</file>
+        <file>img/reset.svg</file>
     </qresource>
 </RCC>

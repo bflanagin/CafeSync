@@ -140,7 +140,7 @@ Item {
                             Text {
                                 anchors.left: parent.left
                                 anchors.leftMargin: 5
-                                font.pixelSize: 25
+                                font.pixelSize: parent.height * 0.25
                                 text:switch(section) {
                                      case "1": qsTr("General");break;
                                      case "2": qsTr("Social");break;
@@ -179,7 +179,7 @@ Item {
                                 horizontalAlignment: Text.AlignLeft
                                 //font.pixelSize: parent.width * 0.1 - text.length * 1.2
 
-                                font.pixelSize: 20
+                                font.pixelSize: parent.height * 0.25
                                text: if(title != "Category") {switch(menuitem) {
                                      case "0": if(selection == 0) {qsTr("Contacts")} else {qsTr("Passers By")};break;
                                     case "1": qsTr("Your Card");break;
@@ -198,7 +198,7 @@ Item {
                             anchors.right:parent.right
                             anchors.rightMargin: 10
                             //width: parent.width * 0.10
-                            font.pixelSize: 20
+                            font.pixelSize: parent.height * 0.25
                             horizontalAlignment: Text.AlignRight
                             anchors.verticalCenter: parent.verticalCenter
                             text: if(title != "Category") {switch(menuitem) {

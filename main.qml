@@ -347,6 +347,7 @@ ApplicationWindow {
                 PropertyChanges {
                     target:searchBar
                     visible:false
+                    enabled:false
                 }
                 PropertyChanges {
                     target:personBar
@@ -373,6 +374,7 @@ ApplicationWindow {
                 PropertyChanges {
                     target:searchBar
                     visible:false
+                    enabled:false
                 }
                 PropertyChanges {
                     target:personBar
@@ -400,6 +402,7 @@ ApplicationWindow {
                 PropertyChanges {
                     target:searchBar
                     visible:false
+                    enabled:false
                 }
                 PropertyChanges {
                     target:wizardBar
@@ -423,6 +426,7 @@ ApplicationWindow {
               PropertyChanges {
                   target:searchBar
                   visible:true
+                  enabled:true
               }
               PropertyChanges {
                   target:wizardBar
@@ -443,6 +447,7 @@ ApplicationWindow {
               PropertyChanges {
                   target:searchBar
                   visible:false
+                  enabled:false
               }
               PropertyChanges {
                   target:personBar

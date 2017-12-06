@@ -1,5 +1,6 @@
 import QtQuick 2.3
 import QtQuick.Window 2.2
+import QtGraphicalEffects 1.0
 
 
 import "main.js" as Scripts
@@ -61,7 +62,7 @@ Item {
             width:parent.width * 0.99
             height:pic.height + 8
             color:Qt.rgba(0.5,0.5,0.5,0.8)
-            radius:10
+            radius:5
             z:0
         }
         Rectangle {
@@ -177,7 +178,7 @@ Item {
 
                     PropertyChanges {
                    target:blinder
-                    y:parent.height * 0.90
+                    y:parent.height * 0.92
                     radius:0
                     color:barColor
                     }
@@ -198,9 +199,10 @@ Item {
 
     Item {
         id:links
-        height:parent.height
+        height:parent.height * 0.80
         width:parent.width
         opacity:0
+        clip:true
 
         Image {
             id:servicelogo
@@ -374,6 +376,17 @@ Item {
         }
     }
 
+    }
+
+    DropShadow {
+        anchors.fill:blinder
+        horizontalOffset: 0
+        verticalOffset: -4
+        radius: 8.0
+        samples: 17
+        color: "#80000000"
+        source:blinder
+        z:1
     }
 
     Image {

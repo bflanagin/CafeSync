@@ -37,7 +37,7 @@ http.onreadystatechange = function() {
                     theavatar = "img/deviantart.png"
                  rss_reader2(link);
                 } else {
-                   // theavatar = "img/wordpress.png"
+                    theavatar = "img/wordpress.png"
                 rss_reader1(link);
                 }
 
