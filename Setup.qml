@@ -261,7 +261,7 @@ Item {
            onVisibleChanged: if(visible == true) {focus = true}
             onFocusChanged: if(focus == false) {visible = false}
          placeholderText: qsTr("User Name")
-         font.pixelSize: 20
+         font.pixelSize: (parent.width  - username.length * 1.5) * 0.12
         // width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
          width:parent.width
          clip:true
@@ -301,7 +301,7 @@ Item {
         // anchors.bottom: parent.bottom
          //anchors.top: parent.top
          placeholderText: qsTr("Job Title")
-         font.pixelSize: 18
+         font.pixelSize: (parent.width  - useralias.length * 1.5) * 0.08
          width:parent.width
          //width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
          text:if(cardindex == 0) {useralias}
@@ -342,7 +342,7 @@ Item {
           anchors.verticalCenter: parent.verticalCenter
          //anchors.top: parent.top
          placeholderText: qsTr("Company Name")
-         font.pixelSize: 20
+         font.pixelSize: (parent.width  - usercompany.length * 1.5) * 0.08
          width:parent.width
          onVisibleChanged: if(visible == true) {focus = true}
             onFocusChanged: if(focus == false) {visible = false}
@@ -624,7 +624,7 @@ Rectangle {
 
 Item {
     width:parent.width
-    height: personalMotto.y + (personalMotto.height * 1.4)
+    height: personalMotto.y + (personalMotto.height * 1.5)
 
  Rectangle {
  id: rectangle1
@@ -662,16 +662,16 @@ Item {
           anchors.rightMargin:10
 
           //clip: true
-          spacing: 20
+          spacing: parent.height * 0.02
 
           Item {
               width:parent.width
               height: 1
           }
 
-          Text {
+         /* Text {
            id:mainadvert
-           text: qsTr("URL: ")
+           text: qsTr("Blog: ")
            font.pixelSize: 18
            TextField {
               id: userMain
@@ -686,11 +686,79 @@ Item {
               placeholderText: qsTr("Main Site for Advertising")
               //font.pixelSize: units.gu(2.4)
               //width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
-              width:(rectangle1.width - parent.width) * 0.90
-              text:if(cardindex == 0) {usermain}
-              onTextChanged: if(cardindex == 0) {usermain = userMain.text}
+              width:(rectangle1.width - parent.width) * 0.95
+              text:usermain
+              onTextChanged: usermain = userMain.text
           }
+          } */
+
+
+          Item {
+              id:mainadvert
+              anchors.horizontalCenter: parent.horizontalCenter
+              anchors.top:tumblrButton.bottom
+              anchors.topMargin: 20
+              width:parent.width * 0.95
+              height:settingsPage.height * 0.08
+
+
+         Rectangle {
+             id:blog
+             anchors.fill: parent
+             color:"lightblue"
+             radius:5
+             border.color: "white"
+
+             Row {
+                 anchors.horizontalCenter: parent.horizontalCenter
+                 width:parent.width * 0.98
+                 height:parent.height
+                 clip:true
+                 spacing: 10
+                 Image {
+                     source:"./img/stock_website.svg"
+                     height:parent.height * 0.9
+                     width:parent.height * 0.9
+                     anchors.verticalCenter: parent.verticalCenter
+
+                 }
+
+                 Rectangle {
+                     height:parent.height * 0.9
+                     color:"white"
+                     width:3
+                     anchors.verticalCenter: parent.verticalCenter
+                 }
+
+                 Text {
+                     anchors.verticalCenter: parent.verticalCenter
+                     text:if(usermain.length < 1){"Blogging platform not connected"} else {usermain}
+                     color:"white"
+                     font.pixelSize: parent.height * 0.3
+                     width:parent.width
+                     wrapMode: Text.WordWrap
+                 }
+             }
+         }
+
+         DropShadow {
+
+            anchors.fill: blog
+            horizontalOffset: 0
+            verticalOffset: 3
+            radius: 8.0
+            samples: 17
+            color: "#80000000"
+            source: blog
+            z:1
+              }
+         MouseArea {
+             anchors.fill: parent
+             onClicked: sConnect.state = "Active",sConnect.service = "blog", sConnect.type = "intergration"
+         }
+
           }
+
 
           Row {
               id:pmottoRow
@@ -712,9 +780,9 @@ Item {
                   wrapMode: Text.WordWrap
                   id:personalMotto
                   width:pmottoRow.width
-                  height:pmottoRow.height - 3
-                  text:if(cardindex == 0) {usermotto}
-                  onTextChanged: if(cardindex == 0) {usermotto = personalMotto.text}
+                  height:pmottoRow.height - 2
+                  text:usermotto
+                  onTextChanged: usermotto = personalMotto.text
                   clip:true
 
 
@@ -733,7 +801,7 @@ Item {
           }
 
           Text {
-              font.pixelSize: 24
+              font.pixelSize: parent.height * 0.06
               text:qsTr("Category: ")
               anchors.right:parent.right
               anchors.rightMargin: catbutton.width * 1.1
@@ -832,7 +900,7 @@ Rectangle {
 
 Item {
    //
-    height:socialNetworks.height
+    height:(parent.height * 0.08) *1.48
     width:parent.width
 
 Rectangle {
@@ -840,7 +908,7 @@ Rectangle {
     color:"white"
     anchors.fill: parent
     width:parent.width
-    height:soundcloudButton.y + soundcloudButton.height + 40
+    height:parent.height
         clip:true
 
 
@@ -851,7 +919,7 @@ Rectangle {
                          anchors.top:parent.top
                          anchors.topMargin: 20
                          width:parent.width * 0.95
-                         height:80
+                         height:settingsPage.height * 0.08
 
                      Rectangle {
                          id:twb
@@ -919,7 +987,7 @@ Rectangle {
                         anchors.top:twitterButton.bottom
                         anchors.topMargin: 20
                         width:parent.width * 0.95
-                        height:80
+                        height:settingsPage.height * 0.08
 
                     Rectangle {
                         id:trb
@@ -987,7 +1055,7 @@ Rectangle {
                          anchors.top:tumblrButton.bottom
                          anchors.topMargin: 20
                          width:parent.width * 0.95
-                         height:80
+                         height:settingsPage.height * 0.08
 
 
                     Rectangle {
@@ -1047,77 +1115,6 @@ Rectangle {
 
                      }
 
-
-      /*  Text {
-        id:websiteLabel1
-
-        text: "Tumblr:"
-        font.pixelSize: 18
-         TextField {
-             id:websiteVar1
-
-             anchors.left: parent.right
-             anchors.leftMargin: .5
-             anchors.verticalCenter: parent.verticalCenter
-
-             width:plinklist.width - websiteLabel1.width
-
-             placeholderText: qsTr("www.example.com")
-             //font.pixelSize: parent.height
-             text:if(cardindex == 0) {website2} else {website21}
-             onTextChanged: if(cardindex == 0) {website2 = websiteVar1.text}
-
-         }
-
-     } */
-
-
-
-       /* Text {
-        id:websiteLabel2
-
-        text: "Kickstarter:"
-        font.pixelSize: 18
-
-         TextField {
-             id:websiteVar2
-
-             anchors.left: parent.right
-             anchors.leftMargin: .5
-             anchors.verticalCenter: parent.verticalCenter
-
-             width:plinklist.width - websiteLabel2.width
-
-             placeholderText: qsTr("www.example.com")
-             //font.pixelSize: parent.height
-             text:if(cardindex == 0) {website3} else {website31}
-             onTextChanged: if(cardindex == 0) {website3 = websiteVar2.text}
-         }
-
-     } */
-      /*  Text {
-        id:websiteLabel3
-
-        text: "SoundCloud:"
-        font.pixelSize: 18
-
-         TextField {
-             id:websiteVar3
-
-             anchors.left: parent.right
-             anchors.leftMargin: .5
-             anchors.verticalCenter: parent.verticalCenter
-
-             width:plinklist.width - websiteLabel3.width
-
-             placeholderText: qsTr("www.example.com")
-             //font.pixelSize: parent.height
-             text:if(cardindex == 0) {website4} else {website41}
-             onTextChanged: if(cardindex == 0) {website4 = websiteVar3.text}
-
-         }
-
-     } */
 
 }
 

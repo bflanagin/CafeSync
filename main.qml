@@ -90,7 +90,7 @@ ApplicationWindow {
     property double log:0
     property string currentcords: ""
 
-    property int uniquename: 8
+   // property int uniquename: 8
         property int uniqueid: 8
 
 
@@ -165,6 +165,9 @@ ApplicationWindow {
 
     property int selection: 0
 
+    property int ctotal:0
+    property int ptotal:0
+
 
 
     // width: units.gu(175)
@@ -213,6 +216,15 @@ ApplicationWindow {
         onTriggered:OpenSeed.heartbeat()
     }
 
+    Timer {
+        id:syncandsave
+        interval:200
+        running:false
+        repeat:false
+        onTriggered: Scripts.save_card(userid,username,userphone,useremail,usercompany,
+                                       useralias,usermotto,usermain,website1,website2,website3,website4,
+                                       stf,atf,ctf,avimg,carddesign,usercat);
+    }
 
 
     Timer {
@@ -280,6 +292,7 @@ ApplicationWindow {
                            // console.log("what the server has "+remotetemp);
                        // if (tempcheck != remotetemp) {
                      cardslist.clear();
+                        Scripts.totals();
                    if(selection == 0)
                    {Scripts.Temp_load(searchtext,listget);}
                    else {Scripts.Cards_load(searchtext); }
@@ -475,7 +488,7 @@ ApplicationWindow {
                 Text {
                     anchors.centerIn: parent
                     text: qsTr("Wizard")
-                    font.pixelSize: 30
+                    font.pixelSize: parent.height * 0.4
                     color:"white"
                 }
             }

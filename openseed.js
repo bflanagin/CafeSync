@@ -74,25 +74,40 @@ function heartbeat() {
 }
 
 
-function checkcreds(name,passphrase) {
+function checkcreds(field,info) {
 
     var http = new XMLHttpRequest();
     //var url = "http://104.236.15.191:8675/corescripts/auth.php?devid=" + devId + "&appid=" + appId + "&username="+ name + "&email=" + email ;
     var url = "http://104.236.15.191:8675/corescripts/authCHECK.php";
-    console.log("sending "+name+" , "+passphrase);
+   // console.log("sending "+name+" , "+passphrase);
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
             //console.log(http.responseText);
             //userid = http.responseText;
             if(http.responseText == 100) {
+                uniquemail = 100;
                 console.log("Incorrect DevID");
             } else if(http.responseText == 101) {
+
+                uniquemail = 101;
                 console.log("Incorrect AppID");
             } else {
                 console.log(http.responseText);
                 //id = http.responseText;
-                uniquename = http.responseText.toString();
+                if(field == "email") {
+                    uniquemail = http.responseText;
+                }
+                if(field == "username") {
+                    uniquename = http.responseText;
+                }
 
+                if(field == "account") {
+                    uniqueaccount = http.responseText;
+                }
+
+                if(field == "passphrase") {
+                    uniqueid = http.responseText;
+                }
             }
 
         }
@@ -100,7 +115,7 @@ function checkcreds(name,passphrase) {
     http.open('POST', url.trim(), true);
     //http.send(null);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    http.send("devid=" + devId + "&appid=" + appId + "&username="+ name + "&email=" + passphrase);
+    http.send("devid=" + devId + "&appid=" + appId + "&type="+ field + "&info=" + info);
 
 
 }
@@ -182,6 +197,12 @@ if (cid.length > 4) {
         stf= torf(send);
         atf= torf(usealias);
         ctf= torf(contact);
+
+        if(firstrun.state == "Active") {
+            firstrun.state = "InActive";
+
+        }
+        syncandsave.start();
 }
 
              }
@@ -1354,8 +1375,60 @@ http.send(null);
 
         }break;
 
+case "blog": {
+
+            var url = "";
+
+            if(account.startsWith("http") == true) {
+            url = account;
+            } else {
+                url = "http://"+account;
+            }
+
+         http.onreadystatechange = function() {
+     if (http.readyState == 4) {
+
+         pagedata = http.responseText;
+
+         if(http.responseText == 100) {
+             console.log(http.responseText);
+
+         } else if(http.responseText == 101) {
+             console.log(http.responseText);
+
+         } else {
+
+             pagedata = http.responseText;
+
+             var rss = pagedata.search(/rss/i);
+             var wordpress = pagedata.search(/wordpress/i);
+             var medium = pagedata.search(/medium.com/i);
 
 
+             if(medium !=-1 ) {
+                    avatar = "./img/medium.png"
+
+                    } else if (wordpress !=-1 ) {
+                 avatar = "./img/wordpress.png"
+
+             } else if (rss !=-1 ) {
+                 avatar = "./img/RSS.png"
+
+                 }
+
+
+         }
+
+     }
+
+ }
+
+ http.open('GET', url.trim(), true);
+ http.send(null);
+
+
+
+}break;
 
 default: avatar = ""; break;
 

@@ -136,7 +136,8 @@ Item {
                     width:if(parent.width > parent.height) {parent.width * 0.80} else {parent.width}
                     height:if(parent.width > parent.height) {parent.height} else {parent.width * 0.99}
 
-                    rotation:90
+                    autoOrientation : true
+
 
                     fillMode: Image.PreserveAspectCrop
                     focus : visible // to receive focus and capture key events when visible

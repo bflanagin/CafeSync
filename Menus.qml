@@ -20,7 +20,7 @@ Item {
     onStateChanged: switch(title) {
                        case "Category": Scripts.Category_search();break;
                        case "Category Select": Scripts.Category_set();break;
-                       default: break;
+                       default: Scripts.totals();break;
                     }
 
     states: [
@@ -202,7 +202,7 @@ Item {
                             horizontalAlignment: Text.AlignRight
                             anchors.verticalCenter: parent.verticalCenter
                             text: if(title != "Category") {switch(menuitem) {
-                                  case "0": if(selection == 0) {qsTr("(0)")} else {qsTr("(0)")};break;
+                                  case "0": if(selection == 0) {"("+ctotal+")"} else {"("+ptotal+")"};break;
                                  case "1":"";break;
                                   case "3": qsTr("(Coming Soon)");break;
                                   case "4": qsTr("(Coming Soon)");break;

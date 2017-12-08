@@ -31,6 +31,7 @@ Item {
     property string thesource:""
     property string mycard: cardId
     property string thebanner:""
+    property string theurl:""
     property string theavatar:""
     property string thename:""
     property string themessage:""
@@ -49,6 +50,8 @@ Item {
     property string thetotal:""
     property int thepercent: 0
     property int thetimeleft: 0
+
+    property int pindex:0
 
 
     property int ispersonal:0
@@ -212,12 +215,14 @@ Item {
         id:backing
         x:0
         y:0
-        color:"white"
-        border.color:"black"
-        radius: 4
+        color:backgroundColor
+        //border.color:"black"
+        radius: 2
         anchors.fill: parent
         width:parent.width
         height:parent.height
+
+
 
 
         /*FaceBook {
@@ -240,7 +245,7 @@ Item {
         } */
 
         Twitter {
-            state:if(custompage == 3) {"Active"} else {"InActive"}
+            state:if(custompage == 3 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page
@@ -280,14 +285,14 @@ Item {
         } */
 
         SoundCloud {
-            state:if(custompage == 8) {"Active"} else {"InActive"}
+            state:if(custompage == 8 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page
         }
 
         Tumblr {
-            state:if(custompage == 9) {"Active"} else {"InActive"}
+            state:if(custompage == 9 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page
@@ -295,7 +300,7 @@ Item {
         }
 
         RSS {
-            state:if(hasrss) {"Active"} else {"InActive"}
+            state:if(hasrss && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page
@@ -317,7 +322,7 @@ Item {
 
         } */
 
-        Kickstarter {
+       /* Kickstarter {
             state:if(custompage == 11) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
@@ -330,7 +335,7 @@ Item {
             anchors.fill:parent
             pagesource:thesource
             service:page
-        }
+        } */
 
     /*URL {
         state:if(custompage == 0 && hasrss == 0) {"Active"} else {"InActive"}
@@ -338,8 +343,6 @@ Item {
         pagesource:thesource
         service:page
     } */
-
-
 
     }
          }
@@ -350,6 +353,11 @@ Item {
           visible:false
               }
 
+
+   ListModel {
+                   id:rssposts
+
+           }
 }
 
 

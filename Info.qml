@@ -142,7 +142,9 @@ Item {
             anchors.fill: parent
             onPressed:cancelflash.state="Active"
             onReleased:cancelflash.state="InActive"
-            onClicked:popup.state ="InActive"
+            onClicked:{popup.state ="InActive"
+
+                        }
         }
 
     }
@@ -164,7 +166,7 @@ Item {
             anchors.fill: parent
             onPressed:goflash.state="Active"
             onReleased:goflash.state="InActive"
-            onClicked:OpenSeed.onetime(codeentry.text,"3"),popup.state = "InActive"
+            onClicked:OpenSeed.onetime(codeentry.text,"3"),popup.state = "InActive",cardslist.clear(),Scripts.Cards_load("")
         }
 
     }

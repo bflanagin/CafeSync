@@ -21,6 +21,14 @@ Item {
 
     }
 
+    Timer {
+        id:servicecheck
+        running:true
+        repeat: false
+        interval: 800
+        onTriggered: if(account.text.length > 2) {OpenSeed.serviceConnect(service,account.text)}
+    }
+
     states: [
 
             State {
@@ -63,7 +71,8 @@ Item {
 
     ]
 
-    onStateChanged: if(thisWindow.state == "Active") {/*OpenSeed.serviceConnect(service,account.text) */} else {avatar = "",profilename = "",account.text = ""}
+    onStateChanged: if(thisWindow.state == "Active") {servicecheck.start();
+                        } else {avatar = "",profilename = "",servicecheck.stop();}
 
     Rectangle {
         id:backing
@@ -72,6 +81,9 @@ Item {
         width:parent.width * 0.95
         height:parent.height * 0.80
         color:cardcolor
+        border.color: "black"
+        border.width:1
+        radius: 4
 
         Column {
             width:parent.width
@@ -93,8 +105,8 @@ Item {
                                     case "twitter": "./img/twitter.png";break;
                                     case "tumblr": "./img/tumblr.png";break;
                                     case "soundcloud":"./img/soundcloud.png";break;
-                                    case "kickstarter":"./img/kickstarter.png";break;
-                                    default: "";break;
+                                   // case "kickstarter":"./img/kickstarter.png";break;
+                                    default: "./img/stock_website.svg";break;
                                     }
                                     } else {""}
                                 visible: false
@@ -152,7 +164,7 @@ Item {
                                        case "tumblr": "./img/tumblr.png";break;
                                        case "soundcloud":"./img/soundcloud.png";break;
                                        case "kickstarter":"./img/kickstarter.png";break;
-                                       default: "";break;
+                                       default: "./img/stock_website.svg";break;
                                        }
                                    } else {""}
                         }
@@ -167,10 +179,26 @@ Item {
 
             TextField {
                     id:account
-                    text:""
+                    text:switch(service) {
+                         case "gravatar":useremail;break;
+                         case "twitter": website1.split("::")[1];break;
+                         case "tumblr": website2.split("::")[1];break;
+                         case "soundcloud":website4.split("::")[1];break;
+                         //case "kickstarter":"./img/kickstarter.png";break;
+                         default: usermain;break;
+                         }
+                    placeholderText: switch(service) {
+                                     case "gravatar":"user@example.com";break;
+                                     case "twitter":"@username";break;
+                                     case "tumblr":"blogtitle";break;
+                                     case "soundcloud":"bandname";break;
+                                     //case "kickstarter":"./img/kickstarter.png";break;
+                                     default:"www.blog.com";break;
+                                     }
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.pixelSize: 32
                 width:parent.width * 0.98
+                     onTextChanged: servicecheck.restart()
 
                 Rectangle {
                     anchors.right:parent.right
@@ -225,11 +253,12 @@ Item {
                                  switch(service) {
                                     case "twitter": website1 = "twitter::"+account.text;break;
                                     case "tumblr": website2 = "tumblr::"+account.text;break;
-                                    case "kickstarter": website3 = "kickstarter::"+account.text;break;
+                                    //case "kickstarter": website3 = "kickstarter::"+account.text;break;
                                     case "soundcloud": website4 = "soundcloud::"+account.text;break;
+                                    case "blog": usermain = account.text;break;
                                  }
                             }
-
+                            servicecheck.stop()
                             thisWindow.state = "InActive";
                     }
             }
@@ -242,6 +271,8 @@ Item {
                  case "twitter":"Twitter";break;
                  case "tumblr":"Tumblr";break;
                  case "kickstarter":"KickStarter";break;
+                 case "blog":"Website";break;
+                 default:"";break;
                  }
 
             anchors.horizontalCenter: parent.horizontalCenter

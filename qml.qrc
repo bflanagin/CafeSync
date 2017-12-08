@@ -193,5 +193,7 @@
         <file>img/check.svg</file>
         <file>img/close.svg</file>
         <file>img/reset.svg</file>
+        <file>img/medium.png</file>
+        <file>img/RSS.png</file>
     </qresource>
 </RCC>

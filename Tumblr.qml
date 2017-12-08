@@ -182,7 +182,7 @@ Item {
         id:blinder
         width:parent.width
         height:parent.height
-        color:"white"
+        color:backgroundColor
         radius:10
         border.color:"black"
         z:2
@@ -193,7 +193,7 @@ Item {
                     PropertyChanges {
                      target:blinder
                         y:0
-                        color:cardcolor
+                        color:backgroundColor
                     }
                     PropertyChanges {
                         target:links
@@ -289,7 +289,7 @@ Item {
                      }
 
                  ]
-                 state:"loading"
+                 state:"Loading"
 
                  transitions: Transition {
                       PropertyAnimation { target: logo

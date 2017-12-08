@@ -31,6 +31,56 @@ Item {
     property string web4: "" */
 
 
+    property int uniquemail: 0
+    property int uniquename: 0
+    property int uniqueaccount:0
+    property int uniqueid:0
+
+
+    Timer {
+        id:checkname
+        running:false
+        repeat:false
+        interval: 1000
+        onTriggered: OpenSeed.checkcreds("username",osUsername.trim());
+
+    }
+
+    Timer {
+        id:checkemail
+        running:false
+        repeat:false
+        interval: 1000
+        onTriggered: OpenSeed.checkcreds("email",osEmail.trim());
+
+
+    }
+
+    Timer {
+        id:checkpassword
+        running:false
+        repeat:false
+        interval: 1000
+        onTriggered: OpenSeed.checkcreds("passphrase",osUsername+","+osEmail+","+osPassphrase);
+
+    }
+
+    Timer {
+        id:checkexists
+        running:false
+        repeat:false
+        interval: 1000
+        onTriggered: if(osUsername.length > 1 && osEmail.length > 1) {OpenSeed.checkcreds("account",osUsername+","+osEmail);}
+    }
+
+
+    Timer {
+        id:populate
+        running:false
+        repeat:true
+        interval: 300
+        onTriggered:if(userid != "") {OpenSeed.datasync(userid,0);populate.stop();}
+    }
 
     states: [
         State {
@@ -111,7 +161,7 @@ Item {
                             //visible: if(type != 8) {true} else {false}
                             text: thetitle
                             anchors.horizontalCenter: parent.horizontalCenter
-                            font.pixelSize: 48
+                            font.pixelSize: parent.height * 0.08
 
                         }
 
@@ -119,7 +169,7 @@ Item {
                            //  visible: if(type != 8) {true} else {false}
                             anchors.horizontalCenter: parent.horizontalCenter
                             width: parent.width * 0.9
-                            height: 3
+                            height: parent.height * 0.01
                             color: highLightColor1
                         }
 
@@ -130,7 +180,7 @@ Item {
                             horizontalAlignment: Text.AlignHCenter
                             text:message
                             anchors.horizontalCenter: parent.horizontalCenter
-                            font.pixelSize: 18
+                            font.pixelSize: parent.height * 0.03
 
                         }
 
@@ -138,7 +188,7 @@ Item {
                            //  visible: if(type != 8) {true} else {false}
                             anchors.horizontalCenter: parent.horizontalCenter
                             width: parent.width * 0.9
-                            height: 3
+                            height: parent.height * 0.01
                             color: highLightColor1
                         }
 
@@ -153,7 +203,7 @@ Item {
                                 text:qsTr("Connected!\n\n You May Continue -->")
                                 color:"black"
                                 horizontalAlignment: Text.AlignHCenter
-                                font.pixelSize: 30
+                                font.pixelSize: parent.height * 0.08
                                 wrapMode: Text.WordWrap
                                 onVisibleChanged: slideview.interactive = true
                             }
@@ -162,44 +212,118 @@ Item {
                             anchors.fill: parent
                             visible: if(userid == "") {true} else {false}
 
+                            Text {
+                                id:loginmessage
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                anchors.top:parent.top
+                                text:if(uniqueaccount ==1 ) {
+                                                if(uniqueid == 1 ) {
+                                                        qsTr("Welcome Back")
+                                                        } else {
+                                                            qsTr("Welcome Back - Please enter password")
+                                                }
+                                        } else if(uniquename == 0 ) {qsTr("New User")} else {"User name in use"}
+
+                            }
+
                         TextField{
                              id:osUsernameField
                              anchors.top:parent.top
-                             anchors.topMargin:10
+                             anchors.topMargin:thisWindow.height * 0.03
                              anchors.horizontalCenter: parent.horizontalCenter
                              width:parent.width * 0.85
                              placeholderText: qsTr("User Name")
                              horizontalAlignment: Text.AlignHCenter
                              text:osUsername
-                             onTextChanged: uniquename = 0, osUsername = text,OpenSeed.checkcreds(osUsername,osPassphrase);
+                             onTextChanged:osUsername = text,checkname.restart(),checkexists.restart()
 
+                             Rectangle {
+                                 visible:if(uniquename == 1) {true} else {false}
+                                 anchors.right:parent.right
+                                 anchors.rightMargin: 10
+                                 anchors.verticalCenter: parent.verticalCenter
+                                 width:parent.height * 0.8
+                                 height:parent.height * 0.8
+                                 color:Qt.rgba(0,0,0,0.1)
+                                 radius: width /2
+
+                                 Image {
+
+                                     anchors.centerIn: parent
+                                     width:parent.width * 0.7
+                                     height:parent.height * 0.7
+                                     source:if(uniqueaccount == 1) {"./img/check.svg"} else{"./img/close.svg"}
+                                 }
+
+
+                             }
 
                          }
 
                         TextField{
                             id:osEmailField
                             anchors.top:osUsernameField.bottom
-                            anchors.topMargin:15
+                            anchors.topMargin:thisWindow.height * 0.03
                              anchors.horizontalCenter: parent.horizontalCenter
                              width:parent.width * 0.85
                             placeholderText: qsTr("Email")
                            horizontalAlignment: Text.AlignHCenter
                             text:osEmail
-                            onTextChanged:uniquename = 0,osEmail = text,OpenSeed.checkcreds(osUsername,osPassphrase);
+                            onTextChanged: osEmail = text,checkemail.restart(),checkexists.restart()
+
+                            Rectangle {
+                                visible:if(uniquemail != 0) {true} else {false}
+                                anchors.right:parent.right
+                                anchors.rightMargin: 10
+                                anchors.verticalCenter: parent.verticalCenter
+                                width:parent.height * 0.8
+                                height:parent.height * 0.8
+                                color:Qt.rgba(0,0,0,0.1)
+                                radius: width /2
+
+                                Image {
+                                    anchors.centerIn: parent
+                                    width:parent.width * 0.7
+                                    height:parent.height * 0.7
+                                    source:if(uniqueaccount == 1) {"./img/check.svg"} else{"./img/close.svg"}
+                                }
+
+
+                            }
 
                         }
 
                          TextField{
                              id:osPassField
                              anchors.top:osEmailField.bottom
-                            anchors.topMargin:15
+                            anchors.topMargin:thisWindow.height * 0.03
                               anchors.horizontalCenter: parent.horizontalCenter
                               width:parent.width * 0.85
                              placeholderText: qsTr("Passphrase")
                              horizontalAlignment: Text.AlignHCenter
                              echoMode: TextInput.Password
                              text:osPassphrase
-                             onTextChanged:uniquename = 0,osPassphrase = text,OpenSeed.checkcreds(osUsername,osPassphrase);
+                             onTextChanged:osPassphrase = text,checkpassword.restart()
+
+                             Rectangle {
+                                  visible:if(uniqueaccount == 1) {true} else {false}
+                                 anchors.right:parent.right
+                                 anchors.rightMargin: 10
+                                 anchors.verticalCenter: parent.verticalCenter
+                                 width:parent.height * 0.8
+                                 height:parent.height * 0.8
+                                 color:Qt.rgba(0,0,0,0.1)
+                                 radius: width /2
+
+                                 Image {
+                                     anchors.centerIn: parent
+                                     width:parent.width * 0.7
+                                     height:parent.height * 0.7
+                                     source:if(uniqueid == 1) {"./img/check.svg"} else {"./img/close.svg"}
+                                 }
+
+
+                             }
 
 
                          }
@@ -208,9 +332,9 @@ Item {
                              id:connectB
                              anchors.top: osPassField.bottom
                              anchors.horizontalCenter: parent.horizontalCenter
-                             anchors.topMargin: 30
+                             anchors.topMargin: thisWindow.height * 0.03
                              width: parent.width * 0.45
-                             height: 60
+                             height: thisWindow.height * 0.08
                              color:highLightColor1
                              radius:4
 
@@ -219,7 +343,7 @@ Item {
                                   anchors.centerIn: parent
                                   text:qsTr("Connect")
                                   color:"black"
-                                  font.pixelSize: 24
+                                  font.pixelSize: parent.height * 0.45
                               }
 
                               MouseArea {
@@ -228,16 +352,19 @@ Item {
                               onClicked:
                                   { if(osEmail.length > 2) {
                                      if(osUsername.length > 2) {
+                                         if(osPassphrase.length > 2) {
                                         //  console.log("sending info to server");
                                           OpenSeed.oseed_auth(osUsernameField.text,osEmailField.text,osPassField.text);
                                                     cb.text = qsTr("Loading");
-                                                  //OpenSeed.datasync(userid);
+                                                        if(uniqueid == 1) {
+                                                        populate.start();
+                                                        }
                                                  //Scripts.load_Card();
                                                   //OpenSeed.retrieve_data(userid);
                                                 //  settingsPage.state = "Active";
                                                 //  slideshow.state = "Active";
                                                //  firstrun.state = "close";
-                              }}}
+                              }} }}
                                 }
 
                          }
@@ -290,7 +417,7 @@ Item {
                                  id:about
                                  anchors.horizontalCenter: parent.horizontalCenter
                                  anchors.top: usernameField.bottom
-                                 anchors.topMargin: 20
+                                 anchors.topMargin: thisWindow.height * 0.03
                                  text:usermotto
                                  height: parent.height * 0.6
                                  width: parent.width * 0.95
@@ -325,17 +452,17 @@ Item {
                                  width:parent.width * 0.95
                                  anchors.horizontalCenter: parent.horizontalCenter
                                  anchors.top: job.bottom
-                                 anchors.topMargin: 20
+                                 anchors.topMargin: thisWindow.height * 0.03
                                   onTextChanged: usercompany = text
                              }
 
                              Text {
-                                 font.pixelSize: 24
+                                 font.pixelSize: parent.height * 0.06
                                  text:qsTr("Category: ")
                                  anchors.right:parent.right
                                  anchors.rightMargin: catbutton.width * 1.1
                                  anchors.top: companyField.bottom
-                                 anchors.topMargin: 20
+                                 anchors.topMargin: thisWindow.height * 0.03
 
                                 Rectangle {
                                        id:catbutton
@@ -354,7 +481,7 @@ Item {
                                         id:catText
                                      //anchors.left:parent.right
                                         anchors.centerIn: parent
-                                     font.pixelSize:24
+                                     font.pixelSize:parent.height * 0.4
                                     // anchors.verticalCenter: parent.verticalCenter
                                      text: if(currentcat.length < 2) {qsTr("Select Category")} else {currentcat}
                                     }
@@ -410,7 +537,7 @@ Item {
                                 width:parent.width * 0.95
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 anchors.top: phoneField.bottom
-                                anchors.topMargin: 20
+                                anchors.topMargin: thisWindow.height * 0.03
                                 onTextChanged: useremail = text
                             }
 
@@ -426,9 +553,9 @@ Item {
                                 id:twitterButton
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 anchors.top:parent.top
-                                anchors.topMargin: 20
+                                anchors.topMargin: thisWindow.height * 0.03
                                 width:parent.width * 0.95
-                                height:80
+                                height:thisWindow.height * 0.09
 
                             Rectangle {
                                 id:twb
@@ -494,9 +621,9 @@ Item {
                                id:tumblrButton
                                anchors.horizontalCenter: parent.horizontalCenter
                                anchors.top:twitterButton.bottom
-                               anchors.topMargin: 20
+                               anchors.topMargin: thisWindow.height * 0.03
                                width:parent.width * 0.95
-                               height:80
+                               height:thisWindow.height * 0.09
 
                            Rectangle {
                                id:trb
@@ -562,9 +689,9 @@ Item {
                                 id:soundcloudButton
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 anchors.top:tumblrButton.bottom
-                                anchors.topMargin: 20
+                                anchors.topMargin: thisWindow.height * 0.03
                                 width:parent.width * 0.95
-                                height:80
+                                height:thisWindow.height * 0.09
 
 
                            Rectangle {
@@ -627,19 +754,7 @@ Item {
 
                         }
 
-                      /*  Item {
-                            visible: if(type == 8) {true} else {false}
-                            width: parent.width
-                            height: parent.height
 
-                            SourceSelection {
-                                width: parent.width
-                                height: parent.height
-                                state:"InActive"
-                            }
-
-
-                        } */
 
                         Item {
                             visible: if(type == 9) {true} else {false}
@@ -657,7 +772,7 @@ Item {
                                 Text {
                                     anchors.centerIn:parent
                                     text:qsTr("Finish")
-                                    font.pixelSize: 24
+                                    font.pixelSize: parent.height * 0.4
                                     color:"black"
                                 }
 
@@ -690,9 +805,9 @@ Item {
                             source:image
                             anchors.bottom: parent.bottom
                             anchors.right: parent.right
-                            anchors.margins: 10
-                            width: 64
-                            height: 64
+                            anchors.margins: thisWindow.height * 0.01
+                            width: thisWindow.height * 0.1
+                            height: thisWindow.height * 0.1
                         }
 
             }
@@ -805,250 +920,6 @@ Item {
 
 
 
-/*
-
-Item {
-
-                        width:parent.cellWidth
-                        height:parent.cellHeight
-
-                        id: slide
-
-                     Rectangle {
-
-                            anchors.centerIn: parent
-                            width: parent.width * 0.95
-                            height: parent.height * 0.8
-                            id:dialogue1
-
-                        color:cardcolor
-                        clip: true
-
-                        Column {
-                            anchors.verticalCenter: parent.verticalCenter
-                            width: parent.width
-                            height: parent.height * 0.80
-                            spacing: 20
-                        Text {
-                            text: thetitle
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            font.pixelSize: 48
-
-                        }
-
-                        Rectangle {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            width: parent.width * 0.9
-                            height: 3
-                            color: highLightColor1
-                        }
-
-                        Text {
-                            width:parent.width * 0.9
-                            wrapMode: Text.WordWrap
-                            text: qsTr("CafeSync is a location based card sharing service. That connects you to the world around you")
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            font.pixelSize: 18
-
-                        }
-
-
-                        }
-
-                        Image {
-                            id: logo
-                            source: "./img/overlay-dark.png"
-                            anchors.bottom: parent.bottom
-                            anchors.right: parent.right
-                            anchors.margins: 10
-                            width: 64
-                            height: 64
-                        }
-
-            }
-
-            DropShadow {
-                anchors.fill:dialogue1
-                horizontalOffset: 0
-                verticalOffset: 4
-                radius: 8.0
-                samples: 17
-                color: "#80000000"
-                source:dialogue1
-                z:1
-            }
-
-
-
-}
-
-
-
-
-
-    Item {
-        x:0
-       // y:0
-        //anchors.fill:parent
-        width:parent.width
-        height:parent.height
-       // anchors.top:topBar.bottom
-        id: openseedLogin
-       // anchors.margins: 50
-
-
-        states: [
-            State {
-                name: "InActive"
-                PropertyChanges {
-                    target: openseedLogin
-                    x:parent.width
-
-                }
-            },
-            State {
-                name: "Active"
-                PropertyChanges {
-                    target: openseedLogin
-                    x:0
-
-                }
-            }
-
-        ]
-        state: "InActive"
-
-
-
-
-        Rectangle {
-                    //anchors.fill:parent
-                    //anchors.margins: 100
-                  //  x: parent.width * 0.1
-                   // y: parent.height * 0.1
-                    anchors.centerIn: parent
-                    width: parent.width * 0.95
-                    height: parent.height * 0.8
-                   // radius: 6
-                  //  border.width:1
-                   // border.color:"black"
-                    color:cardcolor
-                    clip: true
-
-                     id: dialogue2
-
-
-                     Image {
-
-                         anchors.horizontalCenter: parent.horizontalCenter
-                         anchors.top:parent.top
-                         anchors.topMargin: parent.height * 0.1
-                         source:"img/OpenSeed.png"
-                         fillMode: Image.PreserveAspectFit
-                         //height:parent.height * 0.14
-                         width:parent.width * 0.5
-                     }
-
-                     Text {
-                     id:diaTitle
-                     anchors.top:logo.bottom
-                     anchors.horizontalCenter:parent.horizontalCenter
-                     anchors.topMargin: 5
-                     text: qsTr("Connect to OpenSeed")
-                     horizontalAlignment: Text.AlignHCenter
-                     color:"black"
-                        }
-                     Text {
-
-                     id:diaSubTitle
-                     anchors.top:diaTitle.bottom
-                     anchors.topMargin: 5
-                     anchors.horizontalCenter: parent.horizontalCenter
-                     width:parent.width - 10
-                     text: qsTr("CafeSync uses the Openseed network for app and user authentication.")
-                     wrapMode:Text.Wrap
-                     horizontalAlignment: Text.AlignHCenter
-                     color:"black"
-                        }
-
-
-                    TextField{
-                         id:osUsernameField
-                         anchors.top:diaSubTitle.bottom
-                         anchors.topMargin:10
-                         anchors.horizontalCenter: parent.horizontalCenter
-                         width:parent.width - 10
-                         placeholderText: qsTr("User Name")
-                         horizontalAlignment: Text.AlignHCenter
-                         text:osUsername
-                         onTextChanged: uniquename = 0, osUsername = text,OpenSeed.checkcreds(osUsername,osPassphrase);
-
-                     }
-
-                    TextField{
-                        id:osEmailField
-                        anchors.top:osUsernameField.bottom
-                        anchors.topMargin:10
-                         anchors.horizontalCenter: parent.horizontalCenter
-                         width:parent.width - 10
-                        placeholderText: qsTr("Email")
-                       horizontalAlignment: Text.AlignHCenter
-                        text:osEmail
-                        onTextChanged:uniquename = 0,osEmail = text,OpenSeed.checkcreds(osUsername,osPassphrase);
-
-                    }
-
-                     TextField{
-                         id:osPassField
-                         anchors.top:osEmailField.bottom
-                         anchors.topMargin:10
-                          anchors.horizontalCenter: parent.horizontalCenter
-                          width:parent.width - 10
-                         placeholderText: qsTr("Passphrase")
-                         horizontalAlignment: Text.AlignHCenter
-                         echoMode: TextInput.Password
-                         text:osPassphrase
-                         onTextChanged:uniquename = 0,osPassphrase = text,OpenSeed.checkcreds(osUsername,osPassphrase);
-
-                     }
-
-
-
-                    /* Text {
-                                text:switch(uniquename) {
-                                     case 0:qsTr("In Use");break;
-                                     case 1:qsTr("Available");break;
-                                     case 2:if(osUsername.length > 2) {qsTr("Welcome Back")} else {qsTr("No User Name")};break;
-                                     default:qsTr("No User Name");break;
-                                     }
-                                color:switch(uniquename) {
-                                      case 0:"Red";break;
-                                      case 1:"Black";break;
-                                      case 2:"Black";break;
-                                      default:"white";break;
-                                      }
-
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: 24
-                                anchors.top:osPassField.bottom
-
-                            }
-
-
-                 }
-
-        DropShadow {
-            anchors.fill:dialogue2
-            horizontalOffset: 0
-            verticalOffset: 4
-            radius: 8.0
-            samples: 17
-            color: "#80000000"
-            source:dialogue2
-            z:1
-        }
-
-    }*/
 
 
 

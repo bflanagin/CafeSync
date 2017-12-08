@@ -14,12 +14,13 @@ Item {
     property string pagesource:""
     property string service:""
     property string extrathing:""
-    property string pluginlogo:"img/twitter.png"
+    property string pluginlogo:"./img/twitter.png"
 
     property string banner: ""
     property string avatar: ""
     property string profilename: ""
     property string message: ""
+    property string missionstatment:""
 
     clip: true
 
@@ -39,8 +40,28 @@ Item {
           PropertyChanges {
               target: popup
               visible:false
+
           }
+
         }
+    ]
+
+    transitions: [
+
+        Transition {
+            from: "Active"
+            to: "InActive"
+               reversible: true
+
+               NumberAnimation {
+                   target: popup
+                   property: "opacity"
+                   duration: 100
+                   easing.type: Easing.InOutQuad
+               }
+
+        }
+
     ]
 
     anchors.centerIn: parent
@@ -55,16 +76,20 @@ Item {
 
         Rectangle {
            // anchors.centerIn: pic
-            anchors.left:pic.left
-            anchors.leftMargin: -8
-            anchors.verticalCenter: pic.verticalCenter
+           // anchors.left:pic.left
+           // anchors.leftMargin: -8
+           // anchors.verticalCenter: pic.verticalCenter
            // width:pic.width + 8
+            anchors.top:parent.top
+            anchors.topMargin: parent.height * 0.01
+            anchors.horizontalCenter: parent.horizontalCenter
             width:parent.width * 0.99
-            height:pic.height + 8
+            height:parent.height * 0.1
             color:Qt.rgba(0.5,0.5,0.5,0.8)
             radius:5
-            z:0
-        }
+
+            clip:true
+
         Rectangle {
             color:"white"
             border.color:"black"
@@ -78,37 +103,33 @@ Item {
         Image {
             id:pic
             anchors.left:parent.left
-            anchors.top:parent.top
-            anchors.topMargin:14
-            anchors.leftMargin:14
+           // anchors.top:parent.top
+            //anchors.topMargin:4
+            anchors.leftMargin:parent.width * 0.01
             //source:pagesource
+            anchors.verticalCenter: parent.verticalCenter
             source:avatar
             fillMode:Image.PreserveAspectFit
-            width:parent.height / 5
-            height:parent.height / 5
+            width:parent.height *0.90
+            height:parent.height *0.90
 
 
         }
         Text {
+            id:profiletitle
             //anchors.verticalCenter: pic.verticalCenter
             anchors.top:pic.top
             anchors.left: pic.right
             anchors.leftMargin:5
 
-            font.pixelSize: parent.width * 0.1 - text.length
+            font.pixelSize: parent.height * 0.70 - text.length
             width:parent.width * 0.98 - pic.width
             text:profilename
             wrapMode: Text.WordWrap
             //style: Text.Outline; styleColor: "#FFFFFF"
             color:"white"
 
-            Text {
-                anchors.top:parent.bottom
-                text:"@"+service.split("/")[3]
-                font.pixelSize: parent.height / 4
-                //style: Text.Outline; styleColor: "#FFFFFF"
-                color:"white"
-            }
+
 
             MouseArea {
                 anchors.fill:parent
@@ -118,27 +139,47 @@ Item {
                 onClicked:Qt.openUrlExternally(service);
             }
 
+
+            }
+
+        Text {
+            anchors.top:profiletitle.bottom
+            anchors.topMargin: parent.height * 0.01
+            anchors.left:pic.right
+            anchors.leftMargin: parent.height * 0.01
+            text:missionstatment
+            height: pic.height * 0.80
+            clip:true
+            font.pixelSize: (parent.height * 0.12) - missionstatment.length
+            width:parent.width - pic.width
+            wrapMode: Text.WordWrap
+            //style: Text.Outline; styleColor: "#FFFFFF"
+            color:"white"
+        }
+
         }
 
     }
 
     Rectangle {
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: 30
+        anchors.verticalCenterOffset: 20
         color:Qt.rgba(1.0,1.0,1.0,0.8)
 
         radius:10
         width:parent.width * 0.89
-        height:parent.height * 0.33
+        height:themessage.height+10
         clip:true
 
         Text {
-            //anchors.centerIn: parent
+            id:themessage
+            anchors.centerIn: parent
             wrapMode: Text.WordWrap
+            width:parent.width
             text:message
-            anchors.fill:parent
+           // anchors.fill:parent
             anchors.margins: 5
-            font.pixelSize: parent.height * 0.12 - text.length
+            font.pixelSize: popup.height * 0.04 - text.length
 
 
         }
@@ -156,7 +197,7 @@ Item {
         id:blinder
         width:parent.width
         height:parent.height
-
+        color:backgroundColor
         radius:10
         border.color:"black"
 
@@ -193,6 +234,7 @@ Item {
         state:"loading"
 
        transitions: Transition {
+                        reversible:true
             PropertyAnimation { target: blinder
                                       properties:"y,radius,color"; duration: 500 }
         }
@@ -393,9 +435,9 @@ Item {
         id:logo
         anchors.centerIn: parent
         source:pluginlogo
-        width:parent.width /3
         height:parent.height /3
         fillMode:Image.PreserveAspectFit
+        z:3
 
         states: [
                      State {  name:"Loading"
@@ -414,7 +456,7 @@ Item {
                             target:logo
                             opacity:0
                          }
-                         PropertyChanges {
+                          PropertyChanges {
                              target:links
                              opacity:1
                          }
@@ -423,12 +465,14 @@ Item {
                      }
 
                  ]
-                 state:"loading"
+                 state:"Loading"
 
                  transitions: Transition {
+                                reversible: true
                       PropertyAnimation { target: logo
                                                 properties:"opacity"; duration: 300 }
                   }
+
 
     }
 

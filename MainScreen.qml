@@ -76,7 +76,9 @@ GridView {
 
     ]
 
-    delegate: Pages {}
+    delegate: Pages {
+                    pindex: index
+                }
 
     Row {
         anchors.horizontalCenter: parent.horizontalCenter
@@ -105,6 +107,9 @@ GridView {
 
             }
     }
+
+
+
 
 
  }

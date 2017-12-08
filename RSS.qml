@@ -56,8 +56,14 @@ Item {
         anchors.centerIn: parent
         source:banner
         anchors.fill: parent
-        fillMode:Image.PreserveAspectCrop
+        fillMode:Image.PreserveAspectFit
+
     }
+
+    /*Text {
+        text:theurl
+        anchors.centerIn: parent
+    } */
 
     /*Rectangle {
         anchors.fill:parent
@@ -66,13 +72,13 @@ Item {
         border.width:1
     }*/
 
-    Image {
+    /*Image {
         id:shade
         anchors.centerIn: parent
         source:"./img/shade.png"
         anchors.fill: parent
         //fillMode:Image.PreserveAspectCrop
-    }
+    } */
 
     Rectangle {
         anchors.top:parent.top
@@ -113,31 +119,46 @@ Item {
 
     }
 
-    Rectangle {
-        id:postbg
-        radius:10
-        anchors.centerIn: parent
-        color:Qt.rgba(0.7,0.7,0.7,0.9)
-        border.color:"gray"
-        border.width:4
+    ListView {
         width:parent.width * 0.98
-        height:parent.height * 0.60
-        //height:postcontent.height + 10
+        height:parent.height * 0.89
+       // contentHeight: postbg.height * 1.2
+       // contentWidth: width
+        //anchors.centerIn: parent
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        spacing: parent.height * 0.1
+        cacheBuffer: 180
         clip:true
-        z:0
+
+        delegate: Rectangle {
+                        id:postbg
+                            radius:3
+                            color:cardcolor
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            //color:Qt.rgba(0.7,0.7,0.7,0.9)
+                            border.color:"gray"
+                            border.width:1
+                             width:popup.width * 0.95
+                             //height:parent.height * 0.70
+                              height:postcontent.height + 10
+                              clip:true
+                             z:0
+
         Item {
             id:postcontent
             width:parent.width * 0.98
-            height:parent.height * 0.98
+            anchors.horizontalCenter: parent.horizontalCenter
+            height:titletext.height+postsplitter.height+postimg.height+posttext.height+100
             Text {
                 id:titletext
                 width:parent.width
                 horizontalAlignment: Text.AlignHCenter
-                visible:if(posttitle.length > 2) {true} else {false}
-                text:posttitle
-                font.pixelSize: postbg.width * 0.12 - posttitle.length
+                visible:if(theposttitle.length > 2) {true} else {false}
+                text:theposttitle
+                font.pixelSize: postbg.width * 0.08
                 wrapMode:Text.WordWrap
-                color:"white"
+                //color:"white"
             }
 
             Rectangle {
@@ -145,29 +166,31 @@ Item {
                 color:"gray"
                 anchors.top:titletext.bottom
                 width:parent.width
-                height:postbg.height * 0.01
-                visible:if(posttitle.length > 2) {true} else {false}
+                height:parent.width * 0.01
+                visible:if(theposttitle.length > 2) {true} else {false}
             }
 
             Image {
-                visible: if(postimage.length > 2) {true} else {false}
+                visible: if(thepostimage.length > 2) {true} else {false}
                 anchors.top:postsplitter.bottom
-                width:parent.width * 0.90
-                height:if(postimage.length > 2) {parent.height * 0.70} else {10}
+                anchors.topMargin: parent.width * 0.1
+                width:parent.width * 0.95
                 fillMode: Image.PreserveAspectFit
                 anchors.horizontalCenter: parent.horizontalCenter
-                source:postimage
+                source:thepostimage
                 id:postimg
             }
             Text {
+                id:posttext
                 anchors.top:postimg.bottom
+                anchors.topMargin: parent.width * 0.1
                 //anchors.bottom:parent.bottom
                 width:parent.width * 0.95
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: postbg.width * 0.04
-                text:post
+                text:thepost
                 wrapMode:Text.WordWrap
-                color:"white"
+               // color:"white"
             }
         }
 
@@ -175,10 +198,14 @@ Item {
           anchors.fill:parent
              //onClicked: showurl = link,fullWeb.state = "show"
             // ,cardPage.header.hide()
-                onPressAndHold:Qt.openUrlExternally(link);
+                onPressAndHold:Qt.openUrlExternally(thelink);
 
 
          }
+
+    }
+
+        model:rssposts
 
     }
 
@@ -311,10 +338,13 @@ Item {
                  transitions: Transition {
                       PropertyAnimation { target: logo
                                                 properties:"opacity"; duration: 300 }
-                  }                 
+                  }
 
 
     }
+
+
+
 
 
 }

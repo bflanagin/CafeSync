@@ -363,7 +363,15 @@ function Temp_load(search,locale) {
                                     currentlist =  ":"+pull.rows.item(record).id;
                                               }
 
-                    if(pull.rows.item(record).name.replace(/&#x27;/g,"'") != username && pull.rows.item(record).alias != useralias && pull.rows.item(record).company.replace(/&#x27;/g,"'") != usercompany ) {
+                            var carddup = 0;
+
+                            if(pull.rows.item(record).name.replace(/&#x27;/g,"'") == username) {carddup++;} else {carddup--;}
+                            if(pull.rows.item(record).alias != useralias) {carddup++;} else {carddup--; }
+                            if(pull.rows.item(record).company.replace(/&#x27;/g,"'") == usercompany) {carddup++;} else {carddup--;}
+
+
+
+                    if(carddup !=3) {
 
                     cardslist.append({
                                     name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
@@ -409,7 +417,18 @@ function Temp_load(search,locale) {
                                 currentlist = ":"+pull.rows.item(record).id;
                                           }
 
-            if(pull.rows.item(record).name.replace(/&#x27;/g,"'") != username && pull.rows.item(record).alias != useralias && pull.rows.item(record).company.replace(/&#x27;/g,"'") != usercompany ) {
+
+
+            var carddup = 0;
+
+            if(pull.rows.item(record).name == username) {carddup++;} else {carddup--;}
+            if(pull.rows.item(record).alias == useralias) {carddup++;} else {carddup--; }
+            if(pull.rows.item(record).company == usercompany) {carddup++;} else {carddup--;}
+
+
+
+    if(carddup !=3) {
+
 
 
             cardslist.append({
@@ -1309,6 +1328,27 @@ function store_img (where,file,private) {
 
     });
 
+
+
+}
+
+function totals() {
+
+    var dataStr = "SELECT  id  FROM TempCards WHERE 1";
+    var dataStr1 = "SELECT  id  FROM SavedCards WHERE 1";
+
+
+    db.transaction(function(tx) {
+
+        //tx.executeSql('CREATE TABLE IF NOT EXISTS TempCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT,cardsop INT)');
+
+       var pull = tx.executeSql(dataStr);
+        var pull1 = tx.executeSql(dataStr1);
+
+        ctotal = pull1.rows.length -1;
+        ptotal = pull.rows.length -1;
+
+    });
 
 
 }

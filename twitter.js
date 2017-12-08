@@ -12,6 +12,7 @@ var http = new XMLHttpRequest();
     var tweet1 = "";
     var tweet2 = "";
     var tweet3 = "";
+    var mission = "";
 
 http.onreadystatechange = function() {
     if (http.readyState == 4) {
@@ -38,10 +39,14 @@ http.onreadystatechange = function() {
             tweet1 = pagedata.substring(pagedata.search('<p class="TweetTextSize'),pagedata.search('<p class="TweetTextSize') + 844);
             tweet1 = tweet1.split("/p>")[0]+"/p>";
 
+            mission = pagedata.substring(pagedata.search('<p class="ProfileHeaderCard-bio u-dir" dir="ltr">'),pagedata.search('<div class="ProfileHeaderCard-location ">'));
+
 
             profilename = profilepic[2];
             banner = profilebanner[0];
             avatar = profilepic[0];
+
+            missionstatment = mission;
 
             message = tweet1;
 

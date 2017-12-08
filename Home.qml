@@ -202,8 +202,9 @@ Item {
                      color:cardcolor
 
                  Column {
+                     anchors.top:parent.top
                      width:parent.width
-                     height:parent.height
+                     height:parent.height *0.98
                      spacing:10
 
                         Text {
