@@ -19,7 +19,7 @@ Item {
     property int isPrivate: 0
     property int capturedAsspect:0
     property int setFlash:0
-    property int setExpos:0
+    property int setExpos:4
     property int setFocus: 0
 
     property string theComment:""
@@ -149,6 +149,7 @@ Item {
                 id:check
                 anchors.fill:viewport
                 fillMode: Image.PreserveAspectCrop
+
                 //visible: if(Image.Ready == 1) {true}
             }
 
@@ -180,6 +181,16 @@ Item {
                 color: "#80000000"
                 source:opmask
                 z:1
+            }
+
+            Image {
+                anchors.right:opmask.right
+                anchors.bottom:opmask.bottom
+                anchors.rightMargin: width * 0.4
+                height:parent.height * 0.1
+                width:parent.height * 0.1
+                fillMode: Image.PreserveAspectFit
+                source:if(avimg.search("twitter") == -1) {"./img/twitter.png"} else if (avimg.search("gravatar") == -1) {"./img/gravatar.png"} else if (avimg.search("soundcloud") == -1) {"./img/soundcloud.png"} else if (avimg.search("tumblr") == -1) {"./img/tumblr.png"}
             }
 
 
@@ -235,16 +246,23 @@ Item {
                 width:if(mainView.width > mainView.height) {parent.width * 0.5}else {parent.height * 0.13}
                 height:if(mainView.width > mainView.height){parent.width * 0.5} else {parent.height * 0.13}
 
-                color:Qt.rgba(0,0.6,0,0.6)
+                color:highLightColor1
                 radius:width /2
                 border.color:"black"
 
                 Image {
+                    id:checkbutton
                     anchors.centerIn: parent
-                    width:parent.width * 0.9
-                    height:parent.width * 0.9
+                    width:parent.width * 0.8
+                    height:parent.width * 0.8
                     source:"./img/check.svg"
                 }
+
+                ColorOverlay {
+                       anchors.fill: checkbutton
+                       source: checkbutton
+                       color: "green"
+                   }
 
 
 
@@ -285,16 +303,23 @@ Item {
                 visible: if(check.source == "") {false} else {true}
 
 
-                color:Qt.rgba(0.6,0,0,0.6)
+                color:highLightColor1
                 radius:width /2
                 border.color:"black"
 
                 Image {
+                    id:closebutton
                     anchors.centerIn: parent
                     width:parent.width * 0.9
                     height:parent.width * 0.9
                     source:"./img/close.svg"
                 }
+
+                ColorOverlay {
+                       anchors.fill: closebutton
+                       source: closebutton
+                       color: "red"
+                   }
 
             MouseArea {
                 anchors.fill:parent
@@ -347,7 +372,7 @@ Item {
                 Image {
                     id:cameratype
                     anchors.centerIn: parent
-                    source:"./img/backC.png"
+                    source:"./img/camera-flip.svg"
                     width:parent.width * 0.6
                     height:parent.height * 0.6
                     fillMode:Image.PreserveAspectFit
@@ -355,8 +380,8 @@ Item {
 
                 MouseArea {
                             anchors.fill: parent;
-                            onClicked:if(camera.position == 1) {camera.position = 2;cameratype.source ="./img/frontC.png"}
-                                      else {camera.position = 1;cameratype.source ="./img/backC.png"}
+                            onClicked:if(camera.position == 1) {camera.position = 2;cameratype.source ="./img/camera-flip.svg"}
+                                      else {camera.position = 1;cameratype.source ="./img/camera-flip.svg"}
             }
             }
 
@@ -391,7 +416,7 @@ Item {
                     Image {
                         id:flashtype
                         anchors.centerIn: parent
-                        source:"./img/FA.png"
+                        source:"./img/flash-auto.svg"
                         width:parent.width * 0.6
                         height:parent.height * 0.6
                         fillMode:Image.PreserveAspectFit
@@ -400,9 +425,9 @@ Item {
                     MouseArea {
                                 anchors.fill: parent;
                                 onClicked:switch(setFlash) {
-                                          case 0: setFlash =1;flashtype.source = "./img/FO.png";break;
-                                          case 1: setFlash = 2;flashtype.source = "./img/FS.png";break;
-                                          case 2: setFlash = 0;flashtype.source = "./img/FA.png";break;
+                                          case 0: setFlash =1;flashtype.source = "./img/flash-off.svg";break;
+                                          case 1: setFlash = 2;flashtype.source = "./img/flash-on.svg";break;
+                                          case 2: setFlash = 0;flashtype.source = "./img/flash-auto.svg";break;
                                           }
                 }
                 }
@@ -910,7 +935,7 @@ Item {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: photo.state = "Hide", thisWindow.state = "InActive"
+                onClicked: photo.state = "Hide", thisWindow.state = "InActive", sourceselect = false
             }
         }
 
@@ -933,7 +958,7 @@ Item {
             id:camera
 
 
-
+                position: Camera.FrontFace
             imageProcessing {
 
                 whiteBalanceMode: CameraImageProcessing.WhiteBalanceAuto
@@ -946,6 +971,7 @@ Item {
                               case 1:Camera.ExposureLandscape;break;
                               case 2:Camera.ExposureNight;break;
                               case 3:Camera.ExposureSports;break;
+                              case 4: Camera.ExposurePortrait;break;
                               default:Camera.ExposureAuto;break;
 
                               }

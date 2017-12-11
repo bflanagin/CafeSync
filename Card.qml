@@ -16,6 +16,7 @@ import QtGraphicalEffects 1.0
     \brief MainView with a Label and Button elements.
 */
 import QtQuick.LocalStorage 2.0 as Sql
+
 import "main.js" as Scripts
 import "openseed.js" as OpenSeed
 
@@ -294,7 +295,7 @@ import "openseed.js" as OpenSeed
                                         onPressed:shade.state == "Active"
                                         onReleased: shade.state == "InActive"
 
-                                        onClicked: mainScreen.state = "Active"
+                                       // onClicked: mainScreen.state = "Active"
                                         /*onPressAndHold: {if(infotab.state == "Available" || infotab.state == "Active") {
                                                 mainScreen.state = "Active",infotab.state = "InActive",cardPage.header.hide()
                                             } else {
@@ -321,6 +322,8 @@ import "openseed.js" as OpenSeed
                                     //onClicked: {currentcard = index; cards.flipped = !cards.flipped; if(cards.side == 0) {if(layouts.width >= units.gu(mobile_vert)) {Scripts.Show_sites(card);} } else { /*pages = 0;*///}
                                         onClicked: {currentcard = index;
                                             //cards.flipped = !cards.flipped;
+                                                    gc();
+                                                mainScreen.positionViewAtBeginning();
 
                                                 mainScreen.state = "Active";
                                                 topBar.state = "person";

@@ -195,5 +195,11 @@
         <file>img/reset.svg</file>
         <file>img/medium.png</file>
         <file>img/RSS.png</file>
+        <file>Notification.qml</file>
+        <file>img/camera-flip.svg</file>
+        <file>img/flash-auto.svg</file>
+        <file>img/flash-off.svg</file>
+        <file>img/flash-on.svg</file>
+        <file>img/gps.svg</file>
     </qresource>
 </RCC>

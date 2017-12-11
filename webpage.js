@@ -58,7 +58,7 @@ http.onreadystatechange = function() {
                                       //  if(profilebanner != 'undefined') {
                                        //         thebanner = profilebanner.split('<img src="')[1].split('"')[0];
                                       //  } else {
-                                            thebanner = "./img/stock_website.svg";
+                                            thebanner = "./img/overlay-dark.png";
                                       //  }
 
                                 theavatar = "img/wordpress.png"
@@ -216,7 +216,7 @@ function rss_reader2(url) {
 
     function rss_reader3(pagedata) {
 
-                    thebanner = "./img/stock_website.svg";
+                    thebanner = "./img/overlay-dark.png";
                     var topblock = pagedata.substring(pagedata.search("<channel>"),pagedata.search("<generator>"));
 
                     thename = topblock.split("<title><![CDATA[")[1].split("]]></title>")[0];
@@ -258,7 +258,7 @@ function rss_medium(url) {
 
                 pagedata = http.responseText;
 
-                thebanner = "./img/stock_website.svg";
+                thebanner = "./img/overlay-dark.png";
                 var topblock = pagedata.substring(pagedata.search("<channel>"),pagedata.search("<generator>"));
 
                 thename = topblock.split("<title><![CDATA[")[1].split("]]></title>")[0];

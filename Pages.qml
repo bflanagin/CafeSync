@@ -358,6 +358,14 @@ Item {
                    id:rssposts
 
            }
+   ListModel {
+                   id:tumblrposts
+
+           }
+   ListModel {
+                   id:twitterposts
+
+           }
 }
 
 

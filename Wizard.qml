@@ -147,7 +147,7 @@ Item {
 
                         Text {
                             visible: false
-                            text:if(slideview.indexAt(slideview.contentX,0) == 2) {
+                            text:if(slideview.indexAt(slideview.contentX,0) == 1) {
                                      "bla"} else {"bleh"}
                             onTextChanged: if(text == "bla" && userid == "") {slideview.interactive = false} else {slideview.interactive = true}
                         }
@@ -846,12 +846,12 @@ Item {
             type:1
             image:"./img/overlay-dark.png"
         }
-        ListElement {
+       /* ListElement {
             thetitle: qsTr("EULA")
             message:qsTr("We haven't written one yet. It will be pretty bog standard though. No hacking,cracking, or pretending to be someone else. So on and So forth")
             type:2
             image:"./img/OpenSeed.png"
-        }
+        }*/
         ListElement {
             thetitle: qsTr("OpenSeed Connect")
             message:qsTr("OpenSeed's network is used for app and user authentication as well as the background services that CafeSync relies on.\n\n(Note: If you don't have an account the system will create one for you.) ")
@@ -985,8 +985,8 @@ Item {
             model:slideview.count
             id:pageIndicator
             Rectangle {
-                       width: 10
-                       height: 10
+                       width: mainView.height * 0.01
+                       height: mainView.height * 0.01
                        border.width: 1
                        border.color:barColor
                        color: if(index == slideview.indexAt(slideview.contentX,0)) {highLightColor1} else {Qt.rgba(9,9,9,0);}

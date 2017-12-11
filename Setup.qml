@@ -69,9 +69,11 @@ Item {
 
  ]
 
+ property bool sourceselect: false
+
 
 onStateChanged: if(settingsPage.state == "Active") {topBar.state = "settings";} else {topBar.state = "standard";}
-
+onSourceselectChanged: if(sourceselect == true) {sourceSelector.state = "Active"} else {sourceSelector.state = "InActive"}
 
 
 
@@ -214,7 +216,7 @@ Item {
 
     MouseArea {
         anchors.fill: parent
-        onClicked:sourceSelector.state = "Active"
+        onClicked:sourceselect = true
     }
 
 
@@ -696,7 +698,7 @@ Item {
           Item {
               id:mainadvert
               anchors.horizontalCenter: parent.horizontalCenter
-              anchors.top:tumblrButton.bottom
+
               anchors.topMargin: 20
               width:parent.width * 0.95
               height:settingsPage.height * 0.08
@@ -1292,8 +1294,6 @@ Rectangle {
         state:"InActive"
 
  }
-
-
 
 
 

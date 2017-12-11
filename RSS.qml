@@ -15,7 +15,7 @@ Item {
     property string service:""
     property string extrathing:""
     property string sitedata:""
-    property string pluginlogo:"./img/stock_website.svg"
+    property string pluginlogo:"./img/overlay-dark.png"
     property string avatar: ""
     property string name: ""
     property string banner: ""
@@ -55,9 +55,10 @@ Item {
         id:bg
         anchors.centerIn: parent
         source:banner
-        anchors.fill: parent
+        width:parent.width * 0.60
+        height:parent.height * 0.60
         fillMode:Image.PreserveAspectFit
-
+        opacity: 0.4
     }
 
     /*Text {
@@ -105,6 +106,7 @@ Item {
             id:blogtitle
             anchors.left:avimage.right
             text:name
+            minimumPixelSize: 20
             font.pixelSize: avimage.height * 0.60
             color:"white"
         }
@@ -127,7 +129,7 @@ Item {
         //anchors.centerIn: parent
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        spacing: parent.height * 0.1
+        spacing: parent.height * 0.05
         cacheBuffer: 180
         clip:true
 
@@ -141,7 +143,7 @@ Item {
                             border.width:1
                              width:popup.width * 0.95
                              //height:parent.height * 0.70
-                              height:postcontent.height + 10
+                              height:postcontent.height + mainView.height * 0.06
                               clip:true
                              z:0
 
@@ -149,7 +151,7 @@ Item {
             id:postcontent
             width:parent.width * 0.98
             anchors.horizontalCenter: parent.horizontalCenter
-            height:titletext.height+postsplitter.height+postimg.height+posttext.height+100
+            height:titletext.height+postsplitter.height+postimg.height+posttext.height+mainView.height * 0.06
             Text {
                 id:titletext
                 width:parent.width
@@ -183,7 +185,7 @@ Item {
             Text {
                 id:posttext
                 anchors.top:postimg.bottom
-                anchors.topMargin: parent.width * 0.1
+                anchors.topMargin: parent.width * 0.01
                 //anchors.bottom:parent.bottom
                 width:parent.width * 0.95
                 horizontalAlignment: Text.AlignHCenter
@@ -237,7 +239,7 @@ Item {
 
                     PropertyChanges {
                    target:blinder
-                    y:parent.height
+                    y:parent.height * 0.92
 
                     radius:0
                     color:barColor
@@ -272,7 +274,16 @@ Item {
             height:parent.height * 0.07
             fillMode:Image.PreserveAspectFit
             anchors.left:parent.left
-            anchors.leftMargin: parent.width * 0.01
+            anchors.leftMargin: parent.width * 0.04
+
+            Rectangle {
+                anchors.centerIn: parent
+                height:parent.height * 1.1
+                width:parent.height * 1.1
+                color:highLightColor1
+                z:-1
+                radius: width /2
+            }
 
         }
        /* Text {

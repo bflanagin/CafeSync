@@ -39,6 +39,7 @@ GridView {
     cellWidth: mainScreen.width
 
     //onStateChanged: Scripts.loadActions(list)
+    onStateChanged: if(state == "Active") {} else {gc();}
     states: [
         State {
             name:"Active"
@@ -80,17 +81,26 @@ GridView {
                     pindex: index
                 }
 
+    Rectangle {
+        anchors.centerIn:pagedots
+        width:pagedots.width * 1.2
+        height:pagedots.height * 1.6
+        radius: parent.height * 0.1
+        color:Qt.rgba(0.4,0.4,0.4,0.4)
+    }
+
     Row {
+        id:pagedots
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom:parent.bottom
         anchors.bottomMargin: parent.height * 0.11
-        spacing: 10
+        spacing: parent.width * 0.02
     Repeater {
             model:ms.count
             id:pageIndicator
             Rectangle {
-                       width: 10
-                       height: 10
+                       width: mainView.height * 0.014
+                       height: mainView.height * 0.014
                        border.width: 1
                        border.color:barColor
                        color: if(index == ms.indexAt(ms.contentX,0)) {highLightColor1} else {Qt.rgba(9,9,9,0);}

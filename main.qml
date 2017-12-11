@@ -207,6 +207,39 @@ ApplicationWindow {
    // background: backgroundColor
     title: "CafeSync"
 
+    property int closeit: 0
+
+    onClosing: {
+      /*  if(viewpic.state == "Show") {viewpic.state = "Hide"}
+        if(settings.visible == true) {
+            thefooter.state ="Show"
+                    postslist.clear()
+                stream_reload.running = true
+                get_stream.running = true
+            settings.visible = false
+        }
+        if(viewfinder.state == "Show") {viewfinder.state = "Hide"
+
+        } */
+
+
+    if(closeit == 1) {
+        close.accepted = true
+
+    } else { closeit = closeit +1;
+        close.accepted = false
+        notification1.visible = true; notification1.themessage = "Tap again to exit";notificationFade.start();
+    }
+
+    }
+
+    Timer {
+        id:notificationFade
+        interval: 2000
+        running:false
+        onTriggered: {notification1.visible = false; closeit = 0;}
+    }
+
 
     Timer {
         id:heartbeats
@@ -226,6 +259,14 @@ ApplicationWindow {
                                        stf,atf,ctf,avimg,carddesign,usercat);
     }
 
+    Timer {
+        id:cardReload
+        interval: 1000
+        running:false
+        repeat: false
+        onTriggered: mainScreen.state = "Active"
+    }
+
 
     Timer {
             id:startup
@@ -237,10 +278,10 @@ ApplicationWindow {
 
                 OpenSeed.datasync(userid,0);
                // OpenSeed.datasync(userid1,1);
-
+                notification.visible = true;
             OpenSeed.get_list(userid,"temp");
             OpenSeed.get_list(userid,"saved");
-            Scripts.Show_sites("local",userid);
+           // Scripts.Show_sites("local",userid);
 
             }
     }
@@ -293,6 +334,7 @@ ApplicationWindow {
                        // if (tempcheck != remotetemp) {
                      cardslist.clear();
                         Scripts.totals();
+
                    if(selection == 0)
                    {Scripts.Temp_load(searchtext,listget);}
                    else {Scripts.Cards_load(searchtext); }
@@ -572,10 +614,10 @@ ApplicationWindow {
             anchors.verticalCenter: parent.verticalCenter
             property int loc:if(listget == "temp") {0} else {2}
             source: if(selection != 1) { switch(loc) {
-                                             case 0:"img/location.svg";break;
+                                             case 0:"img/gps.svg";break;
                                              case 2:"img/language-chooser.svg";break;
                                           // case 2:"img/stock_website.svg";break;
-                                              default:"img/location.svg";break;
+                                              default:"img/gps.svg";break;
                                             }
                                     }else {"img/overlay-dark.png"}
             width:parent.height * 0.7
@@ -631,14 +673,18 @@ ApplicationWindow {
 
                 MouseArea {
                     anchors.fill:parent
-                    onClicked: { Scripts.save_card(userid,username,userphone,useremail,usercompany,
+                    onClicked: { if(settingsPage.sourceselect == true) { settingsPage.sourceselect = false} else {
+
+
+                                    Scripts.save_card(userid,username,userphone,useremail,usercompany,
                                                                       useralias,usermotto,usermain,website1,website2,website3,website4,
                                                                       stf,atf,ctf,avimg,carddesign,usercat);
                                                     OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
                                                                          useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
                                                                          avimg,carddesign,usercat);
 
-                        themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0,topBar.state = "person"
+                        themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0,topBar.state = "person",/*mainScreen.state = "InActive",*/pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
+                        }
                             }
 
                    // onPressed: setflick.state = "Active"
@@ -1216,33 +1262,39 @@ ApplicationWindow {
                         }
 
 
-                    onContentYChanged: if(contentY < -200 && draggingVertically == false) {
+                    onContentYChanged: if(contentY < (-1 *(parent.height * 0.3)) && draggingVertically == false) {
                                             cardload.running = true;
-                                       }
+                                           notification.visible = false; notification.themessage = qsTr("No Cards found\n(Pull to Refresh, or hit the center button to try a larger search area)");
+
+                                       } else if(contentY < (-1 *(parent.height * 0.3)) && draggingVertically == true) {
+                                                notification.visible = true; notification.themessage = qsTr("Release to reload");
+                                        }
+
+                    onCountChanged: if(passerbyGrid.count == 0) {
+
+                                        notification.visible = true;
+                                        if(selection == 0) {
+                                        notification.themessage = qsTr("No Cards found\n(Pull to Refresh, or hit the center button to try a larger search area)");
+                                        } else {
+                                            notification.themessage = qsTr("No Cards found\n(Pull to Refresh, or hit the center button to swap with another user)");
+                                        }
+                                    } else {
+                                        notification.visible = false;
+                                    }
 
 
-                }
 
-
-                Text {
-                    id: notification
-                    anchors.horizontalCenter: passerbyGrid.horizontalCenter
-                    anchors.verticalCenter: passerbyGrid.verticalCenter
-                    anchors.verticalCenterOffset: -40
-                    horizontalAlignment:Text.AlignHCenter
-                    text: qsTr("No Cards found.\n(Try tapping the center top button)")
-                    color:"white"
-                    font.pointSize: 20
-                    Rectangle {
-                        anchors.centerIn: parent
-                        width:parent.width * 1.1
-                        height:parent.height * 1.1
-                        z:-1
-                        color:Qt.rgba(0.2,0.2,0.2,0.4)
-                        radius:5
+                    Notification {
+                        id:notification
+                        anchors.fill: parent
+                      themessage : qsTr("No Cards found\n(Pull to Refresh, or hit the center button to try a larger search area)");
+                        visible: if(cardload.running == false && passerbyGrid.count == 0) {true} else {false}
                     }
-                    visible: if(cardload.running == false && passerbyGrid.count == 0) {true} else {false}
+
+
                 }
+
+
 
 
                 Rectangle {
@@ -1350,6 +1402,16 @@ Wizard {
     width: parent.width
     height: parent.height * 0.98
     state: "InActive"
+}
+
+
+Notification {
+    id:notification1
+    width:parent.width
+    height:parent.height * 0.20
+    anchors.bottom: parent.bottom
+  themessage : ""
+    visible: false
 }
 
 

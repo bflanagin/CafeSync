@@ -31,23 +31,42 @@ http.onreadystatechange = function() {
 
             message = pagedata.substring(pagedata.search('<span class="description">'),pagedata.search('<span class="description">') + 200).split(">")[1].split("</")[0].trim();
 
-            postinfo = pagedata.substring(pagedata.search('<article'),pagedata.search('</article>'));
+                var num = 1;
+            while(pagedata.split('<article').length > num) {
+
+         // postinfo = pagedata.substring(pagedata.search('<article'),pagedata.search('</article>'));
+                postinfo = pagedata.split('<article')[num].split('</article>')[0];
+
+
 
                 if(postinfo.search('<div class="video-wrapper">') != -1) {
                     //console.log("found a video");
-                    postimage="img/youtube.png";
-                    post = postinfo.substring(postinfo.search("<p>")+3,postinfo.search("</p>"));
+                    tumblrposts.append({
+                    posttitle:"",
+                    postimage:"img/youtube.png",
+                   post:postinfo.substring(postinfo.search("<p>")+3,postinfo.search("</p>"))
+                    });
+
                 } else {
                     if(postinfo.search('<div class="post-content">') != -1) {
-                        posttitle = postinfo.substring(postinfo.search('<h2 class="title">'),postinfo.search('</h2>')).split(">")[2].split("<")[0];
-                        post = postinfo.substring(postinfo.search('<p>'),postinfo.search('</p>'));
+                        tumblrposts.append({
+                        posttitle:postinfo.substring(postinfo.search('<h2 class="title">'),postinfo.search('</h2>')).split(">")[2].split("<")[0],
+                       post:postinfo.substring(postinfo.search('<p>'),postinfo.search('</p>'))
+                                               });
                     } else {
                         if(postinfo.search('<div class="photo-wrapper">') != -1) {
-                            postimage = postinfo.substring(postinfo.search('src="')+5,postinfo.search('" alt='));
-                            post = postinfo.substring(postinfo.search("<p>")+3,postinfo.search("</p>"));
+                            tumblrposts.append({
+                            posttitle:"",
+                            //tmpostimage: postinfo.substring(postinfo.search('src="')+5,postinfo.search('" alt=')),
+                             postimage: postinfo.split('<img src="')[1].split('" alt=')[0],
+                           post:postinfo.substring(postinfo.search("<p>")+3,postinfo.search("</p>"))
+                                        });
                         }
                     }
                 }
+
+                num = num +1;
+            }
         }
 
     }

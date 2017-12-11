@@ -84,7 +84,7 @@ Item {
             anchors.topMargin: parent.height * 0.01
             anchors.horizontalCenter: parent.horizontalCenter
             width:parent.width * 0.99
-            height:parent.height * 0.1
+            height:parent.height * 0.15
             color:Qt.rgba(0.5,0.5,0.5,0.8)
             radius:5
 
@@ -121,8 +121,8 @@ Item {
             anchors.top:pic.top
             anchors.left: pic.right
             anchors.leftMargin:5
-
-            font.pixelSize: parent.height * 0.70 - text.length
+            minimumPixelSize: 20
+            font.pixelSize: parent.height * 0.45 - text.length
             width:parent.width * 0.98 - pic.width
             text:profilename
             wrapMode: Text.WordWrap
@@ -150,7 +150,7 @@ Item {
             text:missionstatment
             height: pic.height * 0.80
             clip:true
-            font.pixelSize: (parent.height * 0.12) - missionstatment.length
+            font.pixelSize: (parent.height * 0.13) - missionstatment.length
             width:parent.width - pic.width
             wrapMode: Text.WordWrap
             //style: Text.Outline; styleColor: "#FFFFFF"
@@ -199,7 +199,7 @@ Item {
         height:parent.height
         color:backgroundColor
         radius:10
-        border.color:"black"
+       // border.color:"black"
 
         states: [
                 State {
@@ -254,6 +254,9 @@ Item {
             height:parent.height * 0.10
             fillMode:Image.PreserveAspectFit
             anchors.right:parent.right
+
+
+
 
         }
        /* Text {
@@ -310,7 +313,7 @@ Item {
                     onClicked: {
 
                         if(page.substr(page.length-1,page.length) == "/"){extrathing =""} else {extrathing="/"}
-                        showurl = page+extrathing+"with_replies"
+                        showurl = "https://twitter.com/"+page.split("::")[1]+extrathing+"with_replies"
                         Qt.openUrlExternally(showurl);
                        // fullWeb.state = "show"
                        // cardPage.header.hide()
@@ -359,7 +362,7 @@ Item {
                     onClicked: {
 
                         if(page.substr(page.length-1,page.length) == "/"){extrathing =""} else {extrathing="/"}
-                        showurl = page+extrathing+"media"
+                        showurl = "https://twitter.com/"+page.split("::")[1]+extrathing+"media"
                         Qt.openUrlExternally(showurl);
                         //fullWeb.state = "show"
                         //cardPage.header.hide()
@@ -405,7 +408,7 @@ Item {
                     onClicked: {
 
                         if(page.substr(page.length-1,page.length) == "/"){extrathing =""} else {extrathing="/"}
-                        showurl = page+extrathing+"followers"
+                        showurl = "https://twitter.com/"+page.split("::")[1]+extrathing+"followers"
                         Qt.openUrlExternally(showurl);
                         //fullWeb.state = "show"
                         //cardPage.header.hide()

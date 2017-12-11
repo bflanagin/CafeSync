@@ -23,6 +23,14 @@ Item {
 
     clip: true
 
+    Timer {
+        id:reload
+        running: false
+        repeat: false
+        interval: 800
+        onTriggered:cardslist.clear(),Scripts.Cards_load("")
+    }
+
 
     states: [
         State {
@@ -166,7 +174,7 @@ Item {
             anchors.fill: parent
             onPressed:goflash.state="Active"
             onReleased:goflash.state="InActive"
-            onClicked:OpenSeed.onetime(codeentry.text,"3"),popup.state = "InActive",cardslist.clear(),Scripts.Cards_load("")
+            onClicked:OpenSeed.onetime(codeentry.text,"3"),popup.state = "InActive",reload.start()
         }
 
     }

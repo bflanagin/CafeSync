@@ -1,5 +1,6 @@
 import QtQuick 2.3
 import QtQuick.Window 2.2
+import QtGraphicalEffects 1.0
 
 
 import "main.js" as Scripts
@@ -77,7 +78,7 @@ Item {
         anchors.topMargin:10
         anchors.horizontalCenter: parent.horizontalCenter
         width:parent.width * 0.98
-        height:parent.height * 0.12
+        height:parent.height * 0.15
         color:Qt.rgba(0.5,0.5,0.5,0.8)
         radius:4
         clip:true
@@ -98,15 +99,17 @@ Item {
             id:blogtitle
             anchors.left:avimage.right
             text:name
-            font.pixelSize: avimage.height * 0.60
+            font.pixelSize: parent.height * 0.45 - text.length
             color:"white"
+            minimumPixelSize: 20
         }
         Text {
             id:about
             anchors.left:avimage.right
             anchors.top:blogtitle.bottom
+            anchors.topMargin: parent.height * 0.01
             text:message
-            font.pixelSize: blogtitle.height * 0.25 - message.length
+            font.pixelSize: blogtitle.height * 0.25 - text.length
             color:"white"
             wrapMode: Text.WordWrap
             width:parent.width * 0.80
@@ -114,15 +117,29 @@ Item {
 
     }
 
-    Rectangle {
+    ListView {
+        width:parent.width * 0.98
+        height:parent.height * 0.89
+       // contentHeight: postbg.height * 1.2
+       // contentWidth: width
+        //anchors.centerIn: parent
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        spacing: parent.height * 0.1
+        cacheBuffer: 180
+       clip:true
+
+        delegate:Rectangle {
         id:postbg
         radius:10
-        anchors.centerIn: parent
+        //anchors.centerIn: parent
         color:Qt.rgba(0.7,0.7,0.7,0.9)
         border.color:"gray"
         border.width:4
         width:parent.width * 0.98
-        height:parent.height * 0.80
+        height:popup.height * 0.80
+
+        anchors.horizontalCenter: parent.horizontalCenter
         //height:postcontent.height + 10
         clip:true
         z:0
@@ -137,7 +154,7 @@ Item {
                 width:parent.width
                 horizontalAlignment: Text.AlignHCenter
                 visible:if(posttitle.length > 2) {true} else {false}
-                text:posttitle
+                text:"<b>"+posttitle+"</b>"
                 font.pixelSize: postbg.width * 0.12 - posttitle.length
                 wrapMode:Text.WordWrap
                 color:"white"
@@ -169,13 +186,22 @@ Item {
                 width:parent.width * 0.95
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: postbg.width * 0.04
-                text:post
+                text:"<p>"+post+"</p>"
                 wrapMode:Text.WordWrap
                 color:"white"
             }
         }
 
     }
+
+        model:tumblrposts
+
+
+    }
+
+
+
+
 
     Rectangle {
         //y:if(bg.status == Image.Ready) {parent.height} else {0}
@@ -184,7 +210,7 @@ Item {
         height:parent.height
         color:backgroundColor
         radius:10
-        border.color:"black"
+       // border.color:"black"
         z:2
 
         states: [
@@ -205,7 +231,8 @@ Item {
 
                     PropertyChanges {
                    target:blinder
-                    y:parent.height
+                    y:parent.height * 0.92
+
                    opacity: 1
                     radius:0
                     color:barColor
@@ -233,17 +260,25 @@ Item {
         width:parent.width
         opacity:0
 
-        Image {
+       /* Image {
             id:servicelogo
             source:pluginlogo
             width:parent.width * 0.07
             height:parent.height * 0.07
             fillMode:Image.PreserveAspectFit
             anchors.left:parent.left
-            anchors.leftMargin: parent.width * 0.01
+            anchors.leftMargin: parent.width * 0.04
 
+            Rectangle {
+                anchors.centerIn: parent
+                height:parent.height * 1.1
+                width:parent.height * 1.1
+                color:cardcolor
+                z:-1
+                radius: width /2
+            }
 
-        }
+        } */
        /* Text {
             anchors.left:servicelogo.right
             anchors.verticalCenter:servicelogo.verticalCenter
@@ -253,6 +288,17 @@ Item {
         } */
     }
 
+    }
+
+    DropShadow {
+        anchors.fill:blinder
+        horizontalOffset: 0
+        verticalOffset: -4
+        radius: 8.0
+        samples: 17
+        color: "#80000000"
+        source:blinder
+        z:1
     }
 
     Image {
