@@ -70,11 +70,27 @@ Item {
  ]
 
  property bool sourceselect: false
+ property bool saveit: false
 
 
-onStateChanged: if(settingsPage.state == "Active") {topBar.state = "settings";} else {topBar.state = "standard";}
+onStateChanged: if(settingsPage.state == "Active") {topBar.state = "settings";} else {topBar.state = "standard";
+
+                    Scripts.save_card(userid,userName.text,userPhone.text,userEmail.text,userCompany.text,
+                                                      userAlias.text,personalMotto.text,usermain,website1,website2,website3,website4,
+                                                      stf,atf,ctf,avimg,carddesign,usercat);
+                                    OpenSeed.upload_data(userid,userName.text,userPhone.text,userEmail.text,userCompany.text,
+                                                         userAlias.text,personalMotto.text,stf,atf,ctf,usermain,website1,website2,website3,website4,
+                                                         avimg,carddesign,usercat);
+
+                }
 onSourceselectChanged: if(sourceselect == true) {sourceSelector.state = "Active"} else {sourceSelector.state = "InActive"}
 
+onSaveitChanged: if(saveit == true) {Scripts.save_card(userid,userName.text,userPhone.text,userEmail.text,userCompany.text,
+                                                       userAlias.text,personalMotto.text,usermain,website1,website2,website3,website4,
+                                                       stf,atf,ctf,avimg,carddesign,usercat);
+                                     OpenSeed.upload_data(userid,userName.text,userPhone.text,userEmail.text,userCompany.text,
+                                                          userAlias.text,personalMotto.text,stf,atf,ctf,usermain,website1,website2,website3,website4,
+                                                          avimg,carddesign,usercat); saveit = false; }
 
 
  Rectangle {
@@ -386,7 +402,7 @@ Item {
 
  Text {
      id:onlineLabel
-     text: qsTr("Send Card")
+     text: qsTr("Share Card")
      font.pointSize: 12
    //  anchors.top:parent.top
     // anchors.topMargin: 10
@@ -404,7 +420,7 @@ Item {
          //objectName: "switch_checked"
 
          checked: if(cardindex == 0) {if(stf == "true"){ return true } else {return false} }
-         onCheckedChanged: if(cardindex == 0) {stf = sendCard.checked }
+        // onCheckedChanged: if(cardindex == 0) {stf = sendCard.checked }
      }
 
 
@@ -506,7 +522,7 @@ Item {
         // width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
          inputMethodHints: Qt.ImhDialableCharactersOnly
          text:if(cardindex == 0) {userphone}
-          onTextChanged: if(cardindex == 0) {userphone = userPhone.text}
+         onTextChanged: if(cardindex == 0) {userphone = userPhone.text}
      }
   }
 
@@ -571,7 +587,7 @@ Item {
           objectName: "switch_checked"
 
           checked: if(cardindex == 0) { if(ctf == "true"){ return true } else { return false} }
-          onCheckedChanged: if(cardindex == 0) {ctf = sendContact.checked }
+         // onCheckedChanged: if(cardindex == 0) {ctf = sendContact.checked }
       }
   }
 
@@ -756,7 +772,7 @@ Item {
               }
          MouseArea {
              anchors.fill: parent
-             onClicked: sConnect.state = "Active",sConnect.service = "blog", sConnect.type = "intergration"
+             onClicked: sConnect.state = "Active",sConnect.service = "blog", sConnect.type = "intergration" ,sConnect.useraccount = usermain
          }
 
           }
@@ -979,7 +995,7 @@ Rectangle {
 
                      MouseArea {
                          anchors.fill: parent
-                         onClicked: sConnect.state = "Active",sConnect.service = "twitter", sConnect.type = "intergration"
+                         onClicked: sConnect.state = "Active",sConnect.service = "twitter", sConnect.type = "intergration",sConnect.useraccount = website1
                      }
                       }
 
@@ -1044,7 +1060,7 @@ Rectangle {
 
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: sConnect.state = "Active",sConnect.service = "tumblr", sConnect.type = "intergration"
+                        onClicked: sConnect.state = "Active",sConnect.service = "tumblr", sConnect.type = "intergration",sConnect.useraccount = website2
                     }
 
                      }
@@ -1112,7 +1128,7 @@ Rectangle {
                          }
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: sConnect.state = "Active",sConnect.service = "soundcloud", sConnect.type = "intergration"
+                        onClicked: sConnect.state = "Active",sConnect.service = "soundcloud", sConnect.type = "intergration",sConnect.useraccount = website4
                     }
 
                      }

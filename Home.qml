@@ -229,7 +229,7 @@ Item {
                             anchors.horizontalCenter: parent.horizontalCenter
                             width:parent.width - 10
                             wrapMode: Text.WordWrap
-                             text:motto
+                             text:"<p>"+motto+"</p>"
                         }
 
                     }

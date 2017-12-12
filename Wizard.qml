@@ -149,7 +149,7 @@ Item {
                             visible: false
                             text:if(slideview.indexAt(slideview.contentX,0) == 1) {
                                      "bla"} else {"bleh"}
-                            onTextChanged: if(text == "bla" && userid == "") {slideview.interactive = false} else {slideview.interactive = true}
+                             onTextChanged: if(text == "bla" && userid == "") {slideview.interactive = false} else {slideview.interactive = true}
                         }
 
                         Column {
@@ -269,7 +269,7 @@ Item {
                             placeholderText: qsTr("Email")
                            horizontalAlignment: Text.AlignHCenter
                             text:osEmail
-                            onTextChanged: osEmail = text,checkemail.restart(),checkexists.restart()
+                           onTextChanged: osEmail = text,checkemail.restart(),checkexists.restart()
 
                             Rectangle {
                                 visible:if(uniquemail != 0) {true} else {false}
@@ -303,7 +303,7 @@ Item {
                              horizontalAlignment: Text.AlignHCenter
                              echoMode: TextInput.Password
                              text:osPassphrase
-                             onTextChanged:osPassphrase = text,checkpassword.restart()
+                              onTextChanged:osPassphrase = text,checkpassword.restart()
 
                              Rectangle {
                                   visible:if(uniqueaccount == 1) {true} else {false}
@@ -396,13 +396,14 @@ Item {
                                width:parent.width * 0.95
                                anchors.horizontalCenter: parent.horizontalCenter
                                anchors.top: parent.top
-                               onTextChanged: username = text
+                                onTextChanged: username = text
                              }
 
                              Text {
                                  anchors.left: about.left
                                  anchors.bottom: about.top
                                  text:qsTr("About:")
+                                 color:"gray"
                              }
                              Rectangle {
                                  anchors.centerIn: about
@@ -422,7 +423,7 @@ Item {
                                  height: parent.height * 0.6
                                  width: parent.width * 0.95
                                  wrapMode: Text.WordWrap
-                                 onTextChanged: usermotto = text
+                                  onTextChanged: usermotto = text
 
                              }
 
@@ -442,7 +443,7 @@ Item {
                                  width:parent.width * 0.95
                                  anchors.horizontalCenter: parent.horizontalCenter
                                  anchors.top: parent.top
-                                  onTextChanged: useralias = text
+                                   onTextChanged: useralias = text
                              }
 
                              TextField{
@@ -453,7 +454,7 @@ Item {
                                  anchors.horizontalCenter: parent.horizontalCenter
                                  anchors.top: job.bottom
                                  anchors.topMargin: thisWindow.height * 0.03
-                                  onTextChanged: usercompany = text
+                                   onTextChanged: usercompany = text
                              }
 
                              Text {
@@ -780,10 +781,10 @@ Item {
                                     anchors.fill: parent
                                     onClicked: {
                                                     usercat = currentcat;
-                                                Scripts.save_card(userid,usernameField.text.replace(/'/g," "),phoneField.text,emailField.text,companyField.text,job.text,about.text," ",
+                                                Scripts.save_card(userid,username.replace(/'/g," "),userphone,useremail,usercompany,useralias,usermotto," ",
                                                                  website1,website2,website3,website4,0,0,0," "," ",usercat);
-                                                OpenSeed.upload_data(userid,usernameField.text.replace(/'/g," "),phoneField.text,emailField.text,companyField.text,
-                                                             job.text,about.text,0,0,0," ",website1,website2,website3,website4,
+                                                OpenSeed.upload_data(userid,username.replace(/'/g," "),userphone,useremail,usercompany,
+                                                             useralias,usermotto,0,0,0," ",website1,website2,website3,website4,
                                                              " "," ",usercat);
                                                     currentcat = "All Cards";
                                                     thisWindow.state = "InActive"
@@ -867,7 +868,7 @@ Item {
 
         ListElement {
             thetitle: qsTr("Who?")
-            message:qsTr("Who Are you?")
+            message:qsTr("Who are you?")
             type:4
             image:"./img/contact.svg"
         }
@@ -881,7 +882,7 @@ Item {
 
         ListElement {
             thetitle: qsTr("How?")
-            message:qsTr("How Can others contact you?")
+            message:qsTr("How can others contact you?")
             type:6
             image:"./img/email.svg"
         }
@@ -910,7 +911,7 @@ Item {
         ListElement {
             thetitle: qsTr("Congratulations!")
             message:  qsTr("We're all set. Tapping finish will close this dialog and let you start using the network. \n Note: Due to our commitment to your privacy your card is set to private.\
- Change this by hitting the center bottom button.")
+ \nChange this by hitting the center bottom button on the main screen. or check the 'share card' check box in settings under Your Card .")
             type:9
             image:"./img/overlay-dark.png"
         }

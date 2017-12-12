@@ -75,10 +75,14 @@ function save_card(id,username,userphone,useremail,usercompany,useralias,usermot
 
                             if(test.rows.length == 0) {
 
-                                tx.executeSql(userStr, data);
-                            } else {
+                                if(userid != "") {
 
+                                tx.executeSql(userStr, data);
+                                }
+                            } else {
+                                if(userid != "") {
                             tx.executeSql(updateUser);
+                                }
                                 }
 
 
@@ -120,7 +124,7 @@ function load_Card() {
         var pull =  tx.executeSql(dataStr);
 
 
-        if(pull.rows.length > 0) {
+        if(pull.rows.length == 1) {
 
             //standard info card 1 //
             userid = pull.rows.item(0).id;
@@ -173,13 +177,13 @@ function load_Card() {
             return 1;
 
         } else {
-
+                firstrun.state = "Active";
             return 0;
             }
 
 
     });
-    if(userid.length < 3) {
+    if(userid > 3) {
             console.log("something is wrong launching firstrun");
             firstrun.state = "Active";
     }
@@ -604,8 +608,10 @@ function Cards_load(search) {
 
 
 
-             if(pull.rows.item(record).avatar.length < 4) { ava = "img/default_avatar.png"} else {ava = pull.rows.item(record).avatar
-                if(ava.search("/9j/4A") != -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
+             if(pull.rows.item(record).avatar.length < 4) { ava = "img/default_avatar.png"} else {
+
+                 ava = pull.rows.item(record).avatar;
+                if(ava.search("/9j/4A") != -1 ) { if(ava.startsWith("data:image/jpeg;base64") == false) {ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+"); } else {ava = ava } }
 
              }
 
@@ -779,7 +785,7 @@ function Show_sites(cid,list) {
             }
 
             if(pull.rows.item(0).avatar.length < 4) { ava = "img/default_avatar.png"} else {ava = pull.rows.item(0).avatar
-               if(ava.search("/9j/4A") != -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
+               if(ava.search("/9j/4A") != -1) { if(ava.startsWith("data:image/jpeg;base64") == false) {ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");} else {ava = ava}}
 
             }
 
@@ -1347,6 +1353,9 @@ function totals() {
 
         ctotal = pull1.rows.length -1;
         ptotal = pull.rows.length -1;
+
+        if (ctotal == -1) {ctotal = 0;}
+        if (ptotal == -1) {ctotal = 0;}
 
     });
 

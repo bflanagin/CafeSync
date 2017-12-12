@@ -15,6 +15,7 @@ Item {
     property string avatar: ""
     property string profilename: "none"
     property string type: ""
+    property string useraccount: ""
 
     MouseArea {
         anchors.fill:parent
@@ -72,7 +73,8 @@ Item {
     ]
 
     onStateChanged: if(thisWindow.state == "Active") {servicecheck.start();
-                        } else {avatar = "",profilename = "",servicecheck.stop();}
+                    } else {service="",useraccount="",avatar = "",profilename = "",servicecheck.stop();}
+
 
     Rectangle {
         id:backing
@@ -171,21 +173,22 @@ Item {
 
             }
 
-            Text {
-                text:profilename
+            /*Text {
+                text:account.text.length
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.pixelSize: 32
-            }
+            } */
 
             TextField {
                     id:account
                     text:switch(service) {
-                         case "gravatar":useremail;break;
-                         case "twitter": website1.split("::")[1];break;
-                         case "tumblr": website2.split("::")[1];break;
-                         case "soundcloud":website4.split("::")[1];break;
+                         case "gravatar":useraccount;break;
+                         case "twitter": useraccount.split("::")[1];break;
+                         case "tumblr": useraccount.split("::")[1];break;
+                         case "soundcloud":useraccount.split("::")[1];break;
                          //case "kickstarter":"./img/kickstarter.png";break;
-                         default: usermain;break;
+                         case "blog": useraccount;break;
+                         default:"";
                          }
                     placeholderText: switch(service) {
                                      case "gravatar":"user@example.com";break;
@@ -218,7 +221,7 @@ Item {
 
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: OpenSeed.serviceConnect(service,account.text)
+                        onClicked: OpenSeed.serviceConnect(service,useraccount)
                     }
                 }
             }
@@ -251,11 +254,11 @@ Item {
                                 }
                             if(type == "intergration") {
                                  switch(service) {
-                                    case "twitter": website1 = "twitter::"+account.text;break;
-                                    case "tumblr": website2 = "tumblr::"+account.text;break;
+                                    case "twitter": if(account.text.length > 0 ) {website1 = "twitter::"+account.text} else {website1 =""};break;
+                                    case "tumblr":if(account.text.length > 0 ) { website2 = "tumblr::"+account.text} else {website2 =""};break;
                                     //case "kickstarter": website3 = "kickstarter::"+account.text;break;
-                                    case "soundcloud": website4 = "soundcloud::"+account.text;break;
-                                    case "blog": usermain = account.text;break;
+                                    case "soundcloud":if(account.text.length > 0 ) { website4 = "soundcloud::"+account.text} else {website4 =""};break;
+                                    case "blog":usermain = account.text;break;
                                  }
                             }
                             servicecheck.stop()

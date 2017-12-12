@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.4.1, 2017-12-08T16:10:36. -->
+<!-- Written by QtCreator 4.5.0, 2017-12-11T08:12:21. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -370,8 +370,7 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Build Android APK</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">QmakeProjectManager.AndroidBuildApkStep</value>
-      <value type="int" key="Qt4ProjectManager.AndroidDeployQtStep.DeployQtAction">2</value>
-      <value type="bool" key="UseGradle">true</value>
+      <value type="int" key="Qt4ProjectManager.AndroidDeployQtStep.DeployQtAction">1</value>
       <value type="bool" key="VerboseOutput">false</value>
      </valuemap>
      <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">4</value>
@@ -447,8 +446,7 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Build Android APK</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">QmakeProjectManager.AndroidBuildApkStep</value>
-      <value type="int" key="Qt4ProjectManager.AndroidDeployQtStep.DeployQtAction">2</value>
-      <value type="bool" key="UseGradle">true</value>
+      <value type="int" key="Qt4ProjectManager.AndroidDeployQtStep.DeployQtAction">1</value>
       <value type="bool" key="VerboseOutput">false</value>
      </valuemap>
      <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">4</value>
@@ -524,8 +522,7 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Build Android APK</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">QmakeProjectManager.AndroidBuildApkStep</value>
-      <value type="int" key="Qt4ProjectManager.AndroidDeployQtStep.DeployQtAction">2</value>
-      <value type="bool" key="UseGradle">true</value>
+      <value type="int" key="Qt4ProjectManager.AndroidDeployQtStep.DeployQtAction">1</value>
       <value type="bool" key="VerboseOutput">false</value>
      </valuemap>
      <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">4</value>
@@ -689,8 +686,7 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Build Android APK</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">QmakeProjectManager.AndroidBuildApkStep</value>
-      <value type="int" key="Qt4ProjectManager.AndroidDeployQtStep.DeployQtAction">2</value>
-      <value type="bool" key="UseGradle">true</value>
+      <value type="int" key="Qt4ProjectManager.AndroidDeployQtStep.DeployQtAction">1</value>
       <value type="bool" key="VerboseOutput">false</value>
      </valuemap>
      <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">4</value>
@@ -766,8 +762,7 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Build Android APK</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">QmakeProjectManager.AndroidBuildApkStep</value>
-      <value type="int" key="Qt4ProjectManager.AndroidDeployQtStep.DeployQtAction">2</value>
-      <value type="bool" key="UseGradle">true</value>
+      <value type="int" key="Qt4ProjectManager.AndroidDeployQtStep.DeployQtAction">1</value>
       <value type="bool" key="VerboseOutput">false</value>
      </valuemap>
      <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">4</value>
@@ -843,8 +838,7 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Build Android APK</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">QmakeProjectManager.AndroidBuildApkStep</value>
-      <value type="int" key="Qt4ProjectManager.AndroidDeployQtStep.DeployQtAction">2</value>
-      <value type="bool" key="UseGradle">true</value>
+      <value type="int" key="Qt4ProjectManager.AndroidDeployQtStep.DeployQtAction">1</value>
       <value type="bool" key="VerboseOutput">false</value>
      </valuemap>
      <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">4</value>

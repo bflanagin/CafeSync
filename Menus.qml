@@ -181,7 +181,8 @@ Item {
 
                                 font.pixelSize: parent.height * 0.25
                                text: if(title != "Category") {switch(menuitem) {
-                                     case "0": if(selection == 0) {qsTr("Contacts")} else {qsTr("Passers By")};break;
+                                     case "0": qsTr("Passersby");break;
+                                     case "2": qsTr("Contacts");break;
                                     case "1": qsTr("Your Card");break;
                                      case "3": qsTr("Chat ");break;
                                      case "4": qsTr("Messages ");break;
@@ -202,7 +203,8 @@ Item {
                             horizontalAlignment: Text.AlignRight
                             anchors.verticalCenter: parent.verticalCenter
                             text: if(title != "Category") {switch(menuitem) {
-                                  case "0": if(selection == 0) {"("+ctotal+")"} else {"("+ptotal+")"};break;
+                                  case "0":"("+ptotal+")";break;
+                                  case "2":"("+ctotal+")";break;
                                  case "1":"";break;
                                   case "3": qsTr("(Coming Soon)");break;
                                   case "4": qsTr("(Coming Soon)");break;
@@ -249,15 +251,21 @@ Item {
                                     // passby.state = "selected";
                                      pages = 1,cardslist.clear(),currentcard = -1
                              ,mainMenu.rotation=0;
-                              if(selection == 0) {
-                              selection = 1;
-                                  Scripts.Cards_load(searchtext);
-                               } else {
                                   selection = 0;
                                   listget = "temp"
                                   Scripts.Temp_load(searchtext,listget);
-                              }
 
+                          }break;
+                          case "2":{settingsPage.state = "InActive",
+                                    cardPage.state = "show",
+                                    cardPage.state = "default";
+                                    popup.state = "InActive";
+                                    //saveded.state = "unselected";
+                                   // passby.state = "selected";
+                                    pages = 1,cardslist.clear(),currentcard = -1
+                            ,mainMenu.rotation=0;
+                              selection = 1;
+                                  Scripts.Cards_load(searchtext);
                           }break;
                           case "3": /*settingsPage.state = "Active",cardPage.state = "settings";popup.state = "InActive";cardindex = 0;*/break;
                           case "1":settingsPage.state = "InActive",cardPage.state = "show",cardPage.state = "default";currentcard = -1;cardindex = 0;
@@ -301,6 +309,11 @@ Item {
 
                                     ListElement {
                                             menuitem: "0"
+                                            type:1
+                                    }
+
+                                    ListElement {
+                                            menuitem: "2"
                                             type:1
                                     }
 

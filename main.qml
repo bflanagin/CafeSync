@@ -274,14 +274,15 @@ ApplicationWindow {
             onTriggered: {
             Scripts.load_Card();
             OpenSeed.retrieve_data(userid);
-           // OpenSeed.retrieve_data(userid1);
+
 
                 OpenSeed.datasync(userid,0);
-               // OpenSeed.datasync(userid1,1);
-                notification.visible = true;
+
+                 notification.visible = true;
+
             OpenSeed.get_list(userid,"temp");
             OpenSeed.get_list(userid,"saved");
-           // Scripts.Show_sites("local",userid);
+
 
             }
     }
@@ -586,6 +587,8 @@ ApplicationWindow {
     }
 
 
+
+
         Image {
             id:search
 
@@ -676,12 +679,12 @@ ApplicationWindow {
                     onClicked: { if(settingsPage.sourceselect == true) { settingsPage.sourceselect = false} else {
 
 
-                                    Scripts.save_card(userid,username,userphone,useremail,usercompany,
+                                  /*  Scripts.save_card(userid,username,userphone,useremail,usercompany,
                                                                       useralias,usermotto,usermain,website1,website2,website3,website4,
                                                                       stf,atf,ctf,avimg,carddesign,usercat);
                                                     OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
                                                                          useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
-                                                                         avimg,carddesign,usercat);
+                                                                         avimg,carddesign,usercat); */
 
                         themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0,topBar.state = "person",/*mainScreen.state = "InActive",*/pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
                         }
@@ -719,12 +722,14 @@ ApplicationWindow {
 
                 MouseArea {
                     anchors.fill:parent
-                onClicked: {Scripts.save_card(userid,username.replace(/'/g," "),userphone,useremail,usercompany,
+                onClicked: {/*Scripts.save_card(userid,username.replace(/'/g," "),userphone,useremail,usercompany,
                                               useralias,usermotto,usermain,website1,website2,website3,website4,
                                               stf,atf,ctf,avimg,carddesign,usercat);
                             OpenSeed.upload_data(userid,username.replace(/'/g," "),userphone,useremail,usercompany,
                                                  useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
-                                                 avimg,carddesign,usercat);
+                                                 avimg,carddesign,usercat);*/
+
+                            settingsPage.saveit = true;
 
 
                             }
@@ -1399,9 +1404,10 @@ ApplicationWindow {
 
 Wizard {
     id:firstrun
-    width: parent.width
-    height: parent.height * 0.98
-    state: "InActive"
+    width: mainView.width
+    height: mainView.height * 0.98
+    //state: "InActive"
+    state:"InActive"
 }
 
 

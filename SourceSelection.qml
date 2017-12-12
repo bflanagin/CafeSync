@@ -3,7 +3,7 @@ import QtGraphicalEffects 1.0
 import QtMultimedia 5.9
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
-
+import QtSensors 5.9
 import QtQuick.LocalStorage 2.0 as Sql
 
 
@@ -120,6 +120,7 @@ Item {
                     fillMode: Image.PreserveAspectCrop
                     source:if(avimg ==""){"./img/default_avatar.png" }else { if(avimg.search("/9j/4A") != -1) {"data:image/jpeg;base64, "+avimg.replace(/ /g, "+")} else {avimg} }
                    // visible: if(camera.cameraState == 1) {true} else {false}
+
                 }
 
             VideoOutput {
@@ -140,9 +141,11 @@ Item {
 
 
                     fillMode: Image.PreserveAspectCrop
-                    focus : visible // to receive focus and capture key events when visible
+                    focus : true // to receive focus and capture key events when visible
 
                 }
+
+
 
 
             Image {
@@ -181,6 +184,7 @@ Item {
                 color: "#80000000"
                 source:opmask
                 z:1
+
             }
 
             Image {
@@ -190,7 +194,7 @@ Item {
                 height:parent.height * 0.1
                 width:parent.height * 0.1
                 fillMode: Image.PreserveAspectFit
-                source:if(avimg.search("twitter") == -1) {"./img/twitter.png"} else if (avimg.search("gravatar") == -1) {"./img/gravatar.png"} else if (avimg.search("soundcloud") == -1) {"./img/soundcloud.png"} else if (avimg.search("tumblr") == -1) {"./img/tumblr.png"}
+                source:if(avimg.search("twitter") != -1) {"./img/twitter.png"} else if (avimg.search("gravatar") != -1) {"./img/gravatar.png"} else if (avimg.search("soundcloud") != -1) {"./img/soundcloud.png"} else if (avimg.search("tumblr") != -1) {"./img/tumblr.png"} else {"./img/camera-photo.svg"}
             }
 
 
@@ -226,7 +230,7 @@ Item {
                                             camera.start();
                                         } else {
                                             if(check.source == "") {
-                                    capturedAsspect = selectedAsspect;
+                                    //capturedAsspect = selectedAsspect;
                                 camera.imageCapture.captureToLocation(paths.split(",")[2].trim());
                                 camera.imageCapture.capture();
                                             } else { check.source = "";}
@@ -271,7 +275,7 @@ Item {
                 onClicked:{
 
                             if(camera.position == 2) {
-                                capturedAsspect = -90;
+                                //capturedAsspect = -90;
                             }
                             //console.log(comment.text);
                             fileio.store ="library,"+thefile+","+userid
@@ -380,8 +384,8 @@ Item {
 
                 MouseArea {
                             anchors.fill: parent;
-                            onClicked:if(camera.position == 1) {camera.position = 2;cameratype.source ="./img/camera-flip.svg"}
-                                      else {camera.position = 1;cameratype.source ="./img/camera-flip.svg"}
+                            onClicked:if(camera.position == Camera.FrontFace) {camera.position = Camera.BackFace;cameratype.source ="./img/camera-flip.svg"}
+                                      else {camera.position = Camera.FrontFace;cameratype.source ="./img/camera-flip.svg"}
             }
             }
 
@@ -659,7 +663,7 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: sConnect.state = "Active",sConnect.service = "gravatar", sConnect.type = "avatar"
+                    onClicked: sConnect.state = "Active",sConnect.service = "gravatar", sConnect.type = "avatar", sConnect.useraccount = useremail
                 }
           }
 
@@ -728,7 +732,7 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: sConnect.state = "Active",sConnect.service = "soundcloud", sConnect.type = "avatar"
+            onClicked: sConnect.state = "Active",sConnect.service = "soundcloud", sConnect.type = "avatar", sConnect.useraccount = website4
         }
 
          }
@@ -803,7 +807,7 @@ Item {
 
          MouseArea {
              anchors.fill: parent
-             onClicked: sConnect.state = "Active",sConnect.service = "twitter", sConnect.type = "avatar"
+             onClicked: sConnect.state = "Active",sConnect.service = "twitter", sConnect.type = "avatar", sConnect.useraccount = website1
          }
           }
 
@@ -871,7 +875,7 @@ Item {
              }
         MouseArea {
             anchors.fill: parent
-            onClicked: sConnect.state = "Active",sConnect.service = "tumblr", sConnect.type = "avatar"
+            onClicked: sConnect.state = "Active",sConnect.service = "tumblr", sConnect.type = "avatar", sConnect.useraccount = website2
         }
          }
     }
@@ -956,6 +960,8 @@ Item {
 
     Camera {
             id:camera
+           // mirror: if(check.source == "") {true} else {false}
+
 
 
                 position: Camera.FrontFace
