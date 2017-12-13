@@ -35,7 +35,9 @@ ApplicationWindow {
     property string heart: "OffLine"
     property int updateinterval: 0
 
-
+//#795548
+  //  #82A1FF
+  // #487951
     //Theme settings //
     property string backgroundColor: "#EFEFEF"
     property string highLightColor1: "#FFE082"

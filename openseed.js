@@ -1440,3 +1440,25 @@ default: avatar = ""; break;
 
 }
 
+
+function socialaccounts() {
+
+socialaccountslist.clear();
+    var slist = ["Medium::"+cardcolor+"::./img/medium.png::blog","WordPress::"+cardcolor+"::./img/wordpress.png::blog"];
+
+    for(var num =0;num < slist.length;num = num+1) {
+
+socialaccountslist.append({
+                          type:1,
+                          service:slist[num].split("::")[3],
+                          source:"Connect to "+slist[num].split("::")[0],
+                          bgcolor:slist[num].split("::")[1],
+                          serviceLogo:slist[num].split("::")[2],
+                          });
+
+
+
+
+}
+
+}

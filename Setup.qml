@@ -73,7 +73,7 @@ Item {
  property bool saveit: false
 
 
-onStateChanged: if(settingsPage.state == "Active") {topBar.state = "settings";} else {topBar.state = "standard";
+onStateChanged: if(settingsPage.state == "Active") {topBar.state = "settings"; Scripts.fillsites();} else {topBar.state = "standard";
 
                     Scripts.save_card(userid,userName.text,userPhone.text,userEmail.text,userCompany.text,
                                                       userAlias.text,personalMotto.text,usermain,website1,website2,website3,website4,
@@ -687,31 +687,8 @@ Item {
               height: 1
           }
 
-         /* Text {
-           id:mainadvert
-           text: qsTr("Blog: ")
-           font.pixelSize: 18
-           TextField {
-              id: userMain
-              //anchors.bottomMargin: 0
-              //anchors.topMargin: 0
-              anchors.verticalCenter: parent.verticalCenter
 
-              anchors.left: parent.right
-              anchors.leftMargin: parent.width * 0.06
-             // anchors.bottom: parent.bottom
-             // anchors.top: parent.top
-              placeholderText: qsTr("Main Site for Advertising")
-              //font.pixelSize: units.gu(2.4)
-              //width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
-              width:(rectangle1.width - parent.width) * 0.95
-              text:usermain
-              onTextChanged: usermain = userMain.text
-          }
-          } */
-
-
-          Item {
+          /*Item {
               id:mainadvert
               anchors.horizontalCenter: parent.horizontalCenter
 
@@ -775,7 +752,7 @@ Item {
              onClicked: sConnect.state = "Active",sConnect.service = "blog", sConnect.type = "intergration" ,sConnect.useraccount = usermain
          }
 
-          }
+          } */
 
 
           Row {
@@ -798,7 +775,7 @@ Item {
                   wrapMode: Text.WordWrap
                   id:personalMotto
                   width:pmottoRow.width
-                  height:pmottoRow.height - 2
+                  height:pmottoRow.height
                   text:usermotto
                   onTextChanged: usermotto = personalMotto.text
                   clip:true
@@ -918,20 +895,58 @@ Rectangle {
 
 Item {
    //
-    height:(parent.height * 0.08) *1.48
+    height:(parent.height * 0.01) + servicelist.height
     width:parent.width
 
 Rectangle {
     id:socialNetworks
     color:"white"
     anchors.fill: parent
-    width:parent.width
-    height:parent.height
+   // width:parent.width
+   // height:servicelist.height
         clip:true
 
 
+                    ListView {
+                        id:servicelist
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        width:parent.width * 0.98
+                        height:contentHeight
+                        //clip:true
+                        spacing:settingsPage.height * 0.02
 
-                     Item {
+                        model: socialcontracts
+
+                        delegate: SocialOpt {
+
+                                width:parent.width * 0.95
+                                height:settingsPage.height * 0.08
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked:{ sConnect.state = "Active",sConnect.service = "", sConnect.type = "intergration"
+                                                switch (po) {
+                                                    case 0: sConnect.useraccount = usermain;break;
+                                                    case 1: sConnect.useraccount = website1;break;
+                                                    case 2: sConnect.useraccount = website2;break;
+                                                    case 3: sConnect.useraccount = website3;break;
+                                                    case 4: sConnect.useraccount = website4;break;
+                                                        }
+                                                }
+                                        }
+
+                        }
+
+
+
+
+
+
+                    }
+
+
+                    /* Item {
                          id:twitterButton
                          anchors.horizontalCenter: parent.horizontalCenter
                          anchors.top:parent.top
@@ -1131,7 +1146,7 @@ Rectangle {
                         onClicked: sConnect.state = "Active",sConnect.service = "soundcloud", sConnect.type = "intergration",sConnect.useraccount = website4
                     }
 
-                     }
+                     } */
 
 
 }
@@ -1311,6 +1326,11 @@ Rectangle {
 
  }
 
+
+ ListModel {
+     id:socialcontracts
+
+ }
 
 
  }

@@ -1368,3 +1368,207 @@ function totals() {
 
 
 }
+
+function fillsites() {
+    var bg;
+    var srl;
+    if(usermain.length == 1) {
+     /*  socialcontracts.append({
+                              type:0,
+                              service:"",
+                              source:"",
+                              bgcolor:cardcolor,
+                              serviceLogo:"./img/add.svg"
+                              }); */
+   } else {
+
+        switch(usermain.split("::")[0]) {
+            case "twitter": bg = "lightblue"; srl = "./img/twitter.png"; break;
+            case "soundcloud": bg = "orange"; srl = "./img/soundcloud.png";break;
+            case "blog": bg = "darkgray"; srl = "./img/stock_website.svg";break;
+            case "tumblr": bg ="#343460";srl = './img/tumblr.png';break;
+
+             default: bg = cardcolor;break;
+        }
+       socialcontracts.append({
+                              type:1,
+                              service:usermain.split("::")[0],
+                              source:usermain.split("::")[1],
+                              bgcolor:bg,
+                              serviceLogo:srl,
+                              po:0
+                              });
+   }
+
+   if(website1.length == 1) {
+     /*  socialcontracts.append({
+                              type:0,
+                              service:"",
+                              source:"",
+                              bgcolor:cardcolor,
+                              serviceLogo:"./img/add.svg"
+                              }); */
+   } else {
+
+
+       switch(website1.split("::")[0]) {
+           case "twitter": bg = "lightblue"; srl = "./img/twitter.png"; break;
+           case "soundcloud": bg = "orange"; srl = "./img/soundcloud.png";break;
+           case "blog": bg = cardcolor; srl = "./img/stock_website.svg";break;
+           case "tumblr": bg ="#343460";srl = './img/tumblr.png';break;
+
+            default: bg = cardcolor;break;
+       }
+
+       socialcontracts.append({
+                              type:1,
+                              service:website1.split("::")[0],
+                              source:website1.split("::")[1],
+                              bgcolor:bg,
+                              serviceLogo:srl,
+                              po:1
+                              });
+   }
+
+   if(website2.length == 1) {
+     /*  socialcontracts.append({
+                              type:0,
+                              service:"",
+                              source:"",
+                              bgcolor:cardcolor,
+                              serviceLogo:"./img/add.svg"
+                              }); */
+   } else {
+
+       switch(website2.split("::")[0]) {
+       case "twitter": bg = "lightblue"; srl = "./img/twitter.png"; break;
+       case "soundcloud": bg = "orange"; srl = "./img/soundcloud.png";break;
+       case "blog": bg = cardcolor; srl = "./img/stock_website.svg";break;
+       case "tumblr": bg ="#343460";srl = './img/tumblr.png';break;
+
+        default: bg = cardcolor;break;
+       }
+
+       socialcontracts.append({
+                              type:1,
+                              service:website2.split("::")[0],
+                              source:website2.split("::")[1],
+                              bgcolor:bg,
+                              serviceLogo:srl,
+                              po:2
+                              });
+   }
+
+   if(website3.length == 1) {
+     /*  socialcontracts.append({
+                              type:0,
+                              service:"",
+                              source:"",
+                              bgcolor:cardcolor,
+                              serviceLogo:"./img/add.svg"
+                              }); */
+   } else {
+
+       switch(website3.split("::")[0]) {
+       case "twitter": bg = "lightblue"; srl = "./img/twitter.png"; break;
+       case "soundcloud": bg = "orange"; srl = "./img/soundcloud.png";break;
+       case "blog": bg = cardcolor; srl = "./img/stock_website.svg";break;
+       case "tumblr": bg ="#343460";srl = './img/tumblr.png';break;
+
+        default: bg = cardcolor;break;
+       }
+       socialcontracts.append({
+                              type:1,
+                              service:website3.split("::")[0],
+                              source:website3.split("::")[1],
+                              bgcolor:bg,
+                              serviceLogo:srl,
+                              po:3
+                              });
+   }
+
+   if(website4.length == 1) {
+      /* socialcontracts.append({
+                              type:0,
+                              service:"",
+                              source:"",
+                              bgcolor:cardcolor,
+                              serviceLogo:"./img/add.svg"
+                              }); */
+   } else {
+
+       switch(website4.split("::")[0]) {
+       case "twitter": bg = "lightblue"; srl = "./img/twitter.png"; break;
+       case "soundcloud": bg = "orange"; srl = "./img/soundcloud.png";break;
+       case "blog": bg = cardcolor; srl = "./img/stock_website.svg";break;
+       case "tumblr": bg ="#343460";srl = './img/tumblr.png';break;
+
+        default: bg = cardcolor;break;
+       }
+       socialcontracts.append({
+                              type:1,
+                              service:website4.split("::")[0],
+                              source:website4.split("::")[1],
+                              bgcolor:bg,
+                              serviceLogo:srl,
+                              po:4
+                              });
+   }
+
+
+   if(usermain.length ==1) {
+                    socialcontracts.append({
+                                     type:1,
+                                     service:"",
+                                     source:"Add New Source",
+                                     bgcolor:cardcolor,
+                                     serviceLogo:"./img/add.svg",
+                                     po: 0
+                                     });
+        } else if(website1.length ==1) {
+                  socialcontracts.append({
+                                     type:1,
+                                     service:"",
+                                     source:"Add New Source",
+                                     bgcolor:cardcolor,
+                                     serviceLogo:"./img/add.svg",
+                                     po: 1
+                                     });
+
+     }else if(website2.length ==1) {
+
+                    socialcontracts.append({
+                                     type:1,
+                                     service:"",
+                                     source:"Add New Source",
+                                     bgcolor:cardcolor,
+                                     serviceLogo:"./img/add.svg",
+                                     po: 2
+                                     });
+
+       }else if(website3.length ==1) {
+
+                    socialcontracts.append({
+                                     type:1,
+                                     service:"",
+                                     source:"Add New Source",
+                                     bgcolor:cardcolor,
+                                     serviceLogo:"./img/add.svg",
+                                     po:3
+                                     });
+
+           } else if(website4.length ==1) {
+
+                    socialcontracts.append({
+                                     type:1,
+                                     service:"",
+                                     source:"Add New Source",
+                                     bgcolor:cardcolor,
+                                     serviceLogo:"./img/add.svg",
+                                     po:4
+                                     });
+
+                            }
+
+
+}

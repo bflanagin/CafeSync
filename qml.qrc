@@ -203,5 +203,6 @@
         <file>img/gps.svg</file>
         <file>img/tumblr.svg</file>
         <file>img/overlay.svg</file>
+        <file>SocialOpt.qml</file>
     </qresource>
 </RCC>

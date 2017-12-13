@@ -190,9 +190,9 @@ import "openseed.js" as OpenSeed
                                             font.bold: true
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             anchors.left:card_avatar_backing.right
-                                           anchors.leftMargin: 4
+                                           anchors.leftMargin: parent.width * 0.008
                                             anchors.top: parent.top
-                                            anchors.topMargin: 40
+                                            anchors.topMargin: parent.height * 0.07
                                            // wrapMode:Text.WordWrap
 
                                         }
@@ -201,7 +201,7 @@ import "openseed.js" as OpenSeed
                                             visible:if(cardsop == 1) {true} else {false}
                                             anchors.top:nametag.bottom
                                             anchors.left:card_avatar_backing.right
-                                            width:parent.width * 0.6
+                                            width:parent.width * 0.58
                                             height:3
                                             color:highLightColor1
                                         }
@@ -215,9 +215,9 @@ import "openseed.js" as OpenSeed
                                             //font.bold: true
                                            // anchors.horizontalCenter: parent.horizontalCenter
                                             anchors.left:card_avatar_backing.right
-                                            anchors.leftMargin: 12
+                                            anchors.leftMargin: parent.width * 0.03
                                             anchors.top: nametag.bottom
-                                            anchors.topMargin: 10
+                                            anchors.topMargin: parent.height * 0.04
                                             wrapMode:Text.WordWrap
                                             width:parent.width * 0.55
                                         }
@@ -230,9 +230,9 @@ import "openseed.js" as OpenSeed
                                             width:parent.width - card_avatar_backing
                                             anchors.right:parent.right
                                             anchors.bottom:parent.bottom
-                                            anchors.rightMargin:parent.width / 25
+                                            anchors.rightMargin:parent.width * 0.02
                                            // anchors.top:nametag.bottom
-                                            anchors.bottomMargin: parent.width / 25 //units.gu(2.4)
+                                            anchors.bottomMargin: parent.height * 0.02 //units.gu(2.4)
                                             //font.bold: true
                                             font.pixelSize: parent.width * 0.04 //units.gu(1.8)
                                            text: company
