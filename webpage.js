@@ -124,7 +124,12 @@ function rss_reader1(url) {
                 themessage = topblock.split("<description>")[1].split("</description>")[0].replace(/&#039;/g,"'").replace(/&#8217;/g,"'").replace(/&#38;/g,"&");
                 }
 
+
+
                 var allposts = pagedata.split("<item>");
+                 postcount = allposts.length;
+
+
                 while(allposts.length > num) {
                     var imagegetter = "";
                 var post = allposts[num].substring(0,allposts[num].search("</item>"));
@@ -265,6 +270,8 @@ function rss_medium(url) {
                 themessage = topblock.split("<description><![CDATA[")[1].split("]]></description>")[0];
 
                 var allposts = pagedata.split("<item>");
+
+                postcount = allposts.length;
                 while(allposts.length > num) {
                     var imagegetter = "";
                 var post = allposts[num].substring(0,allposts[num].search("</item>"));

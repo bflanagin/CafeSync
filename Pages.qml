@@ -52,6 +52,7 @@ Item {
     property int thetimeleft: 0
 
     property int pindex:0
+    property int postcount: 0
 
 
     property int ispersonal:0

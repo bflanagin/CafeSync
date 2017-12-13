@@ -265,6 +265,7 @@ Item {
                                     pages = 1,cardslist.clear(),currentcard = -1
                             ,mainMenu.rotation=0;
                               selection = 1;
+                              listget = "saved";
                                   Scripts.Cards_load(searchtext);
                           }break;
                           case "3": /*settingsPage.state = "Active",cardPage.state = "settings";popup.state = "InActive";cardindex = 0;*/break;

@@ -960,8 +960,6 @@ Item {
 
     Camera {
             id:camera
-           // mirror: if(check.source == "") {true} else {false}
-
 
 
                 position: Camera.FrontFace
@@ -971,7 +969,7 @@ Item {
             }
 
             exposure {
-                exposureCompensation: -1.0
+               // exposureCompensation: -1.0
                 exposureMode: switch(setExpos) {
                               case 0:Camera.ExposureAuto;break;
                               case 1:Camera.ExposureLandscape;break;
@@ -1000,6 +998,7 @@ Item {
 
 
 
+
             flash.mode: switch(setFlash) {
                         case 0: Camera.FlashAuto;break;
                         case 1: Camera.FlashOff;break;
@@ -1008,6 +1007,7 @@ Item {
                         }
 
             imageCapture {
+                resolution: "640x480"
 
                 onImageCaptured: {
                     check.source = preview
@@ -1017,6 +1017,7 @@ Item {
 
                 }
                 onImageSaved: {
+
                     thefile = path
 
                 }
@@ -1025,5 +1026,7 @@ Item {
 
 
         }
+
+
 
 }

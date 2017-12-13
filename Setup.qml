@@ -419,8 +419,8 @@ Item {
          anchors.verticalCenter: parent.verticalCenter
          //objectName: "switch_checked"
 
-         checked: if(cardindex == 0) {if(stf == "true"){ return true } else {return false} }
-        // onCheckedChanged: if(cardindex == 0) {stf = sendCard.checked }
+         checked: if(stf == "true"){ return true } else {return false}
+         onCheckedChanged: if(sendCard.checked == true) {stf = "true" } else {stf = "false"}
      }
 
 
@@ -521,8 +521,8 @@ Item {
          width:(contactarea.width * 0.98) - phoneLabel.width
         // width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
          inputMethodHints: Qt.ImhDialableCharactersOnly
-         text:if(cardindex == 0) {userphone}
-         onTextChanged: if(cardindex == 0) {userphone = userPhone.text}
+         text:userphone
+         onTextChanged: userphone = userPhone.text
      }
   }
 
@@ -550,8 +550,8 @@ Item {
          width:(contactarea.width * 0.98) -emailLabel.width
 
        //  width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
-         text:if(cardindex == 0) {useremail} else {useremail1}
-         onTextChanged: if(cardindex == 0) {useremail = userEmail.text}
+         text:useremail
+         onTextChanged: useremail = userEmail.text
      }
 
   }
@@ -586,8 +586,8 @@ Item {
           anchors.verticalCenter: parent.verticalCenter
           objectName: "switch_checked"
 
-          checked: if(cardindex == 0) { if(ctf == "true"){ return true } else { return false} }
-         // onCheckedChanged: if(cardindex == 0) {ctf = sendContact.checked }
+          checked:if(ctf == "true"){ return true } else { return false}
+          onCheckedChanged: if(sendContact.checked == true) {ctf = "true" } else {ctf = "false"}
       }
   }
 

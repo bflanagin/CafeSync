@@ -25,6 +25,7 @@ Item {
     property string post:""
     property string postimage:""
     property string link:""
+   //  property int postcount: 0
 
     clip: true
 
@@ -286,14 +287,25 @@ Item {
             }
 
         }
-       /* Text {
-            anchors.left:servicelogo.right
+        Text {
+            id:totalPosts
+            anchors.right:parent.right
+            anchors.rightMargin: parent.width * 0.04
             anchors.verticalCenter:servicelogo.verticalCenter
-            font.underline: true
+            //font.underline: true
             font.pixelSize: servicelogo.height * 0.5
-            text:service
-            color:"black"
-        } */
+            text:postcount
+            color:highLightColor1
+        }
+
+        Rectangle {
+            anchors.right:totalPosts.left
+            anchors.rightMargin: parent.width * 0.05
+            height:servicelogo.height * 0.80
+            anchors.verticalCenter: servicelogo.verticalCenter
+            color:highLightColor1
+            width:3
+        }
     }
 
     }

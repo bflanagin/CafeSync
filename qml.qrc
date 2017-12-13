@@ -201,5 +201,7 @@
         <file>img/flash-off.svg</file>
         <file>img/flash-on.svg</file>
         <file>img/gps.svg</file>
+        <file>img/tumblr.svg</file>
+        <file>img/overlay.svg</file>
     </qresource>
 </RCC>

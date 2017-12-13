@@ -273,18 +273,25 @@ ApplicationWindow {
             interval:10; running:true; repeat: false
             onTriggered: {
             Scripts.load_Card();
-            OpenSeed.retrieve_data(userid);
 
-
-                OpenSeed.datasync(userid,0);
-
+                heartbeats.start();
                  notification.visible = true;
 
-            OpenSeed.get_list(userid,"temp");
-            OpenSeed.get_list(userid,"saved");
+
 
 
             }
+    }
+
+    Timer {
+        id:connect
+        interval: 10;running: false; repeat: false
+
+        onTriggered: {OpenSeed.retrieve_data(userid);
+                       OpenSeed.datasync(userid,0);
+                        OpenSeed.get_list(userid,"temp");
+                        OpenSeed.get_list(userid,"saved");
+                     }
     }
 
     Timer {
@@ -577,11 +584,11 @@ ApplicationWindow {
             }
         }
 
-        /*Text{
+        Text{
             anchors.left:parent.right
-            text:numofcards
+            text:""
 
-        } */
+        }
 
 
     }
@@ -622,7 +629,7 @@ ApplicationWindow {
                                           // case 2:"img/stock_website.svg";break;
                                               default:"img/gps.svg";break;
                                             }
-                                    }else {"img/overlay-dark.png"}
+                                    }else {"img/overlay.svg"}
             width:parent.height * 0.7
             height:parent.height * 0.7
 
@@ -893,10 +900,10 @@ ApplicationWindow {
         anchors.verticalCenter: parent.verticalCenter
 
         source:switch(currentcard_saved) {
-               case 0: "./img/overlay-dark.png";break;
-               case 1: "./img/overlay-dark.png";break;
-               case 2: "./img/overlay-dark.png";break;
-               default: "./img/overlay-dark.png";break;
+               case 0: "./img/overlay.svg";break;
+               case 1: "./img/overlay.svg";break;
+               case 2: "./img/overlay.svg";break;
+               default: "./img/overlay.svg";break;
                }
 
         //z: -8
@@ -1221,7 +1228,7 @@ ApplicationWindow {
                   }
 
                 Image {
-                    source: "./img/overlay-dark.png"
+                    source: "./img/overlay.svg"
                     anchors.centerIn: parent
                     fillMode:Image.PreserveAspectFit
                     width:parent.width /2

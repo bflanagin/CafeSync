@@ -5,6 +5,7 @@ import QtQuick.Dialogs 1.2
 //import QtQuick.Controls 1.3
 //import QtQuick.Controls.Styles 1.3
 //import Ubuntu.Components 1.2
+import QtGraphicalEffects 1.0
 
 
 import QtQuick.LocalStorage 2.0 as Sql

@@ -102,9 +102,14 @@ function save_card(id,username,userphone,useremail,usercompany,useralias,usermot
 
         var test = tx.executeSql(OptStr);
         if(test.rows.length == 0) {
+
+             if(userid != "") {
         tx.executeSql(settingStr, settingdata);
+             }
         } else {
+             if(userid != "") {
             tx.executeSql(updateOptions);
+             }
         }
 
     });
@@ -205,7 +210,9 @@ function load_Card() {
 
             cardloaded = 1;
 
-            heartbeats.running = true;
+            connect.start();
+
+           // heartbeats.running = true;
 
 
         } else {
@@ -501,7 +508,7 @@ function Cards_save(id,username,userphone,useremail,usercompany,useralias,usermo
            //tx.executeSql("DROP TABLE Card");
             tx.executeSql('CREATE TABLE IF NOT EXISTS SavedCards(id INT UNIQUE, name TEXT,phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT, website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT,cardback TEXT,cat TEXT,cardsop INT)');
 
-            if(id != 0) {
+            if(id.length != 0) {
                // console.log("Saved card "+id);
             tx.executeSql(userStr, data);
             }

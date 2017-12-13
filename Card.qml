@@ -83,16 +83,16 @@ import "openseed.js" as OpenSeed
 
                                     Timer {
                                         id:updatecard
-                                        interval: 10000
+                                        interval: 10000+(index*100)
                                         running: true
-                                        repeat: true
+                                        repeat: false
 
                                         onTriggered:OpenSeed.update_card(cardId,listget)
 
 
                                     }
 
-                                    Timer {
+                                   /* Timer {
                                         id:updateinfo
                                         interval: 15000
                                         running: true
@@ -101,7 +101,7 @@ import "openseed.js" as OpenSeed
                                         //onTriggered:OpenSeed.update_card(cardId,listget)
 
 
-                                    }
+                                    } */
 
 
 
@@ -322,6 +322,7 @@ import "openseed.js" as OpenSeed
                                     //onClicked: {currentcard = index; cards.flipped = !cards.flipped; if(cards.side == 0) {if(layouts.width >= units.gu(mobile_vert)) {Scripts.Show_sites(card);} } else { /*pages = 0;*///}
                                         onClicked: {currentcard = index;
                                             //cards.flipped = !cards.flipped;
+                                                    pagelist.clear();
                                                     gc();
                                                 mainScreen.positionViewAtBeginning();
 

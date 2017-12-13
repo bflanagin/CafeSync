@@ -24,6 +24,7 @@ Item {
     property string posttitle:""
     property string post:""
     property string postimage:""
+    property int postcount: 0
 
     clip: true
 
@@ -137,7 +138,7 @@ Item {
         border.color:"gray"
         border.width:4
         width:parent.width * 0.98
-        height:popup.height * 0.80
+        height:postcontent.height + (parent.height * 0.001)
 
         anchors.horizontalCenter: parent.horizontalCenter
         //height:postcontent.height + 10
@@ -148,7 +149,7 @@ Item {
             id:postcontent
             anchors.horizontalCenter: parent.horizontalCenter
             width:parent.width * 0.98
-            height:parent.height * 0.95
+            height:postdata.y + postdata.height
             Text {
                 id:titletext
                 width:parent.width
@@ -173,13 +174,14 @@ Item {
                 visible: if(postimage.length > 2) {true} else {false}
                 anchors.top:postsplitter.bottom
                 width:parent.width * 0.98
-                height:if(postimage.length > 2) {parent.height * 0.70} else {10}
+                height:if(postimage.length > 2) {popup.height * 0.70} else {10}
                 fillMode: Image.PreserveAspectFit
                 anchors.horizontalCenter: parent.horizontalCenter
                 source:postimage
                 id:postimg
             }
             Text {
+                id:postdata
                 anchors.top:postimg.bottom
                 anchors.topMargin:8
                 //anchors.bottom:parent.bottom
@@ -260,9 +262,9 @@ Item {
         width:parent.width
         opacity:0
 
-       /* Image {
+        Image {
             id:servicelogo
-            source:pluginlogo
+            source:"./img/tumblr.svg"
             width:parent.width * 0.07
             height:parent.height * 0.07
             fillMode:Image.PreserveAspectFit
@@ -273,19 +275,31 @@ Item {
                 anchors.centerIn: parent
                 height:parent.height * 1.1
                 width:parent.height * 1.1
-                color:cardcolor
+                color:highLightColor1
                 z:-1
                 radius: width /2
             }
 
-        } */
-       /* Text {
-            anchors.left:servicelogo.right
+        }
+        Text {
+            id:totalPosts
+            anchors.right:parent.right
+            anchors.rightMargin: parent.width * 0.04
             anchors.verticalCenter:servicelogo.verticalCenter
-            font.underline: true
+            //font.underline: true
             font.pixelSize: servicelogo.height * 0.5
-            text:service
-        } */
+            text:postcount
+            color:highLightColor1
+        }
+
+        Rectangle {
+            anchors.right:totalPosts.left
+            anchors.rightMargin: parent.width * 0.05
+            height:servicelogo.height * 0.80
+            anchors.verticalCenter: servicelogo.verticalCenter
+            color:highLightColor1
+            width:3
+        }
     }
 
     }
