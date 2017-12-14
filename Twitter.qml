@@ -221,7 +221,7 @@ Item {
                    target:blinder
                     y:parent.height * 0.92
                     radius:0
-                    color:barColor
+                    color:bottombarColor
                     }
                     PropertyChanges {
                         target:links

@@ -1372,24 +1372,24 @@ function totals() {
 function fillsites() {
     var bg;
     var srl;
-    if(usermain.length == 1) {
-     /*  socialcontracts.append({
-                              type:0,
-                              service:"",
-                              source:"",
-                              bgcolor:cardcolor,
-                              serviceLogo:"./img/add.svg"
-                              }); */
-   } else {
+    var sourceset;
 
-        switch(usermain.split("::")[0]) {
+    socialcontracts.clear();
+    if(usermain.length > 1) {
+
+
+       /* switch(usermain.split("::")[0]) {
             case "twitter": bg = "lightblue"; srl = "./img/twitter.png"; break;
             case "soundcloud": bg = "orange"; srl = "./img/soundcloud.png";break;
             case "blog": bg = "darkgray"; srl = "./img/stock_website.svg";break;
             case "tumblr": bg ="#343460";srl = './img/tumblr.png';break;
 
              default: bg = cardcolor;break;
-        }
+        } */
+        sourceset = socialsetup(usermain.split("::")[0]);
+        srl = sourceset.split("::")[2];
+        bg = sourceset.split("::")[1];
+
        socialcontracts.append({
                               type:1,
                               service:usermain.split("::")[0],
@@ -1400,25 +1400,22 @@ function fillsites() {
                               });
    }
 
-   if(website1.length == 1) {
-     /*  socialcontracts.append({
-                              type:0,
-                              service:"",
-                              source:"",
-                              bgcolor:cardcolor,
-                              serviceLogo:"./img/add.svg"
-                              }); */
-   } else {
+   if(website1.length > 1) {
 
 
-       switch(website1.split("::")[0]) {
-           case "twitter": bg = "lightblue"; srl = "./img/twitter.png"; break;
-           case "soundcloud": bg = "orange"; srl = "./img/soundcloud.png";break;
-           case "blog": bg = cardcolor; srl = "./img/stock_website.svg";break;
-           case "tumblr": bg ="#343460";srl = './img/tumblr.png';break;
 
-            default: bg = cardcolor;break;
-       }
+       /* switch(usermain.split("::")[0]) {
+            case "twitter": bg = "lightblue"; srl = "./img/twitter.png"; break;
+            case "soundcloud": bg = "orange"; srl = "./img/soundcloud.png";break;
+            case "blog": bg = "darkgray"; srl = "./img/stock_website.svg";break;
+            case "tumblr": bg ="#343460";srl = './img/tumblr.png';break;
+
+             default: bg = cardcolor;break;
+        } */
+        sourceset = socialsetup(website1.split("::")[0]);
+        srl = sourceset.split("::")[2];
+        bg = sourceset.split("::")[1];
+
 
        socialcontracts.append({
                               type:1,
@@ -1430,24 +1427,21 @@ function fillsites() {
                               });
    }
 
-   if(website2.length == 1) {
-     /*  socialcontracts.append({
-                              type:0,
-                              service:"",
-                              source:"",
-                              bgcolor:cardcolor,
-                              serviceLogo:"./img/add.svg"
-                              }); */
-   } else {
+   if(website2.length > 1) {
 
-       switch(website2.split("::")[0]) {
-       case "twitter": bg = "lightblue"; srl = "./img/twitter.png"; break;
-       case "soundcloud": bg = "orange"; srl = "./img/soundcloud.png";break;
-       case "blog": bg = cardcolor; srl = "./img/stock_website.svg";break;
-       case "tumblr": bg ="#343460";srl = './img/tumblr.png';break;
 
-        default: bg = cardcolor;break;
-       }
+       /* switch(usermain.split("::")[0]) {
+            case "twitter": bg = "lightblue"; srl = "./img/twitter.png"; break;
+            case "soundcloud": bg = "orange"; srl = "./img/soundcloud.png";break;
+            case "blog": bg = "darkgray"; srl = "./img/stock_website.svg";break;
+            case "tumblr": bg ="#343460";srl = './img/tumblr.png';break;
+
+             default: bg = cardcolor;break;
+        } */
+        sourceset = socialsetup(website2.split("::")[0]);
+        srl = sourceset.split("::")[2];
+        bg = sourceset.split("::")[1];
+
 
        socialcontracts.append({
                               type:1,
@@ -1459,24 +1453,21 @@ function fillsites() {
                               });
    }
 
-   if(website3.length == 1) {
-     /*  socialcontracts.append({
-                              type:0,
-                              service:"",
-                              source:"",
-                              bgcolor:cardcolor,
-                              serviceLogo:"./img/add.svg"
-                              }); */
-   } else {
+   if(website3.length > 1) {
 
-       switch(website3.split("::")[0]) {
-       case "twitter": bg = "lightblue"; srl = "./img/twitter.png"; break;
-       case "soundcloud": bg = "orange"; srl = "./img/soundcloud.png";break;
-       case "blog": bg = cardcolor; srl = "./img/stock_website.svg";break;
-       case "tumblr": bg ="#343460";srl = './img/tumblr.png';break;
 
-        default: bg = cardcolor;break;
-       }
+       /* switch(usermain.split("::")[0]) {
+            case "twitter": bg = "lightblue"; srl = "./img/twitter.png"; break;
+            case "soundcloud": bg = "orange"; srl = "./img/soundcloud.png";break;
+            case "blog": bg = "darkgray"; srl = "./img/stock_website.svg";break;
+            case "tumblr": bg ="#343460";srl = './img/tumblr.png';break;
+
+             default: bg = cardcolor;break;
+        } */
+        sourceset = socialsetup(website3.split("::")[0]);
+        srl = sourceset.split("::")[2];
+        bg = sourceset.split("::")[1];
+
        socialcontracts.append({
                               type:1,
                               service:website3.split("::")[0],
@@ -1487,24 +1478,21 @@ function fillsites() {
                               });
    }
 
-   if(website4.length == 1) {
-      /* socialcontracts.append({
-                              type:0,
-                              service:"",
-                              source:"",
-                              bgcolor:cardcolor,
-                              serviceLogo:"./img/add.svg"
-                              }); */
-   } else {
+   if(website4.length > 1) {
 
-       switch(website4.split("::")[0]) {
-       case "twitter": bg = "lightblue"; srl = "./img/twitter.png"; break;
-       case "soundcloud": bg = "orange"; srl = "./img/soundcloud.png";break;
-       case "blog": bg = cardcolor; srl = "./img/stock_website.svg";break;
-       case "tumblr": bg ="#343460";srl = './img/tumblr.png';break;
 
-        default: bg = cardcolor;break;
-       }
+       /* switch(usermain.split("::")[0]) {
+            case "twitter": bg = "lightblue"; srl = "./img/twitter.png"; break;
+            case "soundcloud": bg = "orange"; srl = "./img/soundcloud.png";break;
+            case "blog": bg = "darkgray"; srl = "./img/stock_website.svg";break;
+            case "tumblr": bg ="#343460";srl = './img/tumblr.png';break;
+
+             default: bg = cardcolor;break;
+        } */
+        sourceset = socialsetup(website4.split("::")[0]);
+        srl = sourceset.split("::")[2];
+        bg = sourceset.split("::")[1];
+
        socialcontracts.append({
                               type:1,
                               service:website4.split("::")[0],
@@ -1516,7 +1504,7 @@ function fillsites() {
    }
 
 
-   if(usermain.length ==1) {
+   if(usermain.length <=1) {
                     socialcontracts.append({
                                      type:1,
                                      service:"",
@@ -1525,7 +1513,7 @@ function fillsites() {
                                      serviceLogo:"./img/add.svg",
                                      po: 0
                                      });
-        } else if(website1.length ==1) {
+        } else if(website1.length <=1) {
                   socialcontracts.append({
                                      type:1,
                                      service:"",
@@ -1535,7 +1523,7 @@ function fillsites() {
                                      po: 1
                                      });
 
-     }else if(website2.length ==1) {
+     }else if(website2.length <=1) {
 
                     socialcontracts.append({
                                      type:1,
@@ -1546,7 +1534,7 @@ function fillsites() {
                                      po: 2
                                      });
 
-       }else if(website3.length ==1) {
+       }else if(website3.length <=1) {
 
                     socialcontracts.append({
                                      type:1,
@@ -1557,7 +1545,7 @@ function fillsites() {
                                      po:3
                                      });
 
-           } else if(website4.length ==1) {
+           } else if(website4.length <=1) {
 
                     socialcontracts.append({
                                      type:1,
@@ -1570,5 +1558,25 @@ function fillsites() {
 
                             }
 
+
+}
+
+function socialsetup(source) {
+    var ssinfo = "not found";
+
+    var slist = ["Facebook::"+"#3C5A8A"+"::./img/fb.png::facebook","Twitter::"+"lightblue"+"::./img/twitter.png::twitter","Tumblr::"+"#343460"+"::./img/tumblr.png::tumblr","Linkedin::"+"#6084C4"+"::./img/linkedin.png::linkedin",
+                 "Medium::"+"darkgray"+"::./img/medium.png::blog","WordPress::"+"darkgray"+"::./img/wordpress.png::blog","RSS::"+"darkgray"+"::./img/RSS.png::blog","SoundCloud::"+cardcolor+"::./img/soundcloud.png::soundcloud"];
+
+
+    for(var num=0;num < slist.length;num = num+1) {
+
+        if(slist[num].search(source) != -1) {
+            ssinfo = slist[num];
+        }
+
+    }
+
+
+return ssinfo;
 
 }

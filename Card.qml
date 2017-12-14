@@ -186,7 +186,9 @@ import "openseed.js" as OpenSeed
                                             id:nametag
                                             visible:if(cardsop == 1) {true} else {false}
                                             text: name
-                                            font.pixelSize:  parent.width / 17 //units.gu(2.05)
+                                            //width:thecard.width * 2
+                                            //wrapMode: Text.WordWrap
+                                            font.pixelSize:  parent.height * 0.17 - text.length
                                             font.bold: true
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             anchors.left:card_avatar_backing.right
@@ -200,8 +202,9 @@ import "openseed.js" as OpenSeed
                                         Rectangle {
                                             visible:if(cardsop == 1) {true} else {false}
                                             anchors.top:nametag.bottom
+                                            anchors.topMargin: parent.height * 0.04
                                             anchors.left:card_avatar_backing.right
-                                            width:parent.width * 0.58
+                                            width:parent.width * 0.57
                                             height:3
                                             color:highLightColor1
                                         }
@@ -217,7 +220,7 @@ import "openseed.js" as OpenSeed
                                             anchors.left:card_avatar_backing.right
                                             anchors.leftMargin: parent.width * 0.03
                                             anchors.top: nametag.bottom
-                                            anchors.topMargin: parent.height * 0.04
+                                            anchors.topMargin: parent.height * 0.06
                                             wrapMode:Text.WordWrap
                                             width:parent.width * 0.55
                                         }

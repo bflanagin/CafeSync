@@ -1,75 +1,120 @@
 import QtQuick 2.3
 import QtQuick.Window 2.2
-//import QtQuick.Controls 1.3
-//import QtQuick.Controls.Styles 1.3
-//import Ubuntu.Components 1.2
+import QtGraphicalEffects 1.0
 import QtQuick.Controls.Material 2.0
 
 import "main.js" as Scripts
 
-Rectangle {
-//Item {
+Item {
     id:popup
-    property string number: "0"
-    property string list:""
-    radius: width / 2
 
-    //clip: true
+    anchors.centerIn: parent
+    width:parent.width * 1.2
+    height:parent.height * 1.2
+    z:-1
 
-    //onStateChanged: Scripts.loadActions(list)
     state:"InActive"
     states: [
         State {
             name:"Active"
             PropertyChanges {
-                target: popup
+                target: circle
                 //z: 3
-                visible:true
+                //visible:true
                 color: Qt.rgba(0.5,0.5,0.5,0.5)
             }
+            PropertyChanges {
+                target: thedrop
+                //z: 3
+                visible:true
+
+            }
+
+
 
         },
         State {
           name:"InActive"
           PropertyChanges {
-              target: popup
+              target: circle
               //z: -2
-              visible:true
+              //visible:true
               //color: Qt.rgba(0.5,0.5,0.5,0.5)
               color:highLightColor1
-                z:-1
+              //  z:-1
                 opacity: 0.9
           }
+          PropertyChanges {
+              target: thedrop
+              //z: 3
+              visible:true
+
+          }
+
         },
         State {
           name:"Alert"
           PropertyChanges {
-              target: popup
+              target: circle
               //z: -2
-              visible:true
+             // visible:true
               color:Qt.rgba(1.0,0.0,0.0,0.5)
-              z:-1
+              //z:-1
           }
+
+          PropertyChanges {
+              target: thedrop
+              //z: 3
+              visible:true
+
+          }
+
         },
                 State {
                   name:"Enabled"
                   PropertyChanges {
-                      target: popup
+                      target: circle
                       //z: -2
                       visible:true
                       color:activeColor
-                      z:-1
+                     // z:-1
                   }
                 }
     ]
 
-    anchors.centerIn: parent
-    width:parent.width * 1.2
-    height:parent.height * 1.2
+
+
+Rectangle {
+    id:circle
+
+    property string number: "0"
+    property string list:""
+    radius: width / 2
+    visible: false
+    //clip: true
+
+    //onStateChanged: Scripts.loadActions(list)
+
+
+   anchors.fill: parent
 
 
 }
 
+DropShadow {
+        id:thedrop
+       anchors.fill: circle
+       horizontalOffset: 0
+       verticalOffset: 4
+       radius: 8.0
+       samples: 17
+       color: "#80000000"
+       source: circle
+       z:-1
+
+   }
+
+}
 
 
 

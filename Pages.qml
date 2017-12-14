@@ -113,8 +113,11 @@ Item {
 
        } else if(page.search("gofundme") != -1) {
                  custompage = 12;
+
+        } else if(page.search("blog") != -1) {
+                  custompage = 13;
         } else if(custompage == 0) {
-                 WebPage.get_html(page);
+               //  WebPage.get_html(page.split("::")[1]);
                    }
 
     }
@@ -226,8 +229,8 @@ Item {
 
 
 
-        /*FaceBook {
-            state:if(custompage == 1) {"Active"} else {"InActive"}
+        FaceBook {
+            state:if(custompage == 1 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             fburl:page
@@ -235,7 +238,7 @@ Item {
         }
 
         Linkedin {
-            state:if(custompage == 2) {"Active"} else {"InActive"}
+            state:if(custompage == 2 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page
@@ -243,7 +246,7 @@ Item {
 
 
 
-        } */
+        }
 
         Twitter {
             state:if(custompage == 3 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
@@ -301,7 +304,7 @@ Item {
         }
 
         RSS {
-            state:if(hasrss && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
+            state:if(custompage == 13 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page

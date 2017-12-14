@@ -14,8 +14,17 @@ Item {
     property string service: ""
     property string avatar: ""
     property string profilename: "none"
+    property string info: ""
     property string type: ""
     property string useraccount: ""
+
+    property int po: 0
+
+    property string currentservice:""
+
+    property string theservice: ""
+    property string theserviceLogo: ""
+    property string theaccount: ""
 
     MouseArea {
         anchors.fill:parent
@@ -27,7 +36,7 @@ Item {
         running:true
         repeat: false
         interval: 800
-        onTriggered: if(account.text.length > 2) {OpenSeed.serviceConnect(service,account.text)}
+        onTriggered: if(account.text.length > 2 || account1.text.length > 2) {if(type == "avatar") {OpenSeed.serviceConnect(service,account.text)} else {OpenSeed.serviceConnect(useraccount.split("::")[0],account1.text) }  }
     }
 
     states: [
@@ -72,8 +81,17 @@ Item {
 
     ]
 
-    onStateChanged: if(thisWindow.state == "Active") {servicecheck.start();OpenSeed.socialaccounts();
-                    } else {service="",useraccount="",avatar = "",profilename = "",servicecheck.stop();}
+    onStateChanged: if(thisWindow.state == "Active") {servicecheck.start();OpenSeed.socialaccounts();settingsPage.enabled = false;
+                        if(type == "intergration") {
+                            switch(po) {
+                            case 0: useraccount = usermain;break;
+                            case 1: useraccount = website1;break;
+                            case 2: useraccount = website2;break;
+                            case 3: useraccount = website3;break;
+                            case 4: useraccount = website4;break;
+                            }
+                        }
+                    } else {service="",useraccount="",avatar = "",profilename = "",info = "",servicecheck.stop();settingsPage.enabled = true;}
 
     Item {
         id:typeAvatar
@@ -86,7 +104,7 @@ Item {
         y:parent.height * 0.04
         anchors.horizontalCenter: parent.horizontalCenter
         width:parent.width * 0.95
-        height:parent.height * 0.80
+        height:parent.height * 0.90
         color:cardcolor
         border.color: "black"
         border.width:1
@@ -335,16 +353,13 @@ Item {
         visible: if(type == "intergration") {true} else {false}
 
 
-        property string theservice: ""
-        property string theserviceLogo: ""
-        property string theaccount: ""
 
         Rectangle {
             id:backing1
             y:parent.height * 0.04
             anchors.horizontalCenter: parent.horizontalCenter
             width:parent.width * 0.95
-            height:parent.height * 0.80
+            height:parent.height * 0.90
             color:cardcolor
             border.color: "black"
             border.width:1
@@ -354,39 +369,41 @@ Item {
             Column {
                 width:parent.width
                 height:parent.height
-                spacing:40
+                spacing:parent.height * 0.05
+
+                Item {
+                    width:parent.width
+                    height:parent.height * 0.01
+                }
 
                 Item {
                     //anchors.horizontalCenter: parent.horizontalCenter
                     width:parent.width * 0.2
                     height:parent.width * 0.2
+                    anchors.left:parent.left
+                    anchors.leftMargin: parent.width * 0.02
 
                              Image {
                                      id:photo1
                                      anchors.fill:parent
 
                                  fillMode: Image.PreserveAspectFit
-                                source: if(theserviceLogo == "") {switch(theservice) {
-                                        case "gravatar": "./img/gravatarlogo.jpg";break;
-                                        case "twitter": "./img/twitter.png";break;
-                                        case "tumblr": "./img/tumblr.png";break;
-                                        case "soundcloud":"./img/soundcloud.png";break;
-                                       // case "kickstarter":"./img/kickstarter.png";break;
-                                        default: "./img/stock_website.svg";break;
-                                        }
-                                        } else {theserviceLogo}
+                                source: if(avatar == "" ) {
+                                            if(theserviceLogo == "") {
+                                                switch(useraccount.split("::")[0]) {
+                                                        case "gravatar": "./img/gravatarlogo.jpg";break;
+                                                        case "twitter": "./img/twitter.png";break;
+                                                        case "tumblr": "./img/tumblr.png";break;
+                                                        case "soundcloud":"./img/soundcloud.png";break;
+                                                    // case "kickstarter":"./img/kickstarter.png";break;
+                                                        default: "./img/stock_website.svg";break;
+                                                    }
+                                            } else {theserviceLogo}
+                                        } else {avatar}
+
                                     visible: false
 
-                                    Image {
-                                            id:av1
-                                            anchors.fill:parent
 
-                                        fillMode: Image.PreserveAspectFit
-                                       source:avatar
-                                           //visible: false
-
-
-                                       }
                                 }
 
 
@@ -424,7 +441,7 @@ Item {
                                 anchors.right:parent.right
                                 anchors.bottom:parent.bottom
                                 //anchors.bottomMargin: parent.width * 0.2
-                                source:if(avatar != ""){switch(service) {
+                                source:if(avatar != ""){switch(useraccount.split("::")[0]) {
                                            case "gravatar": "./img/gravatarlogo.jpg";break;
                                            case "twitter": "./img/twitter.png";break;
                                            case "tumblr": "./img/tumblr.png";break;
@@ -433,6 +450,28 @@ Item {
                                            default: "./img/stock_website.svg";break;
                                            }
                                        } else {""}
+                            }
+
+                            Text {
+                                id:pname
+                                anchors.left:opmask1.right
+                                anchors.top:opmask1.top
+                                font.pixelSize: opmask1.height * 0.5 - text.length
+                                width:parent.width - opmask1.width
+                                text:if(profilename == "") {"Searching"} else {profilename}
+                                wrapMode: Text.WordWrap
+                            }
+
+                            Text {
+                                anchors.left:pname.left
+                                anchors.top:pname.bottom
+                                anchors.margins: parent.height * 0.1
+                                font.pixelSize: opmask1.height * 0.16
+                                text:if(info == "") {"Please wait...."} else {info}
+                                width:settingsPage.width * 0.7
+                                height:opmask1.height * 0.80
+                                wrapMode: Text.WordWrap
+                                clip:true
                             }
 
                 }
@@ -445,16 +484,17 @@ Item {
 
                 TextField {
                         id:account1
-                        text:switch(service) {
+                        text:switch(useraccount.split("::")[0]) {
                              case "gravatar":useraccount;break;
                              case "twitter": useraccount.split("::")[1];break;
                              case "tumblr": useraccount.split("::")[1];break;
                              case "soundcloud":useraccount.split("::")[1];break;
                              //case "kickstarter":"./img/kickstarter.png";break;
-                             case "blog": useraccount;break;
+                             case "blog": useraccount.split("::")[1];break;
                              default:"";
                              }
-                        placeholderText: switch(service) {
+
+                        placeholderText: switch(useraccount.split("::")[0]) {
                                          case "gravatar":"user@example.com";break;
                                          case "twitter":"@username";break;
                                          case "tumblr":"blogtitle";break;
@@ -485,7 +525,7 @@ Item {
 
                         MouseArea {
                             anchors.fill: parent
-                            onClicked: OpenSeed.serviceConnect(service,useraccount)
+                            onClicked: OpenSeed.serviceConnect(useraccount.split("::")[0],account1.text)
                         }
                     }
                 }
@@ -494,7 +534,7 @@ Item {
 
                 ListView {
                     width:parent.width
-                    height:parent.height * 0.5
+                    height:parent.height * 0.56
                     model: socialaccountslist
                     spacing:thisWindow.height * 0.01
                     clip:true
@@ -502,9 +542,11 @@ Item {
                     delegate: SocialOpt {
                                  width:parent.width * 0.95
                                  height:thisWindow.height * 0.1
+                                 sourceselected:useraccount.split("::")[0]
 
                                  MouseArea {
-                                     onClicked: theserviceLogo = serviceLogo, theservice = service
+                                     anchors.fill: parent
+                                     onClicked: theserviceLogo = serviceLogo, theservice = service, currentservice = service
                                  }
 
                             }
@@ -513,6 +555,8 @@ Item {
 
 
         }
+
+
 
 
             Rectangle {
@@ -534,17 +578,36 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                                if (type == "avatar") {
-                                        avimg = avatar;
-                                    }
+
                                 if(type == "intergration") {
-                                     switch(service) {
+
+                                        if(currentservice == "") {
+                                            switch(po) {
+                                                case 0: usermain = useraccount.split("::")[0]+account1.text;break;
+                                                case 1: website1 = useraccount.split("::")[0]+account1.text;break;
+                                                case 2: website2 = useraccount.split("::")[0]+account1.text;break;
+                                                case 3: website3 = useraccount.split("::")[0]+account1.text;break;
+                                                case 4: website4 = useraccount.split("::")[0]+account1.text;break;
+                                            }
+                                        } else {
+                                            switch(po) {
+                                                case 0: usermain = currentservice+"::"+account1.text;break;
+                                                case 1: website1 = currentservice+"::"+account1.text;break;
+                                                case 2: website2 = currentservice+"::"+account1.text;break;
+                                                case 3: website3 = currentservice+"::"+account1.text;break;
+                                                case 4: website4 = currentservice+"::"+account1.text;break;
+                                            }
+
+
+                                        }
+
+                                     /*switch(service) {
                                         case "twitter": if(account.text.length > 0 ) {website1 = "twitter::"+account.text} else {website1 =""};break;
                                         case "tumblr":if(account.text.length > 0 ) { website2 = "tumblr::"+account.text} else {website2 =""};break;
                                         //case "kickstarter": website3 = "kickstarter::"+account.text;break;
                                         case "soundcloud":if(account.text.length > 0 ) { website4 = "soundcloud::"+account.text} else {website4 =""};break;
                                         case "blog":usermain = account.text;break;
-                                     }
+                                     } */
                                 }
                                 servicecheck.stop()
                                 thisWindow.state = "InActive";

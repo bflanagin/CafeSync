@@ -15,7 +15,7 @@ Item {
     property string service:""
     property string extrathing:""
     property string sitedata:""
-    property string pluginlogo:"./img/overlay-dark.png"
+    property string pluginlogo:"./img/overlay.svg"
     property string avatar: ""
     property string name: ""
     property string banner: ""
@@ -29,7 +29,7 @@ Item {
 
     clip: true
 
-    //onStateChanged: if(popup.state == "Active") {Site.get_html(service);}
+    onStateChanged: if(popup.state == "Active") {Site.get_html(service);}
 
 
     states: [
@@ -243,7 +243,7 @@ Item {
                     y:parent.height * 0.92
 
                     radius:0
-                    color:barColor
+                    color:bottombarColor
                     }
 
                     PropertyChanges {

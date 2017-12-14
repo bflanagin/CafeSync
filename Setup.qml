@@ -93,6 +93,8 @@ onSaveitChanged: if(saveit == true) {Scripts.save_card(userid,userName.text,user
                                                           avimg,carddesign,usercat); saveit = false; }
 
 
+onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
+
  Rectangle {
      color:backgroundColor
     // color: "white"
@@ -104,6 +106,7 @@ onSaveitChanged: if(saveit == true) {Scripts.save_card(userid,userName.text,user
 
 
  Flickable {
+     id:setupFlick
      clip:true
      contentHeight:parent.height * 2.9
     /* anchors {
@@ -925,7 +928,7 @@ Rectangle {
 
                                 MouseArea {
                                     anchors.fill: parent
-                                    onClicked:{ sConnect.state = "Active",sConnect.service = "", sConnect.type = "intergration"
+                                    onClicked:{ sConnect.state = "Active",sConnect.service = "", sConnect.type = "intergration", sConnect.po = po
                                                 switch (po) {
                                                     case 0: sConnect.useraccount = usermain;break;
                                                     case 1: sConnect.useraccount = website1;break;
@@ -935,6 +938,59 @@ Rectangle {
                                                         }
                                                 }
                                         }
+
+                              /*  Rectangle {
+                                    anchors.centerIn: deleteit
+                                    width:deleteit.width * 1.2
+                                    height:deleteit.height * 1.2
+                                    radius:width / 2
+                                    color:"gray"
+                                } */
+
+                                Rectangle {
+                                    anchors.right:deleteit.left
+                                    anchors.rightMargin: parent.height * 0.2
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    height:parent.height * 0.95
+                                    width:3
+                                    color:"white"
+                                }
+
+                                Item {
+                                    id: deleteit
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.right: parent.right
+                                    anchors.rightMargin: parent.height * 0.2
+                                    width:parent.height * 0.40
+                                    height:parent.height * 0.40
+
+                                Image {
+
+                                    source:"./img/close.svg"
+                                     anchors.fill:parent
+
+
+                                    ColorOverlay {
+                                           anchors.fill: parent
+                                           source: parent
+                                           color: "white"
+                                       }
+
+                                }
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked:{switch (po) {
+                                                    case 0: usermain = "";Scripts.fillsites();break;
+                                                    case 1: website1 = "";Scripts.fillsites();break;
+                                                    case 2: website2 = "";Scripts.fillsites();break;
+                                                    case 3: website3 = "";Scripts.fillsites();break;
+                                                    case 4: website4 = "";Scripts.fillsites();break;
+                                                        }
+                                                }
+                                        }
+
+                                }
 
                         }
 

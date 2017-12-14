@@ -202,8 +202,8 @@ ApplicationWindow {
 
 
     visible: true
-    width: 480
-    height: 800
+    width: 720
+    height: 1280
     //width:Screen.desktopAvailableWidth
     //height:Screen.desktopAvailableHeight
    // background: backgroundColor
@@ -320,7 +320,7 @@ ApplicationWindow {
             onTriggered: {
                            // console.log("Updating List");
                         OpenSeed.retrieve_data(userid);
-                        //OpenSeed.retrieve_data(userid1);
+
                    // if(listget == "temp") {
 
                     //cardslist.clear();

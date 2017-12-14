@@ -1219,8 +1219,10 @@ case "twitter":  {
 
            profilepic = pagedata.substring(pagedata.search("https://pbs.twimg.com/profile_images/"),(pagedata.search("https://pbs.twimg.com/profile_images/") + 150));
            profilepic = profilepic.split('"')
+           var mission = pagedata.substring(pagedata.search('<p class="ProfileHeaderCard-bio u-dir" dir="ltr">'),pagedata.search('<div class="ProfileHeaderCard-location ">'));
            avatar = profilepic[0];
            profilename = profilepic[2];
+           info = mission;
         }
 
     }
@@ -1255,7 +1257,7 @@ case "tumblr":  {
 
                 avatar = pagedata.substring(pagedata.search('class="user-avatar"><img src="'),pagedata.search('class="user-avatar"><img src="')+100).split('"')[3];
 
-              //  message = pagedata.substring(pagedata.search('<span class="description">'),pagedata.search('<span class="description">') + 200).split(">")[1].split("</")[0].trim();
+                info = pagedata.substring(pagedata.search('<span class="description">'),pagedata.search('<span class="description">') + 200).split(">")[1].split("</")[0].trim();
 
                 /* postinfo = pagedata.substring(pagedata.search('<article'),pagedata.search('</article>'));
 
@@ -1317,6 +1319,7 @@ http.onreadystatechange = function() {
             profileavatar = profileavatar[1].split(' ');
 
             avatar = profileavatar[0].substring(1,profileavatar[0].length-1);
+            info = "";
 
            // stats = pagedata.substring(pagedata.search('<meta name="description" content=')+34,pagedata.search('><meta property="twitter:app:name:iphone"'));
            // var tracks = stats.substring(stats.search('Tracks')-4,stats.search('Tracks')+6).split(". ")[1];
@@ -1444,7 +1447,8 @@ default: avatar = ""; break;
 function socialaccounts() {
 
 socialaccountslist.clear();
-    var slist = ["Medium::"+cardcolor+"::./img/medium.png::blog","WordPress::"+cardcolor+"::./img/wordpress.png::blog"];
+    var slist = ["Facebook::"+cardcolor+"::./img/fb.png::facebook","Twitter::"+cardcolor+"::./img/twitter.png::twitter","Tumblr::"+cardcolor+"::./img/tumblr.png::tumblr","Linkedin::"+cardcolor+"::./img/linkedin.png::linkedin",
+                 "Medium::"+cardcolor+"::./img/medium.png::blog","WordPress::"+cardcolor+"::./img/wordpress.png::blog","RSS::"+cardcolor+"::./img/RSS.png::blog","SoundCloud::"+cardcolor+"::./img/soundcloud.png::soundcloud"];
 
     for(var num =0;num < slist.length;num = num+1) {
 
@@ -1462,3 +1466,5 @@ socialaccountslist.append({
 }
 
 }
+
+

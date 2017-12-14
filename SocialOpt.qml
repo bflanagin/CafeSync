@@ -5,7 +5,7 @@ import QtQuick.LocalStorage 2.0
 
 
 Item {
-
+                property string sourceselected: ""
 
                            // id:twitterButton
                             anchors.horizontalCenter: parent.horizontalCenter
@@ -44,6 +44,7 @@ Item {
                                     anchors.verticalCenter: parent.verticalCenter
                                     text:source
                                    color:if(bgcolor == cardcolor) {"black"} else {"white"}
+                                    //color:"black"
                                     width:parent.width
                                     font.pixelSize: parent.height * 0.3
                                     wrapMode: Text.WordWrap
@@ -60,7 +61,7 @@ Item {
                            samples: 17
                            color: "#80000000"
                            source: twb
-                           z:1
+                           //z:1
 
 
 
