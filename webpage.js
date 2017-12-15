@@ -1,6 +1,6 @@
 function get_html(account) {
 
-    var url = account.split("::")[1];
+    var url = "http://"+account.split("::")[1];
 
 var http = new XMLHttpRequest();
 
@@ -63,7 +63,12 @@ http.onreadystatechange = function() {
                                             thebanner = "./img/overlay-dark.png";
                                       //  }
 
-                                theavatar = "img/wordpress.png"
+                                    banner = thebanner;
+
+                                theavatar = "img/wordpress.png";
+
+                                 avatar = theavatar;
+
                                 theurl = link;
                                 rss_reader1(link);
                             }
@@ -101,7 +106,7 @@ function rss_reader1(url) {
         var pagedata = "";
         var num = 1;
 
-    //console.log("From webpage.js[RRS reader 1]: "+url)
+    loading_info.text ="From webpage.js[RRS reader 1]: "+url;
 
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
@@ -122,15 +127,17 @@ function rss_reader1(url) {
 
                 thename = topblock.split("<title>")[1].split("</title>")[0].replace(/&#039;/g,"'").replace(/&#8217;/g,"'").replace(/&#38;/g,"&");
 
+                name = thename;
+
                 if(topblock.search("<description>") !=-1) {
                 themessage = topblock.split("<description>")[1].split("</description>")[0].replace(/&#039;/g,"'").replace(/&#8217;/g,"'").replace(/&#38;/g,"&");
                 }
-
-
+                message = themessage;
 
                 var allposts = pagedata.split("<item>");
                  postcount = allposts.length;
 
+                loading_info.text = thename+"\n"+themessage+"\n"+postcount;
 
                 while(allposts.length > num) {
                     var imagegetter = "";

@@ -1447,8 +1447,7 @@ default: avatar = ""; break;
 function socialaccounts() {
 
 socialaccountslist.clear();
-    var slist = ["Facebook::"+cardcolor+"::./img/fb.png::facebook","Twitter::"+cardcolor+"::./img/twitter.png::twitter","Tumblr::"+cardcolor+"::./img/tumblr.png::tumblr","Linkedin::"+cardcolor+"::./img/linkedin.png::linkedin",
-                 "Medium::"+cardcolor+"::./img/medium.png::blog","WordPress::"+cardcolor+"::./img/wordpress.png::blog","RSS::"+cardcolor+"::./img/RSS.png::blog","SoundCloud::"+cardcolor+"::./img/soundcloud.png::soundcloud"];
+
 
     for(var num =0;num < slist.length;num = num+1) {
 

@@ -834,9 +834,9 @@ function Show_sites(cid,list) {
 
                mainview = pull.rows.item(0).main;
 
-                if(mainview.search("http") == -1) {
+               /* if(mainview.search("http") == -1) {
                     mainview = "http://" + mainview;
-                }
+                } */
                     if(mainview != "http://empty.html") {
                 pagelist.append({
                                  webpage:mainview,
@@ -866,9 +866,9 @@ function Show_sites(cid,list) {
                pages = pages + 1;
               // console.log(pull.rows.item(0).website1.length);
                webview1 = pull.rows.item(0).website1;
-               if(webview1.search("http") == -1) {
+              /* if(webview1.search("http") == -1) {
                    webview1 = "http://" + webview1;
-               }
+               } */
 
                 if(webview1 != "http://") {
                pagelist.append({
@@ -899,9 +899,9 @@ function Show_sites(cid,list) {
 
                pages = pages + 1;
                webview2 = pull.rows.item(0).website2;
-               if(webview2.search("http") == -1) {
+             /*  if(webview2.search("http") == -1) {
                    webview2 = "http://" + webview2;
-               }
+               } */
 
                  if(webview2 != "http://empty.html") {
                pagelist.append({
@@ -931,9 +931,9 @@ function Show_sites(cid,list) {
 
                pages = pages + 1;
                webview3 = pull.rows.item(0).website3;
-               if(webview3.search("http") == -1) {
+              /* if(webview3.search("http") == -1) {
                    webview3 = "http://" + webview3;
-               }
+               } */
                      if(webview3 != "http://empty.html") {
                pagelist.append({
                                 webpage:webview3,
@@ -965,9 +965,9 @@ function Show_sites(cid,list) {
 
                pages = pages + 1;
                webview4 = pull.rows.item(0).website4;
-               if(webview4.search("http") == -1) {
+             /*  if(webview4.search("http") == -1) {
                    webview4 = "http://" + webview4;
-               }
+               } */
                //console.log(webview1);
                 if(webview4 != "http://empty.html") {
                pagelist.append({
@@ -1564,8 +1564,7 @@ function fillsites() {
 function socialsetup(source) {
     var ssinfo = "not found";
 
-    var slist = ["Facebook::"+"#3C5A8A"+"::./img/fb.png::facebook","Twitter::"+"lightblue"+"::./img/twitter.png::twitter","Tumblr::"+"#343460"+"::./img/tumblr.png::tumblr","Linkedin::"+"#6084C4"+"::./img/linkedin.png::linkedin",
-                 "Medium::"+"darkgray"+"::./img/medium.png::blog","WordPress::"+"darkgray"+"::./img/wordpress.png::blog","RSS::"+"darkgray"+"::./img/RSS.png::blog","SoundCloud::"+cardcolor+"::./img/soundcloud.png::soundcloud"];
+
 
 
     for(var num=0;num < slist.length;num = num+1) {

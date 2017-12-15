@@ -20,10 +20,11 @@ Item {
     property string stats:""
     property string pluginlogo: "img/fb.png"
     property int personal: 0
+    property string service:""
 
     clip: true
 
-    onStateChanged: if(popup.state == "Active") {Site.get_html(fburl)}
+    onStateChanged: if(popup.state == "Active") {Site.get_html(service)}
 
     states: [
         State {
@@ -155,6 +156,7 @@ Item {
                     PropertyChanges {
                      target:blinder
                         y:0
+                        color:backgroundColor
                     }
             },
                 State {
@@ -162,8 +164,9 @@ Item {
 
                     PropertyChanges {
                    target:blinder
-                    y:if (personal == 1) {parent.height} else {parent.height * 0.90}
+                    y:if (personal == 1) {parent.height} else {parent.height * 0.92}
                     radius:0
+                    color:bottombarColor
                     }
                     when: bg.status == Image.Ready
             }
@@ -217,10 +220,10 @@ Item {
                         opacity:0.4
                     }
 
-                    Flasher {
+                    /*Flasher {
                         //anchors.fill:parent
                         id:eventflasher
-                    }
+                    } */
 
 
                     Text {
@@ -254,9 +257,10 @@ Item {
                Item {
                    width:links.width * 0.30
                     height:links.height * 0.08
-                    Flasher {
+
+                    /*Flasher {
                         id:aboutflasher
-                    }
+                    } */
 
 
                     Text {
@@ -297,9 +301,9 @@ Item {
                         color:"lightgray"
                         opacity:0.4
                     }
-                    Flasher {
+                  /*  Flasher {
                         id:photoflasher
-                    }
+                    } */
 
 
                     Text {
@@ -369,7 +373,7 @@ Item {
                     opacity:1
                 }
 
-                //when:bg.status == Image.Ready
+                when:bg.status == Image.Ready
             }
 
         ]
@@ -380,6 +384,29 @@ Item {
                                        properties:"opacity"; duration: 300 }
          }
     }
+
+    Rectangle {anchors.centerIn: loading_info
+                width:loading_info.width * 1.2
+                height:loading_info.height *1.5
+                color:Qt.rgba(0.4,0.4,0.4,0.5)
+                radius: width /2
+                opacity: logo.opacity
+                z:2
+    }
+    Text {
+        id:loading_info
+        anchors.top:logo.bottom
+        horizontalAlignment: Text.AlignHCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+        text:"The Service is:"+service
+        width:parent.width * 0.6
+        wrapMode: Text.WordWrap
+        z:3
+        color:"white"
+
+        opacity:logo.opacity
+    }
+
 
 
 

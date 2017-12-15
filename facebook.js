@@ -1,4 +1,6 @@
-function get_html(url) {
+function get_html(account) {
+
+    var url = "https://www.facebook.com/"+account.split("::")[1];
 
     var sitedata = "";
     var profilepic = "";
@@ -26,8 +28,13 @@ http.onreadystatechange = function() {
 
             personalpage = sitedata.search('type":"Person","name":')
 
+            loading_info.text = personalpage;
+
             if(personalpage != -1) {
                 personal = 1;
+
+               if(personal ==1) {loading_info.text = "Personal page"};
+
             profilebanner = sitedata.substring(sitedata.search("coverPhotoImg photo img"),sitedata.search("coverPhotoImg photo img")+400);
             profilebanner = profilebanner.split('"');
             banner = profilebanner[2];
@@ -39,6 +46,8 @@ http.onreadystatechange = function() {
             profile = sitedata.substring(sitedata.search('"Person","name":'),sitedata.search('"Person","name":')+800);
             profile = profile.split('","');
             name = profile[1].split('":"')[1];
+               loading_info.text = name;
+
                 var jobtitle = "Vocation:"+profile[2].split('":"')[1];
                 var locality = "Location:"+profile[4].split('":"')[1].split('"},"')[0];
                 var num = 0;
@@ -59,6 +68,8 @@ http.onreadystatechange = function() {
                 }
 
                 message = jobtitle+"\n\n"+organizations+"\n"+locality+"\n";
+
+
 
 
             } else {

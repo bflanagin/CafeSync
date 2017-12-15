@@ -36,7 +36,15 @@ Item {
         running:true
         repeat: false
         interval: 800
-        onTriggered: if(account.text.length > 2 || account1.text.length > 2) {if(type == "avatar") {OpenSeed.serviceConnect(service,account.text)} else {OpenSeed.serviceConnect(useraccount.split("::")[0],account1.text) }  }
+        onTriggered: if(account.text.length > 2 || account1.text.length > 2) {if(type == "avatar") {OpenSeed.serviceConnect(service,account.text);} else {
+                             if(currentservice == "") {
+                             OpenSeed.serviceConnect(useraccount.split("::")[0],account1.text);
+                             } else {
+                                 OpenSeed.serviceConnect(currentservice,account1.text);
+                             }
+
+                         }
+                     }
     }
 
     states: [
@@ -91,7 +99,7 @@ Item {
                             case 4: useraccount = website4;break;
                             }
                         }
-                    } else {service="",useraccount="",avatar = "",profilename = "",info = "",servicecheck.stop();settingsPage.enabled = true;}
+                    } else {currentservice ="",service="",useraccount="",avatar = "",profilename = "",info = "",servicecheck.stop();settingsPage.enabled = true;}
 
     Item {
         id:typeAvatar
@@ -197,7 +205,7 @@ Item {
             }
 
             Text {
-                text:socialaccountslist.count
+                text:profilename
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.pixelSize: 32
             }
@@ -209,7 +217,6 @@ Item {
                          case "twitter": useraccount.split("::")[1];break;
                          case "tumblr": useraccount.split("::")[1];break;
                          case "soundcloud":useraccount.split("::")[1];break;
-                         //case "kickstarter":"./img/kickstarter.png";break;
                          case "blog": useraccount;break;
                          default:"";
                          }
@@ -319,8 +326,8 @@ Item {
 
             Image {
                 anchors.centerIn: parent
-                width:parent.width * 0.7
-                height:parent.height * 0.7
+                width:parent.width * 0.6
+                height:parent.height * 0.6
                 source:"./img/close.svg"
             }
 
@@ -352,8 +359,6 @@ Item {
         anchors.fill: parent
         visible: if(type == "intergration") {true} else {false}
 
-
-
         Rectangle {
             id:backing1
             y:parent.height * 0.04
@@ -373,7 +378,7 @@ Item {
 
                 Item {
                     width:parent.width
-                    height:parent.height * 0.01
+                    height:10
                 }
 
                 Item {
@@ -390,14 +395,7 @@ Item {
                                  fillMode: Image.PreserveAspectFit
                                 source: if(avatar == "" ) {
                                             if(theserviceLogo == "") {
-                                                switch(useraccount.split("::")[0]) {
-                                                        case "gravatar": "./img/gravatarlogo.jpg";break;
-                                                        case "twitter": "./img/twitter.png";break;
-                                                        case "tumblr": "./img/tumblr.png";break;
-                                                        case "soundcloud":"./img/soundcloud.png";break;
-                                                    // case "kickstarter":"./img/kickstarter.png";break;
-                                                        default: "./img/stock_website.svg";break;
-                                                    }
+                                                if(useraccount.length > 2){Scripts.socialsetup(useraccount.split("::")[0]).split("::")[2]} else if(currentservice.length > 2) {Scripts.socialsetup(currentservice).split("::")[2]} else {"./img/stock_website.svg"}
                                             } else {theserviceLogo}
                                         } else {avatar}
 
@@ -418,6 +416,7 @@ Item {
 
                         OpacityMask {
                                 id:opmask1
+                                anchors.centerIn: photo1
                                  anchors.fill: photo1
                                  source: photo1
                                  maskSource: mask1
@@ -441,14 +440,8 @@ Item {
                                 anchors.right:parent.right
                                 anchors.bottom:parent.bottom
                                 //anchors.bottomMargin: parent.width * 0.2
-                                source:if(avatar != ""){switch(useraccount.split("::")[0]) {
-                                           case "gravatar": "./img/gravatarlogo.jpg";break;
-                                           case "twitter": "./img/twitter.png";break;
-                                           case "tumblr": "./img/tumblr.png";break;
-                                           case "soundcloud":"./img/soundcloud.png";break;
-                                           case "kickstarter":"./img/kickstarter.png";break;
-                                           default: "./img/stock_website.svg";break;
-                                           }
+                                source:if(avatar != ""){if(useraccount.length > 2) {Scripts.socialsetup(useraccount.split("::")[0]).split("::")[2]} else {
+                                                                                        Scripts.socialsetup(currentservice).split("::")[2]}
                                        } else {""}
                             }
 
@@ -458,7 +451,7 @@ Item {
                                 anchors.top:opmask1.top
                                 font.pixelSize: opmask1.height * 0.5 - text.length
                                 width:parent.width - opmask1.width
-                                text:if(profilename == "") {"Searching"} else {profilename}
+                                text:if(profilename == "") {if(currentservice != ""){qsTr("Searching")} else {qsTr("Select Service")} } else {profilename}
                                 wrapMode: Text.WordWrap
                             }
 
@@ -484,24 +477,10 @@ Item {
 
                 TextField {
                         id:account1
-                        text:switch(useraccount.split("::")[0]) {
-                             case "gravatar":useraccount;break;
-                             case "twitter": useraccount.split("::")[1];break;
-                             case "tumblr": useraccount.split("::")[1];break;
-                             case "soundcloud":useraccount.split("::")[1];break;
-                             //case "kickstarter":"./img/kickstarter.png";break;
-                             case "blog": useraccount.split("::")[1];break;
-                             default:"";
-                             }
+                        text:if(useraccount.length > 2) {useraccount.split("::")[1]}else {""}
 
-                        placeholderText: switch(useraccount.split("::")[0]) {
-                                         case "gravatar":"user@example.com";break;
-                                         case "twitter":"@username";break;
-                                         case "tumblr":"blogtitle";break;
-                                         case "soundcloud":"bandname";break;
-                                         //case "kickstarter":"./img/kickstarter.png";break;
-                                         default:"www.blog.com";break;
-                                         }
+
+                        placeholderText: if(useraccount.length > 2){Scripts.socialsetup(useraccount.split("::")[0]).split("::")[4]} else if (currentservice.length > 2){Scripts.socialsetup(currentservice).split("::")[4]} else {""}
                     anchors.horizontalCenter: parent.horizontalCenter
                     font.pixelSize: 32
                     width:parent.width * 0.98
@@ -535,14 +514,16 @@ Item {
                 ListView {
                     width:parent.width
                     height:parent.height * 0.56
-                    model: socialaccountslist
+
                     spacing:thisWindow.height * 0.01
                     clip:true
+
+                    model: socialaccountslist
 
                     delegate: SocialOpt {
                                  width:parent.width * 0.95
                                  height:thisWindow.height * 0.1
-                                 sourceselected:useraccount.split("::")[0]
+                                 sourceselected:if(useraccount.length > 2) {useraccount.split("::")[0]} else  {currentservice}
 
                                  MouseArea {
                                      anchors.fill: parent
@@ -570,8 +551,8 @@ Item {
 
                 Image {
                     anchors.centerIn: parent
-                    width:parent.width * 0.7
-                    height:parent.height * 0.7
+                    width:parent.width * 0.6
+                    height:parent.height * 0.6
                     source:"./img/check.svg"
                 }
 
@@ -583,11 +564,11 @@ Item {
 
                                         if(currentservice == "") {
                                             switch(po) {
-                                                case 0: usermain = useraccount.split("::")[0]+account1.text;break;
-                                                case 1: website1 = useraccount.split("::")[0]+account1.text;break;
-                                                case 2: website2 = useraccount.split("::")[0]+account1.text;break;
-                                                case 3: website3 = useraccount.split("::")[0]+account1.text;break;
-                                                case 4: website4 = useraccount.split("::")[0]+account1.text;break;
+                                                case 0: usermain = useraccount.split("::")[0]+"::"+account1.text;break;
+                                                case 1: website1 = useraccount.split("::")[0]+"::"+account1.text;break;
+                                                case 2: website2 = useraccount.split("::")[0]+"::"+account1.text;break;
+                                                case 3: website3 = useraccount.split("::")[0]+"::"+account1.text;break;
+                                                case 4: website4 = useraccount.split("::")[0]+"::"+account1.text;break;
                                             }
                                         } else {
                                             switch(po) {
@@ -601,13 +582,7 @@ Item {
 
                                         }
 
-                                     /*switch(service) {
-                                        case "twitter": if(account.text.length > 0 ) {website1 = "twitter::"+account.text} else {website1 =""};break;
-                                        case "tumblr":if(account.text.length > 0 ) { website2 = "tumblr::"+account.text} else {website2 =""};break;
-                                        //case "kickstarter": website3 = "kickstarter::"+account.text;break;
-                                        case "soundcloud":if(account.text.length > 0 ) { website4 = "soundcloud::"+account.text} else {website4 =""};break;
-                                        case "blog":usermain = account.text;break;
-                                     } */
+
                                 }
                                 servicecheck.stop()
                                 thisWindow.state = "InActive";
@@ -616,15 +591,8 @@ Item {
             }
 
             Text {
-                text:switch(service) {
-                     case "gravatar":"Gravtar";break;
-                     case "soundcloud":"SoundCloud";break;
-                     case "twitter":"Twitter";break;
-                     case "tumblr":"Tumblr";break;
-                     case "kickstarter":"KickStarter";break;
-                     case "blog":"Website";break;
-                     default:"";break;
-                     }
+                text:if(useraccount.length >2) {Scripts.socialsetup(useraccount.split("::")[0]).split("::")[0]} else {currentservice.toLocaleUpperCase()}
+
 
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: parent.bottom
@@ -644,8 +612,8 @@ Item {
 
                 Image {
                     anchors.centerIn: parent
-                    width:parent.width * 0.7
-                    height:parent.height * 0.7
+                    width:parent.width * 0.6
+                    height:parent.height * 0.6
                     source:"./img/close.svg"
                 }
 

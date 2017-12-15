@@ -114,8 +114,15 @@ Item {
        } else if(page.search("gofundme") != -1) {
                  custompage = 12;
 
-        } else if(page.search("blog") != -1) {
+        } else if(page.search("medium") != -1) {
                   custompage = 13;
+
+         } else if(page.search("wordpress") != -1) {
+                             custompage = 13;
+
+         }else if(page.search("blog") != -1) {
+                                 custompage = 13;
+
         } else if(custompage == 0) {
                //  WebPage.get_html(page.split("::")[1]);
                    }
@@ -233,7 +240,7 @@ Item {
             state:if(custompage == 1 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
-            fburl:page
+            service:page
 
         }
 
@@ -308,14 +315,14 @@ Item {
             anchors.fill:parent
             pagesource:thesource
             service:page
-            banner:thebanner
-            avatar:theavatar
-            name:thename
-            message:themessage
-            posttitle:theposttitle
-            post:thepost
-            postimage:thepostimage
-            link:thelink
+           // banner:thebanner
+           // avatar:theavatar
+          //  name:thename
+          //  message:themessage
+          //  posttitle:theposttitle
+          //  post:thepost
+          //  postimage:thepostimage
+         //   link:thelink
         }
 
       /* Etsy {

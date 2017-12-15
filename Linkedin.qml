@@ -540,21 +540,28 @@ Item {
                                                 properties:"opacity"; duration: 300 }
                   }
 
-                 /* Text {
-                     anchors.top:parent.bottom
+                 Rectangle {anchors.centerIn: loading_info
+                             width:loading_info.width * 1.2
+                             height:loading_info.height *1.5
+                             color:Qt.rgba(0.4,0.4,0.4,0.5)
+                             radius: width /2
+                             opacity: logo.opacity
+                             z:2
+                 }
+                 Text {
+                     id:loading_info
+                     anchors.top:logo.bottom
+                     horizontalAlignment: Text.AlignHCenter
                      anchors.horizontalCenter: parent.horizontalCenter
-                     text:qsTr("Plugin Under Development")
-                     font.pixelSize: (popup.width * 0.10) - text.length
+                     text:"The Service is:"+service
+                     width:parent.width * 0.6
+                     wrapMode: Text.WordWrap
+                     z:3
+                     color:"white"
 
-                     Text {
-                         anchors.top:parent.bottom
-                         width:parent.width
-                         anchors.horizontalCenter: parent.horizontalCenter
-                         text:qsTr("Tap to launch in external application")
-                         wrapMode:Text.WordWrap
-                         font.pixelSize: (popup.width * 0.09) - text.length
-                     }
-                 } */
+                     opacity:logo.opacity
+                 }
+
 
     }
 

@@ -138,7 +138,7 @@ Item {
         border.color:"gray"
         border.width:4
         width:parent.width * 0.98
-        height:postcontent.height + (parent.height * 0.001)
+        height:postcontent.height
 
         anchors.horizontalCenter: parent.horizontalCenter
         //height:postcontent.height + 10
@@ -149,7 +149,7 @@ Item {
             id:postcontent
             anchors.horizontalCenter: parent.horizontalCenter
             width:parent.width * 0.98
-            height:postdata.y + postdata.height
+            height:titletext.height+ postdata.height + postimg.height
             Text {
                 id:titletext
                 width:parent.width
@@ -358,6 +358,29 @@ Item {
 
 
     }
+
+    Rectangle {anchors.centerIn: loading_info
+                width:loading_info.width * 1.2
+                height:loading_info.height *1.5
+                color:Qt.rgba(0.4,0.4,0.4,0.5)
+                radius: width /2
+                opacity: logo.opacity
+                z:2
+    }
+    Text {
+        id:loading_info
+        anchors.top:logo.bottom
+        horizontalAlignment: Text.AlignHCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+        text:"The Service is:"+service
+        width:parent.width * 0.6
+        wrapMode: Text.WordWrap
+        z:3
+        color:"white"
+
+        opacity:logo.opacity
+    }
+
 
 }
 

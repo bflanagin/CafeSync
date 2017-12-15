@@ -732,7 +732,7 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: sConnect.state = "Active",sConnect.service = "soundcloud", sConnect.type = "avatar", sConnect.useraccount = website4
+            onClicked: sConnect.state = "Active",sConnect.service = "soundcloud", sConnect.type = "avatar", sConnect.useraccount = ""
         }
 
          }
@@ -807,7 +807,7 @@ Item {
 
          MouseArea {
              anchors.fill: parent
-             onClicked: sConnect.state = "Active",sConnect.service = "twitter", sConnect.type = "avatar", sConnect.useraccount = website1
+             onClicked: sConnect.state = "Active",sConnect.service = "twitter", sConnect.type = "avatar", sConnect.useraccount = ""
          }
           }
 
@@ -875,7 +875,7 @@ Item {
              }
         MouseArea {
             anchors.fill: parent
-            onClicked: sConnect.state = "Active",sConnect.service = "tumblr", sConnect.type = "avatar", sConnect.useraccount = website2
+            onClicked: sConnect.state = "Active",sConnect.service = "tumblr", sConnect.type = "avatar", sConnect.useraccount = ""
         }
          }
     }

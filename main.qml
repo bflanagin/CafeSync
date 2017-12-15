@@ -198,6 +198,8 @@ ApplicationWindow {
     property var db: Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
 
+    property var slist : ["Facebook::"+"#3C5A8A"+"::./img/fb.png::facebook::user.name","Twitter::"+"lightblue"+"::./img/twitter.png::twitter::@username","Tumblr::"+"#343460"+"::./img/tumblr.png::tumblr::username/blogname","Linkedin::"+"#6084C4"+"::./img/linkedin.png::linkedin::user-name",
+    "Medium::"+cardcolor+"::./img/medium.png::medium::example.com","WordPress::"+"darkgray"+"::./img/wordpress.png::wordpress::example.com","RSS::"+"lightgray"+"::./img/RSS.png::blog::example.com","SoundCloud::"+"orange"+"::./img/soundcloud.png::soundcloud::bandname"];
 
 
 
@@ -694,7 +696,7 @@ ApplicationWindow {
                                                     OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
                                                                          useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
                                                                          avimg,carddesign,usercat); */
-
+                            // settingsPage.saveit = true;
                         themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0,topBar.state = "person",/*mainScreen.state = "InActive",*/pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
                         }
                             }

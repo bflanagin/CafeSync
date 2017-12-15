@@ -75,17 +75,19 @@ Item {
 
 onStateChanged: if(settingsPage.state == "Active") {topBar.state = "settings"; Scripts.fillsites();} else {topBar.state = "standard";
 
-                    Scripts.save_card(userid,userName.text,userPhone.text,userEmail.text,userCompany.text,
+                                    /*Scripts.save_card(userid,userName.text,userPhone.text,userEmail.text,userCompany.text,
                                                       userAlias.text,personalMotto.text,usermain,website1,website2,website3,website4,
                                                       stf,atf,ctf,avimg,carddesign,usercat);
                                     OpenSeed.upload_data(userid,userName.text,userPhone.text,userEmail.text,userCompany.text,
                                                          userAlias.text,personalMotto.text,stf,atf,ctf,usermain,website1,website2,website3,website4,
-                                                         avimg,carddesign,usercat);
+                                                         avimg,carddesign,usercat); */
 
                 }
 onSourceselectChanged: if(sourceselect == true) {sourceSelector.state = "Active"} else {sourceSelector.state = "InActive"}
 
-onSaveitChanged: if(saveit == true) {Scripts.save_card(userid,userName.text,userPhone.text,userEmail.text,userCompany.text,
+onSaveitChanged: if(saveit == true) {
+
+                                     Scripts.save_card(userid,userName.text,userPhone.text,userEmail.text,userCompany.text,
                                                        userAlias.text,personalMotto.text,usermain,website1,website2,website3,website4,
                                                        stf,atf,ctf,avimg,carddesign,usercat);
                                      OpenSeed.upload_data(userid,userName.text,userPhone.text,userEmail.text,userCompany.text,
@@ -473,7 +475,7 @@ Rectangle {
 
 Item {
     width:parent.width
-    height:parent.height * 0.1
+    height:contactLabel.y+(contactLabel.height * 3)
 
 
  Rectangle {
@@ -645,7 +647,7 @@ Rectangle {
 
 Item {
     width:parent.width
-    height: personalMotto.y + (personalMotto.height * 1.5)
+    height: personalMotto.height + (catbutton.height *2.2)
 
  Rectangle {
  id: rectangle1
@@ -799,7 +801,7 @@ Item {
           }
 
           Text {
-              font.pixelSize: parent.height * 0.06
+              font.pixelSize: settingsPage.height * 0.04
               text:qsTr("Category: ")
               anchors.right:parent.right
               anchors.rightMargin: catbutton.width * 1.1
@@ -822,7 +824,8 @@ Item {
                      anchors.centerIn: parent
                   font.pixelSize:24
                  // anchors.verticalCenter: parent.verticalCenter
-                  text:if(cardindex == 0) { if(usercat.length < 2) {qsTr("Select Category")} else {usercat}}
+                  text:if(cardindex == 0) { if(usercat.length < 1) {qsTr("Select Category")} else {usercat}}
+                  //onTextChanged: usercat = text;
                  }
                   MouseArea {
                       anchors.fill:parent
