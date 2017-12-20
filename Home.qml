@@ -73,6 +73,14 @@ Item {
                 //anchors.fill:parent
                 fillMode:Image.PreserveAspectCrop
                 visible: false
+
+                Image {
+
+                    anchors.fill:parent
+                    visible: true
+                    source: "./img/default_avatar.png"
+                    z:-1
+                }
             }
 
             Image {
@@ -107,7 +115,7 @@ Item {
                 Rectangle {
                     width:parent.width
                     height:3
-                    color:highLightColor1
+                    color:spColor
                 }
 
                 Text {
@@ -172,7 +180,7 @@ Item {
         flickableDirection:Flickable.VerticalFlick
         anchors.topMargin:10
         width:parent.width * 0.98
-        height:parent.height - nameBack.height
+        height:contentHeight
         contentWidth: parent.width
         contentHeight: parent.height * 1.2
         clip:true
@@ -221,7 +229,7 @@ Item {
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 width:parent.width * 0.98
                                 height:3
-                                color:highLightColor1
+                                color:seperatorColor1
                             }
 
                     Text {
@@ -244,6 +252,360 @@ Item {
                         samples: 17
                         color: "#80000000"
                         source: aboutbox
+
+                    }
+            }
+
+            Item {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width * 0.98
+                height:content.height + popup.height * 0.01
+                visible: if(skillstats.count > 0) {true} else {false}
+                    property string dataMine: skills
+
+                    onDataMineChanged: Scripts.formatResume("skill",dataMine);
+                 Rectangle {
+                     id:skillsbox
+                     width:parent.width * 0.98
+                     height:parent.height * 0.98
+                     anchors.centerIn: parent
+                     color:cardcolor
+
+                 Column {
+                     id:content
+                     anchors.top:parent.top
+                     width:parent.width
+                     //height:parent.height *0.98
+                     spacing:popup.height * 0.01
+
+                        Text {
+
+                             anchors.left:parent.left
+                             anchors.margins:10
+                             width:parent.width - 10
+                             wrapMode: Text.WordWrap
+                             text:qsTr("Skills:")
+                             font.pixelSize: 24
+                        }
+
+                       Rectangle {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                width:parent.width * 0.98
+                                height:3
+                                color:seperatorColor1
+                            }
+
+                       ListView {
+                           width:parent.width
+                           spacing: popup.height * 0.01
+                            height:contentHeight
+
+                           model:ListModel {
+                               id:skillstats
+                           }
+
+
+                           delegate: Item {
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    width:parent.width * 0.98
+                                    height:itemcontent.height + 10
+
+                               Rectangle{ anchors.fill: parent
+                                   color:"gray"
+                                   opacity: if(index %2 == 0) {0.00} else {0.03}
+
+                                    }
+
+                                    Column {
+                                        id:itemcontent
+                                        anchors.centerIn: parent
+                                        width:parent.width * 0.98
+                                        spacing: popup.height * 0.01
+
+                                        Text {
+                                            font.pixelSize: popup.height * 0.03
+                                            text:if(index == 0) {name.substring(1,name.length-1)}
+                                                                else {name.substring(0,name.length-1) }
+                                            width:parent.width
+
+                                            Text {
+                                                anchors.bottom:parent.bottom
+                                                anchors.right:parent.right
+                                                anchors.rightMargin: popup.height * 0.01
+                                                font.pixelSize: popup.height * 0.01
+                                                text:"Years of Experience: "+yoe
+                                            }
+                                        }
+
+                                        Rectangle {
+                                                 anchors.horizontalCenter: parent.horizontalCenter
+                                                 width:parent.width * 0.98
+                                                 height:3
+                                                 color:seperatorColor1
+                                             }
+
+                                        Text {
+                                            anchors.left:parent.left
+                                            anchors.leftMargin: popup.height * 0.02
+                                            width:parent.width * 0.95
+                                            wrapMode: Text.WordWrap
+                                            text:"<p>"+discription.substring(1,discription.length-1)+"</p>"
+                                        }
+                                    }
+                                }
+                       }
+
+
+
+                    }
+
+                 }
+
+                 DropShadow {
+                        anchors.fill: skillsbox
+                        horizontalOffset: 0
+                        verticalOffset: 4
+                        radius: 8.0
+                        samples: 17
+                        color: "#80000000"
+                        source: skillsbox
+
+                    }
+            }
+
+            Item {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width * 0.98
+                height:scontent.height + popup.height * 0.01
+                visible: if(schoolstats.count > 0) {true} else {false}
+
+                property string dataMine: school
+
+                onDataMineChanged: Scripts.formatResume("school",dataMine);
+
+                 Rectangle {
+                     id:schoolbox
+                     width:parent.width * 0.98
+                     height:parent.height * 0.98
+                     anchors.centerIn: parent
+                     color:cardcolor
+
+                 Column {
+                     id:scontent
+                     anchors.top:parent.top
+                     width:parent.width
+
+                     spacing:popup.height * 0.01
+
+                        Text {
+
+                             anchors.left:parent.left
+                             anchors.margins:10
+                             width:parent.width - 10
+                             wrapMode: Text.WordWrap
+                             text:qsTr("Education:")
+                             font.pixelSize: 24
+                        }
+
+                       Rectangle {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                width:parent.width * 0.98
+                                height:3
+                                color:seperatorColor1
+                            }
+
+                       ListView {
+                           width:parent.width
+                           spacing: popup.height * 0.01
+                            height:contentHeight
+
+                           model:ListModel {
+                               id:schoolstats
+                           }
+
+
+                           delegate: Item {
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    width:parent.width * 0.98
+                                    height:schoolcontent.height + 10
+
+                               Rectangle{ anchors.fill: parent
+                                   color:"gray"
+                                   opacity: if(index %2 == 0) {0.00} else {0.03}
+
+                                    }
+
+                                    Column {
+                                        id:schoolcontent
+                                        anchors.centerIn: parent
+                                        width:parent.width * 0.98
+                                        spacing: popup.height * 0.01
+
+                                        Text {
+                                            font.pixelSize: popup.height * 0.03
+                                            text:if(index == 0) {name.substring(1,name.length-1)}
+                                                 else {name.substring(0,name.length-1) }
+                                            width:parent.width
+
+                                            Text {
+                                                anchors.bottom:parent.bottom
+                                                anchors.right:parent.right
+                                                anchors.rightMargin: popup.height * 0.01
+                                                font.pixelSize: popup.height * 0.01
+                                                text:"Degree: "+expdate
+                                            }
+                                        }
+
+                                        Rectangle {
+                                                 anchors.horizontalCenter: parent.horizontalCenter
+                                                 width:parent.width * 0.98
+                                                 height:3
+                                                 color:seperatorColor1
+                                             }
+
+                                        Text {
+                                            anchors.left:parent.left
+                                            anchors.leftMargin: popup.height * 0.02
+                                            width:parent.width * 0.95
+                                            wrapMode: Text.WordWrap
+                                            text:"<p>"+discription.substring(1,discription.length-1)+"</p>"
+                                        }
+                                    }
+                                }
+                       }
+
+
+                    }
+
+                 }
+
+                 DropShadow {
+                        anchors.fill: schoolbox
+                        horizontalOffset: 0
+                        verticalOffset: 4
+                        radius: 8.0
+                        samples: 17
+                        color: "#80000000"
+                        source: schoolbox
+
+                    }
+            }
+
+            Item {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width * 0.98
+                height:wcontent.height + popup.height * 0.01
+                visible: if(workstats.count > 0) {true} else {false}
+                clip:true
+
+                property string dataMine: work
+
+                onDataMineChanged: Scripts.formatResume("work",dataMine);
+
+                 Rectangle {
+                     id:workbox
+                     width:parent.width * 0.98
+                     height:parent.height * 0.98
+                     anchors.centerIn: parent
+                     color:cardcolor
+
+                     Column {
+                         id:wcontent
+                         anchors.top:parent.top
+                         width:parent.width
+
+                         spacing:popup.height * 0.01
+
+                            Text {
+
+                                 anchors.left:parent.left
+                                 anchors.margins:10
+                                 width:parent.width - 10
+                                 wrapMode: Text.WordWrap
+                                 text:qsTr("Work:")
+                                 font.pixelSize: 24
+                            }
+
+                           Rectangle {
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    width:parent.width * 0.98
+                                    height:3
+                                    color:seperatorColor1
+                                }
+
+                           ListView {
+                               width:parent.width
+                               spacing: popup.height * 0.01
+                                height:contentHeight
+
+                               model:ListModel {
+                                   id:workstats
+                               }
+
+
+                               delegate: Item {
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        width:parent.width * 0.98
+                                        height:workcontent.height + 10
+
+                                   Rectangle{ anchors.fill: parent
+                                       color:"gray"
+                                       opacity: if(index %2 == 0) {0.00} else {0.03}
+
+                                        }
+
+                                        Column {
+                                            id:workcontent
+                                            anchors.centerIn: parent
+                                            width:parent.width * 0.98
+                                            spacing: popup.height * 0.01
+
+                                            Text {
+                                                font.pixelSize: popup.height * 0.02
+                                                text:if(index == 0) {name.substring(1,name.length-1)}
+                                                     else {name.substring(0,name.length-1) }
+                                                width:parent.width
+
+                                                Text {
+                                                    anchors.bottom:parent.bottom
+                                                    anchors.right:parent.right
+                                                    anchors.rightMargin: popup.height * 0.01
+                                                    font.pixelSize: popup.height * 0.01
+                                                    text:"Years at Job: "+yoe
+                                                }
+                                            }
+
+                                            Rectangle {
+                                                     anchors.horizontalCenter: parent.horizontalCenter
+                                                     width:parent.width * 0.98
+                                                     height:3
+                                                     color:seperatorColor1
+                                                 }
+
+                                            Text {
+                                                anchors.left:parent.left
+                                                anchors.leftMargin: popup.height * 0.02
+                                                width:parent.width * 0.95
+                                                wrapMode: Text.WordWrap
+                                                text:"<p>"+discription.substring(1,discription.length-1)+"</p>"
+                                            }
+                                        }
+                                    }
+                           }
+
+
+                        }
+
+                 }
+
+                 DropShadow {
+                        anchors.fill: workbox
+                        horizontalOffset: 0
+                        verticalOffset: 4
+                        radius: 8.0
+                        samples: 17
+                        color: "#80000000"
+                        source: workbox
 
                     }
             }
@@ -292,15 +654,31 @@ Item {
           //x:parent.width / 2 - width /2.3
           //clip: true
 
-          Image {
+          Item {
               width: /*units.gu(2) */ parent.width / 10
               height: /*units.gu(2) */ parent.width / 10
               anchors.verticalCenter: parent.verticalCenter
 
               //name:"outgoing-call"
-              source:"./img/outgoing-call.svg"
+
               //z: -8
 
+
+              Image {
+                  id:call_icon
+                  visible: false
+                  anchors.fill: parent
+                  source: "./img/outgoing-call.svg"
+
+
+
+              }
+
+              ColorOverlay {
+                  source:call_icon
+                  anchors.fill: call_icon
+                  color:overlayColor
+              }
 
               Flasher {
                   //id:locflick
@@ -313,13 +691,28 @@ Item {
               }
 
           }
-          Image {
+          Item {
               width: /*units.gu(2) */ parent.width / 10
               height: /*units.gu(2) */ parent.width / 10
               anchors.verticalCenter: parent.verticalCenter
               //name:"message"
-              source:"./img/message.svg"
+
               //z: -8
+
+              Image {
+                  id:message_icon
+                  visible: false
+                  anchors.fill: parent
+                  source: "./img/message.svg"
+
+
+              }
+
+              ColorOverlay {
+                  source:message_icon
+                  anchors.fill: message_icon
+                  color:overlayColor
+              }
 
 
               Flasher {
@@ -333,14 +726,29 @@ Item {
               }
 
           }
-          Image {
+          Item {
 
               width: /*units.gu(2) */ parent.width / 10
               height: /*units.gu(2) */ parent.width / 10
               anchors.verticalCenter: parent.verticalCenter
 
-              source:"./img/email.svg"
-              //z: -8
+
+
+              Image {
+                  id:email_icon
+                  visible: false
+                  anchors.fill: parent
+                  source: "./img/email.svg"
+
+
+
+              }
+
+              ColorOverlay {
+                  source:email_icon
+                  anchors.fill: email_icon
+                  color:overlayColor
+              }
 
               Flasher {
                   //id:locflick
@@ -354,13 +762,26 @@ Item {
 
           }
 
-          Image {
+          Item {
               width: /*units.gu(2) */ parent.width / 10
               height: /*units.gu(2) */ parent.width / 10
               anchors.verticalCenter: parent.verticalCenter
 
-              source:if(currentcard_saved ==0) {"./img/add.svg"} else {"./img/contact.svg"}
-              //z: -8
+
+              Image {
+                  id:addcon_icon
+                  anchors.fill: parent
+                  source: if(currentcard_saved == 0) {"./img/add.svg"} else {"./img/contact.svg"}
+
+
+
+              }
+
+              ColorOverlay {
+                  source:addcon_icon
+                  anchors.fill: addcon_icon
+                  color:overlayColor
+              }
 
               Flasher {
                   //id:locflick
@@ -461,7 +882,7 @@ Item {
           onVisibleChanged: if(visible == true) {currentcard_thecard = usercard}
           //clip: true
 
-          Image {
+          Item {
               width: /*units.gu(2) */ parent.width / 10
               height: /*units.gu(2) */ parent.width / 10
               //name: if (saved == 0) {"add"} else {"starred"}
@@ -469,8 +890,24 @@ Item {
               anchors.verticalCenter: parent.verticalCenter
 
               //name:"account"
-              source:"./img/contact.svg"
+
               //z: -8
+
+              Image {
+                  id:contact_icon
+                  visible: false
+                  anchors.fill: parent
+                  source: "./img/contact.svg"
+
+
+
+              }
+
+              ColorOverlay {
+                  source:contact_icon
+                  anchors.fill: contact_icon
+                  color:overlayColor
+              }
 
               Flasher {
 
@@ -488,11 +925,24 @@ Item {
           Image {
               width: parent.width / 11
               height: parent.width / 11
-              //name: if (saved == 0) {"add"} else {"starred"}
-              //name:"share"
-              source: if(stf == "true") {"./img/share.svg"} else {"./img/private-browsing.svg"}
-              //z: -8
+
               anchors.verticalCenter: parent.verticalCenter
+
+              Image {
+                  id:priv_icon1
+                  visible: false
+                  anchors.fill: parent
+                  source: if(stf == "true") {"./img/share.svg"} else {"./img/private-browsing.svg"}
+
+
+
+              }
+
+              ColorOverlay {
+                  source:priv_icon1
+                  anchors.fill: priv_icon1
+                  color:overlayColor
+              }
 
               Flasher {
                 id:privateb
@@ -565,23 +1015,37 @@ Item {
 
           } */
 
-          Image {
+          Item {
               width: if(cardindex == 0) {if(ctf == "true") {parent.width / 11} else {parent.width / 11} }
               height: if(cardindex == 0) {if(ctf == "true") {parent.width / 11} else {parent.width / 11} }
               anchors.verticalCenter: parent.verticalCenter
 
               //name: if (saved == 0) {"add"} else {"starred"}
               //name:"contact"
-              source:"./img/contact.svg"
+
               //z: -8
 
               Image {
-                  //anchors.fill:parent
-                  visible:if(cardindex == 0) { if ( ctf == "true") {false} else {true} }
+                  id:contact_icon1
+                  visible: false
+                  anchors.fill: parent
+                  source: "./img/contact.svg"
 
-                  anchors.centerIn: parent
-                  width:parent.width * 1.17
-                  height:parent.height * 1.17
+              }
+
+              ColorOverlay {
+                  source:contact_icon1
+                  anchors.fill:contact_icon1
+                  color:overlayColor
+              }
+
+              Image {
+                  //anchors.fill:parent
+                  visible: if (ctf == "true") {false} else {true}
+
+                  anchors.centerIn: contact_icon1
+                  width:contact_icon1.width * 1.17
+                  height:contact_icon1.height * 1.17
                   source:"./img/cancel.svg"
               }
 
@@ -610,13 +1074,28 @@ Item {
 
           }
 
-          Image {
+          Item {
               width: /*units.gu(2) */ parent.width / 11
               height: /*units.gu(2) */ parent.width / 11
               anchors.verticalCenter: parent.verticalCenter
 
-              source:"./img/reload.svg"
-              //z: -8
+
+              Image {
+                  id:reload_icon
+                  visible: false
+                  anchors.fill: parent
+                  source: "./img/reload.svg"
+
+
+
+              }
+
+              ColorOverlay {
+                  source:reload_icon
+                  anchors.fill: reload_icon
+                  color:overlayColor
+              }
+
 
               Flasher {
 

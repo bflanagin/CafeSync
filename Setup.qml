@@ -1,14 +1,15 @@
-import QtQuick 2.2
+import QtQuick 2.3
 import QtQuick.Dialogs 1.2
 //import QtWebKit 3.0
-import QtWebView 1.0
-import QtQuick.Window 2.0
+//import QtWebView 1.0
+import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 import QtQuick.LocalStorage 2.0 as Sql
 import "main.js" as Scripts
 import "openseed.js" as OpenSeed
+import "text.js" as Scrubber
 
 
 Item {
@@ -24,6 +25,8 @@ Item {
  //title: qsTr("CafeSync - Settings")
 
  //Component.onCompleted: Scripts.load_Card();
+
+
 
  states: [
      State {
@@ -71,6 +74,12 @@ Item {
 
  property bool sourceselect: false
  property bool saveit: false
+ property int profilesection: 0
+
+ property var yourworked:[]
+ property var yourskills:[]
+ property var yourschooling:[]
+ property string yourabout:""
 
 
 onStateChanged: if(settingsPage.state == "Active") {topBar.state = "settings"; Scripts.fillsites();} else {topBar.state = "standard";
@@ -87,12 +96,24 @@ onSourceselectChanged: if(sourceselect == true) {sourceSelector.state = "Active"
 
 onSaveitChanged: if(saveit == true) {
 
+                                    savedReport.visible = true;
+                                     var motd = "";
+
+                                    if(yourabout == "") {
+                                        motd = usermotto.split(";::;")[0];
+                                       } else {
+                                            motd = yourabout;
+                                        }
+
+
                                      Scripts.save_card(userid,userName.text,userPhone.text,userEmail.text,userCompany.text,
-                                                       userAlias.text,personalMotto.text,usermain,website1,website2,website3,website4,
+                                                       userAlias.text,motd+";::;"+yourskills+";::;"+yourschooling+";::;"+yourworked,usermain,website1,website2,website3,website4,
                                                        stf,atf,ctf,avimg,carddesign,usercat);
                                      OpenSeed.upload_data(userid,userName.text,userPhone.text,userEmail.text,userCompany.text,
-                                                          userAlias.text,personalMotto.text,stf,atf,ctf,usermain,website1,website2,website3,website4,
-                                                          avimg,carddesign,usercat); saveit = false; }
+                                                          userAlias.text,motd+";::;"+yourskills+";::;"+yourschooling+";::;"+yourworked,stf,atf,ctf,usermain,website1,website2,website3,website4,
+                                                          avimg,carddesign,usercat); saveit = false;
+
+                 }
 
 
 onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
@@ -110,7 +131,8 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
  Flickable {
      id:setupFlick
      clip:true
-     contentHeight:parent.height * 2.9
+     contentHeight:parent.height * 2.8
+
     /* anchors {
          top: parent.top
          bottom:parent.bottom
@@ -155,7 +177,7 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
              height:3
              anchors.horizontalCenter: parent.horizontalCenter
 
-             color:highLightColor1
+             color:seperatorColor1
 
          }
 
@@ -163,13 +185,13 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
 
 Item {
     width:parent.width
-    height:parent.height * 0.12
+    height:parent.height * 0.11
 
 
 
  Rectangle {
     id:generalarea
-    clip:true
+    //clip:true
    // y:cardsava.y + cardsava.height + 10
     anchors.horizontalCenter: parent.horizontalCenter
     width:parent.width * 0.98
@@ -191,8 +213,8 @@ Item {
 
     Item {
            id:imagearea
-     height:parent.width * 0.4
-     width:parent.width * 0.4
+     height:parent.width * 0.38
+     width:parent.width * 0.38
 
      Image {
          id:cardsava
@@ -204,6 +226,14 @@ Item {
          visible: false
          fillMode: Image.PreserveAspectCrop
          source: if(cardindex == 0) {if(avimg.search("/9j/4A") != -1) {"data:image/jpeg;base64, "+avimg.replace(/ /g, "+")} else {avimg} }
+
+         Image {
+
+             anchors.fill:parent
+             visible: true
+             source: "./img/default_avatar.png"
+             z:-1
+         }
 
      }
 
@@ -267,6 +297,8 @@ Item {
         text:username
          font.pixelSize:  (parent.width  - username.length * 1.5) * 0.12
 
+
+
          MouseArea {
              anchors.fill: parent
              onClicked: userName.visible = true
@@ -301,11 +333,12 @@ Item {
       //anchors.bottom:avatarBacking.bottom
      // anchors.top:companyLabel.bottom
      // anchors.topMargin: 25
-      width:parent.width * 0.90
+      width:parent.width * 0.85
       //text: qsTr("Position:")
       text:useralias
 
       font.pixelSize: (parent.width  - useralias.length * 1.5) * 0.08
+
 
       MouseArea {
           anchors.fill: parent
@@ -352,6 +385,8 @@ Item {
       text:usercompany
       font.pixelSize: (parent.width  - usercompany.length * 1.5) * 0.08
 
+
+
       MouseArea {
           anchors.fill: parent
           onClicked: userCompany.visible = true
@@ -376,9 +411,6 @@ Item {
      }
 }
 
-
-
-
     }
 
     }
@@ -388,7 +420,7 @@ Item {
         height:3
         anchors.horizontalCenter: parent.horizontalCenter
 
-        //color:highLightColor1
+        //color:seperatorColor1
         color:"black"
 
     }
@@ -401,14 +433,15 @@ Item {
     Text {
         anchors.left:parent.left
         anchors.leftMargin: 10
-        text: qsTr("(tap to edit)")
+        text: qsTr("(tap text or image to edit)")
         anchors.verticalCenter: parent.verticalCenter
+        font.pointSize: mainView.height * 0.01
     }
 
  Text {
      id:onlineLabel
      text: qsTr("Share Card")
-     font.pointSize: 12
+     font.pointSize: mainView.height * 0.01
    //  anchors.top:parent.top
     // anchors.topMargin: 10
      anchors.right:parent.right
@@ -469,7 +502,7 @@ Rectangle {
     height:3
     anchors.horizontalCenter: parent.horizontalCenter
 
-    color:highLightColor1
+    color:seperatorColor1
 
 }
 
@@ -507,11 +540,11 @@ Item {
 
 
       anchors.left:parent.left
-     // anchors.leftMargin: units.gu(.3)
+      anchors.leftMargin: parent.height * 0.04
       //anchors.top:contactLabel.bottom
     //  anchors.topMargin: 25
       text: qsTr("Phone:")
-      font.pixelSize: 24
+      font.pixelSize: mainView.height * 0.02
 
       TextField {
          id: userPhone
@@ -522,8 +555,8 @@ Item {
          //anchors.top: parent.top
 
          placeholderText: qsTr("0 555-555-5555")
-         font.pixelSize: 24
-         width:(contactarea.width * 0.98) - phoneLabel.width
+         font.pixelSize: mainView.height * 0.02
+         width:(contactarea.width * 0.96) - phoneLabel.width
         // width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
          inputMethodHints: Qt.ImhDialableCharactersOnly
          text:userphone
@@ -536,13 +569,13 @@ Item {
 
 
       anchors.left:phoneLabel.left
-     // anchors.leftMargin: units.gu(.3)
+      //anchors.leftMargin: parent.height * 0.04
      // anchors.top:phoneLabel.bottom
      // anchors.topMargin: 25
       //width:phoneLabel.width
 
       text: qsTr("Email:")
-      font.pixelSize: 24
+      font.pixelSize: mainView.height * 0.02
       TextField {
          id: userEmail
 
@@ -551,8 +584,8 @@ Item {
          anchors.bottom: parent.bottom
          //anchors.top: parent.top
          placeholderText: qsTr("johndoe@example.com")
-         font.pixelSize: 24
-         width:(contactarea.width * 0.98) -emailLabel.width
+         font.pixelSize: mainView.height * 0.02
+         width:(contactarea.width * 0.96) -emailLabel.width
 
        //  width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
          text:useremail
@@ -567,7 +600,7 @@ Item {
       height:3
       anchors.horizontalCenter: parent.horizontalCenter
 
-      //color:highLightColor1
+      //color:seperatorColor1
       color:"black"
 
   }
@@ -575,7 +608,7 @@ Item {
   Text {
       id:contactLabel
       text: qsTr("Share Contact Info")
-      font.pointSize: 12
+      font.pointSize: mainView.height * 0.01
       //font.bold: true
       horizontalAlignment: Text.AlignLeft
      // anchors.top:parent.top
@@ -640,14 +673,14 @@ Rectangle {
     height:3
     anchors.horizontalCenter: parent.horizontalCenter
 
-   color:highLightColor1
+   color:seperatorColor1
     //color:"black"
 
 }
 
 Item {
     width:parent.width
-    height: personalMotto.height + (catbutton.height *2.2)
+    height: personalMotto.height + (catbutton.height *3.5)
 
  Rectangle {
  id: rectangle1
@@ -687,163 +720,149 @@ Item {
           //clip: true
           spacing: parent.height * 0.02
 
-          Item {
-              width:parent.width
-              height: 1
-          }
+          ListView {
+              width:rectangle1.width
+              height:settingsPage.height * 0.05
+              orientation: ListView.Horizontal
+              spacing: 10
+              clip:true
 
-
-          /*Item {
-              id:mainadvert
-              anchors.horizontalCenter: parent.horizontalCenter
-
-              anchors.topMargin: 20
-              width:parent.width * 0.95
-              height:settingsPage.height * 0.08
-
-
-         Rectangle {
-             id:blog
-             anchors.fill: parent
-             color:"lightblue"
-             radius:5
-             border.color: "white"
-
-             Row {
-                 anchors.horizontalCenter: parent.horizontalCenter
-                 width:parent.width * 0.98
-                 height:parent.height
-                 clip:true
-                 spacing: 10
-                 Image {
-                     source:"./img/stock_website.svg"
-                     height:parent.height * 0.9
-                     width:parent.height * 0.9
-                     anchors.verticalCenter: parent.verticalCenter
-
-                 }
-
-                 Rectangle {
-                     height:parent.height * 0.9
-                     color:"white"
-                     width:3
-                     anchors.verticalCenter: parent.verticalCenter
-                 }
-
-                 Text {
-                     anchors.verticalCenter: parent.verticalCenter
-                     text:if(usermain.length < 1){"Blogging platform not connected"} else {usermain}
-                     color:"white"
-                     font.pixelSize: parent.height * 0.3
-                     width:parent.width
-                     wrapMode: Text.WordWrap
-                 }
-             }
-         }
-
-         DropShadow {
-
-            anchors.fill: blog
-            horizontalOffset: 0
-            verticalOffset: 3
-            radius: 8.0
-            samples: 17
-            color: "#80000000"
-            source: blog
-            z:1
+              model: ListModel {
+                  ListElement {
+                      name: qsTr("About")
+                  }
+                  ListElement {
+                      name: qsTr("Skills")
+                  }
+                  ListElement {
+                      name: qsTr("School")
+                  }
+                  ListElement {
+                      name: qsTr("Work Expr.")
+                  }
               }
-         MouseArea {
-             anchors.fill: parent
-             onClicked: sConnect.state = "Active",sConnect.service = "blog", sConnect.type = "intergration" ,sConnect.useraccount = usermain
-         }
 
-          } */
-
-
-          Row {
-              id:pmottoRow
-              width: parent.width
-              height: settingsPage.height / 2
-
-              Text {
-                  text:qsTr("About:")
-
+              delegate: Item {
+                  width:rectangle1.width / 5
+                  height:parent.height
+                  clip:true
                   Rectangle {
-                      anchors.fill: personalMotto
-                      border.color:"gray"
-                      border.width: 1
+                      anchors.fill: parent
+                      color:if(profilesection == index) {highLightColor1} else {cardcolor}
+                  }
+                  Text {
+                      anchors.centerIn: parent
+                      text: name
+                      font.pixelSize: (parent.height * 0.5) - name.length
                   }
 
-              TextArea {
+                  MouseArea {
+                      anchors.fill:parent
+                      onClicked: profilesection = index
+                  }
+              }
+
+
+
+          }
+
+          Item {
+              id:profileRow
+              width: parent.width
+              height: settingsPage.height / 2.4
+              visible: if(profilesection == 0) {true} else {false}
+
+             Item {
+                  Rectangle {
+                      anchors.centerIn:personalMotto
+                      width:personalMotto.width * 1.02
+                      height:personalMotto.height * 1.02
+                      border.color:"gray"
+                      border.width: 1
+
+                  }
+
+              Text {
                   anchors.top:parent.bottom
                   anchors.topMargin: .6
                   wrapMode: Text.WordWrap
                   id:personalMotto
-                  width:pmottoRow.width
-                  height:pmottoRow.height
-                  text:usermotto
-                  onTextChanged: usermotto = personalMotto.text
+                  width:profileRow.width
+                  height:profileRow.height * 0.98
+                  text:if(yourabout == ""){usermotto.split(";::;")[0]} else {yourabout}
                   clip:true
 
+                  Image {
+                      anchors.right:parent.right
+                      anchors.top:parent.top
+                      source:"./img/edit-text.svg"
+                      height:parent.height * 0.06
+                      width:parent.height * 0.06
 
-                 }
+                  }
 
-              }
-          }
-
-          Rectangle {
-              //anchors.top:row0.bottom
-              width:parent.width
-              height:3
-              color:"black"
-
-
-          }
-
-          Text {
-              font.pixelSize: settingsPage.height * 0.04
-              text:qsTr("Category: ")
-              anchors.right:parent.right
-              anchors.rightMargin: catbutton.width * 1.1
-
-             Rectangle {
-                    id:catbutton
-                 width:if(cardindex == 0) {10*usercat.length + catText.width}
-                 height:parent.height * 1.1
-
-                 anchors.left:parent.right
-                 anchors.verticalCenter: parent.verticalCenter
-                 //border.color:"black"
-                 radius: 3
-                 color:highLightColor1
-                 clip:true
-
-              Text {
-                     id:catText
-                  //anchors.left:parent.right
-                     anchors.centerIn: parent
-                  font.pixelSize:24
-                 // anchors.verticalCenter: parent.verticalCenter
-                  text:if(cardindex == 0) { if(usercat.length < 1) {qsTr("Select Category")} else {usercat}}
-                  //onTextChanged: usercat = text;
-                 }
                   MouseArea {
                       anchors.fill:parent
-                      onClicked: catmenu.state = "Active"
+                      onClicked:enterProfile.state = "Active",enterProfile.type = "about"
                   }
-              }
 
-             DropShadow {
+                 }
 
-                 anchors.fill: catbutton
-                 horizontalOffset: 0
-                 verticalOffset: 3
-                 radius: 8.0
-                 samples: 17
-                 color: "#80000000"
-                 source: catbutton
-                 z:1
 
+
+
+             }
+
+
+             Text {
+                 font.pixelSize: settingsPage.height * 0.03
+                 text:qsTr("Category: ")
+                 anchors.top:profileRow.bottom
+                 anchors.topMargin: settingsPage.height * 0.01
+                 anchors.right:parent.right
+                 anchors.rightMargin: catbutton.width * 1.1
+
+                Rectangle {
+                       id:catbutton
+                    width:if(cardindex == 0) {10*usercat.length + catText.width}
+                    height:parent.height * 1.1
+
+                    anchors.left:parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    //border.color:"black"
+                    radius: 3
+                    color:highLightColor1
+                    clip:true
+
+                 Text {
+                        id:catText
+                     //anchors.left:parent.right
+                        anchors.centerIn: parent
+                     font.pixelSize:24
+                    // anchors.verticalCenter: parent.verticalCenter
+                     text:if(cardindex == 0) { if(usercat.length < 1) {qsTr("Select Category")} else {usercat}}
+                     //onTextChanged: usercat = text;
+                    }
+                     MouseArea {
+                         anchors.fill:parent
+                         onClicked: catmenu.state = "Active"
+                     }
+                 }
+
+                DropShadow {
+
+                    anchors.fill: catbutton
+                    horizontalOffset: 0
+                    verticalOffset: 3
+                    radius: 8.0
+                    samples: 17
+                    color: "#80000000"
+                    source: catbutton
+                    z:1
+
+
+
+                }
 
 
              }
@@ -852,6 +871,490 @@ Item {
           }
 
 
+
+          Item {
+              id:exprRow
+              width: parent.width
+              height: settingsPage.height / 2.15
+              visible: if(profilesection == 1) {true} else {false}
+              clip:true
+              onVisibleChanged: if(visible == true) {Scripts.skillListings()}
+
+
+
+              ListView {
+                  id:exprlist
+                  anchors.horizontalCenter: parent.horizontalCenter
+                  //anchors.verticalCenter: parent.verticalCenter
+                  width:parent.width * 0.98
+                  height:parent.height
+                  //clip:true
+                  spacing:settingsPage.height * 0.02
+
+                  model: skills
+
+                  delegate: Item {
+
+                            width:parent.width
+                            //height:settingsPage.height * 0.12
+                            height:editbutton.y + editbutton.height
+
+                            Rectangle {
+                                id:backing
+                                color:cardcolor
+                                anchors.fill: parent
+                                visible: false
+
+                                Column {
+
+                                    width:parent.width
+                                    height:parent.height
+                                    spacing:parent.height * 0.1
+
+                                Text {
+                                    text:name.substring(1,name.length-1)
+
+                                    anchors.left:parent.left
+                                    anchors.leftMargin: parent.height * 0.1
+                                    width:parent.width
+                                    font.pixelSize: (settingsPage.height * 0.04) -text.length
+
+
+                                    Text {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        anchors.right:parent.right
+                                        anchors.rightMargin: checked.height * 2
+                                        text:"Certified: "
+                                        font.pixelSize: parent.height * 0.5
+                                        visible: certified
+                                        Image {
+                                            id:checked
+                                            anchors.left:parent.right
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            source:"./img/check.svg"
+                                            height:parent.height
+                                            width:parent.height
+                                        }
+                                    }
+                                }
+
+                                Rectangle {
+                                    color:highLightColor1
+                                    width:parent.width
+                                    height: 3
+
+                                }
+
+                                Text {
+                                    anchors.left:parent.left
+                                    anchors.leftMargin:settingsPage.height * 0.01
+                                    width:parent.width*0.98
+                                    wrapMode: Text.WordWrap
+                                    text:"Discription:\n"+discription.substring(1,discription.length-1)
+                                }
+
+                                Image {
+                                    id:editbutton
+                                    anchors.right:parent.right
+                                    anchors.rightMargin: parent.width * 0.01
+                                    source:"./img/edit-text.svg"
+                                    width:settingsPage.height * 0.02
+                                    height:settingsPage.height * 0.02
+                                }
+
+                                }
+                            }
+
+                            DropShadow {
+
+                                anchors.fill: backing
+                                horizontalOffset: 0
+                                verticalOffset: 3
+                                radius: 8.0
+                                samples: 17
+                                color: "#80000000"
+                                source: backing
+                               // z:1
+
+
+
+                            }
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: enterProfile.state = "Active",enterProfile.type = "skill", enterProfile.listindex = index
+                            }
+
+                  }
+
+
+
+
+
+
+              }
+
+              Rectangle {
+                  id:addskill
+                  anchors.bottom:parent.bottom
+                  anchors.right:parent.right
+                  anchors.margins: parent.height * 0.01
+                  color:highLightColor1
+                  width:parent.height * 0.3
+                  height:parent.height * 0.08
+                  radius:5
+
+                  Text {
+                      anchors.centerIn: parent
+                      text:qsTr("Add Skill")
+                      font.pixelSize: (parent.height * 0.8) - text.length
+                  }
+
+                  MouseArea {
+                      anchors.fill:parent
+                      onClicked:enterProfile.state = "Active",enterProfile.type = "skill"
+                  }
+              }
+
+              DropShadow {
+
+                  anchors.fill: addskill
+                  horizontalOffset: 0
+                  verticalOffset: 3
+                  radius: 8.0
+                  samples: 17
+                  color: "#80000000"
+                  source: addskill
+                 // z:1
+
+
+
+              }
+
+
+
+          }
+
+          Item {
+              id:schoolRow
+              width: parent.width
+              height: settingsPage.height / 2.15
+              visible: if(profilesection == 2) {true} else {false}
+              clip:true
+              onVisibleChanged: if(visible == true) {Scripts.schoolListings()}
+
+
+
+
+              ListView {
+                  id:schoollist
+                  anchors.horizontalCenter: parent.horizontalCenter
+                  //anchors.verticalCenter: parent.verticalCenter
+                  width:parent.width * 0.98
+                  height:parent.height
+                  //clip:true
+                  spacing:settingsPage.height * 0.02
+
+                  model: school
+
+                  delegate: Item {
+
+                      width:parent.width
+                      //height:settingsPage.height * 0.12
+                      height:editbutton1.y + editbutton1.height
+
+                      Rectangle {
+                          id:backing1
+                          color:cardcolor
+                          anchors.fill: parent
+                          visible: false
+
+                          Column {
+
+                              width:parent.width
+                              height:parent.height
+                              spacing:parent.height * 0.1
+
+                          Text {
+                              text:name.substring(1,name.length-1)
+
+                              anchors.left:parent.left
+                              anchors.leftMargin: parent.height * 0.1
+                              width:parent.width
+                              font.pixelSize: (settingsPage.height * 0.04) -text.length
+
+
+                              Text {
+                                  anchors.verticalCenter: parent.verticalCenter
+                                  anchors.right:parent.right
+                                  anchors.rightMargin: checked1.height * 2
+                                  text:"Graduated: "
+                                  font.pixelSize: parent.height * 0.5
+                                  visible: graduated
+                                  Image {
+                                      id:checked1
+                                      anchors.left:parent.right
+                                      anchors.verticalCenter: parent.verticalCenter
+                                      source:"./img/check.svg"
+                                      height:parent.height
+                                      width:parent.height
+                                  }
+                              }
+                          }
+
+                          Rectangle {
+                              color:highLightColor1
+                              width:parent.width
+                              height: 3
+
+                          }
+
+                          Text {
+                              anchors.left:parent.left
+                              anchors.leftMargin:settingsPage.height * 0.01
+                              width:parent.width*0.98
+                              wrapMode: Text.WordWrap
+                              text:"Discription:\n"+discription.substring(1,discription.length-1)
+                          }
+
+                          Image {
+                              id:editbutton1
+                              anchors.right:parent.right
+                              anchors.rightMargin: parent.width * 0.01
+                              source:"./img/edit-text.svg"
+                              width:settingsPage.height * 0.02
+                              height:settingsPage.height * 0.02
+                          }
+
+                          }
+                      }
+
+                      DropShadow {
+
+                          anchors.fill: backing1
+                          horizontalOffset: 0
+                          verticalOffset: 3
+                          radius: 8.0
+                          samples: 17
+                          color: "#80000000"
+                          source: backing1
+                         // z:1
+
+
+
+                      }
+
+                      MouseArea {
+                          anchors.fill: parent
+                          onClicked: enterProfile.state = "Active",enterProfile.type = "school", enterProfile.listindex = index
+                      }
+
+            }
+
+
+
+
+
+
+              }
+
+              Rectangle {
+                  id:addschool
+                  anchors.bottom:parent.bottom
+                  anchors.right:parent.right
+                  anchors.margins: parent.height * 0.01
+                  color:highLightColor1
+                  width:parent.height * 0.3
+                  height:parent.height * 0.08
+                  radius:5
+                 // visible: false
+
+                  Text {
+                      anchors.centerIn: parent
+                      text:qsTr("Add School")
+                      font.pixelSize: (parent.height * 0.8) - text.length
+                  }
+
+
+                  MouseArea {
+                      anchors.fill:parent
+                      onClicked:enterProfile.state = "Active",enterProfile.type = "school"
+                  }
+              }
+              DropShadow {
+
+                  anchors.fill: addschool
+                  horizontalOffset: 0
+                  verticalOffset: 3
+                  radius: 8.0
+                  samples: 17
+                  color: "#80000000"
+                  source: addschool
+                 // z:1
+
+
+
+              }
+
+
+          }
+
+          Item {
+              id:workRow
+              width: parent.width
+              height: settingsPage.height / 2.15
+              visible: if(profilesection == 3) {true} else {false}
+              clip:true
+              onVisibleChanged: if(visible == true) {Scripts.workListings()}
+
+
+
+              ListView {
+                  id:worklist
+                  anchors.horizontalCenter: parent.horizontalCenter
+                 // anchors.verticalCenter: parent.verticalCenter
+                  width:parent.width * 0.98
+                  height:parent.height
+                  //clip:true
+                  spacing:settingsPage.height * 0.02
+
+                  model: workexpr
+
+                  delegate: Item {
+
+                      width:parent.width
+                      //height:settingsPage.height * 0.12
+                      height:editbutton2.y + editbutton2.height
+
+                      Rectangle {
+                          id:backing2
+                          color:cardcolor
+                          anchors.fill: parent
+                          visible: false
+
+                          Column {
+
+                              width:parent.width
+                              height:parent.height
+                              spacing:parent.height * 0.1
+
+                          Text {
+                              text:name.substring(1,name.length-1)
+
+                              anchors.left:parent.left
+                              anchors.leftMargin: parent.height * 0.1
+                              width:parent.width
+                              font.pixelSize: (settingsPage.height * 0.04) -text.length
+
+
+                              Text {
+                                  anchors.verticalCenter: parent.verticalCenter
+                                  anchors.right:parent.right
+                                  anchors.rightMargin: checked2.height * 2
+                                  text:"Currently Working: "
+                                  font.pixelSize: parent.height * 0.5
+                                  visible: currentlyEmployeed
+                                  Image {
+                                      id:checked2
+                                      anchors.left:parent.right
+                                      anchors.verticalCenter: parent.verticalCenter
+                                      source:"./img/check.svg"
+                                      height:parent.height
+                                      width:parent.height
+                                  }
+                              }
+                          }
+
+                          Rectangle {
+                              color:highLightColor1
+                              width:parent.width
+                              height: 3
+
+                          }
+
+                          Text {
+                              anchors.left:parent.left
+                              anchors.leftMargin:settingsPage.height * 0.01
+                              width:parent.width*0.98
+                              wrapMode: Text.WordWrap
+                              text:"Discription:\n"+discription.substring(1,name.length-1)
+                          }
+
+                          Image {
+                              id:editbutton2
+                              anchors.right:parent.right
+                              anchors.rightMargin: parent.width * 0.01
+                              source:"./img/edit-text.svg"
+                              width:settingsPage.height * 0.02
+                              height:settingsPage.height * 0.02
+                          }
+
+                          }
+                      }
+
+                      DropShadow {
+
+                          anchors.fill: backing2
+                          horizontalOffset: 0
+                          verticalOffset: 3
+                          radius: 8.0
+                          samples: 17
+                          color: "#80000000"
+                          source: backing2
+                         // z:1
+
+
+
+                      }
+
+                      MouseArea {
+                          anchors.fill: parent
+                          onClicked: enterProfile.state = "Active",enterProfile.type = "work", enterProfile.listindex = index
+                      }
+
+            }
+
+              }
+
+              Rectangle {
+                  id:addwork
+                  anchors.bottom:parent.bottom
+                  anchors.right:parent.right
+                  anchors.margins: parent.height * 0.01
+                  color:highLightColor1
+                  width:parent.height * 0.3
+                  height:parent.height * 0.08
+                  radius:5
+
+                  Text {
+                      anchors.centerIn: parent
+                      text:qsTr("Add Work Expr.")
+                      font.pixelSize: (parent.height * 0.8) - text.length
+                  }
+
+                  MouseArea {
+                      anchors.fill:parent
+                      onClicked:enterProfile.state = "Active",enterProfile.type = "work"
+                  }
+              }
+
+              DropShadow {
+
+                  anchors.fill: addwork
+                  horizontalOffset: 0
+                  verticalOffset: 3
+                  radius: 8.0
+                  samples: 17
+                  color: "#80000000"
+                  source: addwork
+                 // z:1
+
+
+
+              }
+
+
+          }
 
 
       }
@@ -894,7 +1397,7 @@ Rectangle {
     height:3
     anchors.horizontalCenter: parent.horizontalCenter
 
-   color:highLightColor1
+   color:seperatorColor1
     //color:"black"
 
 }
@@ -966,20 +1469,20 @@ Rectangle {
                                     anchors.rightMargin: parent.height * 0.2
                                     width:parent.height * 0.40
                                     height:parent.height * 0.40
+                                    z:3
 
                                 Image {
-
+                                    id:del_icon
+                                    visible: false
                                     source:"./img/close.svg"
-                                     anchors.fill:parent
-
-
-                                    ColorOverlay {
-                                           anchors.fill: parent
-                                           source: parent
-                                           color: "white"
-                                       }
+                                     anchors.fill:parent  
 
                                 }
+                                ColorOverlay {
+                                       anchors.fill: del_icon
+                                       source: del_icon
+                                       color: "white"
+                                   }
 
                                 MouseArea {
                                     anchors.fill: parent
@@ -1005,207 +1508,6 @@ Rectangle {
                     }
 
 
-                    /* Item {
-                         id:twitterButton
-                         anchors.horizontalCenter: parent.horizontalCenter
-                         anchors.top:parent.top
-                         anchors.topMargin: 20
-                         width:parent.width * 0.95
-                         height:settingsPage.height * 0.08
-
-                     Rectangle {
-                         id:twb
-                         anchors.fill: parent
-                         color:"lightblue"
-                         radius:5
-                         border.color: "white"
-
-                         Row {
-                             anchors.horizontalCenter: parent.horizontalCenter
-                             width:parent.width * 0.98
-                             height:parent.height
-                             clip:true
-                             spacing: 10
-                             Image {
-                                 source:"./img/twitter.png"
-                                 height:parent.height * 0.9
-                                 width:parent.height * 0.9
-                                 anchors.verticalCenter: parent.verticalCenter
-
-                             }
-
-                             Rectangle {
-                                 height:parent.height * 0.9
-                                 color:"white"
-                                 width:3
-                                 anchors.verticalCenter: parent.verticalCenter
-                             }
-
-                             Text {
-                                 anchors.verticalCenter: parent.verticalCenter
-                                 text:if(website1.search("twitter") == -1){"Twitter not connected"} else {website1.split("::")[1]}
-                                 color:"white"
-                                 width:parent.width
-                                 font.pixelSize: parent.height * 0.3
-                                 wrapMode: Text.WordWrap
-                             }
-                         }
-                       }
-
-                     DropShadow {
-
-                        anchors.fill: twb
-                        horizontalOffset: 0
-                        verticalOffset: 3
-                        radius: 8.0
-                        samples: 17
-                        color: "#80000000"
-                        source: twb
-                        z:1
-
-
-
-                          }
-
-                     MouseArea {
-                         anchors.fill: parent
-                         onClicked: sConnect.state = "Active",sConnect.service = "twitter", sConnect.type = "intergration",sConnect.useraccount = website1
-                     }
-                      }
-
-                    Item {
-                        id:tumblrButton
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.top:twitterButton.bottom
-                        anchors.topMargin: 20
-                        width:parent.width * 0.95
-                        height:settingsPage.height * 0.08
-
-                    Rectangle {
-                        id:trb
-                       anchors.fill: parent
-                        color:"#343460"
-                        radius:5
-                        border.color: "white"
-
-                        Row {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            width:parent.width * 0.98
-                            height:parent.height
-                            clip:true
-                            spacing: 10
-                            Image {
-                                source:"./img/tumblr.png"
-                                height:parent.height * 0.9
-                                width:parent.height * 0.9
-                                anchors.verticalCenter: parent.verticalCenter
-
-                            }
-
-                            Rectangle {
-                                height:parent.height * 0.9
-                                color:"white"
-                                width:3
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-
-                            Text {
-                                anchors.verticalCenter: parent.verticalCenter
-                                text:if(website2.search("tumblr") == -1){"Tumblr not connected"} else {website2.split("::")[1]}
-                                color:"white"
-                                width:parent.width
-                                font.pixelSize: parent.height * 0.3
-                                wrapMode: Text.WordWrap
-                            }
-                        }
-                    }
-
-                    DropShadow {
-
-                       anchors.fill: trb
-                       horizontalOffset: 0
-                       verticalOffset: 3
-                       radius: 8.0
-                       samples: 17
-                       color: "#80000000"
-                       source: trb
-                       z:1
-                         }
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: sConnect.state = "Active",sConnect.service = "tumblr", sConnect.type = "intergration",sConnect.useraccount = website2
-                    }
-
-                     }
-
-
-
-                     Item {
-                         id:soundcloudButton
-                         anchors.horizontalCenter: parent.horizontalCenter
-                         anchors.top:tumblrButton.bottom
-                         anchors.topMargin: 20
-                         width:parent.width * 0.95
-                         height:settingsPage.height * 0.08
-
-
-                    Rectangle {
-                        id:scb
-                        anchors.fill: parent
-                        color:"orange"
-                        radius:5
-                        border.color: "white"
-
-                        Row {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            width:parent.width * 0.98
-                            height:parent.height
-                            clip:true
-                            spacing: 10
-                            Image {
-                                source:"./img/soundcloud.png"
-                                height:parent.height * 0.9
-                                width:parent.height * 0.9
-                                anchors.verticalCenter: parent.verticalCenter
-
-                            }
-
-                            Rectangle {
-                                height:parent.height * 0.9
-                                color:"white"
-                                width:3
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-
-                            Text {
-                                anchors.verticalCenter: parent.verticalCenter
-                                text:if(website4.search("soundcloud") == -1){"SoundCloud not connected"} else {website4.split("::")[1]}
-                                color:"white"
-                                font.pixelSize: parent.height * 0.3
-                                width:parent.width
-                                wrapMode: Text.WordWrap
-                            }
-                        }
-                    }
-
-                    DropShadow {
-
-                       anchors.fill: scb
-                       horizontalOffset: 0
-                       verticalOffset: 3
-                       radius: 8.0
-                       samples: 17
-                       color: "#80000000"
-                       source: scb
-                       z:1
-                         }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: sConnect.state = "Active",sConnect.service = "soundcloud", sConnect.type = "intergration",sConnect.useraccount = website4
-                    }
-
-                     } */
 
 
 }
@@ -1243,7 +1545,7 @@ Rectangle {
      height:3
      anchors.horizontalCenter: parent.horizontalCenter
 
-    color:highLightColor1
+    color:seperatorColor1
      //color:"black"
 
  }
@@ -1388,6 +1690,48 @@ Rectangle {
 
  ListModel {
      id:socialcontracts
+
+ }
+
+ ListModel {
+     id:skills
+
+
+
+ }
+
+ ListModel {
+     id:workexpr
+
+
+
+ }
+
+ ListModel {
+     id:school
+
+ }
+
+ Notification {
+     id:savedReport
+
+     anchors.centerIn: parent
+     width:parent.width * 0.80
+     height:parent.height * 0.20
+     themessage: qsTr("Settings Saved")
+     delay:3
+     visible: false
+
+
+ }
+
+ ProfileEntry {
+     id:enterProfile
+     //y:-settingsPage.y
+     width:mainView.width
+     height:mainView.height * 0.94
+     state:"InActive"
+     onStateChanged: if(state == "InActive") { Scripts.skillListings(),Scripts.schoolListings(),Scripts.workListings()}
 
  }
 

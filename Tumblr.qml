@@ -174,7 +174,7 @@ Item {
                 visible: if(postimage.length > 2) {true} else {false}
                 anchors.top:postsplitter.bottom
                 width:parent.width * 0.98
-                height:if(postimage.length > 2) {popup.height * 0.70} else {10}
+                //height:if(postimage.length > 2) {popup.height * 0.70} else {10}
                 fillMode: Image.PreserveAspectFit
                 anchors.horizontalCenter: parent.horizontalCenter
                 source:postimage
@@ -237,7 +237,7 @@ Item {
 
                    opacity: 1
                     radius:0
-                    color:barColor
+                    color:bottombarColor
                     }
 
                     PropertyChanges {
@@ -289,7 +289,7 @@ Item {
             //font.underline: true
             font.pixelSize: servicelogo.height * 0.5
             text:postcount
-            color:highLightColor1
+            color:fontColorTitle
         }
 
         Rectangle {
@@ -297,7 +297,7 @@ Item {
             anchors.rightMargin: parent.width * 0.05
             height:servicelogo.height * 0.80
             anchors.verticalCenter: servicelogo.verticalCenter
-            color:highLightColor1
+            color:seperatorColor1
             width:3
         }
     }

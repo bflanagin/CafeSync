@@ -206,7 +206,7 @@ import "openseed.js" as OpenSeed
                                             anchors.left:card_avatar_backing.right
                                             width:parent.width * 0.57
                                             height:3
-                                            color:highLightColor1
+                                            color:spColor
                                         }
 
                                         Text {

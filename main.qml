@@ -2,7 +2,7 @@ import QtQuick 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Dialogs 1.2
 //import QtWebKit 3.0
-import QtWebView 1.0
+//import QtWebView 1.0
 import QtQuick.Window 2.0
 import QtPositioning 5.2
 import QtQuick.Controls.Material 2.2
@@ -13,6 +13,7 @@ import IO 1.0
 import QtQuick.LocalStorage 2.0 as Sql
 import "main.js" as Scripts
 import "openseed.js" as OpenSeed
+import "text.js" as Scrubber
 
 ApplicationWindow {
 
@@ -35,16 +36,25 @@ ApplicationWindow {
     property string heart: "OffLine"
     property int updateinterval: 0
 
-//#795548
-  //  #82A1FF
-  // #487951
+
+
     //Theme settings //
-    property string backgroundColor: "#EFEFEF"
-    property string highLightColor1: "#FFE082"
-    property string barColor: "#795548"
-    property string bottombarColor: "#795548"
+
+
+
+    property string backgroundColor: "#DFDFD9"
+    property string highLightColor1: Qt.rgba(0.99,0.95,0.88,1)
+    property string seperatorColor1: "#795548"
+    property string barColor: Qt.rgba(0.98,0.98,0.95,1)
+    property string bottombarColor: Qt.rgba(0.98,0.98,0.95,1)
     property string activeColor: "#6E4879"
-    property string cardcolor: Qt.rgba(0.98,0.98,0.98,1)
+    property string cardcolor: Qt.rgba(0.98,0.98,0.95,1)
+    property string overlayColor: "#795548"
+    property string fontColorTitle: "black"
+
+
+
+
 
     property string paths:""
 
@@ -62,6 +72,7 @@ ApplicationWindow {
     property string userid: ""
     property string usercat: ""
     property string usercard: ""
+    property string usercardNum: ""
 
     property string stf: "false"
     property string atf: "false"
@@ -160,7 +171,8 @@ ApplicationWindow {
 
     property string currentcat: "All Cards"
 
-    property string category_list: "All Cards,Art,Business,Construction,Education,Engineering,Food,Government,Law,Living,Lifestyle,Music,Non-Profit,Personal,Repair,Science,Software,Technology,Theatre,Writing,Wellness"
+    property string category_list: "All Cards::none,Art::yellow,Business::black,Construction::green,Education::red,Engineering::gold,Food::lightblue,
+Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,Non-Profit::merrygold,Personal::none,Repair::darkred,Science::blue,Software::orange,Technology::darkorange,Theatre::none,Writing::none,Wellness::lightpink"
 
     property int bgnum: 2
     property int symbolnum: 14
@@ -198,7 +210,7 @@ ApplicationWindow {
     property var db: Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
 
-    property var slist : ["Facebook::"+"#3C5A8A"+"::./img/fb.png::facebook::user.name","Twitter::"+"lightblue"+"::./img/twitter.png::twitter::@username","Tumblr::"+"#343460"+"::./img/tumblr.png::tumblr::username/blogname","Linkedin::"+"#6084C4"+"::./img/linkedin.png::linkedin::user-name",
+    property var slist : ["Facebook::"+"#3C5A8A"+"::./img/fb.png::facebook::pagename","Twitter::"+"lightblue"+"::./img/twitter.png::twitter::@username","Tumblr::"+"#343460"+"::./img/tumblr.png::tumblr::username/blogname","Linkedin::"+"#6084C4"+"::./img/linkedin.png::linkedin::user-name",
     "Medium::"+cardcolor+"::./img/medium.png::medium::example.com","WordPress::"+"darkgray"+"::./img/wordpress.png::wordpress::example.com","RSS::"+"lightgray"+"::./img/RSS.png::blog::example.com","SoundCloud::"+"orange"+"::./img/soundcloud.png::soundcloud::bandname"];
 
 
@@ -208,7 +220,8 @@ ApplicationWindow {
     height: 1280
     //width:Screen.desktopAvailableWidth
     //height:Screen.desktopAvailableHeight
-   // background: backgroundColor
+    //background: "black"
+
     title: "CafeSync"
 
     property int closeit: 0
@@ -260,7 +273,7 @@ ApplicationWindow {
         repeat:false
         onTriggered: Scripts.save_card(userid,username,userphone,useremail,usercompany,
                                        useralias,usermotto,usermain,website1,website2,website3,website4,
-                                       stf,atf,ctf,avimg,carddesign,usercat);
+                                       stf,atf,ctf,avimg,carddesign,usercat,usercardNum);
     }
 
     Timer {
@@ -305,6 +318,7 @@ ApplicationWindow {
         repeat: true
         onTriggered:{
             gpsupdate.interval = offset;
+            if(userid != "" && cardloaded == 1) {
         if (positionSource.supportedPositioningMethods ===
                 PositionSource.NoPositioningMethods) {
             positionSource.nmeaSource = "nmealog.txt";
@@ -313,6 +327,7 @@ ApplicationWindow {
 
         positionSource.update();
     }
+        }
     }
 
 
@@ -543,7 +558,7 @@ ApplicationWindow {
                     anchors.centerIn: parent
                     text: qsTr("Wizard")
                     font.pixelSize: parent.height * 0.4
-                    color:"white"
+                    color:fontColorTitle
                 }
             }
 
@@ -561,15 +576,27 @@ ApplicationWindow {
             }
 
 
-    Image {
+    Item {
         id:mainMenu
         anchors.left:parent.left
         anchors.verticalCenter: parent.verticalCenter
 
-        source:"./img/menu.svg"
+
         anchors.leftMargin: parent.width * 0.03
         width:parent.height * 0.4
         height:parent.height * 0.4
+
+        Image {
+            anchors.fill: parent
+            source: "./img/menu.svg"
+
+        ColorOverlay {
+            source:parent
+            anchors.fill: parent
+            color:overlayColor
+        }
+
+        }
 
         Flasher {
             id:menuflick
@@ -600,15 +627,26 @@ ApplicationWindow {
 
 
 
-        Image {
+        Item {
             id:search
 
-            source:"./img/find.svg"
-            anchors.right:parent.right
-            anchors.rightMargin:parent.width * 0.03
-            anchors.verticalCenter: parent.verticalCenter
             width:parent.height * 0.4
           height:parent.height * 0.4
+          anchors.right:parent.right
+          anchors.rightMargin:parent.width * 0.03
+          anchors.verticalCenter: parent.verticalCenter
+
+            Image {
+            source:"./img/find.svg"
+            anchors.fill: parent
+
+            ColorOverlay {
+                source:parent
+                anchors.fill: parent
+                color:overlayColor
+            }
+
+            }
 
           Flasher {
               id:searchflick
@@ -621,21 +659,37 @@ ApplicationWindow {
         }
 
 
-        Image {
+        Item {
             id:location_switch
            // anchors.right:search.left
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             property int loc:if(listget == "temp") {0} else {2}
-            source: if(selection != 1) { switch(loc) {
-                                             case 0:"img/gps.svg";break;
-                                             case 2:"img/language-chooser.svg";break;
-                                          // case 2:"img/stock_website.svg";break;
-                                              default:"img/gps.svg";break;
-                                            }
-                                    }else {"img/overlay.svg"}
             width:parent.height * 0.7
             height:parent.height * 0.7
+
+            Image {
+                 id:loc_icon
+                 visible: false
+                anchors.fill: parent
+            source: if(selection != 1) { switch(parent.loc) {
+                                             case 0:"img/location.svg";break;
+                                             case 2:"img/language-chooser.svg";break;
+                                          // case 2:"img/stock_website.svg";break;
+                                              default:"img/location.svg";break;
+                                            }
+                                    }else {"img/overlay.svg"}
+
+
+
+                }
+
+            ColorOverlay {
+                source:loc_icon
+                anchors.fill: loc_icon
+                color:overlayColor
+            }
+
 
             Flasher {
                 id:locflick
@@ -670,15 +724,32 @@ ApplicationWindow {
                 color:barColor
             }
 
-            Image {
+            Item {
                 id:mainMenu1
                 anchors.left:parent.left
                 anchors.verticalCenter: parent.verticalCenter
-                source: "./img/back.svg"
+
                 anchors.leftMargin: parent.width * 0.03
 
                 width:parent.height * 0.4
                 height:parent.height * 0.4
+
+
+                Image {
+                    visible: false
+                    id:back_icon1
+                    anchors.fill: parent
+                    source: "./img/back.svg"
+
+
+
+                }
+
+                ColorOverlay {
+                    source:back_icon1
+                    anchors.fill: back_icon1
+                    color:overlayColor
+                }
 
                 Flasher {
                     id:setflick
@@ -713,18 +784,36 @@ ApplicationWindow {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
                 text:qsTr("Setup")
-                color:"white"
+                color:fontColorTitle
                 font.pixelSize: parent.height * 0.5
             }
 
-            Image {
+            Item {
                 id:saveme
                 anchors.right:parent.right
                 anchors.rightMargin:parent.width * 0.03
                 anchors.verticalCenter: parent.verticalCenter
                 width:parent.height * 0.4
                 height:parent.height * 0.4
-                source: "img/save.svg"
+
+
+
+                Image {
+                    id:save_icon
+                    visible: false
+                    anchors.fill: parent
+                    source: "./img/save.svg"
+
+
+
+                }
+
+                ColorOverlay {
+                    source:save_icon
+                    anchors.fill: save_icon
+                    color:overlayColor
+                }
+
 
                 Flasher {
                     id:savflick
@@ -793,15 +882,33 @@ ApplicationWindow {
                 color:barColor
             }
 
-            Image {
+            Item {
                 id:mainMenu2
                 anchors.left:parent.left
                 anchors.verticalCenter: parent.verticalCenter
-                source: "./img/menu.svg"
+
                 anchors.leftMargin: parent.width * 0.03
 
                 width:parent.height * 0.4
                 height:parent.height * 0.4
+
+                Image {
+                    id:menu_icon2
+                    visible: false
+                    anchors.fill: parent
+                    source: "./img/menu.svg"
+
+
+
+                }
+
+                ColorOverlay {
+                    source:menu_icon2
+                    anchors.fill: menu_icon2
+                    color:overlayColor
+                }
+
+
 
                 Flasher {
                    // id:setflick
@@ -834,14 +941,31 @@ ApplicationWindow {
 
 
 
-            Image {
+            Item {
                 id:back
                 anchors.right:parent.right
                 anchors.rightMargin: 10
                 anchors.verticalCenter: parent.verticalCenter
                 width:parent.height * 0.4
                 height:parent.height * 0.4
-                source: "./img/back.svg"
+
+
+
+                Image {
+                    id:back_icon2
+                    visible: false
+                    anchors.fill: parent
+                    source: "./img/back.svg"
+
+
+                }
+
+
+                ColorOverlay {
+                    source:back_icon2
+                    anchors.fill: back_icon2
+                    color:overlayColor
+                }
 
                 Flasher {
                     //id:setflick
@@ -871,15 +995,32 @@ ApplicationWindow {
             }
 
 
-    Image {
+    Item {
         id:back2
         anchors.left:parent.left
         anchors.verticalCenter: parent.verticalCenter
 
-        source:"./img/back.svg"
+
         anchors.leftMargin: parent.width * 0.03
         width:parent.height * 0.4
         height:parent.height * 0.4
+
+        Image {
+            id:back_icon3
+            visible: false
+            anchors.fill: parent
+            source: "./img/back.svg"
+
+
+
+        }
+
+        ColorOverlay {
+            source:back_icon3
+            anchors.fill: back_icon3
+            color:overlayColor
+        }
+
 
         Flasher {
            // id:setflick
@@ -896,21 +1037,30 @@ ApplicationWindow {
 
     }
 
-    Image {
+    Item {
         id:saveState
         width:  parent.height * 0.7
         height: parent.height * 0.7
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
 
-        source:switch(currentcard_saved) {
-               case 0: "./img/overlay.svg";break;
-               case 1: "./img/overlay.svg";break;
-               case 2: "./img/overlay.svg";break;
-               default: "./img/overlay.svg";break;
-               }
-
         //z: -8
+
+        Image {
+            id:save_icon1
+            visible: false
+            anchors.fill: parent
+            source: "./img/overlay.svg"
+
+
+
+        }
+
+        ColorOverlay {
+            source:save_icon1
+            anchors.fill: save_icon1
+            color:overlayColor
+        }
 
         Flasher {
             id:sav1flick
@@ -946,15 +1096,30 @@ ApplicationWindow {
 
     }
 
-    Image {
+    Item {
+        id:editdelete
         width:  parent.height  * 0.4
         height:  parent.height * 0.4
         anchors.right:parent.right
         anchors.rightMargin: parent.width * 0.03
         anchors.verticalCenter: parent.verticalCenter
 
-        source:if(currentcard_saved == 2) {"./img/edit.svg"} else {"./img/delete.svg"}
-        //z: -8
+
+        Image {
+            id:eddel
+            visible: false
+            anchors.fill: parent
+            source:if(currentcard_saved == 2) {"./img/edit.svg"} else {"./img/delete.svg"}
+
+
+        }
+
+        ColorOverlay {
+            source:eddel
+            anchors.fill: eddel
+            color:overlayColor
+        }
+
 
         Flasher {
             id:delflick
@@ -1231,14 +1396,15 @@ ApplicationWindow {
 
                   }
 
-                Image {
+               /* Image {
                     source: "./img/overlay.svg"
                     anchors.centerIn: parent
                     fillMode:Image.PreserveAspectFit
                     width:parent.width /2
                     height:parent.height /2
-                    opacity:0.4
-                }
+                    opacity:0.1
+
+                } */
 
 
 
@@ -1320,13 +1486,27 @@ ApplicationWindow {
                     height:parent.height * 0.08
                     color:bottombarColor
 
-                Image {
+                Item {
                     id:privimg
                     anchors.centerIn: parent
                     width:parent.height * 0.7
                     height: parent.height * 0.7
-                    fillMode:Image.PreserveAspectFit
-                    source:if(stf == "true") {"./img/share.svg"} else {"./img/private-browsing.svg"}
+
+                    Image {
+                        id:priv_icon
+                        visible: false
+                        anchors.fill: parent
+                        source: if(stf == "true") {"./img/share.svg"} else {"./img/private-browsing.svg"}
+
+
+
+                    }
+
+                    ColorOverlay {
+                        source:priv_icon
+                        anchors.fill: priv_icon
+                        color:overlayColor
+                    }
 
                     Flasher{
                         id:privateb
@@ -1341,7 +1521,7 @@ ApplicationWindow {
 
                         preventStealing: true
                         onClicked: { if(stf == "true") {stf = "false"; } else { stf = "true";}
-                            Scripts.save_card(userid,username,userphone,useremail,usercompany,
+                            Scripts.save_card(userid,Scrubber.replaceSpecials(username),userphone,useremail,usercompany,
                                                                                       useralias,usermotto,usermain,website1,website2,website3,website4,
                                                                                       stf,atf,ctf,avimg,carddesign,usercat);
                                                                     OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
@@ -1419,7 +1599,10 @@ Wizard {
     height: mainView.height * 0.98
     //state: "InActive"
     state:"InActive"
+    onStateChanged: if(visible) {notificationClient.notification = "User is happy!"}
 }
+
+
 
 
 Notification {

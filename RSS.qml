@@ -56,10 +56,10 @@ Item {
         id:bg
         anchors.centerIn: parent
         source:banner
-        width:parent.width * 0.60
-        height:parent.height * 0.60
+        width:parent.width * 0.90
+        height:parent.height * 0.90
         fillMode:Image.PreserveAspectFit
-        opacity: 0.4
+        opacity: 0.1
     }
 
     /*Text {
@@ -219,7 +219,7 @@ Item {
         height:parent.height
         color:backgroundColor
         //radius:10
-        //border.color:highLightColor1
+        //border.color:seperatorColor1
         z:2
 
         states: [
@@ -294,8 +294,8 @@ Item {
             anchors.verticalCenter:servicelogo.verticalCenter
             //font.underline: true
             font.pixelSize: servicelogo.height * 0.5
-            text:postcount
-            color:highLightColor1
+            text:postcount -1
+            color:fontColorTitle
         }
 
         Rectangle {
@@ -303,7 +303,7 @@ Item {
             anchors.rightMargin: parent.width * 0.05
             height:servicelogo.height * 0.80
             anchors.verticalCenter: servicelogo.verticalCenter
-            color:highLightColor1
+            color:seperatorColor1
             width:3
         }
     }

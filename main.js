@@ -41,37 +41,49 @@ function save_card(id,username,userphone,useremail,usercompany,useralias,usermot
 
 
     usermotto = usermotto.replace(/\'/g,"&#x27;");
+    //usermotto = usermotto.replace(/+/g,"&plus;");
+
 
 
 
     username = username.replace(/\'/g,"&#x27;");
+   // username = username.replace(/+/g,"&plus;");
 
 
     usercompany = usercompany.replace(/\'/g,"&#x27;");
+    //usercompany = usercompany.replace(/+/g,"&plus;");
+
 
 
     useralias = useralias.replace(/\'/g,"&#x27;");
+   // useralias = useralias.replace(/+/g,"&plus;");
+
 
 
 
     //var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
     var userStr = "INSERT INTO Card VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    var ycStr = "INSERT INTO YourCard VALUES(?,?)";
 
     var data = [id,username,userphone,useremail,usercompany,useralias,usermotto,main,website1,website2,website3,website4,avatar,cardback,cardcat];
+    var data1 = [id,cardindex];
 
 
-    var testStr = "SELECT  *  FROM Card WHERE id= '"+id+"'";
+    var testStr = "SELECT  * FROM Card WHERE id= '"+id+"'";
+    var testStr1 = "SELECT * FROM YourCard WHERE id= '"+id+"'";
 
 
     var updateUser = "UPDATE Card SET name='"+username+"', email='"+useremail+"', phone='"+userphone+"', company='"+usercompany+"', alias='"+useralias+"', motto='"+usermotto+"', main='"+main+"',website1='"+website1+"', website2='"+website2+"', website3='"+website3+"', website4='"+website4+"', avatar='"+avatar+"', cardback='"+cardback+"', cat='"+cardcat+"'  WHERE id='"+id+"'";
 
+    var updateYC = "UPDATE YourCard SET cardNum='"+cardindex+"'";
+
         db.transaction(function(tx) {
            //tx.executeSql("DROP TABLE Card");
             tx.executeSql('CREATE TABLE IF NOT EXISTS Card(id TEXT, name TEXT,phone TEXT,email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT,cardback TEXT,cat TEXT)');
-
+            tx.executeSql('CREATE TABLE IF NOT EXISTS YourCard(id TEXT, cardNum TEXT)');
 
                         var test = tx.executeSql(testStr);
-
+                        var test1 = tx.executeSql(testStr1);
 
                             if(test.rows.length == 0) {
 
@@ -82,6 +94,18 @@ function save_card(id,username,userphone,useremail,usercompany,useralias,usermot
                             } else {
                                 if(userid != "") {
                             tx.executeSql(updateUser);
+                                }
+                                }
+
+                            if(test1.rows.length == 0) {
+
+                                if(userid != "") {
+
+                                tx.executeSql(ycStr, data1);
+                                }
+                            } else {
+                                if(userid != "") {
+                                tx.executeSql(updateYC);
                                 }
                                 }
 
@@ -125,6 +149,7 @@ function load_Card() {
 
     db.transaction(function(tx) {
         tx.executeSql('CREATE TABLE IF NOT EXISTS Card(id TEXT, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT,cardback TEXT,cat TEXT)');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS YourCard(id TEXT, cardNum TEXT)');
 
         var pull =  tx.executeSql(dataStr);
 
@@ -210,7 +235,7 @@ function load_Card() {
 
             cardloaded = 1;
 
-            connect.start();
+           // connect.start();
 
            // heartbeats.running = true;
 
@@ -218,6 +243,28 @@ function load_Card() {
         } else {
             cardloaded = 0; }
     });
+
+    var cardStr1 = "SELECT * FROM YourCard WHERE 1";
+    var test1 = "";
+    db.transaction(function(tx) {
+       tx.executeSql('CREATE TABLE IF NOT EXISTS YourCard(id TEXT, cardNum TEXT)');
+        var pull = tx.executeSql(cardStr1);
+        if(pull.rows.length > 0) {
+            //id=pull.rows.item(0).id;
+            usercardNum = pull.rows.item(0).cardNum;
+
+            cardloaded = 1;
+
+            connect.start();
+
+           // heartbeats.running = true;
+
+
+        } else {
+            connect.start();
+            cardloaded = 0; }
+    });
+
 
 
 
@@ -360,6 +407,19 @@ function Temp_load(search,locale) {
 
                    }
 
+                   var spC;
+
+                   for(var num =0;num < category_list.split(",").length;num = num + 1) {
+
+                       if(pull.rows.item(record).cat == category_list.split(",")[num].split("::")[0]) {
+
+                           if(category_list.split(",")[num].split("::")[1] != "none") {
+                           spC = category_list.split(",")[num].split("::")[1];
+                           } else { spC = seperatorColor1}
+                       }
+
+                   }
+
 
         if (currentcat.length > 2 & currentcat != qsTr("All Cards") ) {
 
@@ -374,15 +434,16 @@ function Temp_load(search,locale) {
                                     currentlist =  ":"+pull.rows.item(record).id;
                                               }
 
-                            var carddup = 0;
+                            //var carddup = 0;
 
-                            if(pull.rows.item(record).name.replace(/&#x27;/g,"'") == username) {carddup++;} else {carddup--;}
-                            if(pull.rows.item(record).alias != useralias) {carddup++;} else {carddup--; }
-                            if(pull.rows.item(record).company.replace(/&#x27;/g,"'") == usercompany) {carddup++;} else {carddup--;}
+                           // if(pull.rows.item(record).name.replace(/&#x27;/g,"'") == username) {carddup++;} else {carddup--;}
+                          //  if(pull.rows.item(record).alias != useralias) {carddup++;} else {carddup--; }
+                          //  if(pull.rows.item(record).company.replace(/&#x27;/g,"'") == usercompany) {carddup++;} else {carddup--;}
 
 
 
-                    if(carddup !=3) {
+
+                    if(pull.rows.item(record).id !=usercardNum) {
 
                     cardslist.append({
                                     name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
@@ -401,6 +462,8 @@ function Temp_load(search,locale) {
                              URL2: w2,
                              URL3: w3,
                              URL4: w4,
+
+                             spColor:spC,
 
             cardb:pull.rows.item(record).cardback,
            // cardsymbol:symbol,
@@ -430,15 +493,19 @@ function Temp_load(search,locale) {
 
 
 
-            var carddup = 0;
+          //  var carddup = 0;
 
-            if(pull.rows.item(record).name == username) {carddup++;} else {carddup--;}
-            if(pull.rows.item(record).alias == useralias) {carddup++;} else {carddup--; }
-            if(pull.rows.item(record).company == usercompany) {carddup++;} else {carddup--;}
+          //  if(pull.rows.item(record).name == username) {carddup++;} else {carddup--;}
+         //   if(pull.rows.item(record).alias == useralias) {carddup++;} else {carddup--; }
+         //   if(pull.rows.item(record).company == usercompany) {carddup++;} else {carddup--;}
 
 
 
-    if(carddup !=3) {
+
+
+
+
+    if(pull.rows.item(record).id !=usercardNum) {
 
 
 
@@ -458,6 +525,8 @@ function Temp_load(search,locale) {
                 URL2: w2,
                 URL3: w3,
                 URL4: w4,
+
+                spColor:spC,
 
             //    cardback:card,
              //   cardsymbol:symbol,
@@ -610,8 +679,24 @@ function Cards_load(search) {
 
              }
 
+             var spC;
 
+             for(var num =0;num < category_list.split(",").length;num = num + 1) {
 
+                 if(pull.rows.item(record).cat == category_list.split(",")[num].split("::")[0]) {
+
+                     if(category_list.split(",")[num].split("::")[1] != "none") {
+                     spC = category_list.split(",")[num].split("::")[1];
+                     } else { spC = seperatorColor1}
+                 }
+
+             }
+
+                var carddup = 0;
+
+             if(pull.rows.item(record).name.replace(/&#x27;/g,"'") == username) {carddup++;} else {carddup--;}
+             if(pull.rows.item(record).alias != useralias) {carddup++;} else {carddup--; }
+             if(pull.rows.item(record).company.replace(/&#x27;/g,"'") == usercompany) {carddup++;} else {carddup--;}
 
 
 
@@ -622,9 +707,14 @@ function Cards_load(search) {
 
              }
 
-             if (currentcat.length > 2 & currentcat != qsTr("All Cards") ) {
+
+
+             if(pull.rows.item(record).id !=usercardNum) {
+
+           if (currentcat.length > 2 & currentcat != qsTr("All Cards") ) {
 
                  if(currentcat == pull.rows.item(record).cat) {
+
              cardslist.append({
                  name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
                  colorCode: "white",
@@ -641,6 +731,8 @@ function Cards_load(search) {
                  URL2: w2,
                  URL3: w3,
                  URL4: w4,
+
+                 spColor:spC,
 
                  cardback:card,
                  cardsymbol:symbol,
@@ -672,6 +764,8 @@ function Cards_load(search) {
                      URL3: w3,
                      URL4: w4,
 
+                     spColor:spC,
+
                      cardback:card,
                      cardsymbol:symbol,
                      cardtext:text,
@@ -687,7 +781,7 @@ function Cards_load(search) {
              //cardback = card;
             }
 
-
+}
 
            record = record + 1;
 
@@ -796,12 +890,34 @@ function Show_sites(cid,list) {
 
             }
 
+            var spC;
+            for(var num =0;num < category_list.split(",").length;num = num + 1) {
+
+                if(pull.rows.item(0).cat == category_list.split(",")[num].split("::")[0]) {
+
+                    if(category_list.split(",")[num].split("::")[1] != "none") {
+                    spC = category_list.split(",")[num].split("::")[1];
+                    } else { spC = seperatorColor1}
+                }
+
+            }
+
+            var about = [];
+
+            about = pull.rows.item(0).motto.replace(/&#x27;/g,"'").split(";::;");
+
+
+
+
            pagelist.append({
                             webpage:"empty.html",
                             thestate:"Home",
                                pagewidth:mainScreen.width ,
                                pageheight:mainScreen.height,
-                               motto:pull.rows.item(0).motto.replace(/&#x27;/g,"'"),
+                               motto:about[0],
+                               skills:about[1],
+                               school:about[2],
+                               work: about[3],
                                cardId:pull.rows.item(0).id.toString(),
                                avatarimg:ava,
                                companyname:pull.rows.item(0).company.replace(/&#x27;/g,"'"),
@@ -815,6 +931,8 @@ function Show_sites(cid,list) {
                                cardcat:pull.rows.item(0).cat,
                                saved:0,
                                realcardback:pull.rows.item(0).cardback,
+
+                               spColor:spC,
 
                                mainsite:pull.rows.item(0).main,
                                URL1:pull.rows.item(0).website1,
@@ -1091,7 +1209,7 @@ menuList.clear();
 
     var num = 0;
     while(category_list.split(",")[num] != undefined) {
-            menuList.append({menuitem:category_list.split(",")[num]});
+            menuList.append({menuitem:category_list.split(",")[num].split("::")[0]});
         num = num + 1;
     }
 
@@ -1105,7 +1223,7 @@ menuList.clear();
 
     var num = 0;
     while(category_list.split(",")[num] != undefined) {
-            menuList.append({menuitem:category_list.split(",")[num]});
+            menuList.append({menuitem:category_list.split(",")[num].split("::")[0]});
         num = num + 1;
     }
 
@@ -1347,8 +1465,8 @@ function store_img (where,file,private) {
 
 function totals() {
 
-    var dataStr = "SELECT  id  FROM TempCards WHERE 1";
-    var dataStr1 = "SELECT  id  FROM SavedCards WHERE 1";
+    var dataStr = "SELECT  id  FROM TempCards WHERE `id` !='"+usercardNum+"'";
+    var dataStr1 = "SELECT  id  FROM SavedCards WHERE `id` !='"+usercardNum+"'";
 
 
     db.transaction(function(tx) {
@@ -1358,11 +1476,11 @@ function totals() {
        var pull = tx.executeSql(dataStr);
         var pull1 = tx.executeSql(dataStr1);
 
-        ctotal = pull1.rows.length -1;
-        ptotal = pull.rows.length -1;
+        ctotal = pull1.rows.length ;
+        ptotal = pull.rows.length ;
 
-        if (ctotal == -1) {ctotal = 0;}
-        if (ptotal == -1) {ctotal = 0;}
+        if (ctotal == 1) {ctotal = 0;}
+        if (ptotal == -1) {ptotal = 0;}
 
     });
 
@@ -1578,4 +1696,203 @@ function socialsetup(source) {
 
 return ssinfo;
 
+}
+
+function schoolListings() {
+    var slist = usermotto.split(";::;")[2];
+
+    school.clear();
+
+
+       // for(var num = 0;num < wlist.split(";:;").length;num = num + 1) {
+            //yourworked[num] = wlist.split(";:;")[num];
+
+    if(yourschooling.length < slist.split("','").length ) {
+
+    for(var num = 0;num < slist.split("','").length;num = num + 1) {
+
+             yourschooling.push(slist.split("','")[num]);
+
+    }
+
+   }
+
+    var schoolnum = 0;
+    while(yourschooling.length > schoolnum) {
+
+        //for(var num = 0;num < slist.split(";:;").length;num = num + 1) {
+           // yourschooling[num] = slist.split(";:;")[num];
+            if(yourschooling[schoolnum].split(":,:")[0] != "") {
+
+            school.append ({
+                name:yourschooling[schoolnum].split(":,:")[0],
+                graduated:yourschooling[schoolnum].split(":,:")[1],
+                discription:yourschooling[schoolnum].split(":,:")[2],
+                compeltiondate:yourschooling[schoolnum].split(":,:")[3],
+                degree:yourschooling[schoolnum].split(":,:")[4],
+            });
+        }
+        schoolnum = schoolnum + 1;
+
+        }
+
+
+
+
+}
+
+
+function workListings() {
+    var wlist = usermotto.split(";::;")[3];
+
+    workexpr.clear();
+
+       // for(var num = 0;num < wlist.split(";:;").length;num = num + 1) {
+            //yourworked[num] = wlist.split(";:;")[num];
+
+    if(yourworked.length < wlist.split("','").length ) {
+
+    for(var num = 0;num < wlist.split("','").length;num = num + 1) {
+
+             yourworked.push(wlist.split("','")[num]);
+
+    }
+
+   }
+
+    var worknum = 0;
+    while(yourworked.length > worknum) {
+
+        if(yourworked[worknum].split(":,:")[0] != "") {
+            workexpr.append ({
+                name:yourworked[worknum].split(":,:")[0],
+                currentlyEmployeed:yourworked[worknum].split(":,:")[1],
+                discription:yourworked[worknum].split(":,:")[2],
+                beginingdate:yourworked[worknum].split(":,:")[3],
+                endingdate:yourworked[worknum].split(":,:")[4],
+                years:yourworked[worknum].split(":,:")[5],
+            });
+    }
+        worknum = worknum + 1;
+
+        }
+
+}
+
+
+function skillListings() {
+   var slist = usermotto.split(";::;")[1];
+    skills.clear();
+
+    if(yourskills.length < slist.split("','").length ) {
+
+    for(var num = 0;num < slist.split("','").length;num = num + 1) {
+
+             yourskills.push(slist.split("','")[num]);
+
+
+
+    }
+
+   }
+
+    var skillnum = 0;
+    while(yourskills.length > skillnum) {
+
+    if(yourskills[skillnum].split(":,:")[0] != "") {
+        skills.append({
+            name:yourskills[skillnum].split(":,:")[0],
+            certified:yourskills[skillnum].split(":,:")[1],
+            discription:yourskills[skillnum].split(":,:")[2],
+            redate:yourskills[skillnum].split(":,:")[3],
+            expdate:yourskills[skillnum].split(":,:")[4],
+            yoe:yourskills[skillnum].split(":,:")[5]
+        });
+    }
+
+    skillnum = skillnum + 1;
+
+    }
+
+
+}
+
+function editItem(type,index) {
+
+    switch(type) {
+    case "skill":if(yourskills[index].split(":,:")[0] != "") {
+
+                             skillname.text = yourskills[index].split(":,:")[0].substring(1,yourskills[index].split(":,:")[0].length-1);
+                            certifed.checked = yourskills[index].split(":,:")[1];
+                            skillDiscription.text = yourskills[index].split(":,:")[2].substring(1,yourskills[index].split(":,:")[2].length-1);
+                            skillstartdate.text = yourskills[index].split(":,:")[3].substring(1,yourskills[index].split(":,:")[3].length-1);
+                            skillexpiredate.text = yourskills[index].split(":,:")[4].substring(1,yourskills[index].split(":,:")[4].length-1);
+                            years.text = yourskills[index].split(":,:")[5].substring(1,yourskills[index].split(":,:")[5].length-1);
+
+
+                        };break;
+    case "school":if(yourschooling[index].split(":,:")[0] != "") {
+
+
+                                schoolname.text = yourschooling[index].split(":,:")[0].substring(1,yourschooling[index].split(":,:")[0].length-1);
+                                graduated.checked = yourschooling[index].split(":,:")[1];
+                                schoolDiscription.text = yourschooling[index].split(":,:")[2].substring(1,yourschooling[index].split(":,:")[2].length-1);
+                                graddate.text = yourschooling[index].split(":,:")[3].substring(1,yourschooling[index].split(":,:")[3].length-1);
+                                degree.text = yourschooling[index].split(":,:")[4].substring(1,yourschooling[index].split(":,:")[4].length-1);
+
+
+                        };break;
+    case "work":if(yourworked[index].split(":,:")[0] != "") {
+
+                            companyname.text = yourworked[index].split(":,:")[0].substring(1,yourworked[index].split(":,:")[0].length-1);
+                            currentlyEmployeed.checked = yourworked[index].split(":,:")[1];
+                            workDiscription.text = yourworked[index].split(":,:")[2].substring(1,yourworked[index].split(":,:")[2].length-1);
+                            workstartdate.text = yourworked[index].split(":,:")[3].substring(1,yourworked[index].split(":,:")[3].length-1);
+                           workleftdate.text = yourworked[index].split(":,:")[4].substring(1,yourworked[index].split(":,:")[4].length-1);
+                            workyears.text = yourworked[index].split(":,:")[5].substring(1,yourworked[index].split(":,:")[5].length-1);
+
+
+                     };break;
+
+    }
+
+}
+
+function formatResume(type,stuff) {
+
+    switch(type) {
+    case "skill": for(var num = 0;num < stuff.split(",").length;num = num + 1) {
+        skillstats.append ({
+                name:stuff.split(",'")[num].split(":,:")[0],
+                certified:stuff.split(",'")[num].split(":,:")[1],
+                discription:stuff.split(",'")[num].split(":,:")[2],
+                redate:stuff.split(",'")[num].split(":,:")[3],
+                expdate:stuff.split(",'")[num].split(":,:")[4],
+                yoe:stuff.split(",'")[num].split(":,:")[5]
+                    });
+                };break;
+    case "school":for(var num = 0;num < stuff.split(",").length;num = num + 1) {
+            schoolstats.append ({
+                    name:stuff.split(",'")[num].split(":,:")[0],
+                    certified:stuff.split(",'")[num].split(":,:")[1],
+                    discription:stuff.split(",'")[num].split(":,:")[2],
+                    redate:stuff.split(",'")[num].split(":,:")[3],
+                    expdate:stuff.split(",'")[num].split(":,:")[4],
+                    yoe:stuff.split(",'")[num].split(":,:")[5]
+                        });
+                    };break;
+
+    case "work":for(var num = 0;num < stuff.split(",").length;num = num + 1) {
+            workstats.append ({
+                    name:stuff.split(",'")[num].split(":,:")[0],
+                    certified:stuff.split(",'")[num].split(":,:")[1],
+                    discription:stuff.split(",'")[num].split(":,:")[2],
+                    redate:stuff.split(",'")[num].split(":,:")[3],
+                    expdate:stuff.split(",'")[num].split(":,:")[4],
+                    yoe:stuff.split(",'")[num].split(":,:")[5]
+                        });
+                    };break;
+
+
+    }
 }

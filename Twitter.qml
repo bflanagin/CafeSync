@@ -21,6 +21,7 @@ Item {
     property string profilename: ""
     property string message: ""
     property string missionstatment:""
+    property string aquote:""
 
     clip: true
 
@@ -151,7 +152,7 @@ Item {
             height: pic.height * 0.80
             clip:true
             font.pixelSize: (parent.height * 0.13) - missionstatment.length
-            width:parent.width - pic.width
+            width:(parent.width - pic.width) * 0.98
             wrapMode: Text.WordWrap
             //style: Text.Outline; styleColor: "#FFFFFF"
             color:"white"
@@ -162,27 +163,78 @@ Item {
     }
 
     Rectangle {
+        id:messageblock
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: 20
-        color:Qt.rgba(1.0,1.0,1.0,0.8)
+        //anchors.verticalCenterOffset: 20
+        color:Qt.rgba(1.0,1.0,1.0,0.9)
 
-        radius:10
-        width:parent.width * 0.89
-        height:themessage.height+10
+        radius:5
+        width:parent.width * 0.92
+        height:themessage.height+quotebox.height+popup.height * 0.02
         clip:true
 
         Text {
             id:themessage
-            anchors.centerIn: parent
+            //anchors.centerIn: parent
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.topMargin: popup.height *0.01
+            anchors.leftMargin: popup.height *0.01
             wrapMode: Text.WordWrap
-            width:parent.width
+            width:parent.width* 0.98
             text:message
+            //horizontalAlignment: Text.AlignHCenter
            // anchors.fill:parent
             anchors.margins: 5
-            font.pixelSize: popup.height * 0.04 - text.length
+            font.pixelSize: popup.height * 0.03 - text.length
 
 
         }
+        Rectangle {
+            id:quotebox
+            visible: if(aquote != "") {true} else {false}
+            color:Qt.rgba(1.0,1.0,1.0,0.9)
+            radius:5
+            anchors.top:themessage.bottom
+            width:parent.width * 0.92
+            height:thequote.height+10
+            clip:true
+
+            anchors.right:parent.right
+            anchors.rightMargin: popup.height * 0.01
+            Text {
+                id:thequote
+                anchors.centerIn: parent
+                wrapMode: Text.WordWrap
+                width:parent.width* 0.98
+                text:aquote
+                //horizontalAlignment: Text.AlignHCenter
+               // anchors.fill:parent
+                anchors.margins: 5
+                font.pixelSize: popup.height * 0.02 - text.length
+            }
+        }
+        DropShadow {
+               anchors.fill: quotebox
+               horizontalOffset: 0
+               verticalOffset: 4
+               radius: 6.0
+               samples: 17
+               color: "#80000000"
+               source: quotebox
+               z:1
+        }
+    }
+
+    DropShadow {
+           anchors.fill: messageblock
+           horizontalOffset: 0
+           verticalOffset: 2
+           radius: 8.0
+           samples: 17
+           color: "#80000000"
+           source: messageblock
+           z:1
     }
 
     /*Rectangle {

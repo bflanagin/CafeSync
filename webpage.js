@@ -9,6 +9,8 @@ var http = new XMLHttpRequest();
     var profilepic = "";
     var profilebanner = "";
 
+    rssposts.clear();
+
 
 http.onreadystatechange = function() {
     if (http.readyState == 4) {

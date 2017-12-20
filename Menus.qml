@@ -140,7 +140,7 @@ Item {
                             Text {
                                 anchors.left: parent.left
                                 anchors.leftMargin: 5
-                                font.pixelSize: parent.height * 0.25
+                                font.pixelSize: parent.height * 0.35
                                 text:switch(section) {
                                      case "1": qsTr("General");break;
                                      case "2": qsTr("Social");break;
@@ -149,7 +149,7 @@ Item {
                             }
 
                         Rectangle {
-                            color:highLightColor1
+                            color:seperatorColor1
                             width:parent.width
                             height:3
                         }
@@ -221,7 +221,7 @@ Item {
                                 width:1
                                 height:parent.height * 1.4
                                 anchors.verticalCenter: parent.verticalCenter
-                                color:barColor
+                                color:seperatorColor1
                                 visible: if(parent.text !="") {true} else {false}
 
                             }

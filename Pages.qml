@@ -50,6 +50,7 @@ Item {
     property string thetotal:""
     property int thepercent: 0
     property int thetimeleft: 0
+    property string aquote:""
 
     property int pindex:0
     property int postcount: 0

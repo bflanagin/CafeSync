@@ -76,11 +76,12 @@ Item {
     }
 
 
+
     Column {
 
             width:parent.width
             height:parent.height
-            spacing:15
+            spacing:parent.height * 0.020
 
        /* GetPic {
                id:photo
@@ -95,7 +96,17 @@ Item {
             width:parent.width
             height:parent.height * 0.5
 
+            Rectangle {
+                anchors.centerIn: photoframe
+                radius: width /2
+                color:Qt.rgba(0.8,0.8,0.8,0.1)
+                border.width:10
+                border.color: highLightColor1
 
+                width:parent.width * 0.8
+                height:parent.width * 0.8
+
+            }
 
             Item {
                 id:photoframe
@@ -200,7 +211,7 @@ Item {
 
 
 
-            Rectangle {
+            Item {
                 id:camerabutton
                 //anchors.bottom:parent.bottom
                 //anchors.bottomMargin: parent.height * 0.01
@@ -210,9 +221,9 @@ Item {
                 width:if(mainView.width > mainView.height) {parent.width * 0.5}else {parent.height * 0.2}
                 height:if(mainView.width > mainView.height){parent.width * 0.5} else {parent.height * 0.2}
 
-                color:highLightColor1
-                radius:width /2
-                border.color:"black"
+                //color:highLightColor1
+               // radius:width /2
+               // border.color:"black"
 
                 Image {
                     anchors.centerIn: parent
@@ -220,6 +231,16 @@ Item {
                     width:parent.width * 0.8
                     height:parent.height * 0.8
                     fillMode:Image.PreserveAspectFit
+
+                    ColorOverlay {
+                        source:parent
+                        anchors.fill: parent
+                        color:overlayColor
+                    }
+                }
+
+                Flasher {
+
                 }
 
                 MouseArea {
@@ -239,27 +260,29 @@ Item {
                         }
             }
 
-            Rectangle {
+            Item {
                 id:savepicture
 
                 anchors.bottom:camerabutton.bottom
                 anchors.left:camerabutton.right
-                anchors.leftMargin: 10
+                anchors.leftMargin: parent.width * 0.04
                 visible: if(check.source == "") {false} else {true}
                 //anchors.horizontalCenter: parent.horizontalCenter
                 width:if(mainView.width > mainView.height) {parent.width * 0.5}else {parent.height * 0.13}
                 height:if(mainView.width > mainView.height){parent.width * 0.5} else {parent.height * 0.13}
 
-                color:highLightColor1
-                radius:width /2
-                border.color:"black"
+               // color:highLightColor1
+              // radius:width /2
+              //  border.color:"black"
 
                 Image {
                     id:checkbutton
                     anchors.centerIn: parent
-                    width:parent.width * 0.8
-                    height:parent.width * 0.8
+                    width:parent.width * 0.6
+                    height:parent.width * 0.6
                     source:"./img/check.svg"
+
+
                 }
 
                 ColorOverlay {
@@ -267,6 +290,10 @@ Item {
                        source: checkbutton
                        color: "green"
                    }
+
+                Flasher {
+
+                }
 
 
 
@@ -295,27 +322,27 @@ Item {
 
             }
 
-            Rectangle {
+            Item {
                 id:cancelpicture
 
                 anchors.bottom:camerabutton.bottom
                 anchors.right:camerabutton.left
-                anchors.rightMargin: 10
+                anchors.rightMargin: parent.width * 0.04
                 //anchors.horizontalCenter: parent.horizontalCenter
                 width:if(mainView.width > mainView.height) {parent.width * 0.5}else {parent.height * 0.13}
                 height:if(mainView.width > mainView.height){parent.width * 0.5} else {parent.height * 0.13}
                 visible: if(check.source == "") {false} else {true}
 
 
-                color:highLightColor1
-                radius:width /2
-                border.color:"black"
+               // color:highLightColor1
+               // radius:width /2
+               // border.color:"black"
 
                 Image {
                     id:closebutton
                     anchors.centerIn: parent
-                    width:parent.width * 0.9
-                    height:parent.width * 0.9
+                    width:parent.width * 0.6
+                    height:parent.width * 0.6
                     source:"./img/close.svg"
                 }
 
@@ -324,6 +351,10 @@ Item {
                        source: closebutton
                        color: "red"
                    }
+
+                Flasher {
+
+                }
 
             MouseArea {
                 anchors.fill:parent
@@ -362,16 +393,16 @@ Item {
                 spacing:parent.height * 0.07
 
 
-            Rectangle {
+            Item {
                 id:switchcamera
                 //anchors.bottom:parent.bottom
                 //anchors.bottomMargin: parent.height * 0.01
                 width:parent.width
                 height:parent.width
 
-                color:highLightColor1
-                radius:width /2
-                border.color:"black"
+                //color:highLightColor1
+                //radius:width /2
+                //border.color:"black"
 
                 Image {
                     id:cameratype
@@ -380,6 +411,16 @@ Item {
                     width:parent.width * 0.6
                     height:parent.height * 0.6
                     fillMode:Image.PreserveAspectFit
+
+                    ColorOverlay {
+                        anchors.fill: parent
+                        source:parent
+                        color:overlayColor
+                    }
+                }
+
+                Flasher {
+
                 }
 
                 MouseArea {
@@ -406,16 +447,16 @@ Item {
                // y:if(mainView.width > mainView.height){camerabutton.height * 1.1 + camerabutton.y } else {camerabutton.y - width * 0.5}
                 spacing:parent.height * 0.07
 
-                Rectangle {
+                Item {
                     //id:switchcamera
                     //anchors.bottom:parent.bottom
                     //anchors.bottomMargin: parent.height * 0.01
                     width:parent.width
                     height:parent.width
 
-                    color:highLightColor1
-                    radius:width /2
-                    border.color:"black"
+                   // color:highLightColor1
+                  //  radius:width /2
+                  //  border.color:"black"
 
                     Image {
                         id:flashtype
@@ -424,6 +465,16 @@ Item {
                         width:parent.width * 0.6
                         height:parent.height * 0.6
                         fillMode:Image.PreserveAspectFit
+
+                        ColorOverlay {
+                            anchors.fill: parent
+                            source:parent
+                            color:overlayColor
+                        }
+                    }
+
+                    Flasher {
+
                     }
 
                     MouseArea {
@@ -514,7 +565,10 @@ Item {
         }
 
 
-
+Item {
+    height:10
+    width:parent.width
+}
 
 
 
@@ -522,7 +576,7 @@ Item {
         Rectangle {
             width:parent.width
             height:4
-            color:highLightColor1
+            color:seperatorColor1
         }
 
 
@@ -531,14 +585,15 @@ Item {
             height: parent.height * 0.1
             orientation: ListView.Horizontal
             spacing: 10
+            clip:true
 
             model: ListModel {
                    id: previousimages
                 }
 
             delegate: Item {
-                        height:parent.height *1.4
-                        width:parent.height *1.4
+                        height:parent.height
+                        width:parent.height
                         anchors.verticalCenter: parent.verticalCenter
                 Image {
                     id:cardsava
@@ -581,7 +636,7 @@ Item {
     Rectangle {
         width:parent.width
         height:4
-        color:highLightColor1
+        color:seperatorColor1
     }
 
    /* Text {
@@ -926,6 +981,7 @@ Item {
     } */
 
         Rectangle {
+            id:closedialog
             color:highLightColor1
             width:parent.width * 0.36
             height:parent.height * 0.90
@@ -934,13 +990,24 @@ Item {
                 anchors.centerIn: parent
                 color:"black"
                 text:qsTr("Close")
-                font.pixelSize: 20
+                font.pixelSize: parent.height * 0.5 - text.length
             }
 
             MouseArea {
                 anchors.fill: parent
                 onClicked: photo.state = "Hide", thisWindow.state = "InActive", sourceselect = false
             }
+        }
+
+        DropShadow {
+            anchors.fill:closedialog
+            horizontalOffset: 0
+            verticalOffset: 4
+            radius: 8.0
+            samples: 17
+            color: "#80000000"
+            source:closedialog
+            z:1
         }
 
 

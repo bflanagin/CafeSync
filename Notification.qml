@@ -1,9 +1,19 @@
 import QtQuick 2.0
 
 Item {
+    id:notify
     property string themessage : ""
+    property int delay: 0
 
 
+    Timer {
+        id:notificationFade
+        interval:if(delay != 0) {1000 * delay} else {2000}
+        running:false
+        onTriggered: {notify.visible = false;}
+    }
+
+    onVisibleChanged: if(notify.visible == true) {notificationFade.running = true}else {notificationFade.stop()}
 
     Text {
         id: notification

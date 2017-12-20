@@ -1,6 +1,6 @@
 import QtQuick 2.3
 import QtQuick.Window 2.2
-import QtQuick.Controls 1.3
+import QtQuick.Controls 2.2
 import QtQuick.Dialogs 1.2
 import QtGraphicalEffects 1.0
 
@@ -299,7 +299,7 @@ Item {
 
         Text {
             text:switch(service) {
-                 case "gravatar":"Gravtar";break;
+                 case "gravatar":"Gravatar";break;
                  case "soundcloud":"SoundCloud";break;
                  case "twitter":"Twitter";break;
                  case "tumblr":"Tumblr";break;
@@ -376,10 +376,7 @@ Item {
                 height:parent.height
                 spacing:parent.height * 0.05
 
-                Item {
-                    width:parent.width
-                    height:10
-                }
+
 
                 Item {
                     //anchors.horizontalCenter: parent.horizontalCenter

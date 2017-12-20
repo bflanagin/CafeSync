@@ -64,18 +64,21 @@ Item {
     Rectangle {
         visible:if(type == "send") {true} else {false}
         anchors.fill:parent
-        border.color:highLightColor1
+        border.color:seperatorColor1
+        clip:true
+        radius:5
 
         Rectangle {
-            color:barColor
+            color:highLightColor1
             width:parent.width
             height:parent.height * 0.20
+            anchors.horizontalCenter: parent.horizontalCenter
 
         Text {
             anchors.centerIn: parent
             text:title
             font.pixelSize: parent.width* 0.1 - text.length
-            color:"white"
+            color:fontColorTitle
 
         }
 
@@ -108,14 +111,14 @@ Item {
         border.color:highLightColor1
 
         Rectangle {
-            color:barColor
+            color:highLightColor1
             width:parent.width
             height:parent.height * 0.20
 
         Text {
             anchors.centerIn: parent
             text:title
-            color:"white"
+            color:fontColorTitle
             font.pixelSize: parent.width* 0.1 - text.length
         }
 
