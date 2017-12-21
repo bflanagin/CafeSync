@@ -15,8 +15,11 @@ Item {
 
     property string type:""
     property int listindex: -1
+    property string aboutme: ""
 
     onListindexChanged: if(listindex != -1) {Scripts.editItem(type,listindex)}
+
+    onAboutmeChanged: if(aboutme == "") {aboutyou.text = ""} else { aboutyou.text = aboutme}
 
     MouseArea {
         anchors.fill: parent
@@ -223,7 +226,7 @@ Item {
             height:thisWindow.height * 0.04
 
             Text {
-                text:"Years of Experience:"
+                text:"Years:"
                 anchors.verticalCenter: parent.verticalCenter
             }
             TextField {
@@ -246,7 +249,7 @@ Item {
             Text {
                 visible: certifed.checked
               anchors.verticalCenter: parent.verticalCenter
-             text:"Achieved On:"
+             text:"Rec:"
             }
             TextField {
                 visible: certifed.checked
@@ -259,7 +262,7 @@ Item {
             Text {
                 visible: certifed.checked
               anchors.verticalCenter: parent.verticalCenter
-             text:"Expires On:"
+             text:"Expr:"
             }
             TextField {
                 visible: certifed.checked
@@ -392,7 +395,7 @@ Item {
             height:thisWindow.height * 0.04
 
             Text {
-                text:"Years at Job:"
+                text:"Years:"
                 anchors.verticalCenter: parent.verticalCenter
             }
             TextField {
@@ -404,7 +407,7 @@ Item {
 
             Text {
                 anchors.verticalCenter: parent.verticalCenter
-                text:"Still employeed here:"
+                text:"Current:"
             }
             CheckBox {
                 id:currentlyEmployeed
@@ -567,7 +570,7 @@ Item {
             Text {
 
               anchors.verticalCenter: parent.verticalCenter
-             text:"Degree:"
+             text:"D:"
             }
             TextField {
 
@@ -592,7 +595,7 @@ Item {
             Text {
                 visible: graduated.checked
               anchors.verticalCenter: parent.verticalCenter
-             text:"Graduated on:"
+             text:"on:"
             }
             TextField {
                 visible: graduated.checked
@@ -608,7 +611,7 @@ Item {
             id:schoolDiscription
             width:parent.width
             height:thisWindow.height / 1.6
-            placeholderText: "Skill Discription"
+            placeholderText: "School Discription"
             wrapMode: Text.WordWrap
 
             Rectangle {

@@ -180,15 +180,16 @@ Item {
         flickableDirection:Flickable.VerticalFlick
         anchors.topMargin:10
         width:parent.width * 0.98
-        height:contentHeight
+        height:parent.height * 0.64
         contentWidth: parent.width
-        contentHeight: parent.height * 1.2
+        contentHeight: homeinfo.height+ popup.height * 0.01
         clip:true
 
         Column {
+            id:homeinfo
             anchors.horizontalCenter: parent.horizontalCenter
             width:popup.width * 0.98
-            height:parent.height * 1.2
+           // height:parent.height * 1.2
             spacing:20
 
             Item {
@@ -333,7 +334,7 @@ Item {
                                                 anchors.right:parent.right
                                                 anchors.rightMargin: popup.height * 0.01
                                                 font.pixelSize: popup.height * 0.01
-                                                text:"Years of Experience: "+yoe
+                                                text:"Years of Experience: "+yoe.substring(1,yoe.length-1)
                                             }
                                         }
 
@@ -452,7 +453,7 @@ Item {
                                                 anchors.right:parent.right
                                                 anchors.rightMargin: popup.height * 0.01
                                                 font.pixelSize: popup.height * 0.01
-                                                text:"Degree: "+expdate
+                                                text:"Degree: "+expdate.substring(1,expdate.length-1)
                                             }
                                         }
 
@@ -561,7 +562,7 @@ Item {
                                             spacing: popup.height * 0.01
 
                                             Text {
-                                                font.pixelSize: popup.height * 0.02
+                                                font.pixelSize: popup.height * 0.03
                                                 text:if(index == 0) {name.substring(1,name.length-1)}
                                                      else {name.substring(0,name.length-1) }
                                                 width:parent.width
@@ -570,8 +571,8 @@ Item {
                                                     anchors.bottom:parent.bottom
                                                     anchors.right:parent.right
                                                     anchors.rightMargin: popup.height * 0.01
-                                                    font.pixelSize: popup.height * 0.01
-                                                    text:"Years at Job: "+yoe
+                                                    font.pixelSize: popup.height * 0.02
+                                                    text:"Years at Job: "+yoe.substring(1,yoe.length-1)
                                                 }
                                             }
 

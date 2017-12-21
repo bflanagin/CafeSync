@@ -772,10 +772,11 @@ Item {
               height: settingsPage.height / 2.4
               visible: if(profilesection == 0) {true} else {false}
 
-             Item {
+
+
                   Rectangle {
                       anchors.centerIn:personalMotto
-                      width:personalMotto.width * 1.02
+                      width:profileRow.width
                       height:personalMotto.height * 1.02
                       border.color:"gray"
                       border.width: 1
@@ -783,18 +784,19 @@ Item {
                   }
 
               Text {
-                  anchors.top:parent.bottom
-                  anchors.topMargin: .6
+                  anchors.horizontalCenter: parent.horizontalCenter
+                  anchors.top:parent.top
+                  anchors.topMargin: settingsPage.height * 0.005
                   wrapMode: Text.WordWrap
                   id:personalMotto
-                  width:profileRow.width
+                  width:profileRow.width * 0.98
                   height:profileRow.height * 0.98
                   text:if(yourabout == ""){usermotto.split(";::;")[0]} else {yourabout}
                   clip:true
 
                   Image {
                       anchors.right:parent.right
-                      anchors.top:parent.top
+                      anchors.bottom:parent.bottom
                       source:"./img/edit-text.svg"
                       height:parent.height * 0.06
                       width:parent.height * 0.06
@@ -803,16 +805,16 @@ Item {
 
                   MouseArea {
                       anchors.fill:parent
-                      onClicked:enterProfile.state = "Active",enterProfile.type = "about"
+                      onClicked: {enterProfile.state = "Active",enterProfile.type = "about";
+                                if(yourabout == ""){
+                                    enterProfile.aboutme = usermotto.split(";::;")[0];
+                                } else {
+                                    enterProfile.aboutme = yourabout;
+                                    }
+                      }
                   }
 
                  }
-
-
-
-
-             }
-
 
              Text {
                  font.pixelSize: settingsPage.height * 0.03
@@ -877,18 +879,25 @@ Item {
               width: parent.width
               height: settingsPage.height / 2.15
               visible: if(profilesection == 1) {true} else {false}
-              clip:true
+              //clip:true
               onVisibleChanged: if(visible == true) {Scripts.skillListings()}
 
+              Rectangle {
+                  anchors.centerIn:exprlist
+                  width:exprRow.width
+                  height:exprlist.height * 1.02
+                  border.color:"gray"
+                  border.width: 1
 
+              }
 
               ListView {
                   id:exprlist
                   anchors.horizontalCenter: parent.horizontalCenter
                   //anchors.verticalCenter: parent.verticalCenter
                   width:parent.width * 0.98
-                  height:parent.height
-                  //clip:true
+                  height:parent.height * 0.90
+                  clip:true
                   spacing:settingsPage.height * 0.02
 
                   model: skills
@@ -912,12 +921,13 @@ Item {
                                     spacing:parent.height * 0.1
 
                                 Text {
-                                    text:name.substring(1,name.length-1)
+                                    text:if(index == 0) {name.substring(1,name.length-1)}
+                                         else {name.substring(0,name.length-1) }
 
                                     anchors.left:parent.left
                                     anchors.leftMargin: parent.height * 0.1
                                     width:parent.width
-                                    font.pixelSize: (settingsPage.height * 0.04) -text.length
+                                    font.pixelSize: (settingsPage.height * 0.04)
 
 
                                     Text {
@@ -926,7 +936,7 @@ Item {
                                         anchors.rightMargin: checked.height * 2
                                         text:"Certified: "
                                         font.pixelSize: parent.height * 0.5
-                                        visible: certified
+                                        visible:if(certified == "'false'") {false} else {true}
                                         Image {
                                             id:checked
                                             anchors.left:parent.right
@@ -939,7 +949,7 @@ Item {
                                 }
 
                                 Rectangle {
-                                    color:highLightColor1
+                                    color:seperatorColor1
                                     width:parent.width
                                     height: 3
 
@@ -1040,10 +1050,17 @@ Item {
               width: parent.width
               height: settingsPage.height / 2.15
               visible: if(profilesection == 2) {true} else {false}
-              clip:true
+              //clip:true
               onVisibleChanged: if(visible == true) {Scripts.schoolListings()}
 
+              Rectangle {
+                  anchors.centerIn:schoollist
+                  width:schoolRow.width
+                  height:schoollist.height* 1.02
+                  border.color:"gray"
+                  border.width: 1
 
+              }
 
 
               ListView {
@@ -1051,8 +1068,8 @@ Item {
                   anchors.horizontalCenter: parent.horizontalCenter
                   //anchors.verticalCenter: parent.verticalCenter
                   width:parent.width * 0.98
-                  height:parent.height
-                  //clip:true
+                  height:parent.height * 0.90
+                  clip:true
                   spacing:settingsPage.height * 0.02
 
                   model: school
@@ -1076,12 +1093,13 @@ Item {
                               spacing:parent.height * 0.1
 
                           Text {
-                              text:name.substring(1,name.length-1)
+                              text:if(index == 0) {name.substring(1,name.length-1)}
+                                   else {name.substring(0,name.length-1) }
 
                               anchors.left:parent.left
                               anchors.leftMargin: parent.height * 0.1
                               width:parent.width
-                              font.pixelSize: (settingsPage.height * 0.04) -text.length
+                              font.pixelSize: (settingsPage.height * 0.04)
 
 
                               Text {
@@ -1090,7 +1108,7 @@ Item {
                                   anchors.rightMargin: checked1.height * 2
                                   text:"Graduated: "
                                   font.pixelSize: parent.height * 0.5
-                                  visible: graduated
+                                  visible: if(graduated == "'false'") {false} else {true}
                                   Image {
                                       id:checked1
                                       anchors.left:parent.right
@@ -1103,7 +1121,7 @@ Item {
                           }
 
                           Rectangle {
-                              color:highLightColor1
+                              color:seperatorColor1
                               width:parent.width
                               height: 3
 
@@ -1204,18 +1222,25 @@ Item {
               width: parent.width
               height: settingsPage.height / 2.15
               visible: if(profilesection == 3) {true} else {false}
-              clip:true
+              //clip:true
               onVisibleChanged: if(visible == true) {Scripts.workListings()}
 
+              Rectangle {
+                  anchors.centerIn:worklist
+                  width:workRow.width
+                  height:worklist.height * 1.02
+                  border.color:"gray"
+                  border.width: 1
 
+              }
 
               ListView {
                   id:worklist
                   anchors.horizontalCenter: parent.horizontalCenter
                  // anchors.verticalCenter: parent.verticalCenter
                   width:parent.width * 0.98
-                  height:parent.height
-                  //clip:true
+                  height:parent.height * 0.90
+                  clip:true
                   spacing:settingsPage.height * 0.02
 
                   model: workexpr
@@ -1239,12 +1264,13 @@ Item {
                               spacing:parent.height * 0.1
 
                           Text {
-                              text:name.substring(1,name.length-1)
+                              text:if(index == 0) {name.substring(1,name.length-1)}
+                                   else {name.substring(0,name.length-1) }
 
                               anchors.left:parent.left
                               anchors.leftMargin: parent.height * 0.1
                               width:parent.width
-                              font.pixelSize: (settingsPage.height * 0.04) -text.length
+                              font.pixelSize: (settingsPage.height * 0.04)
 
 
                               Text {
@@ -1253,7 +1279,7 @@ Item {
                                   anchors.rightMargin: checked2.height * 2
                                   text:"Currently Working: "
                                   font.pixelSize: parent.height * 0.5
-                                  visible: currentlyEmployeed
+                                  visible: if(currentlyEmployeed == "'false'") {false} else {true}
                                   Image {
                                       id:checked2
                                       anchors.left:parent.right
@@ -1266,7 +1292,7 @@ Item {
                           }
 
                           Rectangle {
-                              color:highLightColor1
+                              color:seperatorColor1
                               width:parent.width
                               height: 3
 
@@ -1277,7 +1303,7 @@ Item {
                               anchors.leftMargin:settingsPage.height * 0.01
                               width:parent.width*0.98
                               wrapMode: Text.WordWrap
-                              text:"Discription:\n"+discription.substring(1,name.length-1)
+                              text:"Discription:\n"+discription.substring(1,discription.length-1)
                           }
 
                           Image {
