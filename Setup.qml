@@ -82,7 +82,7 @@ Item {
  property string yourabout:""
 
 
-onStateChanged: if(settingsPage.state == "Active") {topBar.state = "settings"; Scripts.fillsites();} else {topBar.state = "standard";
+onStateChanged: if(settingsPage.state == "Active") {topBar.state = "settings"; Scripts.skillListings();Scripts.schoolListings();Scripts.workListings();Scripts.fillsites();} else {topBar.state = "standard";
 
                                     /*Scripts.save_card(userid,userName.text,userPhone.text,userEmail.text,userCompany.text,
                                                       userAlias.text,personalMotto.text,usermain,website1,website2,website3,website4,
@@ -131,8 +131,7 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
  Flickable {
      id:setupFlick
      clip:true
-     contentHeight:parent.height * 2.8
-
+     contentHeight:pageColumn.height
     /* anchors {
          top: parent.top
          bottom:parent.bottom
@@ -140,7 +139,7 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
          right:parent.right
      } */
      y: 0
-     height: parent.height
+     height: parent.height* 0.90
      width: parent.width * 0.98
      anchors.horizontalCenter: parent.horizontalCenter
 
@@ -154,7 +153,7 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
              right:parent.right
          } */
          width:parent.width
-         height:parent.height
+        // height:parent.height
          spacing:20
 
          //clip:true
@@ -185,7 +184,7 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
 
 Item {
     width:parent.width
-    height:parent.height * 0.11
+    height:settingsPage.height * 0.35
 
 
 
@@ -918,7 +917,7 @@ Item {
 
                                     width:parent.width
                                     height:parent.height
-                                    spacing:parent.height * 0.1
+                                    spacing:settingsPage.height * 0.01
 
                                 Text {
                                     text:if(index == 0) {name.substring(1,name.length-1)}
@@ -1090,7 +1089,7 @@ Item {
 
                               width:parent.width
                               height:parent.height
-                              spacing:parent.height * 0.1
+                              spacing:settingsPage.height * 0.01
 
                           Text {
                               text:if(index == 0) {name.substring(1,name.length-1)}
@@ -1261,7 +1260,7 @@ Item {
 
                               width:parent.width
                               height:parent.height
-                              spacing:parent.height * 0.1
+                              spacing:settingsPage.height * 0.01
 
                           Text {
                               text:if(index == 0) {name.substring(1,name.length-1)}

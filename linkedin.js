@@ -1,9 +1,15 @@
-function get_html(url) {
+function get_html(account) {
+
+   // var url = "https://www.linkedin.com/in/"+account.split("::")[1];
+
+   var url = "https://api.linkedin.com/v1/people/~"+account.split("::")[1];
+
+    //console.log(url);
 
 var http = new XMLHttpRequest();
 
     var pagedata = "";
-//console.log("From twitch.js: "+url)
+
 http.onreadystatechange = function() {
     if (http.readyState == 4) {
 
@@ -19,11 +25,12 @@ http.onreadystatechange = function() {
 
             pagedata = http.responseText;
 
-            //console.log("From linkedin.js"+pagedata);
+            console.log("From linkedin.js"+pagedata);
 
-            banner = pagedata.split('"og:image" content="')[1].split('"/>')[0].trim();
+            //banner = pagedata.split('"og:image" content="')[1].split('"/>')[0].trim();
+            banner = "./img/overlay.svg"
             //console.log(thebanner);
-            name = pagedata.split("<title>")[1].split("|")[0];
+            name = pagedata.split('<meta name="og:title" content="')[1].split("|")[0];
             avatar = "./img/linkedin.png";
             stats = pagedata.split('<div class="member-connections">')[1].split("</div>")[0];
             var currentplacement = pagedata.split('<p class="headline title" data-section="headline">')[1].split("</p>")[0];

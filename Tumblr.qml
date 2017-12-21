@@ -66,13 +66,13 @@ Item {
         border.width:1
     }
 
-    Image {
+    /*Image {
         id:shade
         anchors.centerIn: parent
         source:"./img/shade.png"
         anchors.fill: parent
         //fillMode:Image.PreserveAspectCrop
-    }
+    } */
 
     Rectangle {
         anchors.top:parent.top
@@ -132,9 +132,9 @@ Item {
 
         delegate:Rectangle {
         id:postbg
-        radius:10
+        radius:5
         //anchors.centerIn: parent
-        color:Qt.rgba(0.7,0.7,0.7,0.9)
+        color:cardcolor
         border.color:"gray"
         border.width:4
         width:parent.width * 0.98
@@ -158,7 +158,7 @@ Item {
                 text:"<b>"+posttitle+"</b>"
                 font.pixelSize: postbg.width * 0.12 - posttitle.length
                 wrapMode:Text.WordWrap
-                color:"white"
+                color:"black"
             }
 
             Rectangle {
@@ -190,7 +190,7 @@ Item {
                 font.pixelSize: postbg.width * 0.04
                 text:"<p>"+post+"</p>"
                 wrapMode:Text.WordWrap
-                color:"white"
+                color:"black"
             }
         }
 

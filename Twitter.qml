@@ -305,7 +305,7 @@ Item {
             width:parent.width * 0.10
             height:parent.height * 0.10
             fillMode:Image.PreserveAspectFit
-            anchors.right:parent.right
+            anchors.left:parent.left
 
 
 
@@ -321,9 +321,9 @@ Item {
         } */
 
         Row {
-            width:parent.width
+            width:parent.width * 0.90
             //anchors.top:accountname.bottom
-            anchors.left:parent.left
+            anchors.right:parent.right
             anchors.verticalCenter: servicelogo.verticalCenter
             anchors.margins:12
             spacing:10

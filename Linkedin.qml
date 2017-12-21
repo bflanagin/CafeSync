@@ -554,7 +554,7 @@ Item {
                      horizontalAlignment: Text.AlignHCenter
                      anchors.horizontalCenter: parent.horizontalCenter
                      text:"The Service is:"+service
-                     width:parent.width * 0.6
+                     width:parent.width * 0.8
                      wrapMode: Text.WordWrap
                      z:3
                      color:"white"
