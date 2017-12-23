@@ -207,5 +207,12 @@
         <file>img/edit-text.svg</file>
         <file>ProfileEntry.qml</file>
         <file>text.js</file>
+        <file>Chat.qml</file>
+        <file>Messages.qml</file>
+        <file>Requests.qml</file>
+        <file>Events.qml</file>
+        <file>chat.js</file>
+        <file>messages.js</file>
+        <file>requests.js</file>
     </qresource>
 </RCC>

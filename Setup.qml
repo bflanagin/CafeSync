@@ -139,7 +139,7 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
          right:parent.right
      } */
      y: 0
-     height: parent.height* 0.90
+     height: parent.height
      width: parent.width * 0.98
      anchors.horizontalCenter: parent.horizontalCenter
 
@@ -1021,7 +1021,7 @@ Item {
 
                   MouseArea {
                       anchors.fill:parent
-                      onClicked:enterProfile.state = "Active",enterProfile.type = "skill"
+                      onClicked:enterProfile.state = "Active",enterProfile.type = "skill",enterProfile.listindex = -1
                   }
               }
 
@@ -1195,7 +1195,7 @@ Item {
 
                   MouseArea {
                       anchors.fill:parent
-                      onClicked:enterProfile.state = "Active",enterProfile.type = "school"
+                      onClicked:enterProfile.state = "Active",enterProfile.type = "school",enterProfile.listindex = -1
                   }
               }
               DropShadow {
@@ -1359,7 +1359,7 @@ Item {
 
                   MouseArea {
                       anchors.fill:parent
-                      onClicked:enterProfile.state = "Active",enterProfile.type = "work"
+                      onClicked:enterProfile.state = "Active",enterProfile.type = "work",enterProfile.listindex = -1
                   }
               }
 
@@ -1756,6 +1756,7 @@ Rectangle {
      width:mainView.width
      height:mainView.height * 0.94
      state:"InActive"
+     listindex: -1
      onStateChanged: if(state == "InActive") { Scripts.skillListings(),Scripts.schoolListings(),Scripts.workListings()}
 
  }

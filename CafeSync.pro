@@ -2,11 +2,13 @@ TEMPLATE = app
 
 QT += qml quick svg sql
 #androidextras
+
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    myio.cpp
+    myio.cpp \
    # notificationclient.cpp
+
 
 RESOURCES += qml.qrc
 
@@ -40,7 +42,9 @@ DISTFILES += \
     android/build.gradle \
     android/gradle/wrapper/gradle-wrapper.properties \
     android/gradlew.bat \
-    NotificationClient.java
+    android/src/com/vagueentertainment/cafesync/NotificationClient.java
+
+
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
@@ -55,5 +59,6 @@ contains(ANDROID_TARGET_ARCH,x86) {
 }
 
 HEADERS += \
-    myio.h
-   # notificationclient.h
+    myio.h \
+  #  notificationclient.h
+

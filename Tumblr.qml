@@ -130,15 +130,20 @@ Item {
         cacheBuffer: 180
        clip:true
 
-        delegate:Rectangle {
+        delegate:Item {
+                    width:parent.width * 0.98
+                    height:postcontent.height
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+            Rectangle {
         id:postbg
         radius:5
         //anchors.centerIn: parent
         color:cardcolor
-        border.color:"gray"
-        border.width:4
-        width:parent.width * 0.98
-        height:postcontent.height
+        //border.color:"gray"
+       // border.width:4
+        width:parent.width
+        height:parent.height
 
         anchors.horizontalCenter: parent.horizontalCenter
         //height:postcontent.height + 10
@@ -195,6 +200,18 @@ Item {
         }
 
     }
+
+            DropShadow {
+                anchors.fill:postbg
+                horizontalOffset: 0
+                verticalOffset: 4
+                radius: 8.0
+                samples: 17
+                color: "#80000000"
+                source:postbg
+                z:1
+            }
+        }
 
         model:tumblrposts
 

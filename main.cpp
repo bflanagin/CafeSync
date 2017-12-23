@@ -1,5 +1,8 @@
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
+//#include <QGuiApplication>
+//#include <QQmlApplicationEngine>
+
+#include <QtGui>
+#include <QtQuick>
 
 //#include "notificationclient.h"
 #include "myio.h"
@@ -10,11 +13,17 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<MyIOout>("IO", 1, 0, "MyIOout");
 
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+     QQuickView view;
 
-  //  NotificationClient *notificationClient = new NotificationClient(&app);
-       //app.connectNotify(QLatin1String("notificationClient"),notificationClient);
+   // QQmlApplicationEngine engine;
+    //engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+
+ // NotificationClient *notificationClient = new NotificationClient(&view);
+ //       view.engine()->rootContext()->setContextProperty(QLatin1String("notificationClient"),
+ //                                                        notificationClient);
+        view.setResizeMode(QQuickView::SizeRootObjectToView);
+        view.setSource(QUrl(QStringLiteral("qrc:/main.qml")));
+        view.show();
 
 
 

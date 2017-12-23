@@ -15,7 +15,8 @@ import "main.js" as Scripts
 import "openseed.js" as OpenSeed
 import "text.js" as Scrubber
 
-ApplicationWindow {
+Item {
+//ApplicationWindow {
 
     id:mainView
 
@@ -222,11 +223,11 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
     //height:Screen.desktopAvailableHeight
     //background: "black"
 
-    title: "CafeSync"
+    //title: "CafeSync"
 
     property int closeit: 0
 
-    onClosing: {
+   /* onClosing: {
       /*  if(viewpic.state == "Show") {viewpic.state = "Hide"}
         if(settings.visible == true) {
             thefooter.state ="Show"
@@ -237,7 +238,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         }
         if(viewfinder.state == "Show") {viewfinder.state = "Hide"
 
-        } */
+        }
 
 
     if(closeit == 1) {
@@ -248,7 +249,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         notification1.visible = true; notification1.themessage = "Tap again to exit";notificationFade.start();
     }
 
-    }
+    } */
 
     Timer {
         id:notificationFade
@@ -440,6 +441,10 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                     target:wizardBar
                     visible:true
                 }
+                PropertyChanges {
+                    target:eventsBar
+                    visible:false
+                }
             },
 
 
@@ -466,6 +471,10 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                     target:wizardBar
                     visible:false
                 }
+                PropertyChanges {
+                    target:eventsBar
+                    visible:false
+                }
             },
               State {
                 name:"settings"
@@ -490,6 +499,10 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                     target:wizardBar
                     visible:false
                 }
+                PropertyChanges {
+                    target:eventsBar
+                    visible:false
+                }
             },
             State {
               name:"search"
@@ -512,6 +525,10 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
               }
               PropertyChanges {
                   target:wizardBar
+                  visible:false
+              }
+              PropertyChanges {
+                  target:eventsBar
                   visible:false
               }
           },
@@ -539,6 +556,178 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                   target:wizardBar
                   visible:false
               }
+              PropertyChanges {
+                  target:eventsBar
+                  visible:false
+              }
+          },
+
+                        State {
+                          name:"chat"
+                          PropertyChanges {
+                              target:standardbuttons
+                              visible:false
+                          }
+                          PropertyChanges {
+                              target:settingsbutton
+                              visible:false
+                          }
+                          PropertyChanges {
+                              target:searchBar
+                              visible:false
+                              enabled:false
+                          }
+                          PropertyChanges {
+                              target:personBar
+                              visible:false
+                          }
+                          PropertyChanges {
+                              target:wizardBar
+                              visible:false
+                          }
+                PropertyChanges {
+                    target:chatBar
+                    visible:true
+
+                }
+                PropertyChanges {
+                    target:messagesBar
+                    visible:false
+                }
+                PropertyChanges {
+                    target:requestsBar
+                    visible:false
+                }
+                PropertyChanges {
+                    target:eventsBar
+                    visible:false
+                }
+                      },
+
+            State {
+              name:"messages"
+              PropertyChanges {
+                  target:standardbuttons
+                  visible:false
+              }
+              PropertyChanges {
+                  target:settingsbutton
+                  visible:false
+              }
+              PropertyChanges {
+                  target:searchBar
+                  visible:false
+                  enabled:false
+              }
+              PropertyChanges {
+                  target:personBar
+                  visible:false
+              }
+              PropertyChanges {
+                  target:wizardBar
+                  visible:false
+              }
+              PropertyChanges {
+                  target:chatBar
+                  visible:false
+
+              }
+              PropertyChanges {
+                  target:messagesBar
+                  visible:true
+              }
+              PropertyChanges {
+                  target:requestsBar
+                  visible:false
+              }
+              PropertyChanges {
+                  target:eventsBar
+                  visible:false
+              }
+          },
+
+            State {
+              name:"requests"
+              PropertyChanges {
+                  target:standardbuttons
+                  visible:false
+              }
+              PropertyChanges {
+                  target:settingsbutton
+                  visible:false
+              }
+              PropertyChanges {
+                  target:searchBar
+                  visible:false
+                  enabled:false
+              }
+              PropertyChanges {
+                  target:personBar
+                  visible:false
+              }
+              PropertyChanges {
+                  target:wizardBar
+                  visible:false
+              }
+              PropertyChanges {
+                  target:chatBar
+                  visible:false
+
+              }
+              PropertyChanges {
+                  target:messagesBar
+                  visible:false
+              }
+              PropertyChanges {
+                  target:requestsBar
+                  visible:true
+              }
+              PropertyChanges {
+                  target:eventsBar
+                  visible:false
+              }
+          },
+
+            State {
+              name:"events"
+              PropertyChanges {
+                  target:standardbuttons
+                  visible:false
+              }
+              PropertyChanges {
+                  target:settingsbutton
+                  visible:false
+              }
+              PropertyChanges {
+                  target:searchBar
+                  visible:false
+                  enabled:false
+              }
+              PropertyChanges {
+                  target:personBar
+                  visible:false
+              }
+              PropertyChanges {
+                  target:wizardBar
+                  visible:false
+              }
+              PropertyChanges {
+                  target:chatBar
+                  visible:false
+
+              }
+              PropertyChanges {
+                  target:messagesBar
+                  visible:false
+              }
+              PropertyChanges {
+                  target:requestsBar
+                  visible:false
+              }
+              PropertyChanges {
+                  target:eventsBar
+                  visible:true
+              }
           }
 
         ]
@@ -563,6 +752,280 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
             }
 
         }
+
+
+        Item {
+            id:chatBar
+            width:parent.width
+            height:parent.height
+            visible:false
+            Rectangle {
+                anchors.fill:parent
+                color:barColor
+
+                Text {
+                    anchors.centerIn: parent
+                    text: qsTr("Chat")
+                    font.pixelSize: parent.height * 0.4
+                    color:fontColorTitle
+                }
+            }
+
+            Item {
+                id:cmainMenu
+                anchors.left:parent.left
+                anchors.verticalCenter: parent.verticalCenter
+
+                anchors.leftMargin: parent.width * 0.03
+
+                width:parent.height * 0.4
+                height:parent.height * 0.4
+
+
+                Image {
+                    visible: false
+                    id:cback_icon
+                    anchors.fill: parent
+                    source: "./img/back.svg"
+
+
+
+                }
+
+                ColorOverlay {
+                    source:cback_icon
+                    anchors.fill: cback_icon
+                    color:overlayColor
+                }
+
+                Flasher {
+                    id:csetflick
+
+                }
+
+                MouseArea {
+                    anchors.fill:parent
+                    onClicked: { chatPage.state  = "InActive",
+                        themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0,topBar.state = "standard"//,mainScreen.state = "InActive",pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
+
+                            }
+
+                   // onPressed: setflick.state = "Active"
+                   // onReleased: setflick.state = "InActive"
+                }
+            }
+
+
+
+
+
+
+        }
+
+
+        Item {
+            id:messagesBar
+            width:parent.width
+            height:parent.height
+            visible:false
+            Rectangle {
+                anchors.fill:parent
+                color:barColor
+
+                Text {
+                    anchors.centerIn: parent
+                    text: qsTr("Messages")
+                    font.pixelSize: parent.height * 0.4
+                    color:fontColorTitle
+                }
+            }
+
+            Item {
+                id:mmainMenu
+                anchors.left:parent.left
+                anchors.verticalCenter: parent.verticalCenter
+
+                anchors.leftMargin: parent.width * 0.03
+
+                width:parent.height * 0.4
+                height:parent.height * 0.4
+
+
+                Image {
+                    visible: false
+                    id:mback_icon
+                    anchors.fill: parent
+                    source: "./img/back.svg"
+
+
+
+                }
+
+                ColorOverlay {
+                    source:mback_icon
+                    anchors.fill: mback_icon
+                    color:overlayColor
+                }
+
+                Flasher {
+                    id:msetflick
+
+                }
+
+                MouseArea {
+                    anchors.fill:parent
+                    onClicked: { messagePage.state  = "InActive",
+                        themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0,topBar.state = "standard"//,mainScreen.state = "InActive",pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
+
+                            }
+
+                   // onPressed: setflick.state = "Active"
+                   // onReleased: setflick.state = "InActive"
+                }
+            }
+
+        }
+
+
+        Item {
+            id:requestsBar
+            width:parent.width
+            height:parent.height
+            visible:false
+            Rectangle {
+                anchors.fill:parent
+                color:barColor
+
+                Text {
+                    anchors.centerIn: parent
+                    text: qsTr("Requests")
+                    font.pixelSize: parent.height * 0.4
+                    color:fontColorTitle
+                }
+            }
+
+            Item {
+                id:rmainMenu
+                anchors.left:parent.left
+                anchors.verticalCenter: parent.verticalCenter
+
+                anchors.leftMargin: parent.width * 0.03
+
+                width:parent.height * 0.4
+                height:parent.height * 0.4
+
+
+                Image {
+                    visible: false
+                    id:rback_icon
+                    anchors.fill: parent
+                    source: "./img/back.svg"
+
+
+
+                }
+
+                ColorOverlay {
+                    source:rback_icon
+                    anchors.fill: rback_icon
+                    color:overlayColor
+                }
+
+                Flasher {
+                    id:rsetflick
+
+                }
+
+                MouseArea {
+                    anchors.fill:parent
+                    onClicked: { requestPage.state  = "InActive",
+                        themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0,topBar.state = "standard"//,mainScreen.state = "InActive",pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
+
+                            }
+
+                   // onPressed: setflick.state = "Active"
+                   // onReleased: setflick.state = "InActive"
+                }
+            }
+
+
+        }
+
+
+        Item {
+            id:eventsBar
+            width:parent.width
+            height:parent.height
+            visible:false
+            Rectangle {
+                anchors.fill:parent
+                color:barColor
+
+                Text {
+                    anchors.centerIn: parent
+                    text: qsTr("Events")
+                    font.pixelSize: parent.height * 0.4
+                    color:fontColorTitle
+                }
+            }
+
+
+            Item {
+                id:emainMenu
+                anchors.left:parent.left
+                anchors.verticalCenter: parent.verticalCenter
+
+                anchors.leftMargin: parent.width * 0.03
+
+                width:parent.height * 0.4
+                height:parent.height * 0.4
+
+
+                Image {
+                    visible: false
+                    id:eback_icon
+                    anchors.fill: parent
+                    source: "./img/back.svg"
+
+
+
+                }
+
+                ColorOverlay {
+                    source:eback_icon
+                    anchors.fill: eback_icon
+                    color:overlayColor
+                }
+
+                Flasher {
+                    id:esetflick
+
+                }
+
+                MouseArea {
+                    anchors.fill:parent
+                    onClicked: { if(settingsPage.sourceselect == true) { settingsPage.sourceselect = false} else {
+
+
+                                  /*  Scripts.save_card(userid,username,userphone,useremail,usercompany,
+                                                                      useralias,usermotto,usermain,website1,website2,website3,website4,
+                                                                      stf,atf,ctf,avimg,carddesign,usercat);
+                                                    OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
+                                                                         useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
+                                                                         avimg,carddesign,usercat); */
+                            // settingsPage.saveit = true;
+                        themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0,topBar.state = "person",/*mainScreen.state = "InActive",*/pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
+                        }
+                            }
+
+                   // onPressed: setflick.state = "Active"
+                   // onReleased: setflick.state = "InActive"
+                }
+            }
+
+        }
+
+
 
 
         Item {
@@ -1586,12 +2049,42 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
      id:settingsPage
 
      width:parent.width
-     height:parent.height
+     height:parent.height- topBar.height
         y:topBar.height
          state: "InActive"
 
  }
 
+ Chat {
+     id:chatPage
+     width:parent.width
+     height:parent.height - topBar.height
+        y:topBar.height
+         state: "InActive"
+ }
+
+ Messages {
+     id:messagePage
+     width:parent.width
+     height:parent.height- topBar.height
+        y:topBar.height
+         state: "InActive"
+ }
+ Requests {
+     id:requestPage
+     width:parent.width
+     height:parent.height- topBar.height
+        y:topBar.height
+         state: "InActive"
+ }
+
+ Events {
+     id:eventsPage
+     width:parent.width
+     height:parent.height- topBar.height
+        y:topBar.height
+         state: "InActive"
+ }
 
 Wizard {
     id:firstrun
@@ -1599,7 +2092,7 @@ Wizard {
     height: mainView.height * 0.98
     //state: "InActive"
     state:"InActive"
-    onStateChanged: if(visible) {notificationClient.notification = "User is happy!"}
+   // onStateChanged: if(visible) {notificationClient.notification = "User is happy!"}
 }
 
 

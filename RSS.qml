@@ -134,17 +134,23 @@ Item {
         cacheBuffer: 180
         clip:true
 
-        delegate: Rectangle {
+        delegate: Item {
+                        width:popup.width * 0.95
+                        height:postcontent.height + mainView.height * 0.06
+                        anchors.horizontalCenter: parent.horizontalCenter
+
+            Rectangle {
                         id:postbg
                             radius:3
                             color:cardcolor
                             anchors.horizontalCenter: parent.horizontalCenter
                             //color:Qt.rgba(0.7,0.7,0.7,0.9)
-                            border.color:"gray"
-                            border.width:1
-                             width:popup.width * 0.95
+                           // border.color:"gray"
+                           // border.width:1
+                             width:parent.width
+                             height:parent.height
                              //height:parent.height * 0.70
-                              height:postcontent.height + mainView.height * 0.06
+
                               clip:true
                              z:0
 
@@ -206,6 +212,18 @@ Item {
 
          }
 
+    }
+
+        DropShadow {
+            anchors.fill:postbg
+            horizontalOffset: 0
+            verticalOffset: 4
+            radius: 8.0
+            samples: 17
+            color: "#80000000"
+            source:postbg
+            z:1
+        }
     }
 
         model:rssposts

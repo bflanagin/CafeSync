@@ -22,6 +22,7 @@ Item {
     property string message: ""
     property string missionstatment:""
     property string aquote:""
+    property string postimg:""
 
     clip: true
 
@@ -170,7 +171,7 @@ Item {
 
         radius:5
         width:parent.width * 0.92
-        height:themessage.height+quotebox.height+popup.height * 0.02
+        height:themessage.height+quotebox.height+ postImage.height  +popup.height * 0.02
         clip:true
 
         Text {
@@ -192,7 +193,8 @@ Item {
         }
         Rectangle {
             id:quotebox
-            visible: if(aquote != "") {true} else {false}
+           // visible: if(aquote != "") {true} else {false}
+            visible: false
             color:Qt.rgba(1.0,1.0,1.0,0.9)
             radius:5
             anchors.top:themessage.bottom
@@ -215,6 +217,7 @@ Item {
             }
         }
         DropShadow {
+                visible: if(aquote != "") {true} else {false}
                anchors.fill: quotebox
                horizontalOffset: 0
                verticalOffset: 4
@@ -223,6 +226,17 @@ Item {
                color: "#80000000"
                source: quotebox
                z:1
+        }
+
+        Image {
+            id:postImage
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top:themessage.bottom
+            width:parent.width * 0.98
+            fillMode: Image.PreserveAspectFit
+            source:postimg
+            visible: if(postimg != "") {true} else {false}
+
         }
     }
 

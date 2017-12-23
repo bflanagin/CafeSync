@@ -21,6 +21,8 @@ Item {
 
     onAboutmeChanged: if(aboutme == "") {aboutyou.text = ""} else { aboutyou.text = aboutme}
 
+    onStateChanged: if(state == "InActive") {thisWindow.enabled = false} else {thisWindow.enabled = true}
+
     MouseArea {
         anchors.fill: parent
 
@@ -329,11 +331,12 @@ Item {
             anchors.fill: parent
             onClicked: if(listindex != -1) {
                            yourskills[listindex] = "'"+skillname.text+"':,:'"+certifed.checked+"':,:'"+skillDiscription.text+"':,:'"+skillstartdate.text+"':,:'"+skillexpiredate.text+"':,:'"+years.text+"'";
-                           thisWindow.state = "InActive"; listindex = -1;
+                           thisWindow.state = "InActive";
+                           //listindex = -1;
                        } else {
         yourskills.push("'"+skillname.text+"':,:'"+certifed.checked+"':,:'"+skillDiscription.text+"':,:'"+skillstartdate.text+"':,:'"+skillexpiredate.text+"':,:'"+years.text+"'"),
-        thisWindow.state = "InActive",
-        listindex = -1
+        thisWindow.state = "InActive"
+        //listindex = -1
         }
     }
 
@@ -500,11 +503,11 @@ Item {
             onClicked: if(listindex != -1) {
                          yourworked[listindex] = "'"+companyname.text+"':,:'"+currentlyEmployeed.checked+"':,:'"+workDiscription.text+"':,:'"+workstartdate.text+"':,:'"+workleftdate.text+"':,:'"+workyears.text+"'";
                         thisWindow.state = "InActive";
-                           listindex = -1;
+                          // listindex = -1;
                        } else {
                 yourworked.push("'"+companyname.text+"':,:'"+currentlyEmployeed.checked+"':,:'"+workDiscription.text+"':,:'"+workstartdate.text+"':,:'"+workleftdate.text+"':,:'"+workyears.text+"'"),
-                thisWindow.state = "InActive",
-                           listindex = -1
+                thisWindow.state = "InActive"
+                           //listindex = -1
         }
 
         }
@@ -664,11 +667,11 @@ Item {
             onClicked:if(listindex != -1) {
                           yourschooling[listindex]= "'"+schoolname.text+"':,:'"+graduated.checked+"':,:'"+schoolDiscription.text+"':,:'"+graddate.text+"':,:'"+degree.text+"'";
                           thisWindow.state = "InActive";
-                          listindex = -1;
+                         // listindex = -1;
                       } else {
                 yourschooling.push("'"+schoolname.text+"':,:'"+graduated.checked+"':,:'"+schoolDiscription.text+"':,:'"+graddate.text+"':,:'"+degree.text+"'"),
-                thisWindow.state = "InActive",
-                listindex = -1
+                thisWindow.state = "InActive"
+               // listindex = -1
         }
         }
 

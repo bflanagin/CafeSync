@@ -87,7 +87,7 @@ import "openseed.js" as OpenSeed
                                         running: true
                                         repeat: false
 
-                                        onTriggered:OpenSeed.update_card(cardId,listget)
+                                        onTriggered:OpenSeed.update_card(cardId,listget)//, notificationClient.notification = "Updating Card";
 
 
                                     }

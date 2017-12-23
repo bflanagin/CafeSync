@@ -534,8 +534,9 @@ function get_list(id,list) {
                         //console.log("updatig temp list");
                        // cardlist_update.running = true;
                        // cardload.running = true;
+                    //if(remotetemp.split(",") > ptotal) {
 
-
+                    //}
                 }
             }
         }

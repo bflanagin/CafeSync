@@ -268,7 +268,7 @@ Item {
                               listget = "saved";
                                   Scripts.Cards_load(searchtext);
                           }break;
-                          case "3": /*settingsPage.state = "Active",cardPage.state = "settings";popup.state = "InActive";cardindex = 0;*/break;
+                          //case "3": /*settingsPage.state = "Active",cardPage.state = "settings";popup.state = "InActive";cardindex = 0;*/break;
                           case "1":settingsPage.state = "InActive",cardPage.state = "show",cardPage.state = "default";currentcard = -1;cardindex = 0;
                                             pagelist.clear();Scripts.Show_sites("local",userid);mainScreen.state = "Active";popup.state = "InActive";mainScreen.positionViewAtBeginning();gc();
                                             currentcard_saved = 2;
@@ -278,9 +278,11 @@ Item {
                                              mainScreen.state = "Active",topBar.state = "person"
                                             break;
 
-                          case "4": break;
-                          case "5": break;
-                          case "6": break;
+                          case "3": /* chatPage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "chat";*/break;
+                          case "4": /* messagePage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "messages";*/break;
+                          case "5": /* requestPage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "requests";*/break;
+                          case "6": /* eventsPage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "events"; */break;
+
 
                           default:if(title == "Category") {currentcat = menuitem;
                                                                     cardslist.clear();
