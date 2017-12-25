@@ -781,10 +781,10 @@ Item {
                                     anchors.fill: parent
                                     onClicked: {
                                                     usercat = currentcat;
-                                                Scripts.save_card(userid,username.replace(/'/g," "),userphone,useremail,usercompany,useralias,usermotto," ",
+                                                Scripts.save_card(userid,username.replace(/'/g," "),userphone,useremail,usercompany,useralias,usermotto+";::;;::;;::;"," ",
                                                                  website1,website2,website3,website4,0,0,0," "," ",usercat);
                                                 OpenSeed.upload_data(userid,username.replace(/'/g," "),userphone,useremail,usercompany,
-                                                             useralias,usermotto,0,0,0," ",website1,website2,website3,website4,
+                                                             useralias,usermotto+";::;;::;;::;",0,0,0," ",website1,website2,website3,website4,
                                                              " "," ",usercat);
                                                     currentcat = "All Cards";
                                                     thisWindow.state = "InActive"

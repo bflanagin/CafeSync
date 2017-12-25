@@ -1704,14 +1704,11 @@ function schoolListings() {
     school.clear();
 
 
-       // for(var num = 0;num < wlist.split(";:;").length;num = num + 1) {
-            //yourworked[num] = wlist.split(";:;")[num];
+    if(yourschooling.length < slist.split(",").length ) {
 
-    if(yourschooling.length < slist.split("','").length ) {
+    for(var num = 0;num < slist.split(",").length;num = num + 1) {
 
-    for(var num = 0;num < slist.split("','").length;num = num + 1) {
-
-             yourschooling.push(slist.split("','")[num]);
+             yourschooling.push(slist.split(",")[num]);
 
     }
 
@@ -1720,16 +1717,15 @@ function schoolListings() {
     var schoolnum = 0;
     while(yourschooling.length > schoolnum) {
 
-        //for(var num = 0;num < slist.split(";:;").length;num = num + 1) {
-           // yourschooling[num] = slist.split(";:;")[num];
-            if(yourschooling[schoolnum].split(":,:")[0] != "") {
+
+            if(yourschooling[schoolnum].split(":::")[0] != "") {
 
             school.append ({
-                name:yourschooling[schoolnum].split(":,:")[0],
-                graduated:yourschooling[schoolnum].split(":,:")[1],
-                discription:yourschooling[schoolnum].split(":,:")[2],
-                compeltiondate:yourschooling[schoolnum].split(":,:")[3],
-                degree:yourschooling[schoolnum].split(":,:")[4],
+                name:yourschooling[schoolnum].split(":::")[0],
+                graduated:yourschooling[schoolnum].split(":::")[1],
+                discription:yourschooling[schoolnum].split(":::")[2],
+                compeltiondate:yourschooling[schoolnum].split(":::")[3],
+                degree:yourschooling[schoolnum].split(":::")[4],
             });
         }
         schoolnum = schoolnum + 1;
@@ -1747,14 +1743,11 @@ function workListings() {
 
     workexpr.clear();
 
-       // for(var num = 0;num < wlist.split(";:;").length;num = num + 1) {
-            //yourworked[num] = wlist.split(";:;")[num];
+    if(yourworked.length < wlist.split(",").length ) {
 
-    if(yourworked.length < wlist.split("','").length ) {
+    for(var num = 0;num < wlist.split(",").length;num = num + 1) {
 
-    for(var num = 0;num < wlist.split("','").length;num = num + 1) {
-
-             yourworked.push(wlist.split("','")[num]);
+             yourworked.push(wlist.split(",")[num]);
 
     }
 
@@ -1763,14 +1756,14 @@ function workListings() {
     var worknum = 0;
     while(yourworked.length > worknum) {
 
-        if(yourworked[worknum].split(":,:")[0] != "") {
+        if(yourworked[worknum].split(":::")[0] != "") {
             workexpr.append ({
-                name:yourworked[worknum].split(":,:")[0],
-                currentlyEmployeed:yourworked[worknum].split(":,:")[1],
-                discription:yourworked[worknum].split(":,:")[2],
-                beginingdate:yourworked[worknum].split(":,:")[3],
-                endingdate:yourworked[worknum].split(":,:")[4],
-                years:yourworked[worknum].split(":,:")[5],
+                name:yourworked[worknum].split(":::")[0],
+                currentlyEmployeed:yourworked[worknum].split(":::")[1],
+                discription:yourworked[worknum].split(":::")[2],
+                beginingdate:yourworked[worknum].split(":::")[3],
+                endingdate:yourworked[worknum].split(":::")[4],
+                years:yourworked[worknum].split(":::")[5],
             });
     }
         worknum = worknum + 1;
@@ -1784,11 +1777,11 @@ function skillListings() {
    var slist = usermotto.split(";::;")[1];
     skills.clear();
 
-    if(yourskills.length < slist.split("','").length ) {
+    if(yourskills.length < slist.split(",").length ) {
 
-    for(var num = 0;num < slist.split("','").length;num = num + 1) {
+    for(var num = 0;num < slist.split(",").length;num = num + 1) {
 
-             yourskills.push(slist.split("','")[num]);
+             yourskills.push(slist.split(",")[num]);
 
 
 
@@ -1799,16 +1792,16 @@ function skillListings() {
     var skillnum = 0;
     while(yourskills.length > skillnum) {
 
-    if(yourskills[skillnum].split(":,:")[0] != "") {
+    if(yourskills[skillnum].split(":::")[0] != "") {
         skills.append({
-            name:yourskills[skillnum].split(":,:")[0],
-            certified:yourskills[skillnum].split(":,:")[1],
-            discription:yourskills[skillnum].split(":,:")[2],
-            redate:yourskills[skillnum].split(":,:")[3],
-            expdate:yourskills[skillnum].split(":,:")[4],
-            yoe:yourskills[skillnum].split(":,:")[5]
+            name:yourskills[skillnum].split(":::")[0],
+            certified:yourskills[skillnum].split(":::")[1],
+            discription:yourskills[skillnum].split(":::")[2],
+            redate:yourskills[skillnum].split(":::")[3],
+            expdate:yourskills[skillnum].split(":::")[4],
+            yoe:yourskills[skillnum].split(":::")[5]
         });
-    }
+   }
 
     skillnum = skillnum + 1;
 
@@ -1820,36 +1813,35 @@ function skillListings() {
 function editItem(type,index) {
 
     switch(type) {
-    case "skill":if(yourskills[index].split(":,:")[0] != "") {
+    case "skill":if(yourskills[index].split(":::")[0] != "") {
 
-                             skillname.text = yourskills[index].split(":,:")[0].substring(1,yourskills[index].split(":,:")[0].length-1);
-                            certifed.checked = yourskills[index].split(":,:")[1];
-                            skillDiscription.text = yourskills[index].split(":,:")[2].substring(1,yourskills[index].split(":,:")[2].length-1);
-                            skillstartdate.text = yourskills[index].split(":,:")[3].substring(1,yourskills[index].split(":,:")[3].length-1);
-                            skillexpiredate.text = yourskills[index].split(":,:")[4].substring(1,yourskills[index].split(":,:")[4].length-1);
-                            years.text = yourskills[index].split(":,:")[5].substring(1,yourskills[index].split(":,:")[5].length-1);
-
-
-                        };break;
-    case "school":if(yourschooling[index].split(":,:")[0] != "") {
-
-
-                                schoolname.text = yourschooling[index].split(":,:")[0].substring(1,yourschooling[index].split(":,:")[0].length-1);
-                                graduated.checked = yourschooling[index].split(":,:")[1];
-                                schoolDiscription.text = yourschooling[index].split(":,:")[2].substring(1,yourschooling[index].split(":,:")[2].length-1);
-                                graddate.text = yourschooling[index].split(":,:")[3].substring(1,yourschooling[index].split(":,:")[3].length-1);
-                                degree.text = yourschooling[index].split(":,:")[4].substring(1,yourschooling[index].split(":,:")[4].length-1);
+                             skillname.text = yourskills[index].split(":::")[0].split("'")[1];
+                            certifed.checked = yourskills[index].split(":::")[1].split("'")[1];
+                            skillDiscription.text = yourskills[index].split(":::")[2].split("'")[1];
+                            skillstartdate.text = yourskills[index].split(":::")[3].split("'")[1];
+                            skillexpiredate.text = yourskills[index].split(":::")[4].split("'")[1];
+                            years.text = yourskills[index].split(":,:")[5].split("'")[1];
 
 
                         };break;
-    case "work":if(yourworked[index].split(":,:")[0] != "") {
+    case "school":if(yourschooling[index].split(":::")[0] != "") {
 
-                            companyname.text = yourworked[index].split(":,:")[0].substring(1,yourworked[index].split(":,:")[0].length-1);
-                            currentlyEmployeed.checked = yourworked[index].split(":,:")[1];
-                            workDiscription.text = yourworked[index].split(":,:")[2].substring(1,yourworked[index].split(":,:")[2].length-1);
-                            workstartdate.text = yourworked[index].split(":,:")[3].substring(1,yourworked[index].split(":,:")[3].length-1);
-                           workleftdate.text = yourworked[index].split(":,:")[4].substring(1,yourworked[index].split(":,:")[4].length-1);
-                            workyears.text = yourworked[index].split(":,:")[5].substring(1,yourworked[index].split(":,:")[5].length-1);
+
+                                schoolname.text = yourschooling[index].split(":::")[0].split("'")[1];
+                                graduated.checked = yourschooling[index].split(":::")[1].split("'")[1];
+                                schoolDiscription.text = yourschooling[index].split(":::")[2].split("'")[1];
+                                graddate.text = yourschooling[index].split(":::")[3].split("'")[1];
+                                degree.text = yourschooling[index].split(":::")[4].split("'")[1];
+
+                        };break;
+    case "work":if(yourworked[index].split(":::")[0] != "") {
+
+                            companyname.text = yourworked[index].split(":::")[0].split("'")[1];
+                            currentlyEmployeed.checked = yourworked[index].split(":::")[1].split("'")[1];
+                            workDiscription.text = yourworked[index].split(":::")[2].split("'")[1];
+                            workstartdate.text = yourworked[index].split(":::")[3].split("'")[1];
+                           workleftdate.text = yourworked[index].split(":::")[4].split("'")[1];
+                            workyears.text = yourworked[index].split(":::")[5].split("'")[1];
 
 
                      };break;
@@ -1862,35 +1854,38 @@ function formatResume(type,stuff) {
 
     switch(type) {
     case "skill": for(var num = 0;num < stuff.split(",").length;num = num + 1) {
+            if(stuff.split(",")[num].split(":::")[0] != "") {
         skillstats.append ({
-                name:stuff.split(",'")[num].split(":,:")[0],
-                certified:stuff.split(",'")[num].split(":,:")[1],
-                discription:stuff.split(",'")[num].split(":,:")[2],
-                redate:stuff.split(",'")[num].split(":,:")[3],
-                expdate:stuff.split(",'")[num].split(":,:")[4],
-                yoe:stuff.split(",'")[num].split(":,:")[5]
-                    });
+                name:stuff.split(",")[num].split(":::")[0],
+                certified:stuff.split(",")[num].split(":::")[1],
+                discription:stuff.split(",")[num].split(":::")[2],
+                redate:stuff.split(",")[num].split(":::")[3],
+                expdate:stuff.split(",")[num].split(":::")[4],
+                yoe:stuff.split(",")[num].split(":::")[5]
+                    }); }
                 };break;
     case "school":for(var num = 0;num < stuff.split(",").length;num = num + 1) {
+            if(stuff.split(",")[num].split(":::")[0] != "") {
             schoolstats.append ({
-                    name:stuff.split(",'")[num].split(":,:")[0],
-                    certified:stuff.split(",'")[num].split(":,:")[1],
-                    discription:stuff.split(",'")[num].split(":,:")[2],
-                    redate:stuff.split(",'")[num].split(":,:")[3],
-                    expdate:stuff.split(",'")[num].split(":,:")[4],
-                    yoe:stuff.split(",'")[num].split(":,:")[5]
-                        });
+                    name:stuff.split(",")[num].split(":::")[0],
+                    certified:stuff.split(",")[num].split(":::")[1],
+                    discription:stuff.split(",")[num].split(":::")[2],
+                    redate:stuff.split(",")[num].split(":::")[3],
+                    expdate:stuff.split(",")[num].split(":::")[4],
+                    yoe:stuff.split(",")[num].split(":::")[5]
+                        }); }
                     };break;
 
     case "work":for(var num = 0;num < stuff.split(",").length;num = num + 1) {
+            if(stuff.split(",")[num].split(":::")[0] != "") {
             workstats.append ({
-                    name:stuff.split(",'")[num].split(":,:")[0],
-                    certified:stuff.split(",'")[num].split(":,:")[1],
-                    discription:stuff.split(",'")[num].split(":,:")[2],
-                    redate:stuff.split(",'")[num].split(":,:")[3],
-                    expdate:stuff.split(",'")[num].split(":,:")[4],
-                    yoe:stuff.split(",'")[num].split(":,:")[5]
-                        });
+                    name:stuff.split(",")[num].split(":::")[0],
+                    certified:stuff.split(",")[num].split(":::")[1],
+                    discription:stuff.split(",")[num].split(":::")[2],
+                    redate:stuff.split(",")[num].split(":::")[3],
+                    expdate:stuff.split(",")[num].split(":::")[4],
+                    yoe:stuff.split(",")[num].split(":::")[5]
+                        }); }
                     };break;
 
 

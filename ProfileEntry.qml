@@ -21,7 +21,10 @@ Item {
 
     onAboutmeChanged: if(aboutme == "") {aboutyou.text = ""} else { aboutyou.text = aboutme}
 
-    onStateChanged: if(state == "InActive") {thisWindow.enabled = false} else {thisWindow.enabled = true}
+    onStateChanged: if(state == "InActive") {thisWindow.enabled = false,skillname.text ="", certifed.checked ="", skillDiscription.text="",skillstartdate.text="",skillexpiredate.text="",years.text="",
+                    companyname.text="",currentlyEmployeed.checked="",workDiscription.text="",workstartdate.text="",workleftdate.text="",workyears.text="",
+                    schoolname.text="",graduated.checked="",schoolDiscription.text="",graddate.text="",degree.text=""
+                    } else {thisWindow.enabled = true}
 
     MouseArea {
         anchors.fill: parent
@@ -329,15 +332,17 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: if(listindex != -1) {
-                           yourskills[listindex] = "'"+skillname.text+"':,:'"+certifed.checked+"':,:'"+skillDiscription.text+"':,:'"+skillstartdate.text+"':,:'"+skillexpiredate.text+"':,:'"+years.text+"'";
+            onClicked: if(skillname.text !="") {
+                           if(listindex != -1) {
+                           yourskills[listindex] = "'"+skillname.text+"':::'"+certifed.checked+"':::'"+skillDiscription.text+"':::'"+skillstartdate.text+"':::'"+skillexpiredate.text+"':::'"+years.text+"'";
                            thisWindow.state = "InActive";
                            //listindex = -1;
                        } else {
-        yourskills.push("'"+skillname.text+"':,:'"+certifed.checked+"':,:'"+skillDiscription.text+"':,:'"+skillstartdate.text+"':,:'"+skillexpiredate.text+"':,:'"+years.text+"'"),
+        yourskills.push("'"+skillname.text+"':::'"+certifed.checked+"':::'"+skillDiscription.text+"':::'"+skillstartdate.text+"':::'"+skillexpiredate.text+"':::'"+years.text+"'"),
         thisWindow.state = "InActive"
         //listindex = -1
         }
+                       }
     }
 
     }
@@ -500,15 +505,17 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: if(listindex != -1) {
-                         yourworked[listindex] = "'"+companyname.text+"':,:'"+currentlyEmployeed.checked+"':,:'"+workDiscription.text+"':,:'"+workstartdate.text+"':,:'"+workleftdate.text+"':,:'"+workyears.text+"'";
+            onClicked: if(companyname.text !="") {
+                           if(listindex != -1) {
+                         yourworked[listindex] = "'"+companyname.text+"':::'"+currentlyEmployeed.checked+"':::'"+workDiscription.text+"':::'"+workstartdate.text+"':::'"+workleftdate.text+"':::'"+workyears.text+"'";
                         thisWindow.state = "InActive";
                           // listindex = -1;
                        } else {
-                yourworked.push("'"+companyname.text+"':,:'"+currentlyEmployeed.checked+"':,:'"+workDiscription.text+"':,:'"+workstartdate.text+"':,:'"+workleftdate.text+"':,:'"+workyears.text+"'"),
+                yourworked.push("'"+companyname.text+"':::'"+currentlyEmployeed.checked+"':::'"+workDiscription.text+"':::'"+workstartdate.text+"':::'"+workleftdate.text+"':::'"+workyears.text+"'"),
                 thisWindow.state = "InActive"
                            //listindex = -1
         }
+                       }
 
         }
 
@@ -664,15 +671,17 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked:if(listindex != -1) {
-                          yourschooling[listindex]= "'"+schoolname.text+"':,:'"+graduated.checked+"':,:'"+schoolDiscription.text+"':,:'"+graddate.text+"':,:'"+degree.text+"'";
+            onClicked:if(schoolname.text !="") {
+                          if(listindex != -1) {
+                          yourschooling[listindex]= "'"+schoolname.text+"':::'"+graduated.checked+"':::'"+schoolDiscription.text+"':::'"+graddate.text+"':::'"+degree.text+"'";
                           thisWindow.state = "InActive";
                          // listindex = -1;
                       } else {
-                yourschooling.push("'"+schoolname.text+"':,:'"+graduated.checked+"':,:'"+schoolDiscription.text+"':,:'"+graddate.text+"':,:'"+degree.text+"'"),
+                yourschooling.push("'"+schoolname.text+"':::'"+graduated.checked+"':::'"+schoolDiscription.text+"':::'"+graddate.text+"':::'"+degree.text+"'"),
                 thisWindow.state = "InActive"
                // listindex = -1
         }
+                      }
         }
 
     }

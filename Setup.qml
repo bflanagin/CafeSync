@@ -921,7 +921,7 @@ Item {
 
                                 Text {
                                     text:if(index == 0) {name.substring(1,name.length-1)}
-                                         else {name.substring(0,name.length-1) }
+                                         else {name.substring(1,name.length-1) }
 
                                     anchors.left:parent.left
                                     anchors.leftMargin: parent.height * 0.1
@@ -991,7 +991,7 @@ Item {
 
                             MouseArea {
                                 anchors.fill: parent
-                                onClicked: enterProfile.state = "Active",enterProfile.type = "skill", enterProfile.listindex = index
+                                onClicked: enterProfile.state = "Active",enterProfile.type = "skill", enterProfile.listindex = index+1
                             }
 
                   }
@@ -1093,7 +1093,7 @@ Item {
 
                           Text {
                               text:if(index == 0) {name.substring(1,name.length-1)}
-                                   else {name.substring(0,name.length-1) }
+                                   else {name.substring(1,name.length-1) }
 
                               anchors.left:parent.left
                               anchors.leftMargin: parent.height * 0.1
@@ -1163,7 +1163,7 @@ Item {
 
                       MouseArea {
                           anchors.fill: parent
-                          onClicked: enterProfile.state = "Active",enterProfile.type = "school", enterProfile.listindex = index
+                          onClicked: enterProfile.state = "Active",enterProfile.type = "school", enterProfile.listindex = index+1
                       }
 
             }
@@ -1264,7 +1264,7 @@ Item {
 
                           Text {
                               text:if(index == 0) {name.substring(1,name.length-1)}
-                                   else {name.substring(0,name.length-1) }
+                                   else {name.substring(1,name.length-1) }
 
                               anchors.left:parent.left
                               anchors.leftMargin: parent.height * 0.1
@@ -1334,7 +1334,7 @@ Item {
 
                       MouseArea {
                           anchors.fill: parent
-                          onClicked: enterProfile.state = "Active",enterProfile.type = "work", enterProfile.listindex = index
+                          onClicked: enterProfile.state = "Active",enterProfile.type = "work", enterProfile.listindex = index+1
                       }
 
             }

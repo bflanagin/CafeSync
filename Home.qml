@@ -326,7 +326,7 @@ Item {
                                         Text {
                                             font.pixelSize: popup.height * 0.03
                                             text:if(index == 0) {name.substring(1,name.length-1)}
-                                                                else {name.substring(0,name.length-1) }
+                                                                else {name.substring(1,name.length-1) }
                                             width:parent.width
 
                                             Text {
@@ -445,7 +445,7 @@ Item {
                                         Text {
                                             font.pixelSize: popup.height * 0.03
                                             text:if(index == 0) {name.substring(1,name.length-1)}
-                                                 else {name.substring(0,name.length-1) }
+                                                 else {name.substring(1,name.length-1) }
                                             width:parent.width
 
                                             Text {
@@ -564,14 +564,14 @@ Item {
                                             Text {
                                                 font.pixelSize: popup.height * 0.03
                                                 text:if(index == 0) {name.substring(1,name.length-1)}
-                                                     else {name.substring(0,name.length-1) }
+                                                     else {name.substring(1,name.length-1) }
                                                 width:parent.width
 
                                                 Text {
                                                     anchors.bottom:parent.bottom
                                                     anchors.right:parent.right
                                                     anchors.rightMargin: popup.height * 0.01
-                                                    font.pixelSize: popup.height * 0.02
+                                                    font.pixelSize: popup.height * 0.01
                                                     text:"Years at Job: "+yoe.substring(1,yoe.length-1)
                                                 }
                                             }
