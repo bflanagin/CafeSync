@@ -207,7 +207,7 @@ Item {
 
     Row {
         width:parent.width
-        height: parent.height * 0.65
+        height: parent.height * 0.72
         clip:true
 
     Item {
@@ -790,7 +790,7 @@ Item {
                   id:personalMotto
                   width:profileRow.width * 0.98
                   height:profileRow.height * 0.98
-                  text:if(yourabout == ""){usermotto.split(";::;")[0]} else {yourabout}
+                  text:if(yourabout == ""){usermotto.split(";::;")[0].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")} else {yourabout.replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")}
                   clip:true
 
                   Image {
@@ -806,9 +806,9 @@ Item {
                       anchors.fill:parent
                       onClicked: {enterProfile.state = "Active",enterProfile.type = "about";
                                 if(yourabout == ""){
-                                    enterProfile.aboutme = usermotto.split(";::;")[0];
+                                    enterProfile.aboutme = usermotto.split(";::;")[0].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
                                 } else {
-                                    enterProfile.aboutme = yourabout;
+                                    enterProfile.aboutme = yourabout.replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
                                     }
                       }
                   }
@@ -920,8 +920,8 @@ Item {
                                     spacing:settingsPage.height * 0.01
 
                                 Text {
-                                    text:if(index == 0) {name.substring(1,name.length-1)}
-                                         else {name.substring(1,name.length-1) }
+                                    text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
+
 
                                     anchors.left:parent.left
                                     anchors.leftMargin: parent.height * 0.1
@@ -959,7 +959,7 @@ Item {
                                     anchors.leftMargin:settingsPage.height * 0.01
                                     width:parent.width*0.98
                                     wrapMode: Text.WordWrap
-                                    text:"Discription:\n"+discription.substring(1,discription.length-1)
+                                    text:"Discription:\n"+discription.substring(1,discription.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
                                 }
 
                                 Image {
@@ -1092,8 +1092,8 @@ Item {
                               spacing:settingsPage.height * 0.01
 
                           Text {
-                              text:if(index == 0) {name.substring(1,name.length-1)}
-                                   else {name.substring(1,name.length-1) }
+                              text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
+
 
                               anchors.left:parent.left
                               anchors.leftMargin: parent.height * 0.1
@@ -1131,7 +1131,7 @@ Item {
                               anchors.leftMargin:settingsPage.height * 0.01
                               width:parent.width*0.98
                               wrapMode: Text.WordWrap
-                              text:"Discription:\n"+discription.substring(1,discription.length-1)
+                              text:"Discription:\n"+discription.substring(1,discription.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
                           }
 
                           Image {
@@ -1263,8 +1263,8 @@ Item {
                               spacing:settingsPage.height * 0.01
 
                           Text {
-                              text:if(index == 0) {name.substring(1,name.length-1)}
-                                   else {name.substring(1,name.length-1) }
+                              text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
+
 
                               anchors.left:parent.left
                               anchors.leftMargin: parent.height * 0.1
@@ -1302,7 +1302,7 @@ Item {
                               anchors.leftMargin:settingsPage.height * 0.01
                               width:parent.width*0.98
                               wrapMode: Text.WordWrap
-                              text:"Discription:\n"+discription.substring(1,discription.length-1)
+                              text:"Discription:\n"+discription.substring(1,discription.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
                           }
 
                           Image {
@@ -1707,7 +1707,7 @@ Rectangle {
  SourceSelection {
         id:sourceSelector
         width:parent.width
-        height:parent.height - topBar.height
+        height:parent.height
         state:"InActive"
 
  }

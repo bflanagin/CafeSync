@@ -238,7 +238,7 @@ Item {
                             anchors.horizontalCenter: parent.horizontalCenter
                             width:parent.width - 10
                             wrapMode: Text.WordWrap
-                             text:"<p>"+motto+"</p>"
+                             text:"<p>"+motto.replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")+"</p>"
                         }
 
                     }
@@ -325,15 +325,14 @@ Item {
 
                                         Text {
                                             font.pixelSize: popup.height * 0.03
-                                            text:if(index == 0) {name.substring(1,name.length-1)}
-                                                                else {name.substring(1,name.length-1) }
+                                            text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
                                             width:parent.width
 
                                             Text {
                                                 anchors.bottom:parent.bottom
                                                 anchors.right:parent.right
                                                 anchors.rightMargin: popup.height * 0.01
-                                                font.pixelSize: popup.height * 0.01
+                                                font.pixelSize: popup.height * 0.015
                                                 text:"Years of Experience: "+yoe.substring(1,yoe.length-1)
                                             }
                                         }
@@ -350,7 +349,7 @@ Item {
                                             anchors.leftMargin: popup.height * 0.02
                                             width:parent.width * 0.95
                                             wrapMode: Text.WordWrap
-                                            text:"<p>"+discription.substring(1,discription.length-1)+"</p>"
+                                            text:"<p>"+discription.substring(1,discription.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")+"</p>"
                                         }
                                     }
                                 }
@@ -444,15 +443,15 @@ Item {
 
                                         Text {
                                             font.pixelSize: popup.height * 0.03
-                                            text:if(index == 0) {name.substring(1,name.length-1)}
-                                                 else {name.substring(1,name.length-1) }
+                                            text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
+
                                             width:parent.width
 
                                             Text {
                                                 anchors.bottom:parent.bottom
                                                 anchors.right:parent.right
                                                 anchors.rightMargin: popup.height * 0.01
-                                                font.pixelSize: popup.height * 0.01
+                                                font.pixelSize: popup.height * 0.015
                                                 text:"Degree: "+expdate.substring(1,expdate.length-1)
                                             }
                                         }
@@ -469,7 +468,7 @@ Item {
                                             anchors.leftMargin: popup.height * 0.02
                                             width:parent.width * 0.95
                                             wrapMode: Text.WordWrap
-                                            text:"<p>"+discription.substring(1,discription.length-1)+"</p>"
+                                            text:"<p>"+discription.substring(1,discription.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")+"</p>"
                                         }
                                     }
                                 }
@@ -563,15 +562,14 @@ Item {
 
                                             Text {
                                                 font.pixelSize: popup.height * 0.03
-                                                text:if(index == 0) {name.substring(1,name.length-1)}
-                                                     else {name.substring(1,name.length-1) }
+                                                text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
                                                 width:parent.width
 
                                                 Text {
                                                     anchors.bottom:parent.bottom
                                                     anchors.right:parent.right
                                                     anchors.rightMargin: popup.height * 0.01
-                                                    font.pixelSize: popup.height * 0.01
+                                                    font.pixelSize: popup.height * 0.015
                                                     text:"Years at Job: "+yoe.substring(1,yoe.length-1)
                                                 }
                                             }
@@ -588,7 +586,7 @@ Item {
                                                 anchors.leftMargin: popup.height * 0.02
                                                 width:parent.width * 0.95
                                                 wrapMode: Text.WordWrap
-                                                text:"<p>"+discription.substring(1,discription.length-1)+"</p>"
+                                                text:"<p>"+discription.substring(1,discription.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")+"</p>"
                                             }
                                         }
                                     }

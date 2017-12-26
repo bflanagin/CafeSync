@@ -167,7 +167,7 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: yourabout = aboutyou.text,thisWindow.state = "InActive"
+            onClicked: yourabout = aboutyou.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;"),thisWindow.state = "InActive"
         }
 
     }
@@ -236,7 +236,7 @@ Item {
             }
             TextField {
                 id:years
-                width:parent.width * 0.05
+               width:parent.width * 0.06
                 placeholderText: "0"
                  anchors.verticalCenter: parent.verticalCenter
             }
@@ -334,11 +334,23 @@ Item {
             anchors.fill: parent
             onClicked: if(skillname.text !="") {
                            if(listindex != -1) {
-                           yourskills[listindex] = "'"+skillname.text+"':::'"+certifed.checked+"':::'"+skillDiscription.text+"':::'"+skillstartdate.text+"':::'"+skillexpiredate.text+"':::'"+years.text+"'";
-                           thisWindow.state = "InActive";
+                           yourskills[listindex] = "'"+skillname.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                           +"':::'"+certifed.checked
+                           +"':::'"+skillDiscription.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                           +"':::'"+skillstartdate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                           +"':::'"+skillexpiredate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                           +"':::'"+years.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")+"'";
+
+                               thisWindow.state = "InActive";
                            //listindex = -1;
                        } else {
-        yourskills.push("'"+skillname.text+"':::'"+certifed.checked+"':::'"+skillDiscription.text+"':::'"+skillstartdate.text+"':::'"+skillexpiredate.text+"':::'"+years.text+"'"),
+        yourskills.push("'"+skillname.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                        +"':::'"+certifed.checked
+                        +"':::'"+skillDiscription.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                        +"':::'"+skillstartdate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                        +"':::'"+skillexpiredate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                        +"':::'"+years.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")+"'"),
+
         thisWindow.state = "InActive"
         //listindex = -1
         }
@@ -408,7 +420,7 @@ Item {
             }
             TextField {
                 id:workyears
-                width:parent.width * 0.05
+                width:parent.width * 0.06
                 placeholderText: "0"
                  anchors.verticalCenter: parent.verticalCenter
             }
@@ -507,11 +519,24 @@ Item {
             anchors.fill: parent
             onClicked: if(companyname.text !="") {
                            if(listindex != -1) {
-                         yourworked[listindex] = "'"+companyname.text+"':::'"+currentlyEmployeed.checked+"':::'"+workDiscription.text+"':::'"+workstartdate.text+"':::'"+workleftdate.text+"':::'"+workyears.text+"'";
-                        thisWindow.state = "InActive";
+                         yourworked[listindex] = "'"+companyname.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                         +"':::'"+currentlyEmployeed.checked
+                         +"':::'"+workDiscription.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                         +"':::'"+workstartdate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                         +"':::'"+workleftdate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                         +"':::'"+workyears.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")+"'";
+
+                               thisWindow.state = "InActive";
                           // listindex = -1;
                        } else {
-                yourworked.push("'"+companyname.text+"':::'"+currentlyEmployeed.checked+"':::'"+workDiscription.text+"':::'"+workstartdate.text+"':::'"+workleftdate.text+"':::'"+workyears.text+"'"),
+                yourworked.push("'"+companyname.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                                +"':::'"+currentlyEmployeed.checked
+                                +"':::'"+workDiscription.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                                +"':::'"+workstartdate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                                +"':::'"+workleftdate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                                +"':::'"+workyears.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")+"'"),
+
+
                 thisWindow.state = "InActive"
                            //listindex = -1
         }
@@ -673,11 +698,22 @@ Item {
             anchors.fill: parent
             onClicked:if(schoolname.text !="") {
                           if(listindex != -1) {
-                          yourschooling[listindex]= "'"+schoolname.text+"':::'"+graduated.checked+"':::'"+schoolDiscription.text+"':::'"+graddate.text+"':::'"+degree.text+"'";
-                          thisWindow.state = "InActive";
+                          yourschooling[listindex]= "'"+schoolname.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                          +"':::'"+graduated.checked
+                          +"':::'"+schoolDiscription.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                          +"':::'"+graddate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                          +"':::'"+degree.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")+"'";
+
+
+                              thisWindow.state = "InActive";
                          // listindex = -1;
                       } else {
-                yourschooling.push("'"+schoolname.text+"':::'"+graduated.checked+"':::'"+schoolDiscription.text+"':::'"+graddate.text+"':::'"+degree.text+"'"),
+                yourschooling.push("'"+schoolname.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                                   +"':::'"+graduated.checked+
+                                   "':::'"+schoolDiscription.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                                   +"':::'"+graddate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                                   +"':::'"+degree.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")+"'"),
+
                 thisWindow.state = "InActive"
                // listindex = -1
         }
