@@ -334,22 +334,22 @@ Item {
             anchors.fill: parent
             onClicked: if(skillname.text !="") {
                            if(listindex != -1) {
-                           yourskills[listindex] = "'"+skillname.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                           yourskills[listindex] = "'"+skillname.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
                            +"':::'"+certifed.checked
-                           +"':::'"+skillDiscription.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                           +"':::'"+skillstartdate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                           +"':::'"+skillexpiredate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                           +"':::'"+years.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")+"'";
+                           +"':::'"+skillDiscription.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                           +"':::'"+skillstartdate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                           +"':::'"+skillexpiredate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                           +"':::'"+years.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")+"'";
 
                                thisWindow.state = "InActive";
                            //listindex = -1;
                        } else {
-        yourskills.push("'"+skillname.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+        yourskills.push("'"+skillname.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
                         +"':::'"+certifed.checked
-                        +"':::'"+skillDiscription.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                        +"':::'"+skillstartdate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                        +"':::'"+skillexpiredate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                        +"':::'"+years.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")+"'"),
+                        +"':::'"+skillDiscription.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                        +"':::'"+skillstartdate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                        +"':::'"+skillexpiredate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                        +"':::'"+years.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")+"'"),
 
         thisWindow.state = "InActive"
         //listindex = -1
@@ -519,22 +519,22 @@ Item {
             anchors.fill: parent
             onClicked: if(companyname.text !="") {
                            if(listindex != -1) {
-                         yourworked[listindex] = "'"+companyname.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                         yourworked[listindex] = "'"+companyname.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
                          +"':::'"+currentlyEmployeed.checked
-                         +"':::'"+workDiscription.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                         +"':::'"+workstartdate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                         +"':::'"+workleftdate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                         +"':::'"+workyears.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")+"'";
+                         +"':::'"+workDiscription.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                         +"':::'"+workstartdate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                         +"':::'"+workleftdate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                         +"':::'"+workyears.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")+"'";
 
                                thisWindow.state = "InActive";
                           // listindex = -1;
                        } else {
-                yourworked.push("'"+companyname.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                yourworked.push("'"+companyname.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
                                 +"':::'"+currentlyEmployeed.checked
-                                +"':::'"+workDiscription.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                                +"':::'"+workstartdate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                                +"':::'"+workleftdate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                                +"':::'"+workyears.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")+"'"),
+                                +"':::'"+workDiscription.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                                +"':::'"+workstartdate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                                +"':::'"+workleftdate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                                +"':::'"+workyears.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")+"'"),
 
 
                 thisWindow.state = "InActive"
