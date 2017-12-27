@@ -341,13 +341,17 @@ Flickable {
                            +"':::'"+certifed.checked
                            +"':::'"+skillDiscription.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
                            +"':::'"+skillstartdate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+<<<<<<< HEAD
                            +"':::'"+skillexpiredate.text.replace(/,/g,";#x2c;").replace(/\+/g,";#x2b;")
+=======
+                           +"':::'"+skillexpiredate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+>>>>>>> cb3ae29ac9d5847ca2050e23549ef460547b94b9
                            +"':::'"+years.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")+"'";
 
                                thisWindow.state = "InActive";
                            //listindex = -1;
                        } else {
-        yourskills.push("'"+skillname.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+        yourskills.push("'"+skillname.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
                         +"':::'"+certifed.checked
                         +"':::'"+skillDiscription.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
                         +"':::'"+skillstartdate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
@@ -524,22 +528,22 @@ Flickable {
             anchors.fill: parent
             onClicked: if(companyname.text !="") {
                            if(listindex != -1) {
-                         yourworked[listindex] = "'"+companyname.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                         yourworked[listindex] = "'"+companyname.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
                          +"':::'"+currentlyEmployeed.checked
-                         +"':::'"+workDiscription.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                         +"':::'"+workstartdate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                         +"':::'"+workleftdate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                         +"':::'"+workyears.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")+"'";
+                         +"':::'"+workDiscription.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                         +"':::'"+workstartdate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                         +"':::'"+workleftdate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                         +"':::'"+workyears.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")+"'";
 
                                thisWindow.state = "InActive";
                           // listindex = -1;
                        } else {
-                yourworked.push("'"+companyname.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                yourworked.push("'"+companyname.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
                                 +"':::'"+currentlyEmployeed.checked
-                                +"':::'"+workDiscription.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                                +"':::'"+workstartdate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                                +"':::'"+workleftdate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                                +"':::'"+workyears.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")+"'"),
+                                +"':::'"+workDiscription.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                                +"':::'"+workstartdate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                                +"':::'"+workleftdate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                                +"':::'"+workyears.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")+"'"),
 
 
                 thisWindow.state = "InActive"

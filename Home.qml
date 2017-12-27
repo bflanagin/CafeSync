@@ -324,7 +324,7 @@ Item {
                                         spacing: popup.height * 0.01
 
                                         Text {
-                                            font.pixelSize: popup.height * 0.03
+                                            font.pixelSize: popup.height * 0.035
                                             text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
                                             width:parent.width
 
@@ -332,7 +332,7 @@ Item {
                                                 anchors.bottom:parent.bottom
                                                 anchors.right:parent.right
                                                 anchors.rightMargin: popup.height * 0.01
-                                                font.pixelSize: popup.height * 0.015
+                                                font.pixelSize: popup.height * 0.02
                                                 text:"Years of Experience: "+yoe.substring(1,yoe.length-1)
                                             }
                                         }
@@ -442,7 +442,7 @@ Item {
                                         spacing: popup.height * 0.01
 
                                         Text {
-                                            font.pixelSize: popup.height * 0.03
+                                            font.pixelSize: popup.height * 0.035
                                             text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
 
                                             width:parent.width
@@ -451,7 +451,7 @@ Item {
                                                 anchors.bottom:parent.bottom
                                                 anchors.right:parent.right
                                                 anchors.rightMargin: popup.height * 0.01
-                                                font.pixelSize: popup.height * 0.015
+                                                font.pixelSize: popup.height * 0.02
                                                 text:"Degree: "+expdate.substring(1,expdate.length-1)
                                             }
                                         }
@@ -561,7 +561,7 @@ Item {
                                             spacing: popup.height * 0.01
 
                                             Text {
-                                                font.pixelSize: popup.height * 0.03
+                                                font.pixelSize: popup.height * 0.035
                                                 text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
                                                 width:parent.width
 
@@ -569,7 +569,7 @@ Item {
                                                     anchors.bottom:parent.bottom
                                                     anchors.right:parent.right
                                                     anchors.rightMargin: popup.height * 0.01
-                                                    font.pixelSize: popup.height * 0.015
+                                                    font.pixelSize: popup.height * 0.02
                                                     text:"Years at Job: "+yoe.substring(1,yoe.length-1)
                                                 }
                                             }
