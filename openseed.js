@@ -537,6 +537,7 @@ function get_list(id,list) {
                     //if(remotetemp.split(",") > ptotal) {
 
                     //}
+                        notificationClient.notification = "New Cards";
                 }
             }
         }

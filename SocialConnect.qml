@@ -109,10 +109,10 @@ Item {
 
     Rectangle {
         id:backing
-        y:parent.height * 0.04
+       // y:parent.height * 0.04
         anchors.horizontalCenter: parent.horizontalCenter
-        width:parent.width * 0.95
-        height:parent.height * 0.90
+        width:parent.width
+        height:parent.height
         color:cardcolor
         border.color: "black"
         border.width:1
@@ -361,10 +361,10 @@ Item {
 
         Rectangle {
             id:backing1
-            y:parent.height * 0.04
+            //y:parent.height * 0.04
             anchors.horizontalCenter: parent.horizontalCenter
-            width:parent.width * 0.95
-            height:parent.height * 0.90
+            width:parent.width
+            height:parent.height
             color:cardcolor
             border.color: "black"
             border.width:1

@@ -183,6 +183,8 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
     property int ctotal:0
     property int ptotal:0
 
+    property int requests:0
+
 
 
     // width: units.gu(175)
@@ -272,7 +274,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         interval:200
         running:false
         repeat:false
-        onTriggered: Scripts.save_card(userid,username,userphone,useremail,usercompany,
+        onTriggered:  Scripts.save_card(userid,username,userphone,useremail,usercompany,
                                        useralias,usermotto,usermain,website1,website2,website3,website4,
                                        stf,atf,ctf,avimg,carddesign,usercat,usercardNum);
     }
@@ -2215,6 +2217,13 @@ Info {
         anchors.fill:parent
         onClicked:swapopt.state = "InActive",OpenSeed.onetime(currentcard_thecard,"0")
     }
+}
+
+SendRequest {
+    id:sendrequest
+    width:parent.width * 0.95
+    height:parent.height * 0.80
+    state: "InActive"
 }
 
 

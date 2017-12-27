@@ -214,5 +214,6 @@
         <file>chat.js</file>
         <file>messages.js</file>
         <file>requests.js</file>
+        <file>SendRequest.qml</file>
     </qresource>
 </RCC>

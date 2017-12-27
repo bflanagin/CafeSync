@@ -790,7 +790,7 @@ Item {
                   preventStealing: true
                  // onClicked: swapopt.state ="Active"
 
-                  onClicked: {Scripts.Cards_save(currentcard_thecard,currentcard_username,currentcard_userphone,currentcard_useremail,currentcard_companyname,currentcard_cardposition,currentcard_motto,
+                  onClicked: { if(currentcard_saved == 0) {Scripts.Cards_save(currentcard_thecard,currentcard_username,currentcard_userphone,currentcard_useremail,currentcard_companyname,currentcard_cardposition,currentcard_motto,
                                                                 currentcard_mainsite,currentcard_url1,currentcard_url2,currentcard_url3,currentcard_url4,currentcard_avatarimg,currentcard_realcardback,currentcard_cardcat,currentcard_cardsop);
 
                                              //currentcard_saved;
@@ -801,6 +801,9 @@ Item {
                                              Scripts.Temp_load(searchtext,listget);
 
                                               currentcard_saved = 1;
+                                    } else {
+                                        sendrequest.state = "Active";
+                                        }
                                         }
 
               }

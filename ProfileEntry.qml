@@ -96,10 +96,14 @@ Item {
             radius: 4
 
         }
-
-    Column {
-        width:parent.width * 0.98
+Flickable {
+        width:parent.width
         height:parent.height * 0.98
+        contentHeight:aboutcolumn.height * 1.2
+    Column {
+        id:aboutcolumn
+        width:parent.width * 0.98
+
         spacing:parent.height * 0.01
         anchors.horizontalCenter: parent.horizontalCenter
 
@@ -133,10 +137,10 @@ Item {
         }
 
 
+}
 
 
 
-    }
     Image {
         anchors.left:parent.left
         anchors.bottom:parent.bottom
@@ -167,12 +171,12 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: yourabout = aboutyou.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;"),thisWindow.state = "InActive"
+            onClicked: yourabout = aboutyou.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;"),thisWindow.state = "InActive"
         }
 
     }
 
-
+}
     }
 
 
@@ -223,8 +227,6 @@ Item {
             width:parent.width * 0.98
 
             placeholderText: "Skill Name"
-
-
         }
         Row {
             width:parent.width
@@ -239,6 +241,7 @@ Item {
                width:parent.width * 0.06
                 placeholderText: "0"
                  anchors.verticalCenter: parent.verticalCenter
+                  inputMethodHints: Qt.ImhDialableCharactersOnly
             }
 
             Text {
@@ -334,22 +337,22 @@ Item {
             anchors.fill: parent
             onClicked: if(skillname.text !="") {
                            if(listindex != -1) {
-                           yourskills[listindex] = "'"+skillname.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                           yourskills[listindex] = "'"+skillname.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
                            +"':::'"+certifed.checked
-                           +"':::'"+skillDiscription.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                           +"':::'"+skillstartdate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                           +"':::'"+skillexpiredate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                           +"':::'"+years.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")+"'";
+                           +"':::'"+skillDiscription.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                           +"':::'"+skillstartdate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                           +"':::'"+skillexpiredate.text.replace(/,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                           +"':::'"+years.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")+"'";
 
                                thisWindow.state = "InActive";
                            //listindex = -1;
                        } else {
         yourskills.push("'"+skillname.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
                         +"':::'"+certifed.checked
-                        +"':::'"+skillDiscription.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                        +"':::'"+skillstartdate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                        +"':::'"+skillexpiredate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                        +"':::'"+years.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")+"'"),
+                        +"':::'"+skillDiscription.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                        +"':::'"+skillstartdate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                        +"':::'"+skillexpiredate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                        +"':::'"+years.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")+"'"),
 
         thisWindow.state = "InActive"
         //listindex = -1
@@ -423,6 +426,7 @@ Item {
                 width:parent.width * 0.06
                 placeholderText: "0"
                  anchors.verticalCenter: parent.verticalCenter
+                  inputMethodHints: Qt.ImhDialableCharactersOnly
             }
 
             Text {
@@ -469,6 +473,7 @@ Item {
             height:thisWindow.height / 1.6
             placeholderText: " Discription"
             wrapMode: Text.WordWrap
+
 
             Rectangle {
                 anchors.centerIn: parent
@@ -638,6 +643,7 @@ Item {
                 width:parent.width * 0.15
                 placeholderText: "12/31/2017"
                  anchors.verticalCenter: parent.verticalCenter
+                  inputMethodHints: Qt.ImhDialableCharactersOnly
             }
 
         }

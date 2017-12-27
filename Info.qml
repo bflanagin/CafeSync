@@ -61,6 +61,10 @@ Item {
 
     //Sending code //
 
+    Item {
+        id:sr
+        anchors.fill: parent
+
     Rectangle {
         visible:if(type == "send") {true} else {false}
         anchors.fill:parent
@@ -217,6 +221,19 @@ Item {
 
         ]
 
+    }
+
+}
+
+    DropShadow {
+        anchors.fill:sr
+        horizontalOffset: 0
+        verticalOffset: 4
+        radius: 8.0
+        samples: 17
+        color: "#80000000"
+        source:sr
+        z:1
     }
 
 

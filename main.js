@@ -1815,33 +1815,33 @@ function editItem(type,index) {
     switch(type) {
     case "skill":if(yourskills[index].split(":::")[0] != "") {
 
-                             skillname.text = yourskills[index].split(":::")[0].split("'")[1];
-                            certifed.checked = yourskills[index].split(":::")[1].split("'")[1];
-                            skillDiscription.text = yourskills[index].split(":::")[2].split("'")[1];
-                            skillstartdate.text = yourskills[index].split(":::")[3].split("'")[1];
-                            skillexpiredate.text = yourskills[index].split(":::")[4].split("'")[1];
-                            years.text = yourskills[index].split(":,:")[5].split("'")[1];
+                             skillname.text = yourskills[index].split(":::")[0].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
+                            certifed.checked = yourskills[index].split(":::")[1].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
+                            skillDiscription.text = yourskills[index].split(":::")[2].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
+                            skillstartdate.text = yourskills[index].split(":::")[3].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
+                            skillexpiredate.text = yourskills[index].split(":::")[4].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
+                            years.text = yourskills[index].split(":,:")[5].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
 
 
                         };break;
     case "school":if(yourschooling[index].split(":::")[0] != "") {
 
 
-                                schoolname.text = yourschooling[index].split(":::")[0].split("'")[1];
-                                graduated.checked = yourschooling[index].split(":::")[1].split("'")[1];
-                                schoolDiscription.text = yourschooling[index].split(":::")[2].split("'")[1];
-                                graddate.text = yourschooling[index].split(":::")[3].split("'")[1];
-                                degree.text = yourschooling[index].split(":::")[4].split("'")[1];
+                                schoolname.text = yourschooling[index].split(":::")[0].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
+                                graduated.checked = yourschooling[index].split(":::")[1].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
+                                schoolDiscription.text = yourschooling[index].split(":::")[2].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
+                                graddate.text = yourschooling[index].split(":::")[3].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
+                                degree.text = yourschooling[index].split(":::")[4].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
 
                         };break;
     case "work":if(yourworked[index].split(":::")[0] != "") {
 
-                            companyname.text = yourworked[index].split(":::")[0].split("'")[1];
-                            currentlyEmployeed.checked = yourworked[index].split(":::")[1].split("'")[1];
-                            workDiscription.text = yourworked[index].split(":::")[2].split("'")[1];
-                            workstartdate.text = yourworked[index].split(":::")[3].split("'")[1];
-                           workleftdate.text = yourworked[index].split(":::")[4].split("'")[1];
-                            workyears.text = yourworked[index].split(":::")[5].split("'")[1];
+                            companyname.text = yourworked[index].split(":::")[0].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
+                            currentlyEmployeed.checked = yourworked[index].split(":::")[1].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
+                            workDiscription.text = yourworked[index].split(":::")[2].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
+                            workstartdate.text = yourworked[index].split(":::")[3].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
+                           workleftdate.text = yourworked[index].split(":::")[4].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
+                            workyears.text = yourworked[index].split(":::")[5].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
 
 
                      };break;

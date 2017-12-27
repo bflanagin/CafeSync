@@ -208,7 +208,7 @@ Item {
                                  case "1":"";break;
                                   case "3": qsTr("(Coming Soon)");break;
                                   case "4": qsTr("(Coming Soon)");break;
-                                  case "5": qsTr("(Coming Soon)");break;
+                                  case "5": qsTr("("+requests+")");break;
                                   case "6": qsTr("(Coming Soon)");break;
 
                                   default:"";break;
@@ -280,7 +280,7 @@ Item {
 
                           case "3": /* chatPage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "chat";*/break;
                           case "4": /* messagePage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "messages";*/break;
-                          case "5": /* requestPage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "requests";*/break;
+                          case "5":  requestPage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "requests";break;
                           case "6": /* eventsPage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "events"; */break;
 
 

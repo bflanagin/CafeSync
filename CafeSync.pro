@@ -1,13 +1,12 @@
 TEMPLATE = app
 
-QT += qml quick svg sql
-#androidextras
+QT += qml quick svg sql androidextras
 
 CONFIG += c++11
 
 SOURCES += main.cpp \
     myio.cpp \
-   # notificationclient.cpp
+   notificationclient.cpp
 
 
 RESOURCES += qml.qrc
@@ -60,5 +59,5 @@ contains(ANDROID_TARGET_ARCH,x86) {
 
 HEADERS += \
     myio.h \
-  #  notificationclient.h
+    notificationclient.h
 
