@@ -22,7 +22,7 @@ Item {
     property string title:""
     property string message:""
 
-    clip: true
+    //clip: true
 
     Timer {
         id:reload
@@ -182,6 +182,76 @@ Item {
             anchors.fill: parent
             onPressed:goflash.state="Active"
             onReleased:goflash.state="InActive"
+            onClicked:OpenSeed.onetime(codeentry.text,"3"),popup.state = "InActive",reload.start()
+        }
+
+    }
+
+    }
+
+    //Send Request
+
+    Rectangle {
+        visible:if(type == "request") {true} else {false}
+        anchors.fill:parent
+        border.color:highLightColor1
+
+        Rectangle {
+            color:highLightColor1
+            width:parent.width
+            height:parent.height * 0.20
+
+        Text {
+            anchors.centerIn: parent
+            text:title
+            color:fontColorTitle
+            font.pixelSize: parent.width* 0.1 - text.length
+        }
+
+        }
+
+
+    Image {
+        id:rcancel
+        source:"./img/cancel.svg"
+        width:parent.width * 0.08
+        anchors.bottom: parent.bottom
+        anchors.left:parent.left
+        anchors.margins: 10
+        fillMode: Image.PreserveAspectFit
+
+        Flasher {
+            id:rcancelflash
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onPressed:rcancelflash.state="Active"
+            onReleased:rcancelflash.state="InActive"
+            onClicked:{popup.state ="InActive"
+
+                        }
+        }
+
+    }
+
+    Image {
+        id:rokay
+        source:"./img/ok.svg"
+        width:parent.width * 0.08
+        anchors.bottom: parent.bottom
+        anchors.right:parent.right
+        anchors.margins: 10
+        fillMode: Image.PreserveAspectFit
+
+        Flasher {
+            id:rgoflash
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onPressed:rgoflash.state="Active"
+            onReleased:rgoflash.state="InActive"
             onClicked:OpenSeed.onetime(codeentry.text,"3"),popup.state = "InActive",reload.start()
         }
 

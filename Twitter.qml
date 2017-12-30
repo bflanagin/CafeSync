@@ -19,10 +19,11 @@ Item {
     property string banner: ""
     property string avatar: ""
     property string profilename: ""
-    property string message: ""
     property string missionstatment:""
-    property string aquote:""
-    property string postimg:""
+ //   property string message: ""
+
+  //  property string aquote:""
+   // property string postimg:""
 
     clip: true
 
@@ -68,13 +69,19 @@ Item {
 
     anchors.centerIn: parent
 
-    Image {
-        id:bg
+    Item {
+
+            anchors.fill: parent
+            anchors.centerIn: parent
+        Image {
+            id:bg
         anchors.centerIn: parent
         //source:pagesource
         source:banner
         anchors.fill: parent
         fillMode:Image.PreserveAspectCrop
+        opacity: 0.1
+        }
 
         Rectangle {
            // anchors.centerIn: pic
@@ -89,6 +96,7 @@ Item {
             height:parent.height * 0.15
             color:Qt.rgba(0.5,0.5,0.5,0.8)
             radius:5
+            z:1
 
             clip:true
 
@@ -161,18 +169,40 @@ Item {
 
         }
 
-    }
 
-    Rectangle {
+
+    ListView {
+        width:parent.width * 0.98
+        height:parent.height * 0.85
+       // contentHeight: postbg.height * 1.2
+       // contentWidth: width
+        //anchors.centerIn: parent
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        spacing: parent.height * 0.05
+        cacheBuffer: 180
+       clip:true
+
+       model: twitterposts
+
+
+   delegate: Item {
+                width:parent.width
+                height:messageblock.height * 1.2
+
+       Rectangle {
         id:messageblock
         anchors.centerIn: parent
         //anchors.verticalCenterOffset: 20
         color:Qt.rgba(1.0,1.0,1.0,0.9)
+       // anchors.horizontalCenter: parent.horizontalCenter
 
         radius:5
-        width:parent.width * 0.92
-        height:themessage.height+quotebox.height+ postImage.height  +popup.height * 0.02
+        width:parent.width * 0.98
+        height:themessage.height+quotebox.height+ postImage.height+popup.height * 0.03
         clip:true
+        visible: false
 
         Text {
             id:themessage
@@ -249,6 +279,11 @@ Item {
            color: "#80000000"
            source: messageblock
            z:1
+            }
+         }
+
+         }
+
     }
 
     /*Rectangle {

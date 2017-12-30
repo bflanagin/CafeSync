@@ -207,7 +207,7 @@ Item {
                                   case "2":"("+ctotal+")";break;
                                  case "1":"";break;
                                   case "3": qsTr("(Coming Soon)");break;
-                                  case "4": qsTr("(Coming Soon)");break;
+                                  case "4": qsTr("("+totalNewMessages+")");break;
                                   case "5": qsTr("("+requests+")");break;
                                   case "6": qsTr("(Coming Soon)");break;
 
@@ -243,7 +243,10 @@ Item {
             MouseArea {
                 anchors.fill:parent
                 onClicked:switch(menuitem) {
-                          case "0": {settingsPage.state = "InActive",
+                          case "0": {
+                                     requestPage.state = "InActive",
+                                     messagePage.state = "InActive",
+                                     settingsPage.state = "InActive",
                                      cardPage.state = "show",
                                      cardPage.state = "default";
                                      popup.state = "InActive";
@@ -256,7 +259,10 @@ Item {
                                   Scripts.Temp_load(searchtext,listget);
 
                           }break;
-                          case "2":{settingsPage.state = "InActive",
+                          case "2":{
+                                    requestPage.state = "InActive",
+                                    messagePage.state = "InActive",
+                                    settingsPage.state = "InActive",
                                     cardPage.state = "show",
                                     cardPage.state = "default";
                                     popup.state = "InActive";
@@ -269,8 +275,10 @@ Item {
                                   Scripts.Cards_load(searchtext);
                           }break;
                           //case "3": /*settingsPage.state = "Active",cardPage.state = "settings";popup.state = "InActive";cardindex = 0;*/break;
-                          case "1":settingsPage.state = "InActive",cardPage.state = "show",cardPage.state = "default";currentcard = -1;cardindex = 0;
-                                            pagelist.clear();Scripts.Show_sites("local",userid);mainScreen.state = "Active";popup.state = "InActive";mainScreen.positionViewAtBeginning();gc();
+                          case "1":requestPage.state = "InActive",
+                                   messagePage.state = "InActive",
+                                    settingsPage.state = "InActive",cardPage.state = "show",cardPage.state = "default";currentcard = -1;cardindex = 0;
+                                            pagelist.clear();Scripts.Show_sites("local",userid);mainScreen.state = "Active";mainScreen.fromRequest = false;popup.state = "InActive";mainScreen.positionViewAtBeginning();gc();
                                             currentcard_saved = 2;
                                             //if(layouts.width < units.gu(mobile_vert)) {
                                                // if(infotab.state == "Available" || infotab.state == "Active") {mainScreen.state = "Active",infotab.state = "InActive",cardPage.header.hide()} else {mainScreen.state = "InActive",infotab.state = "Active",cardPage.header.show()}
@@ -279,8 +287,8 @@ Item {
                                             break;
 
                           case "3": /* chatPage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "chat";*/break;
-                          case "4": /* messagePage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "messages";*/break;
-                          case "5":  requestPage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "requests";break;
+                          case "4": messagePage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "messages";break;
+                          case "5": messagePage.state = "InActive", requestPage.state = "Active",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "requests";break;
                           case "6": /* eventsPage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "events"; */break;
 
 
@@ -335,20 +343,20 @@ Item {
                                             type:1
                                     } */
 
-                                    ListElement {
+                                   /* ListElement {
                                             menuitem: "4"
                                             type:1
-                                    }
+                                    } */
 
                                     ListElement {
                                             menuitem: "5"
                                             type:1
                                     }
 
-                                    ListElement {
+                                   /* ListElement {
                                             menuitem: "6"
                                             type:1
-                                    }
+                                    } */
 
                                 }
 

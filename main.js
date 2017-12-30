@@ -572,7 +572,7 @@ function Cards_save(id,username,userphone,useremail,usercompany,useralias,usermo
     var userStr = "INSERT INTO SavedCards VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     var data = [id,username,userphone,useremail,usercompany,useralias,usermotto,main,website1,website2,website3,website4,avatar,cardback,cardcat,cardsop];
 
-       console.log(data);
+       //console.log(data);
         db.transaction(function(tx) {
            //tx.executeSql("DROP TABLE Card");
             tx.executeSql('CREATE TABLE IF NOT EXISTS SavedCards(id INT UNIQUE, name TEXT,phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT, website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT,cardback TEXT,cat TEXT,cardsop INT)');
@@ -815,7 +815,7 @@ function Show_sites(cid,list) {
     var usesop;
     var ava;
 
-    console.log(cid);
+    //console.log(cid);
 
     var dbtable = "";
     switch(list) {
@@ -841,16 +841,246 @@ function Show_sites(cid,list) {
     }
         //console.log("showing sites for " + cid + " in "+dbtable);
 
-        webview1 = "empty.html";
-        webview2 = "empty.html";
-        webview3 = "empty.html";
-        webview4 = "empty.html";
-        mainview = "empty.html";
+    webview1 = "empty.html";
+    webview2 = "empty.html";
+    webview3 = "empty.html";
+    webview4 = "empty.html";
+    mainview = "empty.html";
 
-        var sop;
+    var sop;
 
 
-        var cardbackis;
+    var cardbackis;
+
+    if(list == "preview") {
+
+        console.log("From Show Sites:"+currentcard_thecard);
+
+
+        var spC;
+        for(var num =0;num < category_list.split(",").length;num = num + 1) {
+
+            if(currentcard_cardcat == category_list.split(",")[num].split("::")[0]) {
+
+                if(category_list.split(",")[num].split("::")[1] != "none") {
+                spC = category_list.split(",")[num].split("::")[1];
+                } else { spC = seperatorColor1}
+            }
+
+        }
+        var about = [];
+
+        about = currentcard_motto.replace(/&#x27;/g,"'").split(";::;");
+
+        pagelist.append({
+                         webpage:"empty.html",
+                         thestate:"Home",
+                            pagewidth:mainScreen.width ,
+                            pageheight:mainScreen.height,
+                            motto:about[0],
+                            skills:about[1],
+                            school:about[2],
+                            work: about[3],
+                            cardId:currentcard_thecard,
+                            avatarimg:currentcard_avatarimg,
+                            companyname:currentcard_companyname.replace(/&#x27;/g,"'"),
+                            cardusername:currentcard_username.replace(/&#x27;/g,"'"),
+                            carduserphone:currentcard_userphone,
+                            carduseremail:currentcard_useremail,
+                            cardposition: currentcard_cardposition,
+                            cardbackimg:cardbackis,
+                            //pageindex:pages,
+                            cardsop:currentcard_cardsop,
+                            cardcat:currentcard_cardcat,
+                            saved:currentcard_saved,
+                            realcardback:currentcard_realcardback,
+
+                            spColor:spC,
+
+                            mainsite:currentcard_mainsite,
+                            URL1:currentcard_url1,
+                            URL2:currentcard_url2,
+                            URL3:currentcard_url3,
+                            URL4:currentcard_url4,
+
+                            pageindex:pages
+
+
+                        });
+
+
+        if(currentcard_mainsite.length > 8) {
+            pages = pages + 1;
+
+
+            mainview = currentcard_mainsite;
+
+            /* if(mainview.search("http") == -1) {
+                 mainview = "http://" + mainview;
+             } */
+                 if(mainview != "http://empty.html") {
+             pagelist.append({
+                              webpage:mainview,
+                              thestate:"Active",
+                                 pagewidth:mainScreen.width ,
+                                 pageheight:mainScreen.height,
+                                 thecard:currentcard_thecard,
+                                 cardId:"",
+                                 avatarimg:"",
+                                 companyname: "",
+                                 cardusername:"",
+                                 carduserphone:"",
+                                 carduseremail:"",
+                                 cardbackimg:"",
+                                 motto:"",
+                                 cardsop:"",
+                                 pageindex:pages
+                             });
+
+
+                 }
+
+            //console.log(webview1);
+        }
+
+        if(currentcard_url1.length > 8) {
+            pages = pages + 1;
+           // console.log(pull.rows.item(0).website1.length);
+            webview1 = currentcard_url1;
+           /* if(webview1.search("http") == -1) {
+                webview1 = "http://" + webview1;
+            } */
+
+             if(webview1 != "http://") {
+            pagelist.append({
+                             webpage:webview1,
+                             thestate:"Active",
+                                pagewidth:mainScreen.width ,
+                                pageheight:mainScreen.height,
+                                thecard:currentcard_thecard,
+                                 cardId:"",
+                                avatarimg:"",
+                                companyname: "",
+                                cardusername:"",
+                                carduserphone:"",
+                                carduseremail:"",
+                                cardbackimg:"",
+                                motto:"",
+                                 cardsop:"",
+
+                                pageindex:pages
+                            });
+
+                     }
+            //console.log(webview1);
+        }
+
+        if(currentcard_url2.length > 8) {
+            //  console.log(pull.rows.item(0).website2.length);
+
+            pages = pages + 1;
+            webview2 = currentcard_url2;
+          /*  if(webview2.search("http") == -1) {
+                webview2 = "http://" + webview2;
+            } */
+
+              if(webview2 != "http://empty.html") {
+            pagelist.append({
+                      webpage:webview2,
+                          thestate:"Active",
+                                pagewidth:mainScreen.width ,
+                                pageheight:mainScreen.height,
+                                thecard:currentcard_thecard,
+                                 cardId:"",
+                                avatarimg:"",
+                                companyname: "",
+                                cardusername:"",
+                                carduserphone:"",
+                                carduseremail:"",
+                                cardbackimg:"",
+                                motto:"",
+                                 cardsop:"",
+                                pageindex:pages
+                            });
+              }
+
+            //console.log(webview1);
+        }
+
+        if(currentcard_url3.length > 8) {
+             // console.log(pull.rows.item(0).website3.length);
+
+            pages = pages + 1;
+            webview3 = currentcard_url3;
+           /* if(webview3.search("http") == -1) {
+                webview3 = "http://" + webview3;
+            } */
+                  if(webview3 != "http://empty.html") {
+            pagelist.append({
+                             webpage:webview3,
+                             thestate:"Active",
+                                pagewidth:mainScreen.width ,
+                                pageheight:mainScreen.height,
+                                thecard:currentcard_thecard,
+                                 cardId:"",
+                                avatarimg:"",
+                                companyname: "",
+                                cardusername:"",
+                                carduserphone:"",
+                                carduseremail:"",
+                                cardbackimg:"",
+                                motto:"",
+                                cardsop:"",
+
+
+                                pageindex:pages
+                            });
+
+                  }
+
+            //console.log(webview1);
+        }
+
+        if(currentcard_url4.length > 8) {
+             // console.log(pull.rows.item(0).website4.length);
+
+            pages = pages + 1;
+            webview4 = currentcard_url4;
+          /*  if(webview4.search("http") == -1) {
+                webview4 = "http://" + webview4;
+            } */
+            //console.log(webview1);
+             if(webview4 != "http://empty.html") {
+            pagelist.append({
+                             webpage:webview4,
+                             thestate:"Active",
+                                pagewidth:mainScreen.width ,
+                                pageheight:mainScreen.height,
+                                thecard:currentcard_thecard,
+                                 cardId:"",
+                                avatarimg:"",
+                                companyname: "",
+                                cardusername:"",
+                                carduserphone:"",
+                                carduseremail:"",
+                                cardbackimg:"",
+                                motto:"",
+                                cardsop:"",
+
+
+                                pageindex:pages
+                            });
+             }
+
+        }
+
+
+
+
+
+    } else {
+
+
 
 
        db.transaction(function(tx) {
@@ -1115,6 +1345,7 @@ function Show_sites(cid,list) {
 
    });
 
+}
 
 }
 
@@ -1465,8 +1696,8 @@ function store_img (where,file,private) {
 
 function totals() {
 
-    var dataStr = "SELECT  id  FROM TempCards WHERE `id` !='"+usercardNum+"'";
-    var dataStr1 = "SELECT  id  FROM SavedCards WHERE `id` !='"+usercardNum+"'";
+    var dataStr = "SELECT  id  FROM TempCards WHERE `id` !='"+usercardNum+"' AND `id` !=''";
+    var dataStr1 = "SELECT  id  FROM SavedCards WHERE `id` !='"+usercardNum+"' AND `id` !=''";
 
 
     db.transaction(function(tx) {
@@ -1476,10 +1707,10 @@ function totals() {
        var pull = tx.executeSql(dataStr);
         var pull1 = tx.executeSql(dataStr1);
 
-        ctotal = pull1.rows.length ;
-        ptotal = pull.rows.length ;
+        ctotal = pull1.rows.length;
+        ptotal = pull.rows.length;
 
-        if (ctotal == 1) {ctotal = 0;}
+        if (ctotal == -1) {ctotal = 0;}
         if (ptotal == -1) {ptotal = 0;}
 
     });

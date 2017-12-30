@@ -9,12 +9,15 @@ var http = new XMLHttpRequest();
 
     var profilepic = "";
     var profilebanner = "";
-    var tweet1 = "";
+
     var tweet2 = "";
     var tweet3 = "";
-    var image = "";
+
     var mission = "";
-    var quote = "";
+
+    var posts = "";
+
+    twitterposts.clear();
 
 http.onreadystatechange = function() {
     if (http.readyState == 4) {
@@ -48,7 +51,21 @@ http.onreadystatechange = function() {
             //tweet1 = pagedata.substring(pagedata.search('<p class="TweetTextSize'),pagedata.search('<p class="TweetTextSize') + 844);
             //tweet1 = tweet1.split("/p>")[0]+"/p>";
 
-            tweet1 = pagedata.split('<div class="js-tweet-text-container">')[1].split('<div class="stream-item-footer">')[0];
+            profilename = profilepic[2];
+            missionstatment = mission;
+            avatar = profilepic[0];
+
+            posts = pagedata.split('<div class="js-tweet-text-container">');
+            var num = 1;
+
+
+
+            while(num < posts.length) {
+                var quote = "";
+                var tweet1 = "";
+                var image = "";
+
+            tweet1 = pagedata.split('<div class="js-tweet-text-container">')[num].split('<div class="stream-item-footer">')[0];
 
             if(tweet1.search('<div class="QuoteTweet-originalAuthor') != -1) {
 
@@ -64,18 +81,27 @@ http.onreadystatechange = function() {
                 tweet1 = tweet1.split("<a")[0];
             }
 
+                twitterposts.append({
+                                   aquote:quote,
+                                   postimg:image,
+                                   message: tweet1
+                                    });
 
 
 
-            profilename = profilepic[2];
-
-            avatar = profilepic[0];
-            aquote = quote;
-            missionstatment = mission;
-            postimg = image;
-            message = tweet1;
+          //  aquote = quote;
+          //  postimg = image;
+          //  message = tweet1;
 
 
+            num = num + 1;
+        }
+
+            twitterposts.append({
+                               aquote:"",
+                               postimg:"",
+                               message:" "
+                                });
 
         }
 

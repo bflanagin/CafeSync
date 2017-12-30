@@ -1,7 +1,7 @@
 function check_chat(id) {
 
     var http = new XMLHttpRequest();
-    var url = "http://openseed.vagueentertainment.com/devs/"+devId+"/"+appId+"/scripts/chats.php";
+    var url = "https://openseed.vagueentertainment.com:8675/corescripts/chats.php";
    // console.log(url)
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
@@ -32,7 +32,7 @@ function retrieve_chat(room,theid) {
     //console.log("sending to server: "+currentmessage+" : "+mesgdate);
 
     var http = new XMLHttpRequest();
-    var url = "http://openseed.vagueentertainment.com/devs/"+devId+"/"+appId+"/scripts/chats.php";
+    var url = "https://openseed.vagueentertainment.com:8675/corescripts/chats.php";
    // console.log(url)
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
@@ -81,7 +81,7 @@ function retrieve_chat(room,theid) {
 function send_chat(room,message) {
 
     var http = new XMLHttpRequest();
-    var url = "http://openseed.vagueentertainment.com/devs/"+devId+"/"+appId+"/scripts/chats.php";
+    var url = "https://openseed.vagueentertainment.com:8675/corescripts/chats.php";
 
    // console.log(url)
     http.onreadystatechange = function() {
@@ -111,7 +111,7 @@ function send_chat(room,message) {
 function retrieve_users(search) {
 
     var http = new XMLHttpRequest();
-    var url = "http://openseed.vagueentertainment.com/devs/"+devId+"/"+appId+"/scripts/info.php";
+    var url = "https://openseed.vagueentertainment.com:8675/corescripts/chats.php";
    // console.log(url)
     http.onreadystatechange = function() {
         if (http.readyState == 4) {

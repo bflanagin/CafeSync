@@ -7,6 +7,7 @@ import QtGraphicalEffects 1.0
 import QtQuick.LocalStorage 2.0 as Sql
 import "main.js" as Scripts
 import "openseed.js" as OpenSeed
+import "requests.js" as Requests
 
 
 
@@ -14,6 +15,7 @@ Item {
     id:popup
     property string number: "0"
     property string list:""
+
     property string backgroundColor:Qt.rgba(0.98,0.98,0.98,1)
 
     clip: true
@@ -666,7 +668,10 @@ Item {
               Image {
                   id:call_icon
                   visible: false
-                  anchors.fill: parent
+                  //anchors.fill: parent
+                  anchors.centerIn: parent
+                  width:parent.width * 0.8
+                  height:parent.height * 0.8
                   source: "./img/outgoing-call.svg"
 
 
@@ -701,7 +706,10 @@ Item {
               Image {
                   id:message_icon
                   visible: false
-                  anchors.fill: parent
+                  //anchors.fill: parent
+                  anchors.centerIn: parent
+                  width:parent.width * 0.8
+                  height:parent.height * 0.8
                   source: "./img/message.svg"
 
 
@@ -736,7 +744,10 @@ Item {
               Image {
                   id:email_icon
                   visible: false
-                  anchors.fill: parent
+                  //anchors.fill: parent
+                  anchors.centerIn: parent
+                  width:parent.width * 0.8
+                  height:parent.height * 0.8
                   source: "./img/email.svg"
 
 
@@ -769,8 +780,11 @@ Item {
 
               Image {
                   id:addcon_icon
-                  anchors.fill: parent
-                  source: if(currentcard_saved == 0) {"./img/add.svg"} else {"./img/contact.svg"}
+                  //anchors.fill: parent
+                  anchors.centerIn: parent
+                  width:parent.width * 0.8
+                  height:parent.height * 0.8
+                  source: if(currentcard_saved == 0) {"./img/contact-new.svg"} else {"./img/contact.svg"}
 
 
 
@@ -801,6 +815,12 @@ Item {
                                              Scripts.Temp_load(searchtext,listget);
 
                                               currentcard_saved = 1;
+                                            if(fromRequest == false) {
+                                            notification1.visible = true;notification1.themessage = "Saved to Contacts";
+                                            } else {
+                                                Requests.accept_request(requestID);
+                                                notification1.visible = true;notification1.themessage = "Request Accepted, Saved to Contacts";
+                                            }
                                     } else {
                                         sendrequest.state = "Active";
                                         }
@@ -898,7 +918,10 @@ Item {
               Image {
                   id:contact_icon
                   visible: false
-                  anchors.fill: parent
+                  //anchors.fill: parent
+                  anchors.centerIn: parent
+                  width:parent.width * 0.8
+                  height:parent.height * 0.8
                   source: "./img/contact.svg"
 
 
@@ -933,7 +956,10 @@ Item {
               Image {
                   id:priv_icon1
                   visible: false
-                  anchors.fill: parent
+                  //anchors.fill: parent
+                  anchors.centerIn: parent
+                  width:parent.width * 0.8
+                  height:parent.height * 0.8
                   source: if(stf == "true") {"./img/share.svg"} else {"./img/private-browsing.svg"}
 
 
@@ -1030,7 +1056,10 @@ Item {
               Image {
                   id:contact_icon1
                   visible: false
-                  anchors.fill: parent
+                  //anchors.fill: parent
+                  anchors.centerIn: parent
+                  width:parent.width * 0.8
+                  height:parent.height * 0.8
                   source: "./img/contact.svg"
 
               }
@@ -1085,7 +1114,10 @@ Item {
               Image {
                   id:reload_icon
                   visible: false
-                  anchors.fill: parent
+                  //anchors.fill: parent
+                  anchors.centerIn: parent
+                  width:parent.width * 0.8
+                  height:parent.height * 0.8
                   source: "./img/reload.svg"
 
 

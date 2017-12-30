@@ -440,11 +440,11 @@ Item {
  Text {
      id:onlineLabel
      text: qsTr("Share Card")
-     font.pointSize: mainView.height * 0.01
+     font.pointSize: mainView.width * 0.02
    //  anchors.top:parent.top
     // anchors.topMargin: 10
      anchors.right:parent.right
-     anchors.rightMargin: width * 0.8
+     anchors.rightMargin: sendCard.width * 1.2
      horizontalAlignment: Text.AlignLeft
      anchors.verticalCenter: parent.verticalCenter
 
@@ -607,13 +607,13 @@ Item {
   Text {
       id:contactLabel
       text: qsTr("Share Contact Info")
-      font.pointSize: mainView.height * 0.01
+      font.pointSize: mainView.width * 0.01
       //font.bold: true
       horizontalAlignment: Text.AlignLeft
      // anchors.top:parent.top
      // anchors.topMargin: 10
       anchors.right:parent.right
-      anchors.rightMargin:  width * 0.5
+      anchors.rightMargin:  sendContact.width * 1.2
 
       CheckBox {
          id:sendContact

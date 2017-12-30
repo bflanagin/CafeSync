@@ -57,14 +57,15 @@ Item {
         source:banner
         anchors.fill: parent
         fillMode:Image.PreserveAspectCrop
+        opacity: 0.1
     }
 
-    Rectangle {
+   /* Rectangle {
         anchors.fill:parent
         radius:10
         color:Qt.rgba(0.5,0.5,0.5,0.6)
         border.width:1
-    }
+    } */
 
     /*Image {
         id:shade

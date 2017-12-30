@@ -11,6 +11,10 @@ import QtQuick.Controls.Styles 1.4
 
 import QtQuick.LocalStorage 2.0 as Sql
 
+import "requests.js" as Request
+import "openseed.js" as OpenSeed
+import "main.js" as Scripts
+
 Item {
 
     id:thisWindow
@@ -62,6 +66,23 @@ Item {
 
     ]
 
+    onStateChanged: if(thisWindow.state == "Active") {Request.check_requests()} else {}
+
+    property string readystate: "Not Ready"
+    property int card: 0
+
+
+    onReadystateChanged: {if(readystate == "ready") {
+            mainScreen.positionViewAtBeginning();
+            mainScreen.fromRequest = true;
+            mainScreen.state = "Active";
+            topBar.state = "person";
+
+            Scripts.Show_sites(card,"preview");
+            }
+    }
+
+
 Rectangle {
     anchors.fill: parent
     color:backgroundColor
@@ -74,41 +95,10 @@ ListView {
     height:parent.height - bottomBar.height
 
 
-    spacing:thisWindow.height * 0.01
-    clip:true
+    spacing:thisWindow.height * 0.02
+    //clip:true
 
-    model: ListModel {
-            id:chatlog
-
-
-
-
-            ListElement {
-                who:179
-                speaker:"Rando"
-                timecode:1231213914534
-                message:"Lets share cards."
-                direction: 1
-            }
-
-
-            ListElement {
-                who:180
-                speaker: "Jon Snow"
-                timecode:1231213814534
-                message:"Winters coming."
-                direction: 1
-            }
-
-            ListElement {
-                who:177
-                speaker: "Some User"
-                timecode:1231213414534
-                message:"Hey, How's it going?"
-                direction: 0
-            }
-
-    }
+    model: requestlog
 
     delegate: Item {
         width:parent.width * 0.90
@@ -116,17 +106,21 @@ ListView {
         anchors.right:if(direction == 0) {parent.right} else {""}
 
         clip:true
-        Rectangle {anchors.centerIn: content
+        Rectangle {
+            id:backing
+            anchors.centerIn: content
             width:content.width
-            height:content.height
+            height:content.height * 1.2
             color:"white"
             radius:5
+            visible: false
         }
         Column {
             id:content
             anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
             width:parent.width * 0.98
-            spacing: thisWindow.height * 0.01
+            spacing: thisWindow.height * 0.03
 
                 Text {
                     text:if(direction == 0) {"To: "+speaker} else {"From: "+speaker}
@@ -158,12 +152,44 @@ ListView {
             Text {
                 text:"<p>"+message+"</p>"
                 font.pixelSize: thisWindow.height * 0.025
-                width:parent.width * 0.98
+                width:parent.width * 0.95
                 anchors.horizontalCenter: parent.horizontalCenter
                  horizontalAlignment: Text.LeftRight
                 wrapMode: Text.WordWrap
             }
+            Text {
+                anchors.right:parent.right
+                anchors.rightMargin: thisWindow.height * 0.02
+                text:status
+            }
         }
+
+
+        DropShadow {
+            anchors.fill:backing
+            horizontalOffset: 0
+            verticalOffset: 4
+            radius: 8.0
+            samples: 17
+            color: "#80000000"
+            source:backing
+            z:-1
+        }
+
+        MouseArea {
+
+            anchors.fill:parent
+
+                onClicked: {
+                            readystate = OpenSeed.preview_card(who);
+                            pagelist.clear();
+                            gc();
+                            mainScreen.requestID = requestid;
+                }
+
+
+    }
+
     }
 }
 

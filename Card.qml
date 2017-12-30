@@ -327,8 +327,8 @@ import "openseed.js" as OpenSeed
                                             //cards.flipped = !cards.flipped;
                                                     pagelist.clear();
                                                     gc();
-                                                mainScreen.positionViewAtBeginning();
-
+                                              //  mainScreen.positionViewAtBeginning();
+                                                mainScreen.fromRequest = false;
                                                 mainScreen.state = "Active";
                                                 topBar.state = "person";
                                                 //topBar.saved = issaved;
@@ -351,7 +351,7 @@ import "openseed.js" as OpenSeed
                                             currentcard_cardsop = cardsop;
 
                                                   //  infotab.state = "Available";
-                                            pagelist.clear();
+                                           // pagelist.clear();
                                             if(issaved == 1) {
                                              Scripts.Show_sites(cardId,"saved");
                                             } else {
@@ -359,6 +359,7 @@ import "openseed.js" as OpenSeed
                                             }
                                            // mainScreen.state = "Active";
                                             mainScreen.positionViewAtBeginning();
+
                                         }
                                     //}
 

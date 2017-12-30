@@ -204,6 +204,7 @@ if (cid.length > 4) {
 
         }
         syncandsave.start();
+        connections(usercardNum);
 }
 
              }
@@ -537,7 +538,7 @@ function get_list(id,list) {
                     //if(remotetemp.split(",") > ptotal) {
 
                     //}
-                        notificationClient.notification = "New Cards";
+
                 }
             }
         }
@@ -639,7 +640,7 @@ function update_card(id,list) {
   //  console.log("getting card "+id);
 
     var http = new XMLHttpRequest();
-    var url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/updatecard.php?id=" + userid+"&cid="+id;
+    var url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/updatecard.php?id=" + userid+"&cid="+id+"&list="+list;
     //console.log(url);
 
     var carddata = "";
@@ -1468,5 +1469,113 @@ socialaccountslist.append({
 }
 
 }
+
+function preview_card(id) {
+  //  console.log("getting card "+id);
+
+    var http = new XMLHttpRequest();
+    var url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/updatecard.php?id=" + userid+"&cid="+id+"&list=preview";
+    //console.log(url);
+
+    var formercard = currentcard_thecard;
+
+    var carddata = "";
+    http.onreadystatechange = function() {
+        if (http.readyState == 4) {
+            carddata = http.responseText;
+
+
+            if(http.responseText == 100) {
+
+                console.log("Incorrect DevID");
+
+            } else if(http.responseText == 101) {
+                console.log("Incorrect AppID");
+            } else {
+
+                carddata = http.responseText;
+                //console.log(carddata);
+
+                    var cardpos = carddata.split(";&;");
+
+                currentcard_thecard = cardpos[0];
+                currentcard_saved = 0;
+                currentcard_username = cardpos[1];
+                currentcard_userphone = cardpos[2];
+                currentcard_useremail = cardpos[3];
+                currentcard_cardposition = cardpos[5];
+                currentcard_companyname = cardpos[4];
+                currentcard_motto = cardpos[6];
+                currentcard_mainsite = cardpos[7];
+                currentcard_url1 = cardpos[8];
+                currentcard_url2 = cardpos[9];
+                currentcard_url3 = cardpos[10];
+                currentcard_url4 = cardpos[11];
+                currentcard_avatarimg = cardpos[12];
+                currentcard_realcardback = cardpos[13];
+                currentcard_cardcat = cardpos[14];
+                currentcard_cardsop = cardpos[15];
+
+              //  console.log(currentcard_thecard+" is Set");
+             //   console.log(currentcard_username);
+                readystate = "ready";
+                card = cardpos[0];
+
+            }
+
+
+        }
+
+    }
+        http.open('GET', url.trim(), true);
+        http.send(null);
+
+    gc();
+
+    if(formercard != currentcard_thecard) {
+        return "ready";
+    } else { return "not ready";}
+
+
+    }
+
+
+function connections(cardID) {
+
+      var http = new XMLHttpRequest();
+      var url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/connections.php";
+
+      var carddata = "";
+      http.onreadystatechange = function() {
+          if (http.readyState == 4) {
+              carddata = http.responseText;
+
+
+              if(http.responseText == 100) {
+
+                  console.log("Incorrect DevID");
+
+              } else if(http.responseText == 101) {
+                  console.log("Incorrect AppID");
+              } else {
+
+                  carddata = http.responseText;
+                  //console.log(carddata);
+
+                  connected = carddata;
+
+              }
+
+
+          }
+
+      }
+
+    http.open('POST', url.trim(), true);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send("id="+ userid+ "&cardID="+cardID);
+
+      gc();
+      }
 
 

@@ -19,6 +19,8 @@ GridView {
     id:ms
     property string number: "0"
     property string list:""
+    property bool fromRequest: false
+    property string requestID: "0"
 
 
     z:0

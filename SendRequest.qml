@@ -10,6 +10,9 @@ import QtQuick.Controls.Styles 1.4
 
 import QtQuick.LocalStorage 2.0 as Sql
 
+import "requests.js" as Request
+import "text.js" as Scrubber
+
 Item {
     id: thisWindow
     states: [
@@ -61,19 +64,22 @@ Item {
 
         Rectangle {
             color:seperatorColor1
-            width:parent.width
+            width:parent.width * 0.98
+            anchors.horizontalCenter: parent.horizontalCenter
             height:3
         }
 
         Text {
             text:"To: "+currentcard_username
-
-            font.pixelSize: thisWindow.height * 0.07
+            anchors.left:parent.left
+            anchors.leftMargin: thisWindow.height * 0.01
+            font.pixelSize: thisWindow.height * 0.05
         }
 
         TextArea {
             id:requestmessage
-            width:parent.width
+            width:parent.width * 0.98
+            anchors.horizontalCenter: parent.horizontalCenter
             height:thisWindow.height / 1.5
             placeholderText: "Why we should connect."
             wrapMode: Text.WordWrap
@@ -123,7 +129,12 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: thisWindow.state = "InActive"
+            onClicked: {
+                Request.send_request(currentcard_thecard,Scrubber.replaceSpecials(requestmessage.text));
+
+                thisWindow.state = "InActive"
+
+            }
         }
     }
 

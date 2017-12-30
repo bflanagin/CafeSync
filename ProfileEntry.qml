@@ -341,11 +341,7 @@ Flickable {
                            +"':::'"+certifed.checked
                            +"':::'"+skillDiscription.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
                            +"':::'"+skillstartdate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
-<<<<<<< HEAD
-                           +"':::'"+skillexpiredate.text.replace(/,/g,";#x2c;").replace(/\+/g,";#x2b;")
-=======
                            +"':::'"+skillexpiredate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
->>>>>>> cb3ae29ac9d5847ca2050e23549ef460547b94b9
                            +"':::'"+years.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")+"'";
 
                                thisWindow.state = "InActive";
@@ -708,21 +704,21 @@ Flickable {
             anchors.fill: parent
             onClicked:if(schoolname.text !="") {
                           if(listindex != -1) {
-                          yourschooling[listindex]= "'"+schoolname.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                          yourschooling[listindex]= "'"+schoolname.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
                           +"':::'"+graduated.checked
-                          +"':::'"+schoolDiscription.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                          +"':::'"+graddate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                          +"':::'"+degree.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")+"'";
+                          +"':::'"+schoolDiscription.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                          +"':::'"+graddate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                          +"':::'"+degree.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")+"'";
 
 
                               thisWindow.state = "InActive";
                          // listindex = -1;
                       } else {
-                yourschooling.push("'"+schoolname.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
+                yourschooling.push("'"+schoolname.text.replace(/\,/g,";#x2c;").replace(/+/g,";#x2b;")
                                    +"':::'"+graduated.checked+
-                                   "':::'"+schoolDiscription.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                                   +"':::'"+graddate.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")
-                                   +"':::'"+degree.text.replace(/,/g,";#x2c;").replace(/+/g,";#x2b;")+"'"),
+                                   "':::'"+schoolDiscription.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                                   +"':::'"+graddate.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")
+                                   +"':::'"+degree.text.replace(/\,/g,";#x2c;").replace(/\+/g,";#x2b;")+"'"),
 
                 thisWindow.state = "InActive"
                // listindex = -1

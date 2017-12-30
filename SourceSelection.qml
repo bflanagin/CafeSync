@@ -226,17 +226,20 @@ Item {
                // border.color:"black"
 
                 Image {
+                     id:cameraicon
                     anchors.centerIn: parent
                     source:if(check.source =="" ) {"./img/camera-photo.svg"} else {"./img/reset.svg"}
                     width:parent.width * 0.8
                     height:parent.height * 0.8
                     fillMode:Image.PreserveAspectFit
 
-                    ColorOverlay {
-                        source:parent
-                        anchors.fill: parent
-                        color:overlayColor
-                    }
+
+                }
+
+                ColorOverlay {
+                    source:cameraicon
+                    anchors.fill: cameraicon
+                    color:overlayColor
                 }
 
                 Flasher {

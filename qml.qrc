@@ -146,9 +146,7 @@
         <file>img/add.svg</file>
         <file>img/back.svg</file>
         <file>img/cancel.svg</file>
-        <file>img/contact.svg</file>
         <file>img/delete.svg</file>
-        <file>img/email.svg</file>
         <file>img/find.svg</file>
         <file>img/go-down.svg</file>
         <file>img/go-next.svg</file>
@@ -159,14 +157,11 @@
         <file>img/language-chooser.svg</file>
         <file>img/location.svg</file>
         <file>img/menu.svg</file>
-        <file>img/message.svg</file>
         <file>img/ok.svg</file>
         <file>img/outgoing-call.svg</file>
-        <file>img/private-browsing.svg</file>
         <file>img/reload.svg</file>
         <file>img/save.svg</file>
         <file>img/sc_square_84.png</file>
-        <file>img/share.svg</file>
         <file>img/starred.svg</file>
         <file>img/stock_website.svg</file>
         <file>img/swap.svg</file>
@@ -215,5 +210,13 @@
         <file>messages.js</file>
         <file>requests.js</file>
         <file>SendRequest.qml</file>
+        <file>img/contact.svg</file>
+        <file>img/contact-group.svg</file>
+        <file>img/contact-new.svg</file>
+        <file>img/email.svg</file>
+        <file>img/message.svg</file>
+        <file>img/message-new.svg</file>
+        <file>img/private-browsing.svg</file>
+        <file>img/share.svg</file>
     </qresource>
 </RCC>

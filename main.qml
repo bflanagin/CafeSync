@@ -14,6 +14,8 @@ import QtQuick.LocalStorage 2.0 as Sql
 import "main.js" as Scripts
 import "openseed.js" as OpenSeed
 import "text.js" as Scrubber
+import "requests.js" as Request
+import "messages.js" as Message
 
 Item {
 //ApplicationWindow {
@@ -184,6 +186,9 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
     property int ptotal:0
 
     property int requests:0
+    property int totalNewMessages:0
+
+    property string connected:""
 
 
 
@@ -266,7 +271,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         interval: 2000
         running:false
         repeat:true
-        onTriggered:OpenSeed.heartbeat()
+        onTriggered:OpenSeed.heartbeat(), Message.check_messages(usercardNum),Request.check_requests()
     }
 
     Timer {
@@ -274,7 +279,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         interval:200
         running:false
         repeat:false
-        onTriggered:  Scripts.save_card(userid,username,userphone,useremail,usercompany,
+        onTriggered:Scripts.save_card(userid,username,userphone,useremail,usercompany,
                                        useralias,usermotto,usermain,website1,website2,website3,website4,
                                        stf,atf,ctf,avimg,carddesign,usercat,usercardNum);
     }
@@ -320,6 +325,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         running: true
         repeat: true
         onTriggered:{
+           // notificationClient.notification = "Updating your location.";
             gpsupdate.interval = offset;
             if(userid != "" && cardloaded == 1) {
         if (positionSource.supportedPositioningMethods ===
@@ -836,7 +842,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
                 Text {
                     anchors.centerIn: parent
-                    text: qsTr("Messages")
+                    text: messagePage.area
                     font.pixelSize: parent.height * 0.4
                     color:fontColorTitle
                 }
@@ -1595,7 +1601,9 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         MouseArea {
             anchors.fill: parent
             preventStealing: true
-            onClicked: switch(currentcard_saved ) {
+            onClicked: if(mainScreen.fromRequest == false) {
+
+                        switch(currentcard_saved ) {
 
                        case 0: Scripts.Delete_card(currentcard_thecard,listget);OpenSeed.remote_delete(userid,listget,currentcard_thecard);cardslist.clear();Scripts.Temp_load(searchtext,listget);
                            mainScreen.state = "InActive";
@@ -1614,6 +1622,13 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                            topBar.state="standard";
                            mainMenu.rotation = 0; break;
                        }
+
+                       } else {
+                           Request.decline_request(mainScreen.requestID);
+                           mainScreen.state = "InActive";
+                           topBar.state="requests";
+                       }
+
             onPressed: delflick.state = "Active"
             onReleased: delflick.state = "InActive"
 
@@ -2015,7 +2030,13 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
         }
 
-
+      Requests {
+          id:requestPage
+          width:parent.width
+          height:parent.height- topBar.height
+             y:topBar.height
+              state: "InActive"
+      }
 
 
  MainScreen {
@@ -2072,13 +2093,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         y:topBar.height
          state: "InActive"
  }
- Requests {
-     id:requestPage
-     width:parent.width
-     height:parent.height- topBar.height
-        y:topBar.height
-         state: "InActive"
- }
+
 
  Events {
      id:eventsPage
@@ -2221,8 +2236,10 @@ Info {
 
 SendRequest {
     id:sendrequest
-    width:parent.width * 0.95
-    height:parent.height * 0.80
+    //y:topBar.height
+    anchors.centerIn: parent
+    width:parent.width * 0.98
+    height:(parent.height - topBar.height) * 0.90
     state: "InActive"
 }
 
@@ -2259,6 +2276,11 @@ MyIOout {
 
 }
 
+
+ListModel {
+            id:requestlog
+
+    }
 
 
 
