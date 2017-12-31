@@ -882,13 +882,59 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
                 MouseArea {
                     anchors.fill:parent
-                    onClicked: { messagePage.state  = "InActive",
+                    onClicked: {
+                            if(messagePage.area == "Conversations") {
+                        messagePage.state  = "InActive",
                         themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0,topBar.state = "standard"//,mainScreen.state = "InActive",pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
+                            } else {
+                                messageContactsPage.state = "InActive"
 
+                            }
                             }
 
                    // onPressed: setflick.state = "Active"
                    // onReleased: setflick.state = "InActive"
+                }
+            }
+
+            Item {
+                id:madd
+                anchors.right:parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                visible: if(messagePage.area == "Conversations") {true} else {false}
+                anchors.rightMargin: parent.width * 0.03
+
+                width:parent.height * 0.4
+                height:parent.height * 0.4
+
+
+                Image {
+                    visible: false
+                    id:madd_icon
+                    anchors.fill: parent
+                    source: "./img/add.svg"
+
+
+
+                }
+
+                ColorOverlay {
+                    source:madd_icon
+                    anchors.fill: madd_icon
+                    color:overlayColor
+                }
+
+                Flasher {
+                    id:maddsetflick
+
+                }
+
+                MouseArea {
+                    anchors.fill:parent
+                    onClicked: {messageContactsPage.state = "Active"}
+
+                    onPressed: maddsetflick.state = "Active"
+                    onReleased: maddsetflick.state = "InActive"
                 }
             }
 
@@ -2093,6 +2139,17 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         y:topBar.height
          state: "InActive"
  }
+
+ MessageContacts {
+     id:messageContactsPage
+     width:parent.width
+     height:parent.height - topBar.height
+     y:topBar.height
+     state:"InActive"
+
+
+ }
+
 
 
  Events {

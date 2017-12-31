@@ -1,4 +1,4 @@
-function check_messages(id) {
+function check_messages(user) {
 
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/corescripts/chats.php";
@@ -14,7 +14,9 @@ function check_messages(id) {
             } else {
                console.log(http.responseText);
 
-
+                if(http.responseText == "0") {
+                        send_messages(usercardNum+","+user,"<begin>");
+                }
             }
 
         }
@@ -22,7 +24,7 @@ function check_messages(id) {
     http.open('POST', url.trim(), true);
     //http.send(null);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    http.send("devid=" + devId + "&appid=" + appId + "&id="+ id + "&type=check" );
+    http.send("devid=" + devId + "&appid=" + appId + "&id="+ userid + "&users="+usercardNum+","+user+"&type=check" );
 
 
 }
@@ -32,7 +34,7 @@ function retrieve_messages(room,theid) {
     //console.log("sending to server: "+currentmessage+" : "+mesgdate);
 
     var http = new XMLHttpRequest();
-    var url = "https://openseed.vagueentertainment.com:8675/devs/"+devId+"/"+appId+"/scripts/chats.php";
+    var url = "https://openseed.vagueentertainment.com:8675/corescripts/chats.php";
    // console.log(url)
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
@@ -78,22 +80,23 @@ function retrieve_messages(room,theid) {
 
 }
 
-function send_messages(room,message) {
+function send_messages(user,message) {
+    var mesgdate = new Date();
 
     var http = new XMLHttpRequest();
-    var url = "https://openseed.vagueentertainment.com:8675/devs/"+devId+"/"+appId+"/scripts/chats.php";
+    var url = "https://openseed.vagueentertainment.com:8675/corescripts/chats.php";
 
    // console.log(url)
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
-            console.log(http.responseText);
+            //console.log(http.responseText);
             //userid = http.responseText;
             if(http.responseText == 100) {
                 console.log("Incorrect DevID");
             } else if(http.responseText == 101) {
                 console.log("Incorrect AppID");
             } else {
-               // console.log(http.responseText);
+                console.log(http.responseText);
 
                 //createdb();
             }
@@ -103,7 +106,7 @@ function send_messages(room,message) {
     http.open('POST', url.trim(), true);
     //http.send(null);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    http.send("&id="+ id + "&devid=" +devId+ "&appid="+appId+"&message=" + message + "&name="+ username + "&part_id="+part_id+ "&part_names="+part_names+ "&part_avatar="+part_avatar+ "&speaker=" + username +"&date="+mesgdate+"&room="+ room + "&avatar="+ avatar1 + "&type=sending");
+    http.send("&id="+ userid + "&devid=" +devId+ "&appid="+appId+"&message=" + message + "&name="+ user + "&part_id=''&part_names=''&part_avatar=''&speaker=" + usercardNum+"&date="+mesgdate.getTime()+"&room=''&avatar=''&type=sending");
 
 
 }
@@ -111,7 +114,7 @@ function send_messages(room,message) {
 function retrieve_users(search) {
 
     var http = new XMLHttpRequest();
-    var url = "https://openseed.vagueentertainment.com:8675/devs/"+devId+"/"+appId+"/scripts/info.php";
+    var url = "https://openseed.vagueentertainment.com:8675/corescripts/info.php";
    // console.log(url)
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
@@ -154,7 +157,7 @@ function retrieve_users(search) {
 
 function save_messages(theid,name,avatar1,part_id,part_names,part_avatar,roomid,mesgdate,themessage,thespeaker) {
 
-    var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
+   // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
 
 
@@ -190,6 +193,42 @@ function save_messages(theid,name,avatar1,part_id,part_names,part_avatar,roomid,
             tx.executeSql(updateArea);
 
          });
+
+}
+
+function contactlist() {
+
+    var dataStr1 = "SELECT  *  FROM SavedCards WHERE `id` !='"+usercardNum+"' AND `id` !=''";
+    collectedContacts.clear();
+    db.transaction(function(tx) {
+
+        var pull = tx.executeSql(dataStr1);
+        var num = 0;
+        while(pull.rows.length > num) {
+
+            if(connected.search(pull.rows.item(num).id) != -1) {
+
+            collectedContacts.append({
+                                         who:pull.rows.item(num).id,
+                                         speaker:pull.rows.item(num).name,
+                                         timecode:1243542,
+                                         message:pull.rows.item(num).company,
+                                         avatar:pull.rows.item(num).avatar
+
+                                     });
+
+            }
+
+            num = num + 1;
+        }
+
+    });
+
+}
+
+function retrieve_conversations() {
+
+
 
 }
 

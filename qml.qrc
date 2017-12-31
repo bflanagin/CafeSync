@@ -218,5 +218,6 @@
         <file>img/message-new.svg</file>
         <file>img/private-browsing.svg</file>
         <file>img/share.svg</file>
+        <file>MessageContacts.qml</file>
     </qresource>
 </RCC>

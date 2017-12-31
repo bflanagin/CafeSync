@@ -193,7 +193,7 @@ ListView {
     }
 }
 
-Rectangle {
+/*Rectangle {
     id:bottomBar
     anchors.bottom:parent.bottom
     width:parent.width
@@ -224,7 +224,7 @@ DropShadow {
     color: "#80000000"
     source:bottomBar
     z:1
-}
+} */
 
 
 }

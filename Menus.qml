@@ -343,10 +343,10 @@ Item {
                                             type:1
                                     } */
 
-                                   /* ListElement {
-                                            menuitem: "4"
+                                   ListElement {
+                                           menuitem: "4"
                                             type:1
-                                    } */
+                                    }
 
                                     ListElement {
                                             menuitem: "5"
