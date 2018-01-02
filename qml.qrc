@@ -143,7 +143,6 @@
         <file>img/YouTube-logo-full_color.png</file>
         <file>img/youtube.png</file>
         <file>main.cpp</file>
-        <file>img/add.svg</file>
         <file>img/back.svg</file>
         <file>img/cancel.svg</file>
         <file>img/delete.svg</file>
@@ -219,5 +218,6 @@
         <file>img/private-browsing.svg</file>
         <file>img/share.svg</file>
         <file>MessageContacts.qml</file>
+        <file>img/add.svg</file>
     </qresource>
 </RCC>

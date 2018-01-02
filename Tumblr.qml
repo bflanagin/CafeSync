@@ -121,7 +121,7 @@ Item {
 
     ListView {
         width:parent.width * 0.98
-        height:parent.height * 0.89
+        height:parent.height * 0.85
        // contentHeight: postbg.height * 1.2
        // contentWidth: width
         //anchors.centerIn: parent

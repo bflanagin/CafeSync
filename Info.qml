@@ -213,7 +213,7 @@ Item {
 
     Image {
         id:rcancel
-        source:"./img/cancel.svg"
+        source:"./img/close.svg"
         width:parent.width * 0.08
         anchors.bottom: parent.bottom
         anchors.left:parent.left

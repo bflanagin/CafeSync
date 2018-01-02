@@ -45,7 +45,9 @@ Item {
 
 
 
-    property string backgroundColor: "#DFDFD9"
+ //   property string backgroundColor: "#DFDFD9"
+    property string backgroundColor:Qt.rgba(0.98,0.98,0.98,1)
+
     property string highLightColor1: Qt.rgba(0.99,0.95,0.88,1)
     property string seperatorColor1: "#795548"
     property string barColor: Qt.rgba(0.98,0.98,0.95,1)

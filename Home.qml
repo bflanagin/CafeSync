@@ -16,7 +16,7 @@ Item {
     property string number: "0"
     property string list:""
 
-    property string backgroundColor:Qt.rgba(0.98,0.98,0.98,1)
+   // property string backgroundColor:Qt.rgba(0.98,0.98,0.98,1)
 
     clip: true
 
