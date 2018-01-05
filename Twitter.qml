@@ -194,8 +194,8 @@ Item {
        Rectangle {
         id:messageblock
         anchors.centerIn: parent
-        //anchors.verticalCenterOffset: 20
-        color:Qt.rgba(1.0,1.0,1.0,0.9)
+
+        color:cardcolor
        // anchors.horizontalCenter: parent.horizontalCenter
 
         radius:5
@@ -214,8 +214,7 @@ Item {
             wrapMode: Text.WordWrap
             width:parent.width* 0.98
             text:message
-            //horizontalAlignment: Text.AlignHCenter
-           // anchors.fill:parent
+
             anchors.margins: 5
             font.pixelSize: popup.height * 0.03 - text.length
 
@@ -225,7 +224,8 @@ Item {
             id:quotebox
            // visible: if(aquote != "") {true} else {false}
             visible: false
-            color:Qt.rgba(1.0,1.0,1.0,0.9)
+
+            color:cardcolor
             radius:5
             anchors.top:themessage.bottom
             width:parent.width * 0.92

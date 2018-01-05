@@ -213,10 +213,8 @@ Item {
 
             Item {
                 id:camerabutton
-                //anchors.bottom:parent.bottom
-                //anchors.bottomMargin: parent.height * 0.01
-                //anchors.verticalCenter: parent.verticalCenter
-                anchors.top:photoframe.bottom
+
+                 anchors.top:photoframe.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
                 width:if(mainView.width > mainView.height) {parent.width * 0.5}else {parent.height * 0.2}
                 height:if(mainView.width > mainView.height){parent.width * 0.5} else {parent.height * 0.2}

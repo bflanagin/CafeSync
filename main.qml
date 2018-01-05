@@ -50,10 +50,10 @@ Item {
 
     property string highLightColor1: Qt.rgba(0.99,0.95,0.88,1)
     property string seperatorColor1: "#795548"
-    property string barColor: Qt.rgba(0.98,0.98,0.95,1)
-    property string bottombarColor: Qt.rgba(0.98,0.98,0.95,1)
+    property string barColor: Qt.rgba(0.98,0.98,0.96,1)
+    property string bottombarColor: Qt.rgba(0.98,0.98,0.96,1)
     property string activeColor: "#6E4879"
-    property string cardcolor: Qt.rgba(0.98,0.98,0.95,1)
+    property string cardcolor: Qt.rgba(0.98,0.98,0.96,1)
     property string overlayColor: "#795548"
     property string fontColorTitle: "black"
 
