@@ -180,7 +180,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
 
-        spacing: parent.height * 0.05
+        spacing: parent.height * 0.01
         cacheBuffer: 180
        clip:true
 
@@ -191,6 +191,8 @@ Item {
                 width:parent.width
                 height:messageblock.height * 1.2
 
+
+
        Rectangle {
         id:messageblock
         anchors.centerIn: parent
@@ -200,16 +202,39 @@ Item {
 
         radius:5
         width:parent.width * 0.98
-        height:themessage.height+quotebox.height+ postImage.height+popup.height * 0.03
+        height:themessage.height+(quotebox.height*1.4)+ titletext.height+ postImage.height+popup.height * 0.06
         clip:true
         visible: false
+
+
+        Text {
+            id:titletext
+            width:parent.width
+           // horizontalAlignment: Text.AlignHCenter
+            visible:if(posttitle.length > 2) {true} else {false}
+            text:"<span>"+posttitle+"</span>"
+            font.pixelSize: messageblock.width * 0.08 - posttitle.length
+            wrapMode:Text.WordWrap
+            color:"black"
+        }
+
+        Rectangle {
+            id:postsplitter
+            color:"gray"
+            anchors.top:titletext.bottom
+            anchors.topMargin: popup.height *0.03
+            width:parent.width
+            height:messageblock.height * 0.01
+            visible:if(posttitle.length > 2) {true} else {false}
+        }
+
 
         Text {
             id:themessage
             //anchors.centerIn: parent
             anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.topMargin: popup.height *0.01
+            anchors.top: titletext.bottom
+            anchors.topMargin: popup.height *0.06
             anchors.leftMargin: popup.height *0.01
             wrapMode: Text.WordWrap
             width:parent.width* 0.98
@@ -228,6 +253,7 @@ Item {
             color:cardcolor
             radius:5
             anchors.top:themessage.bottom
+            anchors.topMargin:messageblock.height * 0.03
             width:parent.width * 0.92
             height:thequote.height+10
             clip:true
@@ -262,6 +288,7 @@ Item {
             id:postImage
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top:themessage.bottom
+            anchors.topMargin:messageblock.height * 0.01
             width:parent.width * 0.98
             fillMode: Image.PreserveAspectFit
             source:postimg

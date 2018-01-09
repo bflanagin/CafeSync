@@ -127,7 +127,7 @@ Item {
         //anchors.centerIn: parent
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        spacing: parent.height * 0.1
+        spacing: parent.height * 0.05
         cacheBuffer: 180
        clip:true
 

@@ -326,13 +326,13 @@ Item {
          //   link:thelink
         }
 
-      /* Etsy {
-            state:if(custompage == 10) {"Active"} else {"InActive"}
+       Etsy {
+            state:if(custompage == 10 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page
 
-        } */
+        }
 
        /* Kickstarter {
             state:if(custompage == 11) {"Active"} else {"InActive"}
@@ -376,6 +376,11 @@ Item {
            }
    ListModel {
                    id:twitterposts
+
+           }
+
+   ListModel {
+                   id:shopposts
 
            }
 }

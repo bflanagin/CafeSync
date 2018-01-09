@@ -38,6 +38,9 @@ Item {
         Rectangle {
             anchors.fill:parent
             color:backgroundColor
+            border.color: cardcolor
+            border.width:1
+            radius: 4
         }
 
 
@@ -53,8 +56,8 @@ Item {
         //border.color:"black"
         //radius: units.gu(1)
         //anchors.fill: parent
-        //anchors.horizontalCenter: parent.horizontalCenter
-        width:parent.width
+        anchors.horizontalCenter: parent.horizontalCenter
+        width:parent.width * 0.99
         height:info.height + 40
         clip:true
 

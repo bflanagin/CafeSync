@@ -164,7 +164,7 @@ Item {
                 width:parent.width
                 horizontalAlignment: Text.AlignHCenter
                 visible:if(theposttitle.length > 2) {true} else {false}
-                text:theposttitle
+                text:"<br>"+theposttitle
                 font.pixelSize: postbg.width * 0.08
                 wrapMode:Text.WordWrap
                 //color:"white"

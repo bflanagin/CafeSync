@@ -158,7 +158,6 @@
         <file>img/menu.svg</file>
         <file>img/ok.svg</file>
         <file>img/outgoing-call.svg</file>
-        <file>img/reload.svg</file>
         <file>img/save.svg</file>
         <file>img/sc_square_84.png</file>
         <file>img/starred.svg</file>
@@ -219,5 +218,6 @@
         <file>img/share.svg</file>
         <file>MessageContacts.qml</file>
         <file>img/add.svg</file>
+        <file>img/reload.svg</file>
     </qresource>
 </RCC>

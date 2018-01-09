@@ -1,5 +1,6 @@
 import QtQuick 2.3
 import QtQuick.Window 2.2
+import QtGraphicalEffects 1.0
 
 
 import "main.js" as Scripts
@@ -55,6 +56,7 @@ Item {
         source:banner
         anchors.fill: parent
         fillMode:Image.PreserveAspectCrop
+        opacity: 0.1
     }
 
     Rectangle {
@@ -64,13 +66,13 @@ Item {
         border.width:1
     }
 
-    Image {
+   /* Image {
         id:shade
         anchors.centerIn: parent
         source:"./img/shade.png"
         anchors.fill: parent
         //fillMode:Image.PreserveAspectCrop
-    }
+    } */
 
     Rectangle {
         id:banborder
@@ -86,16 +88,33 @@ Item {
         z:1
         Image {
             id:avimage
-            //anchors.left:parent.left
-            //anchors.verticalCenter: parent.verticalCenter
-            //width:parent.height * 0.85
-            //height:parent.height * 0.85
-            anchors.fill:parent
+            anchors.left:parent.left
+            anchors.verticalCenter: parent.verticalCenter
+            width:parent.height * 0.85
+            height:parent.height * 0.85
+            //anchors.fill:parent
             anchors.margins: 4
-            fillMode:Image.PreserveAspectFit
+            //fillMode:Image.PreserveAspectFit
             source:banner
 
         }
+
+        Text {
+                id:blogtitle
+                anchors.left:avimage.right
+
+                text:"<div>"+name+"</div>"
+                font.pixelSize: (banborder.height * 0.65) - name.length
+                color:"white"
+            }
+            Text {
+                id:about
+                anchors.left:avimage.right
+                anchors.top:blogtitle.bottom
+                text:"<div>"+message+"</div>"
+                font.pixelSize: blogtitle.height * 0.30 - message.length
+                color:"white"
+            }
 
     }
 
@@ -116,20 +135,19 @@ Item {
 
         model: ListModel { id:shoplist }
 
-        delegate:
+        delegate: Item {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: itemgrid.cellWidth * 0.99
+                    height:itemgrid.cellHeight * 0.98
+
                     Rectangle {
                         id:postbg
                         radius:10
-                        //anchors.centerIn: parent
-                        color:Qt.rgba(0.9,0.9,0.9,0.9)
-                        border.color:"gray"
-                        border.width:4
-                        width: itemgrid.cellWidth
-                        height:itemgrid.cellHeight
-                        //height:postcontent.height + 10
-                        //clip:true
-                        //anchors.fill:parent
-                        z:0
+
+                        color:cardcolor
+                        visible: false
+                        anchors.fill:parent
+                        //z:0
 
                             Item {
                                 id:postcontent
@@ -163,8 +181,8 @@ Item {
                                     anchors.top:postsplitter.bottom
                                     horizontalAlignment: Text.AlignHCenter
                                     visible:if(itemname.length > 2) {true} else {false}
-                                    text:itemname
-                                    font.pixelSize: postbg.width * 0.08 - posttitle.length
+                                    text:"<div>"+itemname+"...</div>"
+                                    font.pixelSize: postbg.width * 0.06 - posttitle.length
                                     wrapMode:Text.WordWrap
                                     color:"black"
                                     }
@@ -183,22 +201,33 @@ Item {
 
 
                           }
-                            Flasher {
+                           /* Flasher {
                                 id:itemflash
-                            }
+                            } */
 
                             MouseArea {
                               anchors.fill:parent
                                  //onClicked: showurl = itemlink,fullWeb.state = "show"
                                  //,cardPage.header.hide()
                                  onClicked:Qt.openUrlExternally(itemlink);
-                                 onPressed:itemflash.state = "Active"
-                                 onReleased:itemflash.state = "InActive"
+                                 //onPressed:itemflash.state = "Active"
+                                 //onReleased:itemflash.state = "InActive"
 
                              }
 
 
-    }
+                        }
+
+                    DropShadow {
+                        source:postbg
+                        anchors.fill: postbg
+                        verticalOffset: 4
+                        radius: 8.0
+                        samples: 17
+                        color: "#80000000"
+                    }
+
+                 }
 
     }
 
@@ -265,7 +294,7 @@ Item {
             height:parent.width * 0.08
         }
 
-            Text {
+            /*Text {
                     id:blogtitle
                     anchors.left:servlogo.right
                     text:name
@@ -279,7 +308,7 @@ Item {
                     text:message
                     font.pixelSize: blogtitle.height * 0.30 - message.length
                     color:"black"
-                }
+                } */
 
 
     }
