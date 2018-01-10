@@ -161,7 +161,7 @@ Item {
                             //visible: if(type != 8) {true} else {false}
                             text: thetitle
                             anchors.horizontalCenter: parent.horizontalCenter
-                            font.pixelSize: parent.height * 0.08
+                            font.pixelSize: parent.height * 0.05
 
                         }
 
@@ -180,7 +180,7 @@ Item {
                             horizontalAlignment: Text.AlignHCenter
                             text:message
                             anchors.horizontalCenter: parent.horizontalCenter
-                            font.pixelSize: parent.height * 0.04
+                            font.pixelSize: parent.height * 0.02
 
                         }
 

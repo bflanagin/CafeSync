@@ -167,7 +167,7 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
          Text {
              text: qsTr("General Settings")
              anchors.left:parent.left
-             font.pixelSize: 24
+             font.pixelSize: parent.width * 0.04
              anchors.leftMargin: 4
              //anchors.verticalCenter: parent.verticalCenter
          }
@@ -184,36 +184,37 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
 
 Item {
     width:parent.width
-    height:settingsPage.height * 0.35
-
+    //height:settingsPage.height * 0.35
+    height:generalarea.height
 
 
  Rectangle {
     id:generalarea
-    //clip:true
+    clip:true
    // y:cardsava.y + cardsava.height + 10
     anchors.horizontalCenter: parent.horizontalCenter
     width:parent.width * 0.98
-    height:parent.height
+    height:generalcolumn.height * 1.2
     color:"white"
 
    Column {
+       id:generalcolumn
        y:10
        width:parent.width
-       height:parent.height
-       spacing:20
-
+      // height:parent.height
+       spacing:mainView.height * 0.01
+     //  anchors.centerIn: parent
 
 
     Row {
         width:parent.width
-        height: parent.height * 0.72
+       // height: parent.height * 0.72
         clip:true
 
     Item {
            id:imagearea
-     height:parent.width * 0.38
-     width:parent.width * 0.38
+     height:mainView.width * 0.38
+     width:mainView.width * 0.38
 
      Image {
          id:cardsava
@@ -273,10 +274,10 @@ Item {
 
 }
     Column {
-        y:20
+        //y:20
         width:parent.width * 0.6
-        height:parent.height * 0.9
-        spacing:15
+       // height:parent.height * 0.8
+        spacing:mainView.height * 0.01
         anchors.verticalCenter: parent.verticalCenter
 
   Text {
@@ -366,11 +367,6 @@ Item {
 
 }
 
-  Item {
-      height:40
-      width:parent.width
-
-  }
 
   Text {
       id: companyLabel
@@ -427,14 +423,14 @@ Item {
     Item {
         width: parent.width
         height:parent.height * 0.12
-        clip:true
+       // clip:true
 
     Text {
         anchors.left:parent.left
         anchors.leftMargin: 10
         text: qsTr("(tap text or image to edit)")
         anchors.verticalCenter: parent.verticalCenter
-        font.pointSize: mainView.height * 0.01
+        font.pointSize: mainView.height * 0.02
     }
 
  Text {
@@ -493,7 +489,7 @@ Text {
     anchors.left:parent.left
 
     anchors.leftMargin: 8
-    font.pixelSize: 24
+    font.pixelSize: parent.width * 0.04
 
 }
 Rectangle {
@@ -525,7 +521,7 @@ Item {
         y:20
         width:parent.width
         height:parent.height
-        spacing: 30
+        spacing: parent.height * 0.01
 
         Item {
             width:parent.width
@@ -664,7 +660,7 @@ Text {
  //anchors.topMargin: 10
  text: qsTr("Info")
  style: Text.Normal
- font.pixelSize: 24
+ font.pixelSize: parent.width * 0.04
 }
 
 Rectangle {
@@ -1414,7 +1410,7 @@ Text {
  //anchors.topMargin: 10
  text: qsTr("Social Networks")
  style: Text.Normal
- font.pixelSize: 24
+ font.pixelSize: parent.width * 0.04
 }
 
 Rectangle {
@@ -1561,7 +1557,7 @@ Rectangle {
     // anchors.top:rectangle1.bottom
     // anchors.topMargin:8
      text: qsTr("Misc.")
-     font.pixelSize: 24
+     font.pixelSize: parent.width * 0.04
      id:misc_title
  }
 

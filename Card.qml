@@ -185,10 +185,10 @@ import "openseed.js" as OpenSeed
                                             //x: 5
                                             id:nametag
                                             visible:if(cardsop == 1) {true} else {false}
-                                            text: name
+                                            text: "<div>"+name+"</div>"
                                             //width:thecard.width * 2
                                             //wrapMode: Text.WordWrap
-                                            font.pixelSize:  parent.height * 0.17 - text.length
+                                            font.pixelSize:mainView.height * 0.03
                                             font.bold: true
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             anchors.left:card_avatar_backing.right
