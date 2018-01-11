@@ -61,9 +61,9 @@ Item {
 
     Rectangle {
         anchors.fill:parent
-        radius:10
+        //radius:10
         color:Qt.rgba(0.5,0.5,0.5,0.6)
-        border.width:1
+        //border.width:1
     }
 
    /* Image {

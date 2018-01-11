@@ -154,7 +154,7 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
          } */
          width:parent.width
         // height:parent.height
-         spacing:20
+         spacing:mainView.height * 0.01
 
          //clip:true
 
@@ -194,7 +194,7 @@ Item {
    // y:cardsava.y + cardsava.height + 10
     anchors.horizontalCenter: parent.horizontalCenter
     width:parent.width * 0.98
-    height:generalcolumn.height * 1.2
+    height:generalcolumn.height * 1.05
     color:"white"
 
    Column {
@@ -202,7 +202,7 @@ Item {
        y:10
        width:parent.width
       // height:parent.height
-       spacing:mainView.height * 0.01
+       spacing:mainView.height * 0.02
      //  anchors.centerIn: parent
 
 
@@ -277,7 +277,7 @@ Item {
         //y:20
         width:parent.width * 0.6
        // height:parent.height * 0.8
-        spacing:mainView.height * 0.01
+        spacing:mainView.height * 0.02
         anchors.verticalCenter: parent.verticalCenter
 
   Text {
@@ -430,7 +430,7 @@ Item {
         anchors.leftMargin: 10
         text: qsTr("(tap text or image to edit)")
         anchors.verticalCenter: parent.verticalCenter
-        font.pointSize: mainView.height * 0.02
+        font.pointSize: mainView.height * 0.01
     }
 
  Text {
@@ -503,7 +503,7 @@ Rectangle {
 
 Item {
     width:parent.width
-    height:contactLabel.y+(contactLabel.height * 3)
+    height:contactLabel.y+(contactLabel.height * 2)
 
 
  Rectangle {
@@ -521,7 +521,7 @@ Item {
         y:20
         width:parent.width
         height:parent.height
-        spacing: parent.height * 0.01
+        spacing: parent.height * 0.1
 
         Item {
             width:parent.width
@@ -603,7 +603,7 @@ Item {
   Text {
       id:contactLabel
       text: qsTr("Share Contact Info")
-      font.pointSize: mainView.width * 0.01
+      font.pointSize: mainView.width * 0.02
       //font.bold: true
       horizontalAlignment: Text.AlignLeft
      // anchors.top:parent.top
