@@ -188,7 +188,7 @@ import "openseed.js" as OpenSeed
                                             text: "<div>"+name+"</div>"
                                             //width:thecard.width * 2
                                             //wrapMode: Text.WordWrap
-                                            font.pixelSize:mainView.height * 0.03
+                                            font.pixelSize:mainView.height * 0.034
                                             font.bold: true
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             anchors.left:card_avatar_backing.right

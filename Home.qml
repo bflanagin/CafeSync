@@ -58,7 +58,7 @@ Item {
         //anchors.fill: parent
         anchors.horizontalCenter: parent.horizontalCenter
         width:parent.width * 0.99
-        height:info.height + 40
+        height:info.height * 1.2
         clip:true
 
         Row {
@@ -195,11 +195,11 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             width:popup.width * 0.98
            // height:parent.height * 1.2
-            spacing:20
+            spacing:mainView.height * 0.02
 
             Item {
                 width:parent.width
-                height:20
+                height:mainView.height * 0.01
             }
 
             Item {
