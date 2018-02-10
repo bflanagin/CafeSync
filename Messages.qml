@@ -16,10 +16,11 @@ import "messages.js" as Message
 Item {
 
     id:thisWindow
-    property int roomId: 0
+
     property string area: ""
     property bool contactlist: false
     property bool showroom: false
+    property int messagelist: 0
 
 
     clip: true
@@ -29,7 +30,7 @@ Item {
             name: "Active"
             PropertyChanges {
                 target:thisWindow
-
+                area: "Conversations"
                 x:0
 
 
@@ -39,7 +40,7 @@ Item {
              name: "InActive"
              PropertyChanges {
                  target:thisWindow
-
+                 area: "Conversations"
                  x:width * -1
 
 
@@ -68,9 +69,19 @@ Item {
 
     ]
 
-    onShowroomChanged: if(showroom == true) {conversations.state = "Inactive",room.state = "Active"}
+    onShowroomChanged: if(showroom == true) {conversations.state = "Inactive",room.state = "Active",checkchat.running = true} else {conversations.state = "Active",room.state = "InActive",checkchat.running = false}
 
-    onAreaChanged: if(area == "Conversations") {Message.retrieve_conversations()}
+   // onAreaChanged: if(area == "Conversations") {Message.retrieve_conversations(usercardNum)}
+
+    onStateChanged: if(thisWindow.state == "Active") {Message.retrieve_conversations(usercardNum)}
+
+    Timer {
+        id:checkchat
+        interval:2000
+        running:false
+        repeat:true
+        onTriggered:Message.check_messages(roomId)
+    }
 
 
     Item {
@@ -143,9 +154,10 @@ Rectangle {
 
 ListView {
     id:conversationLog
+    y:parent.width * 0.01
     width:parent.width
-    height:parent.height - bottomBar.height
-    verticalLayoutDirection: ListView.BottomToTop
+    height:(parent.height * 0.98) - bottomBar.height
+    verticalLayoutDirection: ListView.TopToBottom
 
     spacing:thisWindow.height * 0.01
     clip:true
@@ -259,7 +271,7 @@ ListView {
 
         MouseArea {
             anchors.fill:parent
-            onClicked: {thisWindow.state = "InActive",messagePage.showroom = true,Message.check_messages(who)}
+            onClicked: {thisWindow.area = "Chat",messagePage.showroom = true,Message.check_messages(who)}
         }
     }
 
@@ -333,6 +345,10 @@ DropShadow {
                      target:room
 
                      x:width * -1
+                 }
+                 PropertyChanges {
+                     target:thisWindow
+                     area: "Conversations"
 
 
                  }
@@ -370,6 +386,7 @@ Rectangle {
 
 ListView {
     id:chatLog
+    y:parent.width * 0.01
     width:parent.width
     height:parent.height - bottomBar.height
     verticalLayoutDirection: ListView.BottomToTop
@@ -380,35 +397,10 @@ ListView {
     model: ListModel {
             id:chatlog
 
-
-
-
-            ListElement {
-                who:151
-                speaker:"Someone Else"
-                timecode:1231213914534
-                message:"Talk later."
-            }
-
-
-            ListElement {
-                who:151
-                speaker: "Someone Else"
-                timecode:1231213814534
-                message:"Not bad, I've got lots to do though."
-            }
-
-            ListElement {
-                who:150
-                speaker: "Benjamin Flanagin"
-                timecode:1231213414534
-                message:"Hey, How's it going?"
-            }
-
     }
 
     delegate: Item {
-        width:parent.width * 0.60
+        width:parent.width * 0.80
         height:content.height * 1.2
         anchors.right:if(who == usercardNum) {parent.right} else {""}
         //anchors.left:if(who != usercardNum) {parent.left} else {""}
@@ -418,6 +410,8 @@ ListView {
             height:content.height
             color:"white"
             radius:5
+            border.color:"black"
+            border.width: 0,0,1,0
         }
         Column {
             id:content
@@ -427,7 +421,7 @@ ListView {
 
                 Text {
                     text:if(who == usercardNum) {"You"} else {speaker}
-                    font.pixelSize: thisWindow.height * 0.025
+                    font.pixelSize: thisWindow.width * 0.05
                     width:parent.width * 0.98
                     anchors.horizontalCenter: parent.horizontalCenter
                     horizontalAlignment: Text.AlignLeft
@@ -438,6 +432,7 @@ ListView {
                         width:parent.width * 0.5
                         horizontalAlignment: Text.AlignRight
                         anchors.right:parent.right
+                        font.pixelSize: thisWindow.width * 0.03
                         opacity: 0.2
                     }
                 }
@@ -453,7 +448,7 @@ ListView {
 
             Text {
                 text:"<p>"+message+"</p>"
-                font.pixelSize: thisWindow.height * 0.015
+                font.pixelSize: thisWindow.width * 0.045
                 width:parent.width * 0.98
                 anchors.horizontalCenter: parent.horizontalCenter
                  horizontalAlignment: Text.LeftRight
@@ -483,6 +478,7 @@ Rectangle {
         }
     }
    TextField {
+       id:messageField
        anchors.verticalCenter: parent.verticalCenter
        anchors.horizontalCenter: parent.horizontalCenter
       // anchors.left:addstuff.right
@@ -503,6 +499,11 @@ Rectangle {
        Flasher {
 
        }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: Message.send_messages(roomId,messageField.text)
+        }
+
    }
 
 

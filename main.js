@@ -375,7 +375,7 @@ function Temp_load(search,locale) {
                   if(pull.rows.item(record).main.substring(0,4) != "http") {main = "http://"+pull.rows.item(record).main;}
                       else { main = pull.rows.item(record).main; }
 
-                  if(pull.rows.item(record).cardback.search("internal:") == -1) {
+                 /* if(pull.rows.item(record).cardback.search("internal:") == -1) {
                       if(pull.rows.item(record).cardback.length < 4) {
 
                           card = "img/default_card.png";
@@ -400,7 +400,7 @@ function Temp_load(search,locale) {
                      symbol= Card_Set("symbol",fsnum);
                      text = Card_Set("text",ftnum);
 
-                  }
+                  } */
 
                    if(pull.rows.item(record).avatar.length < 4) { ava = "img/default_avatar.png"} else {ava = pull.rows.item(record).avatar
                                 if(ava.search("/9j/4A") != -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}

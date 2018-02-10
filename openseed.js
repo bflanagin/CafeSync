@@ -50,16 +50,18 @@ function heartbeat() {
             } else {
 
                 heart = http.responseText;
-                updateinterval = 2000;
+                updateinterval = 500;
 
-              // console.log(heart);
+               //console.log(heart);
 
             }
 
         }
             } else {
                     heart = "Offline";
-                    updateinterval = 2000 + updateinterval;
+                    updateinterval = 500 + updateinterval;
+            //console.log(heart);
+
 
         }
     }
@@ -205,6 +207,8 @@ if (cid.length > 4) {
         }
         syncandsave.start();
         connections(usercardNum);
+
+
 }
 
              }

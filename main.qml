@@ -193,6 +193,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
     property string connected:""
 
 
+    property string roomId: "0"
 
     // width: units.gu(175)
     //height: units.gu(100)
@@ -271,10 +272,10 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
     Timer {
         id:heartbeats
-        interval: 2000
+        interval: 500
         running:false
         repeat:true
-        onTriggered:OpenSeed.heartbeat(), Message.check_messages(usercardNum),Request.check_requests()
+        onTriggered:OpenSeed.heartbeat(),Request.check_requests(),console.log(heart);
     }
 
     Timer {
@@ -301,8 +302,8 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
             interval:10; running:true; repeat: false
             onTriggered: {
             Scripts.load_Card();
-
-                heartbeats.start();
+                console.log("starting up");
+                heartbeats.running = true;
                  notification.visible = true;
 
 
@@ -345,7 +346,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
     Timer {
         id:get_list_updater
-        interval:80000; running: true; repeat: true
+        interval:3000; running: true; repeat: true
             onTriggered: {
                            // console.log("Updating List");
                         OpenSeed.retrieve_data(userid);
@@ -816,7 +817,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
                 MouseArea {
                     anchors.fill:parent
-                    onClicked: { chatPage.state  = "InActive",
+                    onClicked: { messagePage.state  = "InActive",
                         themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0,topBar.state = "standard"//,mainScreen.state = "InActive",pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
 
                             }
@@ -889,7 +890,11 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                             if(messagePage.area == "Conversations") {
                         messagePage.state  = "InActive",
                         themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0,topBar.state = "standard"//,mainScreen.state = "InActive",pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
+                            } else if (messagePage.area == "Chat") {
+                                messagePage.showroom  = false;
+                                //themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0,topBar.state = "standard"//,mainScreen.state = "InActive",pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
                             } else {
+
                                 messageContactsPage.state = "InActive"
 
                             }
@@ -2127,13 +2132,13 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
  }
 
- Chat {
+ /*Chat {
      id:chatPage
      width:parent.width
      height:parent.height - topBar.height
         y:topBar.height
          state: "InActive"
- }
+ } */
 
  Messages {
      id:messagePage

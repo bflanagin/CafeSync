@@ -125,8 +125,8 @@ ListView {
             spacing: thisWindow.height * 0.01
 
                 Text {
-                    text:if(who == usercardNum) {"You"} else {speaker}
-                    font.pixelSize: thisWindow.height * 0.035
+                    text:if(who == usercardNum) {"<h2>You</h2>"} else {"<h2>"+speaker+"</h2>"}
+                   // font.pixelSize: thisWindow.width * 0.035
                     width:parent.width * 0.98
                     anchors.horizontalCenter: parent.horizontalCenter
                     horizontalAlignment: Text.AlignLeft
@@ -135,10 +135,10 @@ ListView {
                     Text {
                         text:timecode
                         width:parent.width * 0.5
-                        font.pixelSize: thisWindow.height * 0.015
+                       // font.pixelSize: thisWindow.width
                         horizontalAlignment: Text.AlignRight
                         anchors.right:parent.right
-                        opacity: 0.2
+                        opacity: 0.1
                     }
                 }
 
@@ -153,7 +153,7 @@ ListView {
 
             Text {
                 text:"<p>"+message+"</p>"
-                font.pixelSize: thisWindow.height * 0.025
+               // font.pixelSize: thisWindow.width * 0.3
                 width:parent.width * 0.98
                 anchors.horizontalCenter: parent.horizontalCenter
                  horizontalAlignment: Text.LeftRight

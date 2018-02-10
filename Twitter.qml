@@ -180,7 +180,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
 
-        spacing: parent.height * 0.01
+        spacing: parent.width * 0.01
         cacheBuffer: 180
        clip:true
 
@@ -209,11 +209,14 @@ Item {
 
         Text {
             id:titletext
-            width:parent.width
+            width:parent.width* 0.95
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top:parent.top
+            anchors.topMargin: parent.width * 0.04
            // horizontalAlignment: Text.AlignHCenter
             visible:if(posttitle.length > 2) {true} else {false}
-            text:"<span>"+posttitle+"</span>"
-            font.pixelSize: messageblock.width * 0.08 - posttitle.length
+            text:"<h2>"+posttitle+"</h2>"
+           // font.pixelSize: messageblock.width * 0.08 - posttitle.length
             wrapMode:Text.WordWrap
             color:"black"
         }
@@ -222,7 +225,7 @@ Item {
             id:postsplitter
             color:"gray"
             anchors.top:titletext.bottom
-            anchors.topMargin: popup.height *0.03
+            anchors.topMargin: -popup.width *0.01
             width:parent.width
             height:messageblock.height * 0.01
             visible:if(posttitle.length > 2) {true} else {false}

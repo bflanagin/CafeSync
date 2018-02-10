@@ -287,7 +287,7 @@ Item {
                                             break;
 
                           case "3": /* chatPage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "chat";*/break;
-                          case "4": messagePage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "messages";break;
+                          case "4": messagePage.state = "Active",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "messages";break;
                           case "5": messagePage.state = "InActive", requestPage.state = "Active",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "requests";break;
                           case "6": /* eventsPage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "events"; */break;
 
@@ -343,20 +343,20 @@ Item {
                                             type:1
                                     } */
 
-                                /*   ListElement {
+                                   ListElement {
                                            menuitem: "4"
                                             type:1
-                                    } */
+                                    }
 
                                     ListElement {
                                             menuitem: "5"
                                             type:1
                                     }
 
-                                   /* ListElement {
+                                    ListElement {
                                             menuitem: "6"
                                             type:1
-                                    } */
+                                    }
 
                                 }
 

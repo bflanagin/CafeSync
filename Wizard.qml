@@ -180,7 +180,7 @@ Item {
                             horizontalAlignment: Text.AlignHCenter
                             text:message
                             anchors.horizontalCenter: parent.horizontalCenter
-                            font.pixelSize: parent.height * 0.02
+                            font.pixelSize: parent.width * 0.04
 
                         }
 
@@ -887,12 +887,12 @@ Item {
             image:"./img/email.svg"
         }
 
-        ListElement {
+       /* ListElement {
             thetitle: qsTr("Online")
             message:qsTr("To make your card shine consider connecting to one or more of these services")
             type:7
             image:"./img/stock_website.svg"
-        }
+        } */
 
        /* ListElement {
             thetitle: qsTr("Say Cheese!")

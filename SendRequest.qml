@@ -130,7 +130,7 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                Request.send_request(currentcard_thecard,Scrubber.replaceSpecials(requestmessage.text));
+                Request.send_request(currentcard_thecard,requestmessage.text);
 
                 thisWindow.state = "InActive"
 

@@ -58,7 +58,7 @@ import "openseed.js" as OpenSeed
 
 
 
-                                    Timer {id:selfdestruct;interval:3000; running: true; repeat: true
+                                   /* Timer {id:selfdestruct;interval:3000; running: true; repeat: false
                                         onTriggered: {
 
                                                 if(issaved != 1) {
@@ -78,7 +78,7 @@ import "openseed.js" as OpenSeed
                                                 }
                                                 //Scripts.Temp_load(searchtext);
                                         }
-                                    }
+                                    } */
 
 
                                     Timer {
@@ -267,14 +267,14 @@ import "openseed.js" as OpenSeed
                                         }
                                         } */
 
-                                        Image {
+                                        /*Image {
                                             visible:if(cardsop == 2) {true} else {false}
                                             source:cardb
                                             anchors.fill:parent
                                             height:parent.height
 
                                             fillMode:Image.PreserveAspectFit
-                                        }
+                                        } */
 
 
                                     }
