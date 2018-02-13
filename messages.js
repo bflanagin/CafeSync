@@ -168,7 +168,7 @@ function retrieve_conversations(room) {
                    //console.log("up to date");
                     // remote = 0;
                 } else {
-                  // console.log("from RC server: "+raw);
+                   //console.log("from RC server: "+raw);
                     var fromserver = raw.split("><");
                     var sync = 1;
                     var dataStr1;
@@ -186,10 +186,6 @@ function retrieve_conversations(room) {
                          db.transaction(function(tx) {
 
                              var pull = tx.executeSql(dataStr1);
-
-                              var pull1 = tx.executeSql(dataStr2);
-
-
 
                              otherperson = pull.rows.item(0).name;
 
@@ -217,11 +213,12 @@ function retrieve_conversations(room) {
 
 
                             }
-                            save_messages(userid,room," "," "," "," "," ",messageblock[3],messageblock[4],messageblock[2]);
+
+                            save_messages(userid,messageblock[2]," "," "," "," "," ",messageblock[3],messageblock[4],messageblock[2]);
 
 
                         var lr = 0;
-                                notificationClient.notification = "New Chat from: "+otherperson;
+
 
                              conversed.append({
                                                   who:messageblock[2],
@@ -331,38 +328,67 @@ function save_messages(theid,name,avatar1,part_id,part_names,part_avatar,roomid,
 
    // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
+    var dataStr1;
+    var otherperson;
+    var data = [theid,name,avatar1,part_id,part_names,part_avatar,roomid,mesgdate,themessage,thespeaker];
 
-
-    var data = [theid,name,avatar1,part_id,part_names,part_avatar,roomid,mesgdate,themessage.replace(/\'/g,"&#x27;"),thespeaker];
+     //console.log("From save_messages "+data);
 
     var userStr = "INSERT INTO CHATS VALUES(?,?,?,?,?,?,?,?,?,?)";
 
 
-    var testStr = "SELECT  *  FROM CHATS WHERE id='"+theid+"' AND date='"+mesgdate+"' AND message='"+themessage.replace(/\'/g,"&#x27;")+"'";
+    var testStr = "SELECT  *  FROM CHATS WHERE name='"+name+"' AND date='"+mesgdate+"' AND message='"+themessage+"'";
 
         db.transaction(function(tx) {
 
             tx.executeSql('CREATE TABLE IF NOT EXISTS CHATS (id TEXT, name TEXT,avatar TEXT,part_id TEXT, part_names TEXT,part_avatar TEXT,roomid TEXT,date TEXT,message TEXT,speaker TEXT)');
 
             var pull = tx.executeSql(testStr);
+           // console.log("From save_messages database input "+data);
 
             if(pull.rows.length == 0) {
+               // console.log("Inserting");
 
             tx.executeSql(userStr,data);
 
+                    if(name.split(",")[0] != usercardNum) {
+                        dataStr1 = "SELECT  name,avatar  FROM SavedCards WHERE `id` ='"+name.split(",")[0]+"' AND `id` !=''";
+                       db.transaction(function(tx) {
+
+                           var pull = tx.executeSql(dataStr1);
+
+                           otherperson = pull.rows.item(0).name;
+
+                    });
+
+                    } else {
+
+                         dataStr1 = "SELECT  name,avatar  FROM SavedCards WHERE `id` ='"+name.split(",")[1]+"' AND `id` !=''";
+                       db.transaction(function(tx) {
+
+                           var pull = tx.executeSql(dataStr1);
+
+                           otherperson = pull.rows.item(0).name;
+
+                    });
+
                     }
+
+                    if(themessage == "<begin>") {
+                    notificationClient.notification = "New Chat from: "+otherperson;
+                    } else {
+                        totalNewMessages = totalNewMessages + 1;
+                        notificationClient.notification = "New Message from: "+otherperson;
+                    }
+
+
+
+                       // console.log("Already there");
+            }
 
         });
 
-         db.transaction(function(tx) {
 
-             tx.executeSql('CREATE TABLE IF NOT EXISTS AREAS (id TEXT, roomid TEXT,party INT,lastdate TEXT,lastmessage TEXT)');
-
-            var updateArea = "UPDATE AREAS SET lastdate='"+Date()+"',party='"+name+"',lastmessage='"+themessage.replace(/\'/g,"&#x27;")+"' WHERE roomid='"+roomid+"'";
-
-            tx.executeSql(updateArea);
-
-         });
 
 }
 
