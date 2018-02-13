@@ -193,7 +193,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
     property string connected:""
 
 
-    property string roomId: "0"
+
 
     // width: units.gu(175)
     //height: units.gu(100)
@@ -425,6 +425,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         id:topBar
         z:1
         clip:true
+        //visible: false
 
 
 
@@ -846,7 +847,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
                 Text {
                     anchors.centerIn: parent
-                    text: messagePage.area
+                    text: if(messagePage.area =="Chat") {messagePage.whowith} else {messagePage.area}
                     font.pixelSize: parent.height * 0.4
                     color:fontColorTitle
                 }
@@ -886,19 +887,32 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
                 MouseArea {
                     anchors.fill:parent
-                    onClicked: {
+                    onClicked: { if(messagePage.from =="Menu") {
                             if(messagePage.area == "Conversations") {
                         messagePage.state  = "InActive",
-                        themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0,topBar.state = "standard"//,mainScreen.state = "InActive",pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
+                        themenu.state = "InActive",
+                        settingsPage.state = "InActive",
+                        mainMenu.rotation = 0,
+                        topBar.state = "standard"
+                        //,mainScreen.state = "InActive",pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
                             } else if (messagePage.area == "Chat") {
                                 messagePage.showroom  = false;
+                                messagePage.area == "Conversations"
                                 //themenu.state = "InActive",settingsPage.state = "InActive",mainMenu.rotation = 0,topBar.state = "standard"//,mainScreen.state = "InActive",pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
                             } else {
 
                                 messageContactsPage.state = "InActive"
 
                             }
-                            }
+                            } else {
+                                 messagePage.showroom  = false;
+                                messagePage.state  = "InActive";
+                                topBar.state = "person";
+                                messagePage.from ="Menu";
+
+                    }
+
+                }
 
                    // onPressed: setflick.state = "Active"
                    // onReleased: setflick.state = "InActive"
@@ -2019,6 +2033,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                     width:parent.width
                     height:parent.height * 0.08
                     color:bottombarColor
+                   //visible: false
 
                 Item {
                     id:privimg
@@ -2347,6 +2362,13 @@ ListModel {
 
     }
 
+Image {
+    id:mask
+    anchors.fill:parent
+    source:"/graphics/CafeSync.png"
+    visible: false
+
+}
 
 
 }

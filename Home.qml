@@ -60,6 +60,7 @@ Item {
         width:parent.width * 0.99
         height:info.height * 1.2
         clip:true
+        visible: false
 
         Row {
             x:5
@@ -88,13 +89,13 @@ Item {
                 }
             }
 
-            Image {
+          /*  Image {
                 id:mask
                 anchors.fill:img
                 source:"/graphics/CafeSync.png"
                 visible: false
 
-            }
+            } */
 
             OpacityMask {
                 id:optmask
@@ -732,7 +733,15 @@ Item {
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true
-                  onClicked: Qt.openUrlExternally('sms:'+carduserphone)
+                 // onClicked: Qt.openUrlExternally('sms:'+carduserphone)
+                  onClicked: { messagePage.state = "Active";
+                               messagePage.roomId = usercardNum+','+cardId;
+                               messagePage.showroom = true;
+                               messagePage.from = "Card";
+                               topBar.state = "messages";
+
+              }
+
               }
 
           }

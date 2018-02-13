@@ -123,7 +123,7 @@ import "openseed.js" as OpenSeed
                                            // border.width: 1
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             anchors.verticalCenter: parent.verticalCenter
-
+                                            visible: false
                                             clip:true
 
 
@@ -162,13 +162,7 @@ import "openseed.js" as OpenSeed
                                                     }
                                                 }
 
-                                                Image {
-                                                    id:mask
-                                                    anchors.fill:parent
-                                                    source:"/graphics/CafeSync.png"
-                                                    visible: false
 
-                                                }
 
                                                 OpacityMask {
                                                      anchors.fill: cardsava

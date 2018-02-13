@@ -32,6 +32,8 @@ function check_messages(user) {
                 } else if(messagelist != http.responseText){
                         messagelist =http.responseText;
                         retrieve_messages(user,userid);
+
+                   // notificationClient.notification = "New Message from "+user;
                 }
             }
 
@@ -51,6 +53,8 @@ function retrieve_messages(room,theid) {
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/corescripts/chats.php";
    // console.log(url)
+     whowith = "Chat";
+
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
             //console.log(http.responseText);
@@ -76,6 +80,7 @@ function retrieve_messages(room,theid) {
                         var dataStr1;
                          if(messageblock[8].search("<begin>") == -1){
                              var otherperson;
+
                              var otherava;
                              //console.log(messageblock[9]);
                              if(messageblock[9] != usercardNum) {
@@ -85,7 +90,7 @@ function retrieve_messages(room,theid) {
                               var pull = tx.executeSql(dataStr1);
 
                               otherperson = pull.rows.item(0).name;
-
+                                whowith = otherperson;
                               if(pull.rows.item(0).avatar.length < 4) { otherava = "img/default_avatar.png"} else {otherava = pull.rows.item(0).avatar
                                            if(otherava.search("/9j/4A") != -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
 
@@ -145,6 +150,9 @@ function retrieve_conversations(room) {
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/corescripts/chats.php";
    // console.log(url)
+
+
+
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
             //console.log(http.responseText);
@@ -160,10 +168,11 @@ function retrieve_conversations(room) {
                    //console.log("up to date");
                     // remote = 0;
                 } else {
-                   console.log("from RC server: "+raw);
+                  // console.log("from RC server: "+raw);
                     var fromserver = raw.split("><");
                     var sync = 1;
                     var dataStr1;
+                    var dataStr2;
                     var you;
                     var otherperson;
                     var otherava;
@@ -172,9 +181,15 @@ function retrieve_conversations(room) {
                         var messageblock = fromserver[sync].split("::");
                             if(messageblock[2].split(",")[0] != usercardNum) {
                           dataStr1 = "SELECT  name,avatar  FROM SavedCards WHERE `id` ='"+messageblock[2].split(",")[0]+"' AND `id` !=''";
+
+
                          db.transaction(function(tx) {
 
                              var pull = tx.executeSql(dataStr1);
+
+                              var pull1 = tx.executeSql(dataStr2);
+
+
 
                              otherperson = pull.rows.item(0).name;
 
@@ -202,8 +217,11 @@ function retrieve_conversations(room) {
 
 
                             }
+                            save_messages(userid,room," "," "," "," "," ",messageblock[3],messageblock[4],messageblock[2]);
+
 
                         var lr = 0;
+                                notificationClient.notification = "New Chat from: "+otherperson;
 
                              conversed.append({
                                                   who:messageblock[2],
@@ -249,9 +267,10 @@ function send_messages(user,message) {
             } else if(http.responseText == 101) {
                 console.log("Incorrect AppID");
             } else {
-                console.log(http.responseText);
+              //  console.log(http.responseText);
                 messageField.text = "";
                 //createdb();
+                //save_messages(userid,user," "," "," "," "," ",mesgdate.getTime(),message,usercardNum);
             }
 
         }
@@ -339,9 +358,7 @@ function save_messages(theid,name,avatar1,part_id,part_names,part_avatar,roomid,
 
              tx.executeSql('CREATE TABLE IF NOT EXISTS AREAS (id TEXT, roomid TEXT,party INT,lastdate TEXT,lastmessage TEXT)');
 
-            var updateArea = "UPDATE AREAS SET lastdate='"+Date()+"',party='"+part_id.split(";").length+"',lastmessage='"+currentmessage.replace(/\'/g,"&#x27;")+"' WHERE roomid='"+roomid+"'";
-
-
+            var updateArea = "UPDATE AREAS SET lastdate='"+Date()+"',party='"+name+"',lastmessage='"+themessage.replace(/\'/g,"&#x27;")+"' WHERE roomid='"+roomid+"'";
 
             tx.executeSql(updateArea);
 

@@ -21,6 +21,9 @@ Item {
     property bool contactlist: false
     property bool showroom: false
     property int messagelist: 0
+    property string from: "Menu"
+    property string whowith: "Chat"
+    property string roomId: "0"
 
 
     clip: true
@@ -75,6 +78,8 @@ Item {
 
     onStateChanged: if(thisWindow.state == "Active") {Message.retrieve_conversations(usercardNum)}
 
+
+
     Timer {
         id:checkchat
         interval:2000
@@ -82,6 +87,15 @@ Item {
         repeat:true
         onTriggered:Message.check_messages(roomId)
     }
+
+    Timer {
+        id:chatsanthings
+        interval:1000
+        running:true
+        //repeat:true
+        onTriggered:Message.retrieve_conversations(usercardNum)
+    }
+
 
 
     Item {
