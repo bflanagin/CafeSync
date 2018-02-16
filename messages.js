@@ -49,11 +49,11 @@ function check_messages(user) {
 function retrieve_messages(room,theid) {
     //remote = 1;
     //console.log("sending to server: "+currentmessage+" : "+mesgdate);
-    chatlog.clear();
+
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/corescripts/chats.php";
    // console.log(url)
-     whowith = "Chat";
+    // whowith = "Chat";
 
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
@@ -70,60 +70,14 @@ function retrieve_messages(room,theid) {
                    //console.log("up to date");
                     // remote = 0;
                 } else {
-                  // console.log("from server: "+raw);
+                   //console.log("from server: "+raw);
                     var fromserver = raw.split("><");
                     var sync = 1;
-                     while(sync < fromserver.length) {
+                     while(sync < (fromserver.length -1)) {
                         var messageblock = fromserver[sync].split("::");
                         var lr = 0;
-                   //save_chat(messageblock[0],messageblock[1],messageblock[2],messageblock[3],messageblock[4],messageblock[5],messageblock[6],messageblock[7],messageblock[8],messageblock[9]);
-                        var dataStr1;
-                         if(messageblock[8].search("<begin>") == -1){
-                             var otherperson;
+                   save_messages(messageblock[0],messageblock[1],messageblock[2],messageblock[3],messageblock[4],messageblock[5],messageblock[6],messageblock[7],messageblock[8],messageblock[9]);
 
-                             var otherava;
-                             //console.log(messageblock[9]);
-                             if(messageblock[9] != usercardNum) {
-                           dataStr1 = "SELECT  name,avatar  FROM SavedCards WHERE `id` ='"+messageblock[9].split(",")[0]+"' AND `id` !=''";
-                          db.transaction(function(tx) {
-
-                              var pull = tx.executeSql(dataStr1);
-
-                              otherperson = pull.rows.item(0).name;
-                                whowith = otherperson;
-                              if(pull.rows.item(0).avatar.length < 4) { otherava = "img/default_avatar.png"} else {otherava = pull.rows.item(0).avatar
-                                           if(otherava.search("/9j/4A") != -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
-
-                              }
-
-                          });
-                             } /*else if(messageblock[9].split(",")[1] != usercardNum) {
-                                  dataStr1 = "SELECT  name,avatar  FROM SavedCards WHERE `id` ='"+messageblock[9].split(",")[1]+"' AND `id` !=''";
-                                 db.transaction(function(tx) {
-
-                                     var pull = tx.executeSql(dataStr1);
-
-                                     otherperson = pull.rows.item(0).name;
-
-                                     if(pull.rows.item(0).avatar.length < 4) { otherava = "img/default_avatar.png"} else {otherava = pull.rows.item(0).avatar
-                                                  if(otherava.search("/9j/4A") != -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
-
-                                     }
-
-                                 });
-
-
-
-                             } */
-
-                                //currentmessage = messageblock[8];
-
-                             chatlog.append({who:messageblock[9],
-                                            speaker:otherperson,
-                                            timecode:messageblock[7],
-                                            message:messageblock[8]});
-
-                         }
 
                         sync = sync + 1;
                     }
@@ -146,7 +100,7 @@ function retrieve_conversations(room) {
     //remote = 1;
     //console.log("sending to server: "+currentmessage+" : "+mesgdate);
   //  console.log("from RC:"+room);
-    conversed.clear();
+
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/corescripts/chats.php";
    // console.log(url)
@@ -179,40 +133,7 @@ function retrieve_conversations(room) {
                     var ava;
                      while(sync < fromserver.length) {
                         var messageblock = fromserver[sync].split("::");
-                            if(messageblock[2].split(",")[0] != usercardNum) {
-                          dataStr1 = "SELECT  name,avatar  FROM SavedCards WHERE `id` ='"+messageblock[2].split(",")[0]+"' AND `id` !=''";
 
-
-                         db.transaction(function(tx) {
-
-                             var pull = tx.executeSql(dataStr1);
-
-                             otherperson = pull.rows.item(0).name;
-
-                             if(pull.rows.item(0).avatar.length < 4) { otherava = "img/default_avatar.png"} else {otherava = pull.rows.item(0).avatar
-                                          if(otherava.search("/9j/4A") != -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
-
-                             }
-
-                         });
-                            } else {
-                                 dataStr1 = "SELECT  name,avatar  FROM SavedCards WHERE `id` ='"+messageblock[2].split(",")[1]+"' AND `id` !=''";
-                                db.transaction(function(tx) {
-
-                                    var pull = tx.executeSql(dataStr1);
-
-                                    otherperson = pull.rows.item(0).name;
-
-                                    if(pull.rows.item(0).avatar.length < 4) { otherava = "img/default_avatar.png"} else {otherava = pull.rows.item(0).avatar
-                                                 if(otherava.search("/9j/4A") != -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
-
-                                    }
-
-                                });
-
-
-
-                            }
 
                             save_messages(userid,messageblock[2]," "," "," "," "," ",messageblock[3],messageblock[4],messageblock[2]);
 
@@ -220,14 +141,6 @@ function retrieve_conversations(room) {
                         var lr = 0;
 
 
-                             conversed.append({
-                                                  who:messageblock[2],
-                                                  speaker:otherperson,
-                                                  timecode:messageblock[3],
-                                                  message:messageblock[4],
-                                                  avatar:otherava,
-
-                                              });
 
 
 
@@ -250,10 +163,10 @@ function retrieve_conversations(room) {
 
 function send_messages(user,message) {
     var mesgdate = new Date();
-
+        messageField.text = "";
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/corescripts/chats.php";
-    console.log("send message "+user+":"+message);
+    //console.log("send message "+user+":"+message);
    // console.log(url)
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
@@ -265,7 +178,7 @@ function send_messages(user,message) {
                 console.log("Incorrect AppID");
             } else {
               //  console.log(http.responseText);
-                messageField.text = "";
+
                 //createdb();
                 //save_messages(userid,user," "," "," "," "," ",mesgdate.getTime(),message,usercardNum);
             }
@@ -337,17 +250,17 @@ function save_messages(theid,name,avatar1,part_id,part_names,part_avatar,roomid,
     var userStr = "INSERT INTO CHATS VALUES(?,?,?,?,?,?,?,?,?,?)";
 
 
-    var testStr = "SELECT  *  FROM CHATS WHERE name='"+name+"' AND date='"+mesgdate+"' AND message='"+themessage+"'";
+    var testStr = "SELECT  *  FROM CHATS WHERE name='"+name+"' AND date='"+mesgdate+"' AND message='"+themessage+"' AND speaker='"+thespeaker+"'";
 
         db.transaction(function(tx) {
 
             tx.executeSql('CREATE TABLE IF NOT EXISTS CHATS (id TEXT, name TEXT,avatar TEXT,part_id TEXT, part_names TEXT,part_avatar TEXT,roomid TEXT,date TEXT,message TEXT,speaker TEXT)');
 
             var pull = tx.executeSql(testStr);
-           // console.log("From save_messages database input "+data);
+          //  console.log("From save_messages database input "+data);
 
             if(pull.rows.length == 0) {
-               // console.log("Inserting");
+             //   console.log("Inserting");
 
             tx.executeSql(userStr,data);
 
@@ -377,8 +290,28 @@ function save_messages(theid,name,avatar1,part_id,part_names,part_avatar,roomid,
                     if(themessage == "<begin>") {
                     notificationClient.notification = "New Chat from: "+otherperson;
                     } else {
+                        if(messagePage.showroom == true && roomId == name) {
+                            console.log("updating chat");
+
+
+                            if(lastmessage != mesgdate) {
+
+                            chatlog.append({who:thespeaker,
+                                            speaker:otherperson,
+                                            timecode:mesgdate,
+                                            message:themessage
+                                           });
+                                chatLog.positionViewAtEnd();
+
+                            lastmessage =mesgdate;
+                            }
+
+                        }
+
                         totalNewMessages = totalNewMessages + 1;
+                        if(thespeaker !=usercardNum) {
                         notificationClient.notification = "New Message from: "+otherperson;
+                        }
                     }
 
 
@@ -424,6 +357,144 @@ function contactlist() {
             num = num + 1;
         }
 
+    });
+
+}
+
+function show_chat(room) {
+
+    var sync = 0;
+    var reverseroom = room.split(",")[1]+","+room.split(",")[0];
+    var getstuff = "SELECT  * FROM CHATS WHERE `name` ='"+room+"' OR `name` ='"+reverseroom+"' ORDER BY date ASC";
+
+    //console.log(room);
+
+     chatlog.clear();
+
+    var you;
+    var them;
+
+    if(room.split(",")[0] == usercardNum) {
+        you = room.split(",")[0];
+        them = room.split(",")[1];
+    } else {
+        you = room.split(",")[1];
+        them = room.split(",")[0];
+    }
+
+    db.transaction(function(tx) {
+
+
+        var chat = tx.executeSql(getstuff);
+
+     while(sync < chat.rows.length) {
+
+         //console.log(chat.rows.item(sync).speaker);
+
+        if(chat.rows.item(sync).speaker == you || chat.rows.item(sync).speaker == them) {
+
+            //console.log(chat.rows.item(sync).speaker);
+
+        var lr = 0;
+        var dataStr1;
+         var text = chat.rows.item(sync).message;
+         if(text.search("<begin>") == -1){
+             var otherperson;
+
+             var otherava;
+
+             if(them != usercardNum ) {
+                    dataStr1 = "SELECT  name,avatar  FROM SavedCards WHERE `id` ='"+them+"' AND `id` !=''";
+
+              var pull = tx.executeSql(dataStr1);
+
+              otherperson = pull.rows.item(0).name;
+                whowith = otherperson;
+              if(pull.rows.item(0).avatar.length < 4) { otherava = "img/default_avatar.png"} else {otherava = pull.rows.item(0).avatar
+                           if(otherava.search("/9j/4A") != -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
+
+              }
+
+
+             }
+
+            chatlog.append({who:chat.rows.item(sync).speaker,
+                            speaker:otherperson,
+                            timecode:chat.rows.item(sync).date,
+                            message:chat.rows.item(sync).message
+                           });
+                chatLog.positionViewAtEnd();
+         }
+
+        }
+
+        sync = sync + 1;
+    }
+
+    });
+
+}
+
+function show_conversations(room) {
+    var sync = 0;
+    var dataStr1;
+    var otherperson;
+    var otherava;
+    var you;
+    var them;
+    var convers = [];
+
+     conversed.clear();
+
+   // var reverseroom = room.split(",")[1]+","+room.split(",")[0];
+    //var getstuff = "SELECT  * FROM CHATS WHERE `name` LIKE '"+room+",%' OR `name` ='%,"+room+"' AND `speaker` ='"+room+",%' OR `speaker` ='%,"+room+"' ORDER BY date DESC";
+
+    var getstuff = "SELECT  * FROM CHATS WHERE `name` LIKE '"+room+",%' OR `name` LIKE '%,"+room+"' AND `speaker` LIKE '"+room+",%' OR `speaker` LIKE '%,"+room+"' ORDER BY date DESC";
+
+     db.transaction(function(tx) {
+
+        var pull = tx.executeSql(getstuff);
+         var pulls;
+         console.log("from show_conversations room"+ room + " number of conversations " + pull.rows.length);
+
+    while(sync < pull.rows.length) {
+
+         if(pull.rows.item(sync).speaker.split(",").length == 2) {
+
+             if(pull.rows.item(sync).speaker.split(",")[0] == usercardNum) {
+                 you = pull.rows.item(sync).speaker.split(",")[0];
+                 them = pull.rows.item(sync).speaker.split(",")[1];
+             } else {
+                 you = pull.rows.item(sync).speaker.split(",")[1];
+                 them = pull.rows.item(sync).speaker.split(",")[0];
+             }
+
+
+                dataStr1 = "SELECT  name,avatar  FROM SavedCards WHERE `id` ='"+them+"' AND `id` !=''";
+
+             pulls = tx.executeSql(dataStr1);
+
+                    otherperson = pulls.rows.item(0).name;
+
+            if(pulls.rows.item(0).avatar.length < 4) { otherava = "img/default_avatar.png"} else {otherava = pulls.rows.item(0).avatar
+                         if(otherava.search("/9j/4A") != -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
+
+            }
+            if(convers.toString().search(pull.rows.item(sync).name) == -1 ) {
+                convers.push(pull.rows.item(sync).name);
+           conversed.append({
+                                who:pull.rows.item(sync).name,
+                                speaker:otherperson,
+                                timecode:pull.rows.item(sync).date,
+                                message:pull.rows.item(sync).message,
+                                avatar:otherava,
+
+                            });
+        }
+
+         }
+        sync = sync + 1;
+}
     });
 
 }

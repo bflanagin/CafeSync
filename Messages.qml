@@ -25,6 +25,8 @@ Item {
     property string whowith: "Chat"
     property string roomId: "0"
 
+    property string lastmessage: ""
+
 
     clip: true
 
@@ -72,17 +74,17 @@ Item {
 
     ]
 
-    onShowroomChanged: if(showroom == true) {conversations.state = "Inactive",room.state = "Active",checkchat.running = true} else {conversations.state = "Active",room.state = "InActive",checkchat.running = false}
+    onShowroomChanged: if(showroom == true) {conversations.state = "Inactive",room.state = "Active",Message.show_chat(roomId),checkchat.running = true} else {conversations.state = "Active",room.state = "InActive",checkchat.running = false}
 
    // onAreaChanged: if(area == "Conversations") {Message.retrieve_conversations(usercardNum)}
 
-    onStateChanged: if(thisWindow.state == "Active") {Message.retrieve_conversations(usercardNum)}
+    onStateChanged: if(thisWindow.state == "Active") {Message.show_conversations(usercardNum),Message.retrieve_conversations(usercardNum)}
 
 
 
     Timer {
         id:checkchat
-        interval:2000
+        interval:1000
         running:false
         repeat:true
         onTriggered:Message.check_messages(roomId)
@@ -92,8 +94,8 @@ Item {
         id:chatsanthings
         interval:1000
         running:true
-        //repeat:true
-        onTriggered:Message.retrieve_conversations(usercardNum)
+        repeat:true
+        onTriggered:if(usercardNum != "") {Message.retrieve_conversations(usercardNum)}
     }
 
 
@@ -285,7 +287,7 @@ ListView {
 
         MouseArea {
             anchors.fill:parent
-            onClicked: {thisWindow.area = "Chat",messagePage.showroom = true,Message.check_messages(who)}
+            onClicked: {thisWindow.area = "Chat",messagePage.showroom = true,Message.check_messages(who),Message.show_chat(who)}
         }
     }
 
@@ -403,7 +405,7 @@ ListView {
     y:parent.width * 0.01
     width:parent.width
     height:parent.height - bottomBar.height
-    verticalLayoutDirection: ListView.BottomToTop
+    //verticalLayoutDirection: ListView.BottomToTop
 
     spacing:thisWindow.height * 0.01
     clip:true

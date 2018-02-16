@@ -9,7 +9,7 @@ Item {
 
                            // id:twitterButton
                             anchors.horizontalCenter: parent.horizontalCenter
-                            visible: if(type == 1) {true} else {false}
+                            visible: if(type != 0) {true} else {false}
 
                         Rectangle {
                             id:twb

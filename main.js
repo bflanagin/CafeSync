@@ -239,7 +239,6 @@ function load_Card() {
 
            // heartbeats.running = true;
 
-
         } else {
             cardloaded = 0; }
     });
@@ -257,6 +256,20 @@ function load_Card() {
 
             connect.start();
 
+          /*  console.log(usercardNum);
+            if(usercardNum == "150") {
+                backgroundColor=Qt.rgba(0.98,0.90,0.90,1);
+
+                highLightColor1= Qt.rgba(0.99,0.95,0.88,1);
+                seperatorColor1= "#795548";
+                barColor= Qt.rgba(0.98,0.68,0.68,1);
+                bottombarColor= Qt.rgba(0.98,0.68,0.68,1);
+                activeColor= "#6E4879";
+                cardcolor= Qt.rgba(0.98,0.95,0.95,1);
+                overlayColor= "#795548";
+                fontColorTitle= "black";
+            } */
+
            // heartbeats.running = true;
 
 
@@ -264,6 +277,8 @@ function load_Card() {
             connect.start();
             cardloaded = 0; }
     });
+
+
 
 
 
@@ -1855,18 +1870,18 @@ function fillsites() {
 
    if(usermain.length <=1) {
                     socialcontracts.append({
-                                     type:1,
+                                     type:2,
                                      service:"",
-                                     source:"Add New Source",
+                                     source:qsTr("Add New Source"),
                                      bgcolor:cardcolor,
                                      serviceLogo:"./img/add.svg",
                                      po: 0
                                      });
         } else if(website1.length <=1) {
                   socialcontracts.append({
-                                     type:1,
+                                     type:2,
                                      service:"",
-                                     source:"Add New Source",
+                                     source:qsTr("Add New Source"),
                                      bgcolor:cardcolor,
                                      serviceLogo:"./img/add.svg",
                                      po: 1
@@ -1875,9 +1890,9 @@ function fillsites() {
      }else if(website2.length <=1) {
 
                     socialcontracts.append({
-                                     type:1,
+                                     type:2,
                                      service:"",
-                                     source:"Add New Source",
+                                     source:qsTr("Add New Source"),
                                      bgcolor:cardcolor,
                                      serviceLogo:"./img/add.svg",
                                      po: 2
@@ -1886,9 +1901,9 @@ function fillsites() {
        }else if(website3.length <=1) {
 
                     socialcontracts.append({
-                                     type:1,
+                                     type:2,
                                      service:"",
-                                     source:"Add New Source",
+                                     source:qsTr("Add New Source"),
                                      bgcolor:cardcolor,
                                      serviceLogo:"./img/add.svg",
                                      po:3
@@ -1897,9 +1912,9 @@ function fillsites() {
            } else if(website4.length <=1) {
 
                     socialcontracts.append({
-                                     type:1,
+                                     type:2,
                                      service:"",
-                                     source:"Add New Source",
+                                     source:qsTr("Add New Source"),
                                      bgcolor:cardcolor,
                                      serviceLogo:"./img/add.svg",
                                      po:4

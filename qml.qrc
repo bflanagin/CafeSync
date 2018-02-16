@@ -219,5 +219,6 @@
         <file>MessageContacts.qml</file>
         <file>img/add.svg</file>
         <file>img/reload.svg</file>
+        <file>SocialOptfull.qml</file>
     </qresource>
 </RCC>

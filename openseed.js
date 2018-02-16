@@ -50,7 +50,7 @@ function heartbeat() {
             } else {
 
                 heart = http.responseText;
-                updateinterval = 500;
+                updateinterval = 1500;
 
                //console.log(heart);
 
@@ -60,10 +60,11 @@ function heartbeat() {
             } else {
                     heart = "Offline";
                     updateinterval = 500 + updateinterval;
-            //console.log(heart);
+           // console.log(heart);
 
 
         }
+       heartbeats.interval = updateinterval;
     }
     http.open('POST', url.trim(), true);
    // console.log(http.statusText);
@@ -71,7 +72,7 @@ function heartbeat() {
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     http.send("devid=" + devId + "&appid=" + appId + "&userid="+ userid);
 
-    heartbeats.interval = updateinterval;
+    //
 
 }
 

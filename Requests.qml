@@ -193,7 +193,7 @@ ListView {
     }
 }
 
-/*Rectangle {
+Rectangle {
     id:bottomBar
     anchors.bottom:parent.bottom
     width:parent.width
@@ -206,10 +206,24 @@ ListView {
         anchors.horizontalCenter:parent.horizontalCenter
         height:parent.height * 0.6
         width:parent.height * 0.6
-        source:"./img/add.svg"
+        source:"./img/email.svg"
 
         Flasher {
 
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: Qt.openUrlExternally(Qt.openUrlExternally('mailto:?subject=CafeSync%20Invite&body=Connect with '+username+' on CafeSync
+
+Never heard of CafeSync?
+
+Find out more by checking out the link below.
+
+https://www.vagueentertainment.com/?page_id=434
+
+                            Sent from CafeSync
+                            '))
         }
     }
 
@@ -224,7 +238,7 @@ DropShadow {
     color: "#80000000"
     source:bottomBar
     z:1
-} */
+}
 
 
 }

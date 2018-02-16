@@ -1455,7 +1455,7 @@ Rectangle {
 
                                 MouseArea {
                                     anchors.fill: parent
-                                    onClicked:{ sConnect.state = "Active",sConnect.service = "", sConnect.type = "intergration", sConnect.po = po
+                                    onClicked:{if(type == 2) {sConnect.state = "Active",sConnect.service = "", sConnect.type = "intergration", sConnect.po = po
                                                 switch (po) {
                                                     case 0: sConnect.useraccount = usermain;break;
                                                     case 1: sConnect.useraccount = website1;break;
@@ -1464,6 +1464,7 @@ Rectangle {
                                                     case 4: sConnect.useraccount = website4;break;
                                                         }
                                                 }
+                                            }
                                         }
 
                               /*  Rectangle {

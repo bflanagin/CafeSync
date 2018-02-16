@@ -272,10 +272,10 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
     Timer {
         id:heartbeats
-        interval: 500
+        interval: 8000
         running:false
         repeat:true
-        onTriggered:OpenSeed.heartbeat(),Request.check_requests(),console.log(heart);
+        onTriggered:OpenSeed.heartbeat(),Request.check_requests();
     }
 
     Timer {
