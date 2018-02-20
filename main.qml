@@ -325,11 +325,11 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
     Timer {
         id:gpsupdate
-        interval:1000000
+        interval:100000
         running: true
         repeat: true
         onTriggered:{
-           // notificationClient.notification = "Updating your location.";
+           notificationClient.notification = "Updating your location.";
             gpsupdate.interval = offset;
             if(userid != "" && cardloaded == 1) {
         if (positionSource.supportedPositioningMethods ===
@@ -401,7 +401,8 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
                                    lat = lat.toFixed(3);
                                     log = log.toFixed(3);
-                                    currentcords = lat+","+log
+                                    currentcords = lat+","+log;
+                                    //console.log(currentcords);
                                     }
 
             onSourceErrorChanged: {

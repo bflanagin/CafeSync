@@ -76,7 +76,7 @@ function retrieve_messages(room,theid) {
                      while(sync < (fromserver.length -1)) {
                         var messageblock = fromserver[sync].split("::");
                         var lr = 0;
-                   save_messages(messageblock[0],messageblock[1],messageblock[2],messageblock[3],messageblock[4],messageblock[5],messageblock[6],messageblock[7],messageblock[8],messageblock[9]);
+                             save_messages(messageblock[0],messageblock[1],messageblock[2],messageblock[3],messageblock[4],messageblock[5],messageblock[6],messageblock[7],messageblock[8],messageblock[9]);
 
 
                         sync = sync + 1;
@@ -264,8 +264,9 @@ function save_messages(theid,name,avatar1,part_id,part_names,part_avatar,roomid,
 
             tx.executeSql(userStr,data);
 
-                    if(name.split(",")[0] != usercardNum) {
-                        dataStr1 = "SELECT  name,avatar  FROM SavedCards WHERE `id` ='"+name.split(",")[0]+"' AND `id` !=''";
+                        if(thespeaker != usercardNum) {
+
+                         dataStr1 = "SELECT  name,avatar  FROM SavedCards WHERE `id` ='"+thespeaker+"' AND `id` !=''";
                        db.transaction(function(tx) {
 
                            var pull = tx.executeSql(dataStr1);
@@ -274,18 +275,10 @@ function save_messages(theid,name,avatar1,part_id,part_names,part_avatar,roomid,
 
                     });
 
-                    } else {
+                        } else {
+                            otherperson = "";
+                        }
 
-                         dataStr1 = "SELECT  name,avatar  FROM SavedCards WHERE `id` ='"+name.split(",")[1]+"' AND `id` !=''";
-                       db.transaction(function(tx) {
-
-                           var pull = tx.executeSql(dataStr1);
-
-                           otherperson = pull.rows.item(0).name;
-
-                    });
-
-                    }
 
                     if(themessage == "<begin>") {
                     notificationClient.notification = "New Chat from: "+otherperson;

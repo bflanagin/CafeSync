@@ -495,6 +495,7 @@ Rectangle {
     }
    TextField {
        id:messageField
+       focus: true
        anchors.verticalCenter: parent.verticalCenter
        anchors.horizontalCenter: parent.horizontalCenter
       // anchors.left:addstuff.right
@@ -502,6 +503,8 @@ Rectangle {
        width:parent.width - addstuff.width * 1.8 - sendMsg.width * 1.5
        height:parent.height * 0.6
        maximumLength: 144
+        Keys.onPressed: { if (event.key == Qt.Key_Enter || event.key == Qt.Key_Return) {Message.send_messages(roomId,messageField.text)} }
+
    }
 
    Image {
@@ -521,6 +524,8 @@ Rectangle {
         }
 
    }
+
+
 
 
 }
