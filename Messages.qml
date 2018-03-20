@@ -223,13 +223,13 @@ ListView {
 
                 }
 
-                Image {
+                /*Image {
                     id:mask
                     anchors.fill:parent
                     source:"/graphics/CafeSync.png"
                     visible: false
 
-                }
+                } */
 
                 OpacityMask {
                      anchors.fill: contactImg
@@ -254,13 +254,7 @@ ListView {
                     horizontalAlignment: Text.AlignLeft
                     //anchors.left:parent.left
 
-                    Text {
-                        text:timecode
-                        width:parent.width * 0.5
-                        horizontalAlignment: Text.AlignRight
-                        anchors.right:parent.right
-                        opacity: 0.2
-                    }
+
                 }
 
 
@@ -280,6 +274,15 @@ ListView {
                  horizontalAlignment: Text.LeftRight
                 wrapMode: Text.WordWrap
                     }
+
+            Text {
+                text:timecode
+                width:parent.width * 0.5
+                font.pixelSize: thisWindow.height * 0.03
+                horizontalAlignment: Text.AlignRight
+                anchors.right:parent.right
+                opacity: 0.2
+            }
                 }
             }
 

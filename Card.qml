@@ -1,11 +1,4 @@
 import QtQuick 2.2
-//import Ubuntu.Components 1.2
-////import Ubuntu.Components.Pickers 0.1
-////import Ubuntu.Components.ListItems 1.0 as ListItem
-//import Ubuntu.Content 1.1
-//import Ubuntu.Layouts 1.0
-//import Ubuntu.Web 0.2
-//import Ubuntu.Components.Popups 1.0
 import QtQml 2.2
 import QtGraphicalEffects 1.0
 
@@ -58,7 +51,7 @@ import "openseed.js" as OpenSeed
 
 
 
-                                   /* Timer {id:selfdestruct;interval:3000; running: true; repeat: false
+                                    Timer {id:selfdestruct;interval:3000; running: true; repeat: false
                                         onTriggered: {
 
                                                 if(issaved != 1) {
@@ -78,12 +71,12 @@ import "openseed.js" as OpenSeed
                                                 }
                                                 //Scripts.Temp_load(searchtext);
                                         }
-                                    } */
+                                    }
 
 
                                     Timer {
                                         id:updatecard
-                                        interval: 10000+(index*100)
+                                        interval: 2000+(index*100)
                                         running: true
                                         repeat: false
 

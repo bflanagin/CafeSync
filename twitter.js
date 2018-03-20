@@ -60,7 +60,7 @@ http.onreadystatechange = function() {
 
 
 
-            while(num < posts.length) {
+            while(num < posts.length && num <= 5) {
                 var quote = "";
                 var tweet1 = "";
                 var image = "";

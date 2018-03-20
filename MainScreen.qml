@@ -31,12 +31,14 @@ GridView {
     flow:GridView.FlowTopToBottom
     boundsBehavior: Flickable.DragAndOvershootBounds
     flickableDirection: Flickable.VerticalFlick
+    //pressDelay: 1000
+    onDraggingVerticallyChanged: if (draggingVertically == true) {enabled = false}
    // highlightFollowsCurrentItem: true
     focus:true
     visible: true
     //cellHeight: units.gu(26)
     clip:true
-    cacheBuffer : 80
+    //cacheBuffer : 80
     cellHeight:parent.height //passerbyGrid.height
     cellWidth: mainScreen.width
 

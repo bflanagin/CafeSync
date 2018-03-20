@@ -58,7 +58,7 @@ http.onreadystatechange = function() {
 
             postcount = posts.length;
 
-            while(posts.length > num) {
+            while(posts.length > num && num <= 5) {
 
          // postinfo = pagedata.substring(pagedata.search('<article'),pagedata.search('</article>'));
                  if(posts[num].search('</article>') != -1) {

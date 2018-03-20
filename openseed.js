@@ -50,7 +50,7 @@ function heartbeat() {
             } else {
 
                 heart = http.responseText;
-                updateinterval = 1500;
+                updateinterval = 5500;
 
                //console.log(heart);
 

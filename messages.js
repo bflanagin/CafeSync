@@ -285,13 +285,13 @@ function save_messages(theid,name,avatar1,part_id,part_names,part_avatar,roomid,
                     } else {
                         if(messagePage.showroom == true && roomId == name) {
                             console.log("updating chat");
-
+                                var humanDate = new Date(chat.rows.item(sync).date*1);
 
                             if(lastmessage != mesgdate) {
 
                             chatlog.append({who:thespeaker,
                                             speaker:otherperson,
-                                            timecode:mesgdate,
+                                            timecode:humanDate.toLocaleDateString(),
                                             message:themessage
                                            });
                                 chatLog.positionViewAtEnd();
@@ -335,10 +335,12 @@ function contactlist() {
 
             if(connected.search(pull.rows.item(num).id) != -1) {
 
+                var humanDate = new Date(pull.rows.item(sync).date*1);
+
             collectedContacts.append({
                                          who:pull.rows.item(num).id,
-                                         speaker:pull.rows.item(num).name,
-                                         timecode:1243542,
+                                         speaker:pull.rows.item(num).date,
+                                         timecode:humanDate.toLocaleDateString(),
                                          message:pull.rows.item(num).company,
                                          //avatar:pull.rows.item(num).avatar
                                          avatar:ava
@@ -377,6 +379,7 @@ function show_chat(room) {
 
     db.transaction(function(tx) {
 
+            tx.executeSql('CREATE TABLE IF NOT EXISTS CHATS (id TEXT, name TEXT,avatar TEXT,part_id TEXT, part_names TEXT,part_avatar TEXT,roomid TEXT,date TEXT,message TEXT,speaker TEXT)');
 
         var chat = tx.executeSql(getstuff);
 
@@ -411,9 +414,11 @@ function show_chat(room) {
 
              }
 
+             var humanDate = new Date(chat.rows.item(sync).date*1);
+
             chatlog.append({who:chat.rows.item(sync).speaker,
                             speaker:otherperson,
-                            timecode:chat.rows.item(sync).date,
+                            timecode:humanDate.toLocaleDateString(),
                             message:chat.rows.item(sync).message
                            });
                 chatLog.positionViewAtEnd();
@@ -442,13 +447,19 @@ function show_conversations(room) {
    // var reverseroom = room.split(",")[1]+","+room.split(",")[0];
     //var getstuff = "SELECT  * FROM CHATS WHERE `name` LIKE '"+room+",%' OR `name` ='%,"+room+"' AND `speaker` ='"+room+",%' OR `speaker` ='%,"+room+"' ORDER BY date DESC";
 
+
+
     var getstuff = "SELECT  * FROM CHATS WHERE `name` LIKE '"+room+",%' OR `name` LIKE '%,"+room+"' AND `speaker` LIKE '"+room+",%' OR `speaker` LIKE '%,"+room+"' ORDER BY date DESC";
 
      db.transaction(function(tx) {
 
+         tx.executeSql('CREATE TABLE IF NOT EXISTS CHATS (id TEXT, name TEXT,avatar TEXT,part_id TEXT, part_names TEXT,part_avatar TEXT,roomid TEXT,date TEXT,message TEXT,speaker TEXT)');
+
         var pull = tx.executeSql(getstuff);
          var pulls;
          console.log("from show_conversations room"+ room + " number of conversations " + pull.rows.length);
+
+
 
     while(sync < pull.rows.length) {
 
@@ -475,10 +486,14 @@ function show_conversations(room) {
             }
             if(convers.toString().search(pull.rows.item(sync).name) == -1 ) {
                 convers.push(pull.rows.item(sync).name);
+
+                var humanDate = new Date(pull.rows.item(sync).date*1);
+
+
            conversed.append({
                                 who:pull.rows.item(sync).name,
                                 speaker:otherperson,
-                                timecode:pull.rows.item(sync).date,
+                                timecode:humanDate.toLocaleDateString(),
                                 message:pull.rows.item(sync).message,
                                 avatar:otherava,
 

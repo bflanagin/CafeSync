@@ -1750,6 +1750,7 @@ Rectangle {
  ProfileEntry {
      id:enterProfile
      //y:-settingsPage.y
+    // y:-topBar.height
      width:mainView.width
      height:mainView.height * 0.94
      state:"InActive"

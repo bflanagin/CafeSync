@@ -67,6 +67,10 @@ Item {
 
      onStateChanged: if(thisWindow.state == "Active"){Scripts.listimages()} else {camera.stop()}
 
+     MouseArea {
+         anchors.fill: parent
+         onClicked: console.log("")
+     }
 
 
 
@@ -162,7 +166,7 @@ Item {
             Image {
                 id:check
                 anchors.fill:viewport
-                fillMode: Image.PreserveAspectCrop
+                fillMode: Image.PreserveAspectFit
 
                 //visible: if(Image.Ready == 1) {true}
             }
@@ -170,13 +174,13 @@ Item {
 
             }
 
-            Image {
+          /*  Image {
                 id:mask
                 anchors.fill:parent
                 source:"/graphics/CafeSync.png"
                 visible: false
 
-            }
+            } */
 
             OpacityMask {
                 id:opmask
@@ -1087,6 +1091,7 @@ Item {
                 onImageSaved: {
 
                     thefile = path
+
 
                 }
             }

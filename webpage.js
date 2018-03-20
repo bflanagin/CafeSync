@@ -141,7 +141,7 @@ function rss_reader1(url) {
 
                 loading_info.text = thename+"\n"+themessage+"\n"+postcount;
 
-                while(allposts.length > num) {
+                while(allposts.length > num && num <= 5) {
                     var imagegetter = "";
                 var post = allposts[num].substring(0,allposts[num].search("</item>"));
 
@@ -283,7 +283,7 @@ function rss_medium(url) {
                 var allposts = pagedata.split("<item>");
 
                 postcount = allposts.length;
-                while(allposts.length > num) {
+                while(allposts.length > num && num <= 5) {
                     var imagegetter = "";
                 var post = allposts[num].substring(0,allposts[num].search("</item>"));
                      var mthelink = post.split('<link>')[1].split('</link>')[0];

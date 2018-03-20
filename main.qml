@@ -275,7 +275,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         interval: 8000
         running:false
         repeat:true
-        onTriggered:OpenSeed.heartbeat(),Request.check_requests();
+        onTriggered:if(firstrun.visible != true) {OpenSeed.heartbeat(),Request.check_requests();}
     }
 
     Timer {
@@ -328,8 +328,8 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         interval:100000
         running: true
         repeat: true
-        onTriggered:{
-           notificationClient.notification = "Updating your location.";
+        onTriggered: {
+          // notificationClient.notification = "Updating your location.";
             gpsupdate.interval = offset;
             if(userid != "" && cardloaded == 1) {
         if (positionSource.supportedPositioningMethods ===
@@ -347,7 +347,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
     Timer {
         id:get_list_updater
         interval:3000; running: true; repeat: true
-            onTriggered: {
+            onTriggered: if(firstrun.visible != true) {
                            // console.log("Updating List");
                         OpenSeed.retrieve_data(userid);
 
@@ -368,10 +368,12 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
             id:cardload
             interval:800; running: true; repeat:false
 
-                onTriggered: {
+                onTriggered: if(firstrun.visible != true) {
                           //  console.log("loading "+ listget);
                            // console.log("what the server has "+remotetemp);
                        // if (tempcheck != remotetemp) {
+
+
                      cardslist.clear();
                         Scripts.totals();
 
@@ -459,6 +461,10 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                     target:eventsBar
                     visible:false
                 }
+                PropertyChanges {
+                    target:topBar
+                    y:0
+                }
             },
 
 
@@ -489,6 +495,10 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                     target:eventsBar
                     visible:false
                 }
+                PropertyChanges {
+                    target:topBar
+                    y:0
+                }
             },
               State {
                 name:"settings"
@@ -516,6 +526,10 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                 PropertyChanges {
                     target:eventsBar
                     visible:false
+                }
+                PropertyChanges {
+                    target:topBar
+                    y:0
                 }
             },
             State {
@@ -545,6 +559,10 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                   target:eventsBar
                   visible:false
               }
+              PropertyChanges {
+                  target:topBar
+                  y:0
+              }
           },
 
             State {
@@ -573,6 +591,10 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
               PropertyChanges {
                   target:eventsBar
                   visible:false
+              }
+              PropertyChanges {
+                  target:topBar
+                  y:0
               }
           },
 
@@ -616,6 +638,10 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                     target:eventsBar
                     visible:false
                 }
+                PropertyChanges {
+                    target:topBar
+                    y:0
+                }
                       },
 
             State {
@@ -657,6 +683,10 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
               PropertyChanges {
                   target:eventsBar
                   visible:false
+              }
+              PropertyChanges {
+                  target:topBar
+                  y:0
               }
           },
 
@@ -700,6 +730,10 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                   target:eventsBar
                   visible:false
               }
+              PropertyChanges {
+                  target:topBar
+                  y:0
+              }
           },
 
             State {
@@ -742,7 +776,31 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                   target:eventsBar
                   visible:true
               }
+              PropertyChanges {
+                  target:topBar
+                  y:0
+              }
+          },
+
+            State {
+              name:"hide"
+               PropertyChanges {
+                   target:topBar
+                   y:-1*height
+               }
+
+          },
+            State {
+              name:"show"
+               PropertyChanges {
+                   target:topBar
+                   y:0
+               }
+
           }
+
+
+
 
         ]
         state:"standard"

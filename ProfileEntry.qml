@@ -23,7 +23,7 @@ Item {
 
     onStateChanged: if(state == "InActive") {thisWindow.enabled = false,skillname.text ="", certifed.checked ="", skillDiscription.text="",skillstartdate.text="",skillexpiredate.text="",years.text="",
                     companyname.text="",currentlyEmployeed.checked="",workDiscription.text="",workstartdate.text="",workleftdate.text="",workyears.text="",
-                    schoolname.text="",graduated.checked="",schoolDiscription.text="",graddate.text="",degree.text=""
+                    schoolname.text="",graduated.checked="",schoolDiscription.text="",graddate.text="",degree.text="",topBar.state ="settings"
                     } else {thisWindow.enabled = true}
 
     MouseArea {
