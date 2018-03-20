@@ -1523,12 +1523,12 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
             TextField {
                 id:searchtextfield
                 anchors.right:back.left
-                anchors.rightMargin: parent.width * 0.01
+                anchors.rightMargin: parent.width * 0.02
                 anchors.left:mainMenu2.right
-                anchors.leftMargin: parent.width * 0.01
+                anchors.leftMargin: parent.width * 0.02
                 anchors.verticalCenter: parent.verticalCenter
-
-
+               // height:parent.height
+                font.pixelSize: parent.width * 0.05
                 text:searchtext
                 placeholderText: qsTr(currentcat+":Search")
 

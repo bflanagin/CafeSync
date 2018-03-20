@@ -1,11 +1,11 @@
-import QtQuick 2.3
+import QtQuick 2.8
 import QtQuick.Dialogs 1.2
 //import QtWebKit 3.0
 //import QtWebView 1.0
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.2
-//import QtQuick.Controls.Material 2.2
+import QtQuick.Controls.Material 2.2
 import QtQuick.LocalStorage 2.0 as Sql
 import "main.js" as Scripts
 import "openseed.js" as OpenSeed
@@ -294,27 +294,27 @@ Item {
        //anchors.topMargin: 5
         width:parent.width * 0.98
         // text: qsTr("Name:")
-        text:username
+        text:""
          font.pixelSize:  (parent.width  - username.length * 1.5) * 0.12
 
 
 
-         MouseArea {
+       /*  MouseArea {
              anchors.fill: parent
              onClicked: userName.visible = true
-         }
+         } */
 
       TextField {
          id: userName
          anchors.left: parent.left
-        visible: false
+        visible: true
         // anchors.leftMargin: 4
          anchors.verticalCenter: parent.verticalCenter
          //anchors.top: parent.top
          text:if(cardindex == 0) {username }
          //verticalAlignment: TextInput.AlignTop
-           onVisibleChanged: if(visible == true) {focus = true}
-            onFocusChanged: if(focus == false) {visible = false}
+         //  onVisibleChanged: if(visible == true) {focus = true}
+           // onFocusChanged: if(focus == false) {visible = false}
          placeholderText: qsTr("User Name")
          font.pixelSize: (parent.width  - username.length * 1.5) * 0.12
         // width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
@@ -335,23 +335,23 @@ Item {
      // anchors.topMargin: 25
       width:parent.width * 0.85
       //text: qsTr("Position:")
-      text:useralias
+      text:""
 
       font.pixelSize: (parent.width  - useralias.length * 1.5) * 0.08
 
 
-      MouseArea {
+     /* MouseArea {
           anchors.fill: parent
           onClicked: userAlias.visible = true
-      }
+      } */
 
       TextField {
          id: userAlias
 
           anchors.verticalCenter: parent.verticalCenter
-            visible: false
-            onVisibleChanged: if(visible == true) {focus = true}
-            onFocusChanged: if(focus == false) {visible = false}
+            visible: true
+           // onVisibleChanged: if(visible == true) {focus = true}
+           // onFocusChanged: if(focus == false) {visible = false}
          anchors.left: parent.left
          //anchors.leftMargin: 4
         // anchors.bottom: parent.bottom
@@ -377,19 +377,19 @@ Item {
      // anchors.topMargin: 25
         width:parent.width * 0.98
       //text: qsTr("Company:")
-      text:usercompany
+      text:''
       font.pixelSize: (parent.width  - usercompany.length * 1.5) * 0.08
 
 
 
-      MouseArea {
+     /* MouseArea {
           anchors.fill: parent
           onClicked: userCompany.visible = true
-      }
+      } */
 
       TextField {
          id: userCompany
-         visible: false
+         visible: true
          anchors.left: parent.left
          //anchors.leftMargin: 4
           anchors.verticalCenter: parent.verticalCenter
@@ -397,8 +397,9 @@ Item {
          placeholderText: qsTr("Company Name")
          font.pixelSize: (parent.width  - usercompany.length * 1.5) * 0.08
          width:parent.width
-         onVisibleChanged: if(visible == true) {focus = true}
-            onFocusChanged: if(focus == false) {visible = false}
+         horizontalAlignment: Text.AlignRight
+        // onVisibleChanged: if(visible == true) {focus = true}
+         //   onFocusChanged: if(focus == false) {visible = false}
 
          //width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
          text:if(cardindex == 0) {usercompany}

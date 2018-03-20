@@ -41,7 +41,8 @@ DISTFILES += \
     android/build.gradle \
     android/gradle/wrapper/gradle-wrapper.properties \
     android/gradlew.bat \
-    android/src/com/vagueentertainment/cafesync/NotificationClient.java
+    android/src/com/vagueentertainment/cafesync/NotificationClient.java \
+    qtquickcontrols2.conf
 
 
 
@@ -49,8 +50,8 @@ ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_EXTRA_LIBS = \
-        $$PWD/../../Android/openssl/libcrypto.so \
-        $$PWD/../../Android/openssl/libssl.so
+        /home/benjamin/Projects/CafeSync/openssl/libcrypto.so \
+        $$PWD/openssl/libssl.so
 
 }
 contains(ANDROID_TARGET_ARCH,x86) {

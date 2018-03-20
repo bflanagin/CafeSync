@@ -220,5 +220,6 @@
         <file>img/add.svg</file>
         <file>img/reload.svg</file>
         <file>SocialOptfull.qml</file>
+        <file>qtquickcontrols2.conf</file>
     </qresource>
 </RCC>
