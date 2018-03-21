@@ -83,7 +83,7 @@ Item {
             height:thisWindow.height / 1.5
             placeholderText: "Why we should connect."
             wrapMode: Text.WordWrap
-
+            font.pixelSize: parent.width * 0.06
             Rectangle {
                 anchors.centerIn: parent
                 color:"white"
