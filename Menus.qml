@@ -181,7 +181,7 @@ Item {
 
                                 font.pixelSize: parent.height * 0.25
                                text: if(title != "Category") {switch(menuitem) {
-                                     case "0": qsTr("Passersby");break;
+                                     case "0": qsTr("Collected");break;
                                      case "2": qsTr("Contacts");break;
                                     case "1": qsTr("Your Card");break;
                                      case "3": qsTr("Chat ");break;

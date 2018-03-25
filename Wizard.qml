@@ -34,7 +34,7 @@ Item {
     property int uniquemail: 0
     property int uniquename: 0
     property int uniqueaccount:0
-    property int uniqueid:0
+    property string uniqueid:'0'
 
 
     Timer {
@@ -61,7 +61,7 @@ Item {
         running:false
         repeat:false
         interval: 1000
-        onTriggered: OpenSeed.checkcreds("passphrase",osUsername+","+osEmail+","+osPassphrase);
+        onTriggered: OpenSeed.checkcreds("passphrase",osUsername+":,:"+osEmail+":,:"+osPassphrase);
 
     }
 
@@ -70,7 +70,7 @@ Item {
         running:false
         repeat:false
         interval: 1000
-        onTriggered: if(osUsername.length > 1 && osEmail.length > 1) {OpenSeed.checkcreds("account",osUsername+","+osEmail);}
+        onTriggered: if(osUsername.length > 1 && osEmail.length > 1) {OpenSeed.checkcreds("account",osUsername+":,:"+osEmail);}
     }
 
 
@@ -147,7 +147,7 @@ Item {
 
                         Text {
                             visible: false
-                            text:if(slideview.indexAt(slideview.contentX,0) == 1) {
+                            text:if(slideview.indexAt(slideview.contentX,0) == 2) {
                                      "bla"} else {"bleh"}
                              onTextChanged: if(text == "bla" && userid == "") {slideview.interactive = false} else {slideview.interactive = true}
                         }
@@ -156,12 +156,12 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             width: parent.width
                             height: parent.height * 0.90
-                            spacing: 20
+                            spacing: mainView.width * 0.04
                         Text {
                             //visible: if(type != 8) {true} else {false}
                             text: thetitle
                             anchors.horizontalCenter: parent.horizontalCenter
-                            font.pixelSize: parent.height * 0.05
+                            font.pixelSize: parent.width * 0.065
 
                         }
 
@@ -180,7 +180,7 @@ Item {
                             horizontalAlignment: Text.AlignHCenter
                             text:message
                             anchors.horizontalCenter: parent.horizontalCenter
-                            font.pixelSize: parent.width * 0.04
+                            font.pixelSize: parent.width * 0.045
 
                         }
 
@@ -212,19 +212,7 @@ Item {
                             anchors.fill: parent
                             visible: if(userid == "") {true} else {false}
 
-                            Text {
-                                id:loginmessage
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                anchors.top:parent.top
-                                text:if(uniqueaccount ==1 ) {
-                                                if(uniqueid == 1 ) {
-                                                        qsTr("Welcome Back")
-                                                        } else {
-                                                            qsTr("Welcome Back - Please enter password")
-                                                }
-                                        } else if(uniquename == 0 ) {qsTr("New User")} else {"User name in use"}
 
-                            }
 
                         TextField{
                              id:osUsernameField
@@ -328,9 +316,25 @@ Item {
 
                          }
 
+                         Text {
+                             id:loginmessage
+                             anchors.horizontalCenter: parent.horizontalCenter
+                             anchors.top:osPassField.bottom
+                             anchors.topMargin: thisWindow.height * 0.03
+                             text:if(uniqueaccount == 1 ) {
+                                             if(uniqueid != '0' ) {
+                                                     qsTr("Welcome Back, ")+osUsername
+                                                     } else {
+                                                         qsTr("Please enter password")
+                                             }
+                                     } else if(uniquename == 0 && osUsernameField.text.length == 0) {qsTr("Please fill out all fields")}
+                                        else if (uniquename == 0 && osUsernameField.text.length > 0) {qsTr("New User")} else {"User name in use"}
+
+                         }
+
                          Rectangle {
                              id:connectB
-                             anchors.top: osPassField.bottom
+                             anchors.top: loginmessage.bottom
                              anchors.horizontalCenter: parent.horizontalCenter
                              anchors.topMargin: thisWindow.height * 0.03
                              width: parent.width * 0.45
@@ -341,30 +345,38 @@ Item {
                               Text {
                                   id:cb
                                   anchors.centerIn: parent
-                                  text:qsTr("Connect")
+                                  text:if(connectBsensor.enabled == true) {qsTr("Connect")} else {qsTr("Waiting")}
                                   color:"black"
                                   font.pixelSize: parent.height * 0.45
                               }
 
                               MouseArea {
+                                  id:connectBsensor
                                   anchors.fill: parent
+                                  enabled: if(osPassField.text.length > 1 && osUsernameField.text.length > 1 && osEmailField.text.length > 1) {
+                                               if(uniqueaccount == 1 && uniqueid != '0') {true}
+                                                            else if(uniquename == 0 || uniquemail == 0){true}
+                                                                    else {false}
+                                                            } else {false}
 
                               onClicked:
-                                  { if(osEmail.length > 2) {
-                                     if(osUsername.length > 2) {
-                                         if(osPassphrase.length > 2) {
-                                        //  console.log("sending info to server");
-                                          OpenSeed.oseed_auth(osUsernameField.text,osEmailField.text,osPassField.text);
+                                  { if(uniqueaccount == 1 ) {
                                                     cb.text = qsTr("Loading");
-                                                        if(uniqueid == 1) {
+                                                            if(uniqueid != '0') {
+
+                                                               userid = uniqueid;
                                                         populate.start();
-                                                        }
-                                                 //Scripts.load_Card();
-                                                  //OpenSeed.retrieve_data(userid);
-                                                //  settingsPage.state = "Active";
-                                                //  slideshow.state = "Active";
-                                               //  firstrun.state = "close";
-                              }} }}
+                                                        } else {
+                                                               cb.text = qsTr("Connect");
+                                                               loginmessage.text = qsTr("Password incorrect");
+                                                            }
+
+
+                                            } else {
+                                                    OpenSeed.oseed_auth(osUsername,osEmail,osPassphrase);
+                                                 }
+
+                                        }
                                 }
 
                          }
@@ -843,19 +855,20 @@ Item {
             id:slides
         ListElement {
             thetitle: qsTr("Welcome")
-            message:  qsTr("CafeSync is a location-based card sharing service. That connects you to the world around you")
+            message:  qsTr("CafeSync is a location-based card sharing service. That connects you to the world around you.\n\n Swipe right to begin setting up your account.")
             type:1
             image:"./img/overlay-dark.png"
         }
-       /* ListElement {
-            thetitle: qsTr("EULA")
-            message:qsTr("We haven't written one yet. It will be pretty bog standard though. No hacking,cracking, or pretending to be someone else. So on and So forth")
-            type:2
-            image:"./img/OpenSeed.png"
-        }*/
         ListElement {
             thetitle: qsTr("OpenSeed Connect")
-            message:qsTr("OpenSeed's network is used for app and user authentication, as well as the background services that CafeSync relies on.\n(Note: If you don't have an account the system will create one for you.) ")
+            message:qsTr("CafeSync uses the OpenSeed network for connectivity. On the next slide you will be asked to enter, or create an account on the network.Your account information is secure and private.
+What you choose to share within the applications is shared only with other users of the OpenSeed service. No data is collected for the purpose of monetization of any kind.\n OpenSeed is a community funded networking API for FOSS software that is under heavy development by Ben Flanagin. You can find out more at https://www.vagueentertainment.com/openseed")
+            type:2
+            image:"./img/OpenSeed.png"
+        }
+        ListElement {
+            thetitle: qsTr("Account Login / Create")
+            message:qsTr("Please enter your current OpenSeed account information or create a new account.")
             type:3
             image:"./img/OpenSeed.png"
         }

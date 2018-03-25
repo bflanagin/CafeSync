@@ -832,9 +832,19 @@ Item {
                                             } else {
                                                 Requests.accept_request(requestID);
                                                 notification1.visible = true;notification1.themessage = "Request Accepted, Saved to Contacts";
+                                                fromRequest = false;
                                             }
                                     } else {
-                                        sendrequest.state = "Active";
+                                            if(fromRequest == false) {
+                                                    sendrequest.state = "Active";
+                                                    //notification1.visible = true;notification1.themessage = "Saved to Contacts";
+                                                } else {
+                                                     Requests.accept_request(requestID);
+                                                    notification1.visible = true;notification1.themessage = "Request Accepted, Saved to Contacts";
+                                                    fromRequest = false;
+                                                }
+
+
                                         }
                                         }
 
@@ -997,7 +1007,8 @@ Item {
                   anchors.fill: parent
 
                   preventStealing: true
-                  onClicked: { if(cardindex == 0) {if(stf == "true") {stf = "false";} else { stf = "true";  } }
+                  onClicked: { if(stf == "true") {stf = "false"; notification1.visible = true; notification1.themessage ="Collection Only"}
+                                                                        else { stf = "true";notification1.visible = true; notification1.themessage ="Sharing Card"  }
                       Scripts.save_card(userid,username,userphone,useremail,usercompany,
                                                                                 useralias,usermotto,usermain,website1,website2,website3,website4,
                                                                                 stf,atf,ctf,avimg,carddesign,usercat);
@@ -1005,7 +1016,8 @@ Item {
                                                                                    useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
                                                                                    avimg,carddesign,usercat);
 
-                  }
+
+                            }
               }
 
 
@@ -1074,6 +1086,16 @@ Item {
                   height:parent.height * 0.8
                   source: "./img/contact.svg"
 
+                  Image {
+                      //anchors.fill:parent
+                      visible: if (ctf == "true") {false} else {true}
+
+                      anchors.centerIn: parent
+                      width:parent.width * 1.17
+                      height:parent.height * 1.17
+                      source:"./img/cancel.svg"
+                  }
+
               }
 
               ColorOverlay {
@@ -1082,15 +1104,7 @@ Item {
                   color:overlayColor
               }
 
-              Image {
-                  //anchors.fill:parent
-                  visible: if (ctf == "true") {false} else {true}
 
-                  anchors.centerIn: contact_icon1
-                  width:contact_icon1.width * 1.17
-                  height:contact_icon1.height * 1.17
-                  source:"./img/cancel.svg"
-              }
 
               Flasher {
 
@@ -1101,7 +1115,8 @@ Item {
                   anchors.fill: parent
 
                   preventStealing: true
-                  onClicked: {if(cardindex == 0) {if(ctf == "true") {ctf = "false" } else { ctf = "true" }
+                  onClicked: {if(cardindex == 0) {if(ctf == "true") {ctf = "false"; notification1.visible = true; notification1.themessage ="Contact info hidden" }
+                                                                    else { ctf = "true";notification1.visible = true; notification1.themessage ="Contact info shared" }
 
                       Scripts.save_card(userid,username,userphone,useremail,usercompany,
                                                                                 useralias,usermotto,usermain,website1,website2,website3,website4,
@@ -1124,21 +1139,21 @@ Item {
 
 
               Image {
-                  id:reload_icon
+                  id:stats_icon
                   visible: false
                   //anchors.fill: parent
                   anchors.centerIn: parent
                   width:parent.width * 0.8
                   height:parent.height * 0.8
-                  source: "./img/reload.svg"
+                  source: "./img/stats.svg"
 
 
 
               }
 
               ColorOverlay {
-                  source:reload_icon
-                  anchors.fill: reload_icon
+                  source:stats_icon
+                  anchors.fill: stats_icon
                   color:overlayColor
               }
 
@@ -1152,6 +1167,7 @@ Item {
                   anchors.fill: parent
                   preventStealing: true
                  // onClicked: swapopt.state = "Active"
+                  onClicked: notification1.visible = true,notification1.themessage = "Coming Soon"
               }
 
           }

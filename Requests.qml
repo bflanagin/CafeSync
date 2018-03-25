@@ -162,6 +162,7 @@ ListView {
                 anchors.rightMargin: thisWindow.height * 0.02
                 text:status
             }
+
         }
 
 
@@ -189,6 +190,8 @@ ListView {
 
 
     }
+
+
 
     }
 }

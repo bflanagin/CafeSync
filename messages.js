@@ -335,7 +335,7 @@ function contactlist() {
 
             if(connected.search(pull.rows.item(num).id) != -1) {
 
-                var humanDate = new Date(pull.rows.item(sync).date*1);
+                var humanDate = new Date(pull.rows.item(num).date*1);
 
             collectedContacts.append({
                                          who:pull.rows.item(num).id,

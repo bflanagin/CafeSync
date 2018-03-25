@@ -127,7 +127,7 @@ Item {
     property string cardsynctemp: ""
     property string remotesaved: ""
     property string remotetemp: ""
-
+    property string tempc: ""
     property string tempcheck: ""
     property string savecheck: ""
 
@@ -275,7 +275,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         interval: 8000
         running:false
         repeat:true
-        onTriggered:if(firstrun.visible != true) {OpenSeed.heartbeat(),Request.check_requests();}
+        onTriggered:if(firstrun.state == "InActive") {OpenSeed.heartbeat(),Request.check_requests();}
     }
 
     Timer {
@@ -346,21 +346,19 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
     Timer {
         id:get_list_updater
-        interval:3000; running: true; repeat: true
-            onTriggered: if(firstrun.visible != true) {
-                           // console.log("Updating List");
+        interval:5000; running: true; repeat: true
+            onTriggered: {
+                        if(firstrun.state == "InActive" && heart != "OffLine") {
+                            //console.log("Updating List");
                         OpenSeed.retrieve_data(userid);
-
-                   // if(listget == "temp") {
-
-                    //cardslist.clear();
                         OpenSeed.get_list(userid,"temp");
                         OpenSeed.get_list(userid,"region");
                         OpenSeed.get_list(userid,"saved");
-                    //}
 
 
-          }
+
+                         }
+            }
         }
 
 
@@ -368,7 +366,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
             id:cardload
             interval:800; running: true; repeat:false
 
-                onTriggered: if(firstrun.visible != true) {
+                onTriggered: if(firstrun.state == "InActive") {
                           //  console.log("loading "+ listget);
                            // console.log("what the server has "+remotetemp);
                        // if (tempcheck != remotetemp) {
@@ -1754,6 +1752,8 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                            Request.decline_request(mainScreen.requestID);
                            mainScreen.state = "InActive";
                            topBar.state="requests";
+                           mainScreen.fromRequest = false;
+                           notification1.visible = true;notification1.themessage = "Request Declined";
                        }
 
             onPressed: delflick.state = "Active"

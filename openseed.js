@@ -39,7 +39,7 @@ function heartbeat() {
 
     http.onreadystatechange = function() {
 
-       if(http.status == 200) {
+
         if (http.readyState == 4) {
             //console.log(http.responseText);
             //userid = http.responseText;
@@ -57,13 +57,11 @@ function heartbeat() {
             }
 
         }
-            } else {
-                    heart = "Offline";
-                    updateinterval = 500 + updateinterval;
-           // console.log(heart);
 
 
-        }
+            if(heart == "OffLine") {
+                updateinterval = 500 + updateinterval;
+                 }
        heartbeats.interval = updateinterval;
     }
     http.open('POST', url.trim(), true);
@@ -82,7 +80,7 @@ function checkcreds(field,info) {
     var http = new XMLHttpRequest();
     //var url = "https://openseed.vagueentertainment.com:8675/corescripts/auth.php?devid=" + devId + "&appid=" + appId + "&username="+ name + "&email=" + email ;
     var url = "https://openseed.vagueentertainment.com:8675/corescripts/authCHECK.php";
-   // console.log("sending "+name+" , "+passphrase);
+   /// console.log("sending "+info);
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
             //console.log(http.responseText);
@@ -95,7 +93,7 @@ function checkcreds(field,info) {
                 uniquemail = 101;
                 console.log("Incorrect AppID");
             } else {
-                console.log(http.responseText);
+                //console.log(http.responseText);
                 //id = http.responseText;
                 if(field == "email") {
                     uniquemail = http.responseText;
@@ -110,6 +108,8 @@ function checkcreds(field,info) {
 
                 if(field == "passphrase") {
                     uniqueid = http.responseText;
+                   // console.log(uniqueid);
+
                 }
             }
 
@@ -231,6 +231,8 @@ if (cardsop == 2) {
 
 function upload_data(Id,name,phone,email,company,ali,motto,send,ua,sc,main,l1,l2,l3,l4,av,cardback,cardcat,cardsav,cardtem,cardsop) {
 
+   console.log("uploading data");
+
    // motto = motto.replace(/+/g,"&plus;");
     var http = new XMLHttpRequest();
    /* var url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/addcard.php?id=" + Id + "&name=" + name + "&phone="+ phone + "&email=" + email +
@@ -298,10 +300,6 @@ function upload_data(Id,name,phone,email,company,ali,motto,send,ua,sc,main,l1,l2
 
 function retrieve_data(id) {
 
-    //console.log("collecting new info")
-
-
-
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/updateloc.php";
 
@@ -319,7 +317,11 @@ function retrieve_data(id) {
             } else if(http.responseText == 101) {
                 console.log("Incorrect AppID");
             } else {
+                if(tempc != http.responseText) {
+                   tempc = http.responseText;
 
+                    cardload.start();
+                }
             }
 
         }
@@ -383,6 +385,8 @@ function sync_cards(id,opt) {
             }
             record = record + 1;
         }
+
+       // console.log("from Sync_cards: "+cardsynctemp);
 
     });
 
@@ -527,7 +531,9 @@ function get_list(id,list) {
                     console.log("Incorrect AppID");
                 } else {
                         carddata = http.responseText;
+                        //if(carddata.length != remotetemp) {
                         remotetemp = carddata;
+
                         var tnum = 0;
                         while (remotetemp.split(",")[tnum] != null) {
                             if(remotetemp.split(",")[tnum] != "") {
@@ -537,7 +543,9 @@ function get_list(id,list) {
                             tnum = tnum + 1;
                         }
 
-                        //console.log("updatig temp list");
+                     //   }
+
+                        //console.log("updatig temp list "+ remotetemp);
                        // cardlist_update.running = true;
                        // cardload.running = true;
                     //if(remotetemp.split(",") > ptotal) {
@@ -579,7 +587,7 @@ function get_list(id,list) {
                             tnum = tnum + 1;
                         }
 
-                        //console.log("updatig region list");
+                       // console.log("updatig region list "+remotetemp);
                         //cardlist_update.running = true;
                         //cardload.running = true;
 
@@ -762,6 +770,8 @@ function remote_delete(id,list,cid) {
     var url;
      var carddata = "";
 
+        console.log("deleting");
+        get_list_updater.stop();
 
     switch(list) {
     case "saved":
@@ -785,6 +795,7 @@ function remote_delete(id,list,cid) {
                         remotesaved = carddata;
                         sync_cards(userid,0);
                         //console.log("from interwebs saved "+carddata);
+                        get_list_updater.restart();
 
                 }
             }
@@ -818,6 +829,7 @@ function remote_delete(id,list,cid) {
                         while (remotetemp.split(",")[tnum] != null) {
                             update_card(remotetemp.split(",")[tnum],"temp");
                             tnum = tnum + 1;
+                                get_list_updater.restart();
                         }
 
                         //sync_cards(userid,0);
@@ -830,7 +842,7 @@ function remote_delete(id,list,cid) {
                 http.send(null);
         break;
 
-    default:break;
+    default:get_list_updater.restart();break;
 
     }
 
@@ -1502,6 +1514,24 @@ function preview_card(id) {
                 //console.log(carddata);
 
                     var cardpos = carddata.split(";&;");
+                    var ava = "";
+                if(cardpos[12].length < 4) { ava = "img/default_avatar.png"} else {ava = cardpos[12]
+                             if(ava.search("/9j/4A") != -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
+
+                }
+
+                var spC;
+
+               /* for(var num =0;num < category_list.split(",").length;num = num + 1) {
+
+                    if(pull.rows.item(record).cat == category_list.split(",")[num].split("::")[0]) {
+
+                        if(category_list.split(",")[num].split("::")[1] != "none") {
+                        spC = category_list.split(",")[num].split("::")[1];
+                        } else { spC = seperatorColor1}
+                    }
+
+                } */
 
                 currentcard_thecard = cardpos[0];
                 currentcard_saved = 0;
@@ -1516,7 +1546,7 @@ function preview_card(id) {
                 currentcard_url2 = cardpos[9];
                 currentcard_url3 = cardpos[10];
                 currentcard_url4 = cardpos[11];
-                currentcard_avatarimg = cardpos[12];
+                currentcard_avatarimg = ava;
                 currentcard_realcardback = cardpos[13];
                 currentcard_cardcat = cardpos[14];
                 currentcard_cardsop = cardpos[15];
@@ -1568,6 +1598,8 @@ function connections(cardID) {
                   //console.log(carddata);
 
                   connected = carddata;
+
+                  console.log("from connections "+connected);
 
               }
 
