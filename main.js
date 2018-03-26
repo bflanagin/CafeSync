@@ -479,6 +479,7 @@ function Temp_load(search,locale) {
                              URL4: w4,
 
                              spColor:spC,
+                             cardStatus:"Amazingly awesome early adopters",
 
             cardb:pull.rows.item(record).cardback,
            // cardsymbol:symbol,
@@ -542,6 +543,7 @@ function Temp_load(search,locale) {
                 URL4: w4,
 
                 spColor:spC,
+                cardStatus:"Amazingly awesome early adopters",
 
             //    cardback:card,
              //   cardsymbol:symbol,
@@ -748,6 +750,7 @@ function Cards_load(search) {
                  URL4: w4,
 
                  spColor:spC,
+                 cardStatus:"Amazingly awesome early adopters",
 
                  cardback:card,
                  cardsymbol:symbol,
@@ -780,6 +783,7 @@ function Cards_load(search) {
                      URL4: w4,
 
                      spColor:spC,
+                     cardStatus:"Amazingly awesome early adopters",
 
                      cardback:card,
                      cardsymbol:symbol,
@@ -911,6 +915,7 @@ function Show_sites(cid,list) {
                             realcardback:currentcard_realcardback,
 
                             spColor:spC,
+                            cardStatus:"Here on CafeSync",
 
                             mainsite:currentcard_mainsite,
                             URL1:currentcard_url1,
@@ -1178,6 +1183,7 @@ function Show_sites(cid,list) {
                                realcardback:pull.rows.item(0).cardback,
 
                                spColor:spC,
+                               cardStatus:"Amazingly awesome early adopters",
 
                                mainsite:pull.rows.item(0).main,
                                URL1:pull.rows.item(0).website1,

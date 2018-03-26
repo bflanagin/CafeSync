@@ -2257,6 +2257,7 @@ Wizard {
 
 Notification {
     id:notification1
+    pos:1
     width:parent.width
     height:parent.height * 0.20
     anchors.bottom: parent.bottom

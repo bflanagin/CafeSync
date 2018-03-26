@@ -98,8 +98,8 @@ function retrieve_messages(room,theid) {
 
 function retrieve_conversations(room) {
     //remote = 1;
-    //console.log("sending to server: "+currentmessage+" : "+mesgdate);
-  //  console.log("from RC:"+room);
+   // console.log("sending to server: "+currentmessage+" : "+mesgdate);
+   // console.log("from RC:"+room);
 
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/corescripts/chats.php";
@@ -363,7 +363,7 @@ function show_chat(room) {
     var reverseroom = room.split(",")[1]+","+room.split(",")[0];
     var getstuff = "SELECT  * FROM CHATS WHERE `name` ='"+room+"' OR `name` ='"+reverseroom+"' ORDER BY date ASC";
 
-    //console.log(room);
+    console.log(room);
 
      chatlog.clear();
 
@@ -493,10 +493,11 @@ function show_conversations(room) {
 
            conversed.append({
                                 who:pull.rows.item(sync).name,
-                                speaker:pull.rows.item(sync).name,
+                                speaker:otherperson,
                                 timecode:humanDate.toLocaleDateString(),
                                 message:pull.rows.item(sync).message,
                                 avatar:otherava,
+                                cardStatus:"We've talked"
 
                             });
         }

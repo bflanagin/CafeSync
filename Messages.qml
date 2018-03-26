@@ -283,14 +283,31 @@ ListView {
                 anchors.right:parent.right
                 opacity: 0.2
             }
+
                 }
+            }
+
+            Rectangle {
+                //anchors.left:parent.left
+              // anchors.bottom:parent.bottom
+              //  anchors.bottomMargin: parent.height * 0.5
+                width:parent.width
+                height:parent.height * 0.1
+                color:Qt.rgba(0.9,0.9,0.9,0.9)
+            Text {
+                anchors.leftMargin: parent.width * 0.03
+                anchors.verticalCenter: parent.verticalCenter
+                text:qsTr("Status:")+cardStatus
+                color:"black"
+            }
+
             }
 
         }
 
         MouseArea {
             anchors.fill:parent
-            onClicked: {thisWindow.area = "Chat",messagePage.showroom = true,Message.check_messages(who),Message.show_chat(who)}
+            onClicked: {thisWindow.area = "Chat",roomId = who,Message.check_messages(who),messagePage.showroom = true}//Message.show_chat(who)}
         }
     }
 
@@ -504,7 +521,7 @@ Rectangle {
       // anchors.left:addstuff.right
       // anchors.leftMargin:addstuff.width * 0.4
        width:parent.width - addstuff.width * 1.8 - sendMsg.width * 1.5
-       height:parent.height * 0.7
+       //height:parent.height * 0.7
        font.pixelSize: parent.width * 0.045
        maximumLength: 144
         Keys.onPressed: { if (event.key == Qt.Key_Enter || event.key == Qt.Key_Return) {Message.send_messages(roomId,messageField.text)} }

@@ -195,7 +195,7 @@ Item {
                 anchors.topMargin: parent.width * 0.01
                 //anchors.bottom:parent.bottom
                 width:parent.width * 0.95
-                horizontalAlignment: Text.AlignHCenter
+                horizontalAlignment: Text.AlignJustify
                 font.pixelSize: postbg.width * 0.04
                 text:thepost
                 wrapMode:Text.WordWrap

@@ -158,7 +158,7 @@ delegate: Item {
                 anchors.verticalCenter: parent.verticalCenter
 
             Text {
-                text:speaker+"("+who+")"
+                text:speaker
                 font.pixelSize: thisWindow.height * 0.045
                 width:parent.width * 0.98
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -198,7 +198,7 @@ delegate: Item {
 
     MouseArea {
         anchors.fill:parent
-        onClicked: {thisWindow.state = "InActive",messagePage.showroom = true,Message.check_messages(usercardNum+","+who)}
+        onClicked: {thisWindow.state = "InActive",messagePage.roomId = usercardNum+","+who,Message.check_messages(usercardNum+","+who),messagePage.showroom = true }
     }
 }
 

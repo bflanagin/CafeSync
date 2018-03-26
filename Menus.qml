@@ -353,10 +353,10 @@ Item {
                                             type:1
                                     }
 
-                                    ListElement {
+                                    /*ListElement {
                                             menuitem: "6"
                                             type:1
-                                    }
+                                    } */
 
                                 }
 

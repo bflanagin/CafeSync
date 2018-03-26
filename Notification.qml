@@ -3,6 +3,7 @@ import QtQuick 2.0
 Item {
     id:notify
     property string themessage : ""
+    property int pos: 0;
     property int delay: 0
 
 
@@ -26,7 +27,7 @@ Item {
         wrapMode: Text.WordWrap
         text: themessage
         color:"white"
-        font.pointSize: mainView.height * 0.02
+        font.pointSize: if(pos == 0) {mainView.width * 0.032} else {mainView.width * 0.02}
         Rectangle {
             anchors.centerIn: parent
             width:parent.width * 1.2

@@ -23,7 +23,7 @@ import "openseed.js" as OpenSeed
                                 width: passerbyGrid.width * 0.96
 
                                // width: passerbyGrid.width * 0.90
-                                height: if(cardsop == 1) {passerbyGrid.width * 0.45} else {passerbyGrid.width * 0.45}
+                                height: if(cardsop == 1) {passerbyGrid.width * 0.46} else {passerbyGrid.width * 0.46}
 
 
                                  clip: true
@@ -108,7 +108,7 @@ import "openseed.js" as OpenSeed
 
                                         Rectangle {
                                             id:thecard
-                                            width: parent.width * 0.98
+                                            width: parent.width
                                             height: parent.height * 0.98
                                             color: cardcolor
                                             radius: 2
@@ -119,6 +119,10 @@ import "openseed.js" as OpenSeed
                                             visible: false
                                             clip:true
 
+                                            Item {
+                                                width: parent.width
+                                                height: parent.height * 0.90
+                                                clip:true
 
                                             Rectangle {
                                                 id:card_avatar_backing
@@ -232,9 +236,25 @@ import "openseed.js" as OpenSeed
                                                source:compImg
                                                fillMode:Image.PreserveAspectFit
                                            } */
+                                             }
+
                                         }
 
+                                        Rectangle {
+                                            anchors.left:parent.left
+                                           anchors.bottom:parent.bottom
+                                          //  anchors.bottomMargin: parent.height * 0.5
+                                            width:parent.width
+                                            height:parent.height * 0.1
+                                            color:Qt.rgba(0.9,0.9,0.9,0.9)
+                                        Text {
+                                            anchors.leftMargin: parent.width * 0.03
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            text:qsTr("Status:")+cardStatus
+                                            color:"black"
+                                        }
 
+                                        }
 
 
                                        /* Text {
@@ -356,6 +376,8 @@ import "openseed.js" as OpenSeed
 
 
                             }
+
+
 
                                 Info {
                                     id:shade
