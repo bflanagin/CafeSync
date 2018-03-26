@@ -76,7 +76,7 @@ Item {
     onStateChanged: { if(state == "Active") {
 
             if(fromRequest == true) {
-                notification1.visible = true;notification1.themessage = "Hit the \"save contact button\" to accept the request or the delete button to decline.";
+                notification1.visible = true;notification1.themessage = "\"contact button\" to accept the request. Delete button to decline.";
             }
 
         //if(layouts.width < mobile_width) {

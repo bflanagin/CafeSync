@@ -191,6 +191,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
     property int totalNewMessages:0
 
     property string connected:""
+    property string accepted:""
 
 
 

@@ -1522,19 +1522,24 @@ function preview_card(id) {
 
                 var spC;
 
-               /* for(var num =0;num < category_list.split(",").length;num = num + 1) {
+                var dataStr = "SELECT id,name FROM SavedCards WHERE id ='"+cardpos[0]+"'";
 
-                    if(pull.rows.item(record).cat == category_list.split(",")[num].split("::")[0]) {
+                db.transaction(function(tx) {
+                tx.executeSql('CREATE TABLE IF NOT EXISTS SavedCards(id INT UNIQUE, name TEXT, phone TEXT,email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,cat TEXT,cardsop INT)');
 
-                        if(category_list.split(",")[num].split("::")[1] != "none") {
-                        spC = category_list.split(",")[num].split("::")[1];
-                        } else { spC = seperatorColor1}
+                var pull =  tx.executeSql(dataStr);
+
+                    if(pull.rows.length != 0) {
+                        currentcard_saved = 1;
+                    } else {
+                        currentcard_saved = 0;
                     }
 
-                } */
+                });
+
 
                 currentcard_thecard = cardpos[0];
-                currentcard_saved = 0;
+                //currentcard_saved = 0;
                 currentcard_username = cardpos[1];
                 currentcard_userphone = cardpos[2];
                 currentcard_useremail = cardpos[3];
@@ -1599,7 +1604,7 @@ function connections(cardID) {
 
                   connected = carddata;
 
-                  console.log("from connections "+connected);
+                  //console.log("from connections "+connected);
 
               }
 

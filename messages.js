@@ -7,10 +7,10 @@ function check_messages(user) {
     var party = ""
     if(user.search(",") != -1) {
             party =user;
-            roomId = user;
+            messagePage.roomId = user;
          } else {
            party = usercardNum+','+user;
-            roomId = party;
+            messagePage.roomId = party;
         }
 
     http.onreadystatechange = function() {
@@ -26,11 +26,11 @@ function check_messages(user) {
 
                 if(http.responseText == "0") {
                         if(user != 0) {
-                        send_messages(usercardNum+","+user,"<begin>");
+                        send_messages(user,"<begin>");
                         }
 
-                } else if(messagelist != http.responseText){
-                        messagelist =http.responseText;
+                } else if(messagePage.messagelist != http.responseText){
+                        messagePage.messagelist =http.responseText;
                         retrieve_messages(user,userid);
 
                    // notificationClient.notification = "New Message from "+user;
@@ -166,7 +166,7 @@ function send_messages(user,message) {
         messageField.text = "";
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/corescripts/chats.php";
-    //console.log("send message "+user+":"+message);
+    console.log("send message "+user+":"+message);
    // console.log(url)
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
@@ -283,9 +283,9 @@ function save_messages(theid,name,avatar1,part_id,part_names,part_avatar,roomid,
                     if(themessage == "<begin>") {
                     notificationClient.notification = "New Chat from: "+otherperson;
                     } else {
-                        if(messagePage.showroom == true && roomId == name) {
+                        if(messagePage.showroom == true && messagePage.roomId == name) {
                             console.log("updating chat");
-                                var humanDate = new Date(chat.rows.item(sync).date*1);
+                                var humanDate = new Date(mesgdate*1);
 
                             if(lastmessage != mesgdate) {
 
@@ -333,13 +333,14 @@ function contactlist() {
 
             }
 
-            if(connected.search(pull.rows.item(num).id) != -1) {
+            if(connected.search(pull.rows.item(num).id) != -1 && accepted.search(pull.rows.item(num).id) !=-1) {
 
                 var humanDate = new Date(pull.rows.item(num).date*1);
 
+
             collectedContacts.append({
                                          who:pull.rows.item(num).id,
-                                         speaker:pull.rows.item(num).date,
+                                         speaker:pull.rows.item(num).name,
                                          timecode:humanDate.toLocaleDateString(),
                                          message:pull.rows.item(num).company,
                                          //avatar:pull.rows.item(num).avatar
@@ -457,7 +458,7 @@ function show_conversations(room) {
 
         var pull = tx.executeSql(getstuff);
          var pulls;
-         console.log("from show_conversations room"+ room + " number of conversations " + pull.rows.length);
+         console.log("from show_conversations room "+ room + " number of conversations " + pull.rows.length);
 
 
 
@@ -492,7 +493,7 @@ function show_conversations(room) {
 
            conversed.append({
                                 who:pull.rows.item(sync).name,
-                                speaker:otherperson,
+                                speaker:pull.rows.item(sync).name,
                                 timecode:humanDate.toLocaleDateString(),
                                 message:pull.rows.item(sync).message,
                                 avatar:otherava,

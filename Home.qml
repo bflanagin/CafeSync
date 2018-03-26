@@ -734,11 +734,18 @@ Item {
                   anchors.fill: parent
                   preventStealing: true
                  // onClicked: Qt.openUrlExternally('sms:'+carduserphone)
-                  onClicked: { messagePage.state = "Active";
+                  onClicked: { if(accepted.search(cardId) != -1 && currentcard_saved == 1) {
+                                  messagePage.state = "Active";
                                messagePage.roomId = usercardNum+','+cardId;
                                messagePage.showroom = true;
                                messagePage.from = "Card";
                                topBar.state = "messages";
+                                } else if(currentcard_saved == 1) {
+                                            sendrequest.state = "Active";
+                                        } else {
+                                            notification1.visible = true;notification1.themessage = "Card must be in your contacts";
+
+                                }
 
               }
 
@@ -840,7 +847,7 @@ Item {
                                                     //notification1.visible = true;notification1.themessage = "Saved to Contacts";
                                                 } else {
                                                      Requests.accept_request(requestID);
-                                                    notification1.visible = true;notification1.themessage = "Request Accepted, Saved to Contacts";
+                                                    notification1.visible = true;notification1.themessage = "Request Accepted";
                                                     fromRequest = false;
                                                 }
 

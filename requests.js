@@ -105,7 +105,13 @@ function check_requests() {
 
                         }
 
-                    }
+                    } else {
+                               if(requestedby == usercardNum) {
+                            accepted = values.split("::")[1]+","+accepted;
+                                } else {
+                                 accepted = values.split("::")[0]+","+accepted;
+                               }
+                           }
 
                     }
 
