@@ -251,7 +251,7 @@ Item {
 
                     PropertyChanges {
                    target:blinder
-                    y:parent.height * 0.92
+                    y:parent.height
 
                    opacity: 1
                     radius:0

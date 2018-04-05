@@ -195,6 +195,7 @@ Item {
                 anchors.topMargin: parent.width * 0.01
                 //anchors.bottom:parent.bottom
                 width:parent.width * 0.95
+                anchors.horizontalCenter: parent.horizontalCenter
                 horizontalAlignment: Text.AlignJustify
                 font.pixelSize: postbg.width * 0.04
                 text:thepost
@@ -258,7 +259,7 @@ Item {
 
                     PropertyChanges {
                    target:blinder
-                    y:parent.height * 0.92
+                    y:parent.height
 
                     radius:0
                     color:bottombarColor
