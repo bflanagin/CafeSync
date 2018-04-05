@@ -1,12 +1,15 @@
-import QtQuick 2.3
+import QtQuick 2.8
 import QtQuick.Window 2.2
-//import QtQuick.Controls 1.3
-//import QtQuick.Controls.Styles 1.3
-//import Ubuntu.Components 1.2
+import QtQuick.Controls 2.2
 import QtQuick.LocalStorage 2.0 as Sql
 import QtGraphicalEffects 1.0
+import QtQuick.Controls.Material 2.2
+import QtQuick.LocalStorage 2.0 as Sql
+
+import "microblogger.js" as MBlog
 
 import "main.js" as Scripts
+import "text.js" as Scrubber
 
 
 Item {
@@ -17,11 +20,15 @@ Item {
 
     clip: true
 
-    onStateChanged: switch(title) {
+
+
+    onStateChanged: {switch(title) {
                        case "Category": Scripts.Category_search();break;
                        case "Category Select": Scripts.Category_set();break;
                        default: Scripts.totals();break;
                     }
+            //console.log(username)
+            }
 
     states: [
         State {
@@ -40,6 +47,12 @@ Item {
 
             }
 
+            PropertyChanges {
+                target: quickactions
+                menu: true
+                visible:true
+            }
+
         },
         State {
           name:"InActive"
@@ -47,6 +60,12 @@ Item {
               target: popup
              // visible:false
               y:height * - 1
+          }
+
+          PropertyChanges {
+              target: quickactions
+              menu: false
+              visible:false
           }
         }
     ]
@@ -87,15 +106,16 @@ Item {
 
     ListView {
         id:menulistview
-       // anchors.top:parent.top
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.top:parent.top
+        anchors.topMargin: mainView.width * 0.04
+       // anchors.verticalCenter: parent.verticalCenter
         //anchors.left: parent.left
         anchors.horizontalCenter: parent.horizontalCenter
 
         //anchors.leftMargin: parent.width * 0.04
         clip:true
         width:parent.width * 0.98
-        height:if(title != "Category") {parent.height * 0.98} else {parent.height * 0.98}
+        height:if(title != "Category") {parent.height * 0.9} else {parent.height * 0.98}
         flickableDirection: Flickable.VerticalFlick
         //contentHeight:notopdiscript.height
         spacing: height * 0.01
@@ -121,7 +141,7 @@ Item {
                     state:"InActive"
 
                     width:menulistview.width
-                    height:menulistview.height *0.1
+                    height:menulistview.height * 0.1
                     //anchors.horizontalCenter: parent.horizontalCenter
                     Item {
                         id:menuSeperator
@@ -165,25 +185,58 @@ Item {
                         id:bg
                         width:parent.width
                         height:parent.height
-                        color:cardcolor
+                        color:backgroundColor
                         clip:true
-
+                        visible: true
                         radius: 1
+                        border.color: cardcolor
+                        border.width:1
+
+                        Item{
+                            id:icon
+                            anchors.left: parent.left
+                            anchors.leftMargin: 10
+                            anchors.verticalCenter: parent.verticalCenter
+                            width:if(menuitem == 1) {parent.height}else {parent.height * 0.6}
+                            height:if(menuitem == 1) {parent.height}else {parent.height * 0.6}
+                            Image {
+                                anchors.fill: parent
+                                visible: if(menuitem !=1) {true} else {false}
+                            source: if(title != "Category") {switch(menuitem) {
+                                       case "0": "./icons/gps.svg";break;
+                                       case "2": "./icons/contact-group.svg";break;
+                                      case "1": "./icons/contact.svg";break;
+                                       case "3": "./icons/message.svg";break;
+                                       case "4": "./icons/message.svg";break;
+                                       case "5": "./icons/swap.svg";break;
+                                       case "6": "./icons/calendar.svg";break;
+
+                                       default:"./icons/overlay.svg";break;
+                                       } } else {""}
+                            }
+                            CirclePic {
+                                anchors.fill: parent
+                                visible: if(menuitem ==1) {true} else {false}
+                                //theImage:"./icons/contact.svg"
+
+                            }
+
+                        }
 
                         Text {
                                 //anchors.horizontalCenter: parent.horizontalCenter
                                 anchors.verticalCenter: parent.verticalCenter
                                 width:parent.width * 0.89
-                                anchors.left:parent.left
+                                anchors.left:icon.right
                                 anchors.leftMargin: 10
                                 horizontalAlignment: Text.AlignLeft
                                 //font.pixelSize: parent.width * 0.1 - text.length * 1.2
 
-                                font.pixelSize: parent.height * 0.25
+                                font.pixelSize: if(menuitem == 1) {parent.height * 0.5} else {parent.height * 0.25}
                                text: if(title != "Category") {switch(menuitem) {
                                      case "0": qsTr("Collected");break;
                                      case "2": qsTr("Contacts");break;
-                                    case "1": qsTr("Your Card");break;
+                                    case "1": username;break;
                                      case "3": qsTr("Chat ");break;
                                      case "4": qsTr("Messages ");break;
                                      case "5": qsTr("Requests ");break;
@@ -228,7 +281,7 @@ Item {
 
                         }
              }
-                    DropShadow {
+                   /* DropShadow {
                         anchors.fill: bg
                         horizontalOffset: 1
                         verticalOffset: 2
@@ -238,7 +291,7 @@ Item {
                         source: bg
                        // z:1
 
-                    }
+                    } */
 
             MouseArea {
                 anchors.fill:parent
@@ -253,7 +306,7 @@ Item {
                                      //saveded.state = "unselected";
                                     // passby.state = "selected";
                                      pages = 1,cardslist.clear(),currentcard = -1
-                             ,mainMenu.rotation=0;
+                             ,topBar.isActive = false;
                                   selection = 0;
                                   listget = "temp"
                                   Scripts.Temp_load(searchtext,listget);
@@ -269,7 +322,7 @@ Item {
                                     //saveded.state = "unselected";
                                    // passby.state = "selected";
                                     pages = 1,cardslist.clear(),currentcard = -1
-                            ,mainMenu.rotation=0;
+                            ,topBar.isActive = false;
                               selection = 1;
                               listget = "saved";
                                   Scripts.Cards_load(searchtext);
@@ -286,10 +339,10 @@ Item {
                                              mainScreen.state = "Active",topBar.state = "person"
                                             break;
 
-                          case "3": /* chatPage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "chat";*/break;
-                          case "4": messagePage.from =="Menu",messagePage.state = "Active",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "messages";break;
-                          case "5": messagePage.state = "InActive", requestPage.state = "Active",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "requests";break;
-                          case "6": /* eventsPage.state = "Available",popup.state = "InActive";mainMenu.rotation=0;topBar.state = "events"; */break;
+                          case "3": /* chatPage.state = "Available",popup.state = "InActive";topBar.isActive = false;topBar.state = "chat";*/break;
+                          case "4": messagePage.from =="Menu",messagePage.state = "Active",popup.state = "InActive";topBar.isActive = false;topBar.state = "messages";break;
+                          case "5": messagePage.state = "InActive", requestPage.state = "Active",popup.state = "InActive";topBar.isActive = false;topBar.state = "requests";break;
+                          case "6": /* eventsPage.state = "Available",popup.state = "InActive";topBar.isActive = false;topBar.state = "events"; */break;
 
 
                           default:if(title == "Category") {currentcat = menuitem;
@@ -306,12 +359,50 @@ Item {
             }
 
                     }
+                    Item {
+                        id:statusInput
+                        visible: if (type == 3) {true} else {false}
+                        enabled: visible
+                        width:parent.width
+                        height:parent.height
+                        TextField {
+                            id:searchtextfield
+                           // anchors.right:back.left
+                          //  anchors.rightMargin: parent.width * 0.02
+                          //  anchors.left:mainMenu2.right
+                          //  anchors.leftMargin: parent.width * 0.02
+                          //  anchors.verticalCenter: parent.verticalCenter
+                            padding: width * 0.05
+                            width:parent.width
+                            height:parent.height * 0.80
+                            // height:parent.height
+                            font.pixelSize: parent.width * 0.05
+                          //  text:searchtext
+                            placeholderText: qsTr("Status Update")
+                             background:InputBack{}
+                           // onTextChanged: {cardslist.clear();
+                       //         if(selection == 0) {Scripts.Temp_load(searchtextfield.text,listget)} else {Scripts.Cards_load(searchtextfield.text,listget) }
+                       // }
+                        }
+                    }
+
+
         }
 
         model:
 
                ListModel {
                                     id:menuList
+
+                                    ListElement {
+                                            menuitem: "1"
+                                            type:1
+                                    }
+
+                                    ListElement {
+                                            menuitem: "8"
+                                            type:3
+                                    }
 
                                     ListElement {
                                             section: "1"
@@ -328,10 +419,6 @@ Item {
                                             type:1
                                     }
 
-                                    ListElement {
-                                            menuitem: "1"
-                                            type:1
-                                    }
 
                                     ListElement {
                                             section: "2"
@@ -353,16 +440,26 @@ Item {
                                             type:1
                                     }
 
-                                    /*ListElement {
+                                    ListElement {
                                             menuitem: "6"
                                             type:1
-                                    } */
+                                    }
 
                                 }
 
 
 }
 
+
+
+    Actions {
+
+        id:quickactions
+        anchors.bottom:parent.bottom
+        anchors.bottomMargin:mainView.width * 0.01
+        width:parent.width
+        height:mainView.width * 0.10
+    }
 
 
 }

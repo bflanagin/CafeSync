@@ -96,7 +96,7 @@ Item {
             PropertyChanges {
                 target: thisWindow
                 x:0
-                y:parent.height * 0.02
+                y:0
             }
         }
 
@@ -138,8 +138,8 @@ Item {
                      Rectangle {
 
                             anchors.centerIn: parent
-                            width: parent.width * 0.95
-                            height: parent.height * 0.8
+                            width: parent.width * 0.98
+                            height: parent.height * 0.98
                             id:dialogue1
 
                         color:cardcolor
@@ -240,7 +240,7 @@ Item {
                                      anchors.centerIn: parent
                                      width:parent.width * 0.7
                                      height:parent.height * 0.7
-                                     source:if(uniqueaccount == 1) {"./img/check.svg"} else{"./img/close.svg"}
+                                     source:if(uniqueaccount == 1) {"./icons/check.svg"} else{"./icons/close.svg"}
                                  }
 
 
@@ -273,7 +273,7 @@ Item {
                                     anchors.centerIn: parent
                                     width:parent.width * 0.7
                                     height:parent.height * 0.7
-                                    source:if(uniqueaccount == 1) {"./img/check.svg"} else{"./img/close.svg"}
+                                    source:if(uniqueaccount == 1) {"./icons/check.svg"} else{"./icons/close.svg"}
                                 }
 
 
@@ -307,7 +307,7 @@ Item {
                                      anchors.centerIn: parent
                                      width:parent.width * 0.7
                                      height:parent.height * 0.7
-                                     source:if(uniqueid == 1) {"./img/check.svg"} else {"./img/close.svg"}
+                                     source:if(uniqueid == 1) {"./icons/check.svg"} else {"./icons/close.svg"}
                                  }
 
 
@@ -883,7 +883,7 @@ What you choose to share within the applications is shared only with other users
             thetitle: qsTr("Who?")
             message:qsTr("Who are you?")
             type:4
-            image:"./img/contact.svg"
+            image:"./icons/contact.svg"
         }
 
         ListElement {
@@ -897,7 +897,7 @@ What you choose to share within the applications is shared only with other users
             thetitle: qsTr("How?")
             message:qsTr("How can others contact you?")
             type:6
-            image:"./img/email.svg"
+            image:"./icons/email.svg"
         }
 
        /* ListElement {
@@ -918,7 +918,7 @@ What you choose to share within the applications is shared only with other users
             thetitle: qsTr("Show Time")
             message:""
             type:8
-            image:"./img/camera-photo.svg"
+            image:"./icons/camera-photo.svg"
         } */
 
         ListElement {
@@ -938,7 +938,7 @@ What you choose to share within the applications is shared only with other users
 
 
 
-    Rectangle {
+   /* Rectangle {
         id:bottomBar
         anchors.bottom:parent.bottom
         width:parent.width
@@ -975,7 +975,7 @@ What you choose to share within the applications is shared only with other users
 
      }
 
-    } */
+    }
 
     }
 
@@ -988,7 +988,7 @@ What you choose to share within the applications is shared only with other users
         color: "#80000000"
         source:bottomBar
         z:1
-    }
+    } */
 
     Row {
         anchors.horizontalCenter: parent.horizontalCenter

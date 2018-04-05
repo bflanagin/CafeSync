@@ -2,7 +2,7 @@ import QtQuick 2.3
 import QtQuick.Window 2.2
 
 
-import "main.js" as Scripts
+import "../main.js" as Scripts
 import "youtube.js" as Site
 
 
@@ -38,7 +38,7 @@ Item {
             name:"Active"
             PropertyChanges {
                 target: popup
-                visible:true
+                enabled:true
             }
 
         },
@@ -46,8 +46,10 @@ Item {
           name:"InActive"
           PropertyChanges {
               target: popup
-              visible:false
+              enabled:false
+
           }
+
         }
     ]
 

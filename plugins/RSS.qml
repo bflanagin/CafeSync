@@ -3,7 +3,7 @@ import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 
 
-import "main.js" as Scripts
+import "../main.js" as Scripts
 import "webpage.js" as Site
 
 
@@ -15,7 +15,7 @@ Item {
     property string service:""
     property string extrathing:""
     property string sitedata:""
-    property string pluginlogo: Scripts.socialsetup(service.split("::")[0]).split("::")[2]
+    property string pluginlogo: "../"+Scripts.socialsetup(service.split("::")[0]).split("::")[2]
     property string avatar: ""
     property string name: ""
     property string banner: ""
@@ -77,7 +77,7 @@ Item {
     /*Image {
         id:shade
         anchors.centerIn: parent
-        source:"./img/shade.png"
+        source:"../img/shade.png"
         anchors.fill: parent
         //fillMode:Image.PreserveAspectCrop
     } */

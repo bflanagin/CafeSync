@@ -27,7 +27,6 @@ Item {
             name: "Active"
             PropertyChanges {
                 target:thisWindow
-
                 x:0
 
 
@@ -37,7 +36,6 @@ Item {
              name: "InActive"
              PropertyChanges {
                  target:thisWindow
-
                  x:width * -1
 
 
@@ -209,7 +207,7 @@ Rectangle {
         anchors.horizontalCenter:parent.horizontalCenter
         height:parent.height * 0.6
         width:parent.height * 0.6
-        source:"./img/email.svg"
+        source:"./icons/email.svg"
 
         Flasher {
 

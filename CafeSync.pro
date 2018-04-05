@@ -42,7 +42,10 @@ DISTFILES += \
     android/gradle/wrapper/gradle-wrapper.properties \
     android/gradlew.bat \
     android/src/com/vagueentertainment/cafesync/NotificationClient.java \
-    qtquickcontrols2.conf
+    qtquickcontrols2.conf \
+    android/src/com/vagueentertainment/cafesync/ContactsImport.java \
+    android/src/com/vagueentertainment/cafesync/WindowMode.java \
+    android/src/com/vagueentertainment/cafesync/OpenSeedService.java
 
 
 

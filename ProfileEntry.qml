@@ -47,7 +47,7 @@ Item {
 
             PropertyChanges {
                 target: thisWindow
-                x:width
+                x:-width
             }
 
         }
@@ -80,8 +80,8 @@ Item {
         visible: if(type == "about") {true} else {false}
         anchors.horizontalCenter: parent.horizontalCenter
         //anchors.verticalCenter: parent.verticalCenter
-        width:parent.width * 0.98
-        height:parent.height * 0.98
+        width:parent.width
+        height:parent.height
         clip:true
 
         Rectangle {
@@ -145,7 +145,7 @@ Flickable {
         anchors.left:parent.left
         anchors.bottom:parent.bottom
         anchors.margins: parent.height * 0.04
-        source:"./img/close.svg"
+        source:"./icons/close.svg"
         width:parent.height * 0.05
         height:parent.height * 0.05
         Flasher {
@@ -162,7 +162,7 @@ Flickable {
         anchors.right:parent.right
         anchors.bottom:parent.bottom
         anchors.margins: parent.height * 0.04
-        source:"./img/check.svg"
+        source:"./icons/check.svg"
         width:parent.height * 0.05
         height:parent.height * 0.05
         Flasher {
@@ -309,7 +309,7 @@ Flickable {
         anchors.left:parent.left
         anchors.bottom:parent.bottom
         anchors.margins: parent.height * 0.04
-        source:"./img/close.svg"
+        source:"./icons/close.svg"
         width:parent.height * 0.05
         height:parent.height * 0.05
         Flasher {
@@ -326,7 +326,7 @@ Flickable {
         anchors.right:parent.right
         anchors.bottom:parent.bottom
         anchors.margins: parent.height * 0.04
-        source:"./img/check.svg"
+        source:"./icons/check.svg"
         width:parent.height * 0.05
         height:parent.height * 0.05
         Flasher {
@@ -496,7 +496,7 @@ Flickable {
         anchors.left:parent.left
         anchors.bottom:parent.bottom
         anchors.margins: parent.height * 0.04
-        source:"./img/close.svg"
+        source:"./icons/close.svg"
         width:parent.height * 0.05
         height:parent.height * 0.05
         Flasher {
@@ -513,7 +513,7 @@ Flickable {
         anchors.right:parent.right
         anchors.bottom:parent.bottom
         anchors.margins: parent.height * 0.04
-        source:"./img/check.svg"
+        source:"./icons/check.svg"
         width:parent.height * 0.05
         height:parent.height * 0.05
         Flasher {
@@ -676,7 +676,7 @@ Flickable {
         anchors.left:parent.left
         anchors.bottom:parent.bottom
         anchors.margins: parent.height * 0.04
-        source:"./img/close.svg"
+        source:"./icons/close.svg"
         width:parent.height * 0.05
         height:parent.height * 0.05
         Flasher {
@@ -693,7 +693,7 @@ Flickable {
         anchors.right:parent.right
         anchors.bottom:parent.bottom
         anchors.margins: parent.height * 0.04
-        source:"./img/check.svg"
+        source:"./icons/check.svg"
         width:parent.height * 0.05
         height:parent.height * 0.05
         Flasher {

@@ -47,7 +47,10 @@ import "openseed.js" as OpenSeed
 
 
 
-
+                                    Component.onCompleted: if(name == 'undefined') {
+                                                               OpenSeed.remote_delete(userid,listget,cardId);
+                                                              cardslist.remove(index);
+                                                           }
 
 
 
@@ -74,16 +77,16 @@ import "openseed.js" as OpenSeed
                                     }
 
 
-                                    Timer {
+                                   /* Timer {
                                         id:updatecard
-                                        interval: 2000+(index*100)
+                                        interval: 20000+(index*100)
                                         running: true
                                         repeat: false
 
                                         onTriggered:OpenSeed.update_card(cardId,listget)//, notificationClient.notification = "Updating Card";
 
 
-                                    }
+                                    } */
 
                                    /* Timer {
                                         id:updateinfo
@@ -124,53 +127,16 @@ import "openseed.js" as OpenSeed
                                                 height: parent.height * 0.90
                                                 clip:true
 
-                                            Rectangle {
+                                                CirclePic {
                                                 id:card_avatar_backing
                                                 width: parent.height * 0.9
                                                 height: parent.height * 0.9
-                                                //x:10
                                                 anchors.verticalCenter: parent.verticalCenter
-                                               // anchors.top:parent.top
                                                 anchors.left:parent.left
-
-                                                color:cardcolor
-                                               // border.color: "white"
-                                               // border.width: 0.5
-                                               // radius: width / 2
-
-                                                clip:true
-
-
-
-                                                Image {
-                                                    id:cardsava
-                                                    anchors.fill:parent
-                                                    anchors.margins: 4
-                                                    visible: false
-                                                    source: imgsource
-                                                    fillMode: Image.PreserveAspectCrop
-
-                                                    Image {
-
-                                                        anchors.fill:parent
-                                                        visible: true
-                                                        source: "./img/default_avatar.png"
-                                                        z:-1
-                                                    }
+                                                thesource:imgsource
                                                 }
 
 
-
-                                                OpacityMask {
-                                                     anchors.fill: cardsava
-                                                     source: cardsava
-                                                     maskSource: mask
-                                                    visible:if(cardsop == 1) {true} else {false}
-                                                 }
-
-
-
-                                              }
 
                                         Text {
                                             //x: 5

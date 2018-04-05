@@ -3,7 +3,7 @@ import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 
 
-import "main.js" as Scripts
+import "../main.js" as Scripts
 import "etsy.js" as Etsy
 
 Item {
@@ -14,7 +14,7 @@ Item {
     property string service:""
     property string extrathing:""
     property string sitedata:""
-    property string pluginlogo:"img/etsy.png"
+    property string pluginlogo:"../img/etsy.png"
     property string avatar: ""
     property string name: ""
     property string banner: ""
@@ -36,6 +36,7 @@ Item {
             PropertyChanges {
                 target: popup
                 visible:true
+
             }
 
         },
@@ -44,7 +45,10 @@ Item {
           PropertyChanges {
               target: popup
               visible:false
+
+
           }
+
         }
     ]
 
@@ -69,7 +73,7 @@ Item {
    /* Image {
         id:shade
         anchors.centerIn: parent
-        source:"./img/shade.png"
+        source:"../img/shade.png"
         anchors.fill: parent
         //fillMode:Image.PreserveAspectCrop
     } */

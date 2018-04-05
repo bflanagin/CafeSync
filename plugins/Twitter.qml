@@ -3,7 +3,7 @@ import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 
 
-import "main.js" as Scripts
+import "../main.js" as Scripts
 import "twitter.js" as Site
 
 
@@ -14,12 +14,13 @@ Item {
     property string pagesource:""
     property string service:""
     property string extrathing:""
-    property string pluginlogo:"./img/twitter.png"
+    property string pluginlogo:"../img/twitter.png"
 
     property string banner: ""
     property string avatar: ""
     property string profilename: ""
     property string missionstatment:""
+    property bool showing: false
  //   property string message: ""
 
   //  property string aquote:""
@@ -35,6 +36,7 @@ Item {
             PropertyChanges {
                 target: popup
                 visible:true
+                showing:true
             }
 
         },
@@ -43,6 +45,15 @@ Item {
           PropertyChanges {
               target: popup
               visible:false
+              showing:false
+
+
+          }
+          PropertyChanges {
+              target: blinder
+              //visible:false
+              state:"loading"
+
 
           }
 
@@ -423,7 +434,7 @@ Item {
                  } */
 
                /* Image {
-                     source:"./img/message-sent.svg"
+                     source:"../img/message-sent.svg"
                          width:parent.height * 0.80
                          height:parent.height * 0.80
                          anchors.verticalCenter: parent.verticalCenter */
@@ -465,7 +476,7 @@ Item {
                  } */
 
                /* Image {
-                     source:"./img/message.svg"
+                     source:"../img/message.svg"
                          width:parent.height * 0.80
                          height:parent.height * 0.80
                          anchors.verticalCenter: parent.verticalCenter */
@@ -518,7 +529,7 @@ Item {
                  } */
 
                 /*Image {
-                     source:"./img/contact-group.svg"
+                     source:"../img/contact-group.svg"
                          width:parent.height * 0.80
                          height:parent.height * 0.80
                          anchors.verticalCenter: parent.verticalCenter */

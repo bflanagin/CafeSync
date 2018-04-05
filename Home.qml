@@ -1,6 +1,6 @@
-import QtQuick 2.3
+import QtQuick 2.8
 import QtQuick.Window 2.2
-//import QtQuick.Controls 1.3
+import QtQuick.Controls 2.2
 //import QtQuick.Controls.Styles 1.3
 import QtGraphicalEffects 1.0
 
@@ -46,147 +46,13 @@ Item {
 
 
 
-    Rectangle {
-        id:nameBack
-        anchors.left:parent.left
-        anchors.top:parent.top
-        anchors.topMargin: parent.height * 0.02
-        //color:"white"
-        color:cardcolor
-        //border.color:"black"
-        //radius: units.gu(1)
-        //anchors.fill: parent
-        anchors.horizontalCenter: parent.horizontalCenter
-        width:parent.width * 0.99
-        height:info.height * 1.2
-        clip:true
-        visible: false
-
-        Row {
-            x:5
-            y:0
-            width:parent.width
-            height:parent.height
-
-            Item {
-                width:if(avatarimg.length > 5 && cardsop == 1) {nameBack.height * 0.96} else {nameBack.height * 0.01}
-                height:if(avatarimg.length > 5 && cardsop == 1) {nameBack.height * 0.96} else {nameBack.height * 0.01}
-            Image {
-                id:img
-               // anchors.verticalCenter: parent.verticalCenter
-                anchors.fill: parent
-                source:avatarimg
-                //anchors.fill:parent
-                fillMode:Image.PreserveAspectCrop
-                visible: false
-
-                Image {
-
-                    anchors.fill:parent
-                    visible: true
-                    source: "./img/default_avatar.png"
-                    z:-1
-                }
-            }
-
-          /*  Image {
-                id:mask
-                anchors.fill:img
-                source:"/graphics/CafeSync.png"
-                visible: false
-
-            } */
-
-            OpacityMask {
-                id:optmask
-                 anchors.fill: img
-                 source: img
-                 maskSource: mask
-                 visible: if(cardsop == 1) {true} else {false}
-             }
-
-             }
-
-            Column {
-                  id:info
-                  width:nameBack.width - (img.width +img.x) - 10
-                  //anchors.left: img.right
-                  spacing: 5
-                  clip:true
-                Text {
-                    text:if(cardsop == 1) {cardusername} else {companyname}
-                    font.bold: true
-                    font.pixelSize: (nameBack.width  - companyname.length * 1.5) * 0.064
-                }
-                Rectangle {
-                    width:parent.width
-                    height:3
-                    color:spColor
-                }
-
-                Text {
-                    x:10
-                    font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.04
-                    text:if(cardsop == 1) {qsTr("Job Title: ")+cardposition} else {qsTr("Category: ")+cardcat}
-                    width:parent.width
-                    wrapMode: Text.WordWrap
-
-                }
-                Text {
-                    x:10
-                    font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.04
-                    text:if(cardsop == 1) {qsTr("Company: ")+companyname} else {""}
-                    width:parent.width
-                    wrapMode: Text.WordWrap
-
-                }
-
-
-                Item {
-                    width:parent.width
-                    height:phone.height
-                    //height:nameBack.height
-                    //color:"gray"
-                }
-                Text {
-                    id:phone
-                    //x:10
-                    font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.03
-                    text:carduserphone
-                    anchors.right:parent.right
-                }
-                Text {
-                    id:email
-                    x:10
-                    font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.03
-                    text:carduseremail
-                    anchors.right:parent.right
-                }
-            }
-
-        }
-
-
-    }
-
-    DropShadow {
-           anchors.fill: nameBack
-           horizontalOffset: 0
-           verticalOffset: 4
-           radius: 8.0
-           samples: 17
-           color: "#80000000"
-           source: nameBack
-
-       }
-
     Flickable {
         id:infoFlick
-        anchors.top:nameBack.bottom
+       // anchors.top:nameBack.bottom
         flickableDirection:Flickable.VerticalFlick
         anchors.topMargin:10
         width:parent.width * 0.98
-        height:parent.height * 0.64
+        height:parent.height
         contentWidth: parent.width
         contentHeight: homeinfo.height+ popup.height * 0.01
         clip:true
@@ -203,11 +69,229 @@ Item {
                 height:mainView.height * 0.01
             }
 
+
+            Item {
+                id:generalInfo
+                anchors.left:parent.left
+                height:nameBack.height
+                width:parent.width * 0.98
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                Rectangle {
+                    id:nameBack
+                   // anchors.left:parent.left
+                   // anchors.top:parent.top
+                  //  anchors.topMargin: parent.height * 0.02
+
+                    //color:"white"
+                    color:cardcolor
+                    //border.color:"black"
+                    //radius: units.gu(1)
+                    //anchors.fill: parent
+                    anchors.centerIn: parent
+                    width:parent.width * 0.98
+                    height:actions.height + info.height + mainView.width * 0.06
+                    //clip:true
+                    visible: false
+
+                    Row {
+                        x:5
+                        y:0
+                        width:parent.width
+                        height:parent.height
+
+                        CirclePic {
+                            id:img
+                            width:if(avatarimg.length > 5 && cardsop == 1) {nameBack.height * 0.70} else {nameBack.height * 0.01}
+                            height:if(avatarimg.length > 5 && cardsop == 1) {nameBack.height * 0.70} else {nameBack.height * 0.01}
+                            thesource:avatarimg
+
+                         }
+
+                        Column {
+                              id:info
+                              width:nameBack.width - (img.width +img.x) - 10
+                              //anchors.left: img.right
+                              spacing: 5
+                              clip:true
+                            Text {
+                                text:if(cardsop == 1) {cardusername} else {companyname}
+                                font.bold: true
+                                font.pixelSize: (nameBack.width  - companyname.length * 1.5) * 0.064
+                            }
+                            Rectangle {
+                                width:parent.width
+                                height:3
+                                color:spColor
+                            }
+
+                            Text {
+                                x:10
+                                font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.04
+                                text:if(cardsop == 1) {qsTr("Job Title: ")+cardposition} else {qsTr("Category: ")+cardcat}
+                                width:parent.width
+                                wrapMode: Text.WordWrap
+
+                            }
+                            Text {
+                                x:10
+                                font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.04
+                                text:if(cardsop == 1) {qsTr("Company: ")+companyname} else {""}
+                                width:parent.width
+                                wrapMode: Text.WordWrap
+
+                            }
+
+
+                            Item {
+                                width:parent.width
+                                height:phone.height
+                                //height:nameBack.height
+                                //color:"gray"
+                            }
+                            Text {
+                                id:phone
+                                //x:10
+                                font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.03
+                                text:carduserphone
+                                anchors.right:parent.right
+                                anchors.rightMargin: parent.width * 0.01
+                            }
+                            Text {
+                                id:email
+                                x:10
+                                font.pixelSize: (nameBack.width  - cardusername.length * 1.5) * 0.03
+                                text:carduseremail
+                                anchors.right:parent.right
+                                anchors.rightMargin: parent.width * 0.01
+                            }
+                        }
+
+                    }
+
+                }
+
+                DropShadow {
+                       anchors.fill: nameBack
+                       horizontalOffset: 0
+                       verticalOffset: 4
+                       radius: 8.0
+                       samples: 17
+                       color: "#80000000"
+                       source: nameBack
+
+                   }
+
+                Rectangle {
+                         anchors.bottom:actions.top
+                         anchors.bottomMargin: parent.width * 0.02
+                         anchors.horizontalCenter: parent.horizontalCenter
+                         width:parent.width * 0.98
+                         height:3
+                         color:seperatorColor1
+                     }
+
+                Actions {
+                    id:actions
+                    anchors.horizontalCenter: nameBack.horizontalCenter
+                    anchors.bottom:nameBack.bottom
+                    anchors.bottomMargin: parent.width * 0.02
+                    width:nameBack.width
+                    height:mainView.width * 0.1
+                    carduserName:cardusername
+                    companyName:companyname
+                    menu:false
+                }
+
+
+
+            }
+
+
+            Item {
+                width:parent.width
+                height:mainView.height * 0.01
+            }
+
+            Item {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width * 0.98
+                height:statuscontent.height + mainView.width * 0.04
+                //visible: if(cstatus.length > 2) {true} else {false}
+
+                Rectangle {
+                    id:statusbox
+                    width:parent.width * 0.98
+                    height:parent.height * 0.98
+                    anchors.centerIn: parent
+                    color:cardcolor
+
+                    Column {
+                        id:statuscontent
+                        width:parent.width* 0.98
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        spacing: mainView.width * 0.04
+
+                        Text{
+                            anchors.left:parent.left
+                            text:qsTr("Status:")
+                        }
+                        Rectangle {
+                                 anchors.horizontalCenter: parent.horizontalCenter
+                                 width:parent.width * 0.98
+                                 height:3
+                                 color:seperatorColor1
+                             }
+
+                        Item {
+                            width:parent.width
+                            height: if( cardusername != username) {statusText.height} else {statusField.height}
+                        Text {
+                            id:statusText
+                            visible: if( cardusername != username) {true} else {false}
+                            anchors.centerIn: parent
+                            width:parent.width
+                            wrapMode: Text.WordWrap
+                            text: "Sample Status"
+                        }
+
+                        TextField {
+                            id:statusField
+                            visible: if( cardusername == username) {true} else {false}
+                            width:parent.width
+                            padding:width * 0.05
+                            wrapMode: Text.WordWrap
+                            text: "Sample Status"
+                            background: InputBack{}
+                                }
+                             }
+
+                       }
+
+                    }
+
+                DropShadow {
+                       anchors.fill: statusbox
+                       horizontalOffset: 0
+                       verticalOffset: 4
+                       radius: 8.0
+                       samples: 17
+                       color: "#80000000"
+                       source: statusbox
+
+                   }
+            }
+
+            Item {
+                width:parent.width
+                height:mainView.height * 0.01
+            }
+
             Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
                 height:aboutcontent.height + aboutcontent.y
-                visible: if(motto.length > 2) {true} else {false}
+                visible: if(cardusername !=username && motto.length > 2) {true} else {false}
 
                  Rectangle {
                      id:aboutbox
@@ -267,7 +351,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
                 height:content.height + popup.height * 0.01
-                visible: if(skillstats.count > 0) {true} else {false}
+                visible: if(cardusername !=username && skillstats.count > 0) {true} else {false}
                     property string dataMine: skills
 
                     onDataMineChanged: Scripts.formatResume("skill",dataMine);
@@ -383,7 +467,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
                 height:scontent.height + popup.height * 0.01
-                visible: if(schoolstats.count > 0) {true} else {false}
+                visible: if(cardusername !=username && schoolstats.count > 0) {true} else {false}
 
                 property string dataMine: school
 
@@ -501,7 +585,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
                 height:wcontent.height + popup.height * 0.01
-                visible: if(workstats.count > 0) {true} else {false}
+                visible: if(cardusername !=username && workstats.count > 0) {true} else {false}
                 clip:true
 
                 property string dataMine: work
@@ -615,6 +699,220 @@ Item {
                     }
             }
 
+
+            // This is where YOUR stuff goes //
+
+            Item {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width * 0.98
+                height:statscontent.height + eventbox.height + mainView.width * 0.04
+                visible: if( cardusername == username) {true} else {false}
+
+                Rectangle {
+                    id:eventbox
+                    width:parent.width * 0.98
+                    height:eventcontent.height + mainView.width * 0.04
+                    //anchors.centerIn: parent
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color:cardcolor
+
+                    Column {
+                        id:eventcontent
+                        width:parent.width* 0.98
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        spacing: mainView.width * 0.04
+
+                        Text{
+                            anchors.left:parent.left
+                            text:qsTr("Events:")
+                        }
+                        Rectangle {
+                                 anchors.horizontalCenter: parent.horizontalCenter
+                                 width:parent.width * 0.98
+                                 height:3
+                                 color:seperatorColor1
+                             }
+
+                        ListView {
+                            id:events
+                            width:parent.width
+                            height:(mainView.width * 0.11) * model
+                            spacing: mainView.width * 0.02
+                            model: 3
+                            boundsBehavior:Flickable.StopAtBounds
+
+                            delegate: Item {
+                                width:parent.width
+                                height:mainView.width * 0.1
+                                    Rectangle {
+                                        anchors.fill: parent
+                                        color:if(index % 2 == 0) {cardcolor} else {backgroundColor}
+                                    }
+
+                                Row {
+                                    anchors.fill: parent
+                                    spacing: mainView.width * 0.03
+                                    Image {
+                                        height:parent.height * 0.9
+                                        width:parent.height * 0.9
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        fillMode: Image.PreserveAspectFit
+                                        source:"./icons/calendar-today.svg"
+                                    }
+                                    Rectangle {
+                                             width:parent.width * 0.007
+                                             height:parent.height
+                                             color:seperatorColor1
+                                             anchors.verticalCenter: parent.verticalCenter
+                                         }
+                                    Text {
+                                        text:qsTr("Your thing you should do today")
+                                        horizontalAlignment: Text.AlignLeft
+                                        anchors.verticalCenter: parent.verticalCenter
+                                    }
+                                }
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: console.log(index)
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+                DropShadow {
+                       anchors.fill: eventbox
+                       horizontalOffset: 0
+                       verticalOffset: 4
+                       radius: 8.0
+                       samples: 17
+                       color: "#80000000"
+                       source: eventbox
+
+                   }
+
+                Rectangle {
+                    id:statsbox
+                    width:parent.width * 0.98
+                    height:statscontent.height + mainView.width * 0.04
+                    anchors.top:eventbox.bottom
+                    anchors.topMargin:mainView.width * 0.04
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    color:cardcolor
+
+                    Column {
+                        id:statscontent
+                        width:parent.width* 0.98
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        spacing: mainView.width * 0.04
+
+                        Text{
+                            anchors.left:parent.left
+                            text:qsTr("Stats:")
+                        }
+                        Rectangle {
+                                 anchors.horizontalCenter: parent.horizontalCenter
+                                 width:parent.width * 0.98
+                                 height:3
+                                 color:seperatorColor1
+                             }
+
+                        Grid {
+                            id:statRow
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            spacing: mainView.width * 0.01
+                            width:parent.width * 0.98
+                            clip:true
+
+                            CircleStat {
+                                width:mainView.width * 0.22
+                                height:mainView.width * 0.22
+
+                                whichStat:qsTr("Collected")
+                                statNumber:accepted.split(",").length - 1
+                                statRank:0
+                            }
+
+                            CircleStat {
+                                width:mainView.width * 0.22
+                                height:mainView.width * 0.22
+                                whichStat:qsTr("Contacts")
+                                statNumber:ctotal
+                                statRank:0
+                            }
+                            CircleStat {
+                                width:mainView.width * 0.22
+                                height:mainView.width * 0.22
+                                whichStat:qsTr("Impact")
+                                statNumber:connected.split("><").length -1
+                                statRank:0
+                            }
+                            CircleStat {
+                                width:mainView.width * 0.22
+                                height:mainView.width * 0.22
+
+                                whichStat:qsTr("2-Way")
+                                statNumber:accepted.split(",").length - 1
+                                statRank:0
+                            }
+
+                            CircleStat {
+                                width:mainView.width * 0.22
+                                height:mainView.width * 0.22
+
+                                whichStat:qsTr("Blog Read")
+                                statNumber:accepted.split(",").length - 1
+                                statRank:0
+                            }
+
+                            CircleStat {
+                                width:mainView.width * 0.22
+                                height:mainView.width * 0.22
+
+                                whichStat:qsTr("Events")
+                                statNumber:accepted.split(",").length - 1
+                                statRank:0
+                            }
+
+                            CircleStat {
+                                width:mainView.width * 0.22
+                                height:mainView.width * 0.22
+
+                                whichStat:qsTr("Personal Log")
+                                statNumber:accepted.split(",").length - 1
+                                statRank:0
+                            }
+
+                            CircleStat {
+                                width:mainView.width * 0.22
+                                height:mainView.width * 0.22
+
+                                whichStat:qsTr("Replies")
+                                statNumber:accepted.split(",").length - 1
+                                statRank:0
+                            }
+                        }
+
+
+                       }
+
+                    }
+
+                DropShadow {
+                       anchors.fill: statsbox
+                       horizontalOffset: 0
+                       verticalOffset: 4
+                       radius: 8.0
+                       samples: 17
+                       color: "#80000000"
+                       source: statsbox
+
+                   }
+            }
+
+
     }
 
 
@@ -641,561 +939,6 @@ Item {
     }
 
 
-    Rectangle {
-        id:bottomBar
-        anchors.bottom:parent.bottom
-        width:parent.width
-        height:parent.height * 0.08
-        color:bottombarColor
-
-        Row {
-          id:actions
-         // anchors.horizontalCenter:parent.horizontalCenter
-          visible: if(cardusername == username) {false} else {true}
-          spacing:width / 6
-          height:parent.height
-          x:parent.width * 0.09
-          width:parent.width * 0.9
-          //x:parent.width / 2 - width /2.3
-          //clip: true
-
-          Item {
-              width: /*units.gu(2) */ parent.width / 10
-              height: /*units.gu(2) */ parent.width / 10
-              anchors.verticalCenter: parent.verticalCenter
-
-              //name:"outgoing-call"
-
-              //z: -8
-
-
-              Image {
-                  id:call_icon
-                  visible: false
-                  //anchors.fill: parent
-                  anchors.centerIn: parent
-                  width:parent.width * 0.8
-                  height:parent.height * 0.8
-                  source: "./img/outgoing-call.svg"
-
-
-
-              }
-
-              ColorOverlay {
-                  source:call_icon
-                  anchors.fill: call_icon
-                  color:overlayColor
-              }
-
-              Flasher {
-                  //id:locflick
-              }
-
-              MouseArea {
-                  anchors.fill: parent
-                  preventStealing: true
-                  onClicked: Qt.openUrlExternally('tel:'+carduserphone)
-              }
-
-          }
-          Item {
-              width: /*units.gu(2) */ parent.width / 10
-              height: /*units.gu(2) */ parent.width / 10
-              anchors.verticalCenter: parent.verticalCenter
-              //name:"message"
-
-              //z: -8
-
-              Image {
-                  id:message_icon
-                  visible: false
-                  //anchors.fill: parent
-                  anchors.centerIn: parent
-                  width:parent.width * 0.8
-                  height:parent.height * 0.8
-                  source: "./img/message.svg"
-
-
-              }
-
-              ColorOverlay {
-                  source:message_icon
-                  anchors.fill: message_icon
-                  color:overlayColor
-              }
-
-
-              Flasher {
-                  //id:locflick
-              }
-
-              MouseArea {
-                  anchors.fill: parent
-                  preventStealing: true
-                 // onClicked: Qt.openUrlExternally('sms:'+carduserphone)
-                  onClicked: { if(accepted.search(cardId) != -1 && currentcard_saved == 1) {
-                                  messagePage.state = "Active";
-                               messagePage.roomId = usercardNum+','+cardId;
-                               messagePage.showroom = true;
-                               messagePage.from = "Card";
-                               topBar.state = "messages";
-                                } else if(currentcard_saved == 1) {
-                                            sendrequest.state = "Active";
-                                        } else {
-                                            notification1.visible = true;notification1.themessage = "Card must be in your contacts";
-
-                                }
-
-              }
-
-              }
-
-          }
-          Item {
-
-              width: /*units.gu(2) */ parent.width / 10
-              height: /*units.gu(2) */ parent.width / 10
-              anchors.verticalCenter: parent.verticalCenter
-
-
-
-              Image {
-                  id:email_icon
-                  visible: false
-                  //anchors.fill: parent
-                  anchors.centerIn: parent
-                  width:parent.width * 0.8
-                  height:parent.height * 0.8
-                  source: "./img/email.svg"
-
-
-
-              }
-
-              ColorOverlay {
-                  source:email_icon
-                  anchors.fill: email_icon
-                  color:overlayColor
-              }
-
-              Flasher {
-                  //id:locflick
-              }
-
-              MouseArea {
-                  anchors.fill: parent
-                  preventStealing: true
-                  onClicked: Qt.openUrlExternally('mailto:'+carduseremail)
-              }
-
-          }
-
-          Item {
-              width: /*units.gu(2) */ parent.width / 10
-              height: /*units.gu(2) */ parent.width / 10
-              anchors.verticalCenter: parent.verticalCenter
-
-
-              Image {
-                  id:addcon_icon
-                  //anchors.fill: parent
-                  anchors.centerIn: parent
-                  width:parent.width * 0.8
-                  height:parent.height * 0.8
-                  source: if(currentcard_saved == 0) {"./img/contact-new.svg"} else {"./img/contact.svg"}
-
-
-
-              }
-
-              ColorOverlay {
-                  source:addcon_icon
-                  anchors.fill: addcon_icon
-                  color:overlayColor
-              }
-
-              Flasher {
-                  //id:locflick
-              }
-              MouseArea {
-                  anchors.fill: parent
-                  preventStealing: true
-                 // onClicked: swapopt.state ="Active"
-
-                  onClicked: { if(currentcard_saved == 0) {Scripts.Cards_save(currentcard_thecard,currentcard_username,currentcard_userphone,currentcard_useremail,currentcard_companyname,currentcard_cardposition,currentcard_motto,
-                                                                currentcard_mainsite,currentcard_url1,currentcard_url2,currentcard_url3,currentcard_url4,currentcard_avatarimg,currentcard_realcardback,currentcard_cardcat,currentcard_cardsop);
-
-                                             //currentcard_saved;
-
-                                             cardslist.clear();
-                                             OpenSeed.sync_cards(userid,3);
-                                             OpenSeed.get_list(userid,"saved");
-                                             Scripts.Temp_load(searchtext,listget);
-
-                                              currentcard_saved = 1;
-                                            if(fromRequest == false) {
-                                            notification1.visible = true;notification1.themessage = "Saved to Contacts";
-                                            } else {
-                                                Requests.accept_request(requestID);
-                                                notification1.visible = true;notification1.themessage = "Request Accepted, Saved to Contacts";
-                                                fromRequest = false;
-                                            }
-                                    } else {
-                                            if(fromRequest == false) {
-                                                    sendrequest.state = "Active";
-                                                    //notification1.visible = true;notification1.themessage = "Saved to Contacts";
-                                                } else {
-                                                     Requests.accept_request(requestID);
-                                                    notification1.visible = true;notification1.themessage = "Request Accepted";
-                                                    fromRequest = false;
-                                                }
-
-
-                                        }
-                                        }
-
-              }
-
-          }
-
-       /*   Rectangle {
-              height:parent.height * 0.90
-              anchors.verticalCenter: parent.verticalCenter
-              width:parent.width * 0.005
-              color:"gray"
-          }
-
-          Image {
-              width:  parent.width / 9
-              height: parent.width / 9
-              //name: if (saved == 0) {"add"} else {"starred"}
-              //name:"email"
-              source:if (saved == 0) {"./img/add.svg"} else {"./img/starred.svg"}
-              //z: -8
-
-              Flasher {
-                  id:savflick
-
-              }
-
-              MouseArea {
-                  anchors.fill:parent
-                  onClicked: if (saved == 0){Scripts.Cards_save(thecard,cardusername,carduserphone,carduseremail,companyname,"",motto,mainsite,URL1,URL2,URL3,URL4,avatarimg,realcardback,cardcat);
-                                 cardslist.clear();
-                                 OpenSeed.sync_cards(userid,3);
-                                 OpenSeed.get_list(userid,"saved");
-                                 Scripts.Temp_load(searchtext,listget);}
-              onPressed: savflick.state = "Active"
-              onReleased: savflick.state = "InActive"
-
-              }
-
-          }
-
-          Image {
-              width:  parent.width / 9
-              height:  parent.width / 9
-              //name: if (saved == 0) {"add"} else {"starred"}
-              //name:"email"
-              source:"./img/delete.svg"
-              //z: -8
-
-              Flasher {
-                  id:delflick
-
-              }
-
-              MouseArea {
-                  anchors.fill: parent
-                  preventStealing: true
-                  onClicked: if (saved == 0){Scripts.Delete_card(thecard,listget);OpenSeed.remote_delete(userid,listget,thecard);cardslist.clear();Scripts.Temp_load(searchtext,listget);} else {
-                                      Scripts.Delete_card(thecard,"saved");OpenSeed.remote_delete(userid,"saved",thecard);cardslist.clear();Scripts.Cards_load(searchtext); //OpenSeed.sync_cards(userid,3);
-                             }
-                  onPressed: delflick.state = "Active"
-                  onReleased: delflick.state = "InActive"
-
-              }
-
-          } */
-    }
-
-
-
-
-        Row {
-          id:youractions
-          visible: if(cardusername == username && companyname == usercompany) {true} else {false}
-          spacing:width / 6
-          height:parent.height
-          x:parent.width * 0.24
-          width:parent.width * 0.9
-          onVisibleChanged: if(visible == true) {currentcard_thecard = usercard}
-          //clip: true
-
-          Item {
-              width: /*units.gu(2) */ parent.width / 10
-              height: /*units.gu(2) */ parent.width / 10
-              //name: if (saved == 0) {"add"} else {"starred"}
-              visible:false
-              anchors.verticalCenter: parent.verticalCenter
-
-              //name:"account"
-
-              //z: -8
-
-              Image {
-                  id:contact_icon
-                  visible: false
-                  //anchors.fill: parent
-                  anchors.centerIn: parent
-                  width:parent.width * 0.8
-                  height:parent.height * 0.8
-                  source: "./img/contact.svg"
-
-
-
-              }
-
-              ColorOverlay {
-                  source:contact_icon
-                  anchors.fill: contact_icon
-                  color:overlayColor
-              }
-
-              Flasher {
-
-
-              }
-
-              MouseArea {
-                  anchors.fill: parent
-                  preventStealing: true
-                  //onClicked: Qt.openUrlExternally('qr:')
-              }
-
-          }
-
-          Image {
-              width: parent.width / 11
-              height: parent.width / 11
-
-              anchors.verticalCenter: parent.verticalCenter
-
-              Image {
-                  id:priv_icon1
-                  visible: false
-                  //anchors.fill: parent
-                  anchors.centerIn: parent
-                  width:parent.width * 0.8
-                  height:parent.height * 0.8
-                  source: if(stf == "true") {"./img/share.svg"} else {"./img/private-browsing.svg"}
-
-
-
-              }
-
-              ColorOverlay {
-                  source:priv_icon1
-                  anchors.fill: priv_icon1
-                  color:overlayColor
-              }
-
-              Flasher {
-                id:privateb
-               // state: if(stf =="true") {"InActive"} else {"Enabled"}
-              }
-
-
-
-
-
-              MouseArea {
-                  anchors.fill: parent
-
-                  preventStealing: true
-                  onClicked: { if(stf == "true") {stf = "false"; notification1.visible = true; notification1.themessage ="Collection Only"}
-                                                                        else { stf = "true";notification1.visible = true; notification1.themessage ="Sharing Card"  }
-                      Scripts.save_card(userid,username,userphone,useremail,usercompany,
-                                                                                useralias,usermotto,usermain,website1,website2,website3,website4,
-                                                                                stf,atf,ctf,avimg,carddesign,usercat);
-                                                              OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
-                                                                                   useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
-                                                                                   avimg,carddesign,usercat);
-
-
-                            }
-              }
-
-
-
-          }
-
-
-        /*  Image {
-              width:   if(cardindex == 0) {if(atf == "true") {parent.width / 10} else {parent.width / 11} }
-              height:  if(cardindex == 0) {if(atf == "true") {parent.width / 10} else {parent.width / 11} }
-              //name: if (saved == 0) {"add"} else {"starred"}
-              //name:"private-browsing"
-              source:"./img/private-browsing.svg"
-              //z: -8
-              anchors.verticalCenter: parent.verticalCenter
-
-              Image {
-                  //anchors.fill:parent
-                  visible: if (cardindex == 0) { if ( atf == "true") {false} else {true} }
-
-                  anchors.centerIn: parent
-                  width:parent.width * 1.17
-                  height:parent.height * 1.17
-                  source:"./img/cancel.svg"
-              }
-
-              Flasher {
-
-
-              }
-
-              MouseArea {
-                  anchors.fill: parent
-                  preventStealing: true
-                  onClicked: { if(cardindex == 0) {if(atf == "true") {atf = "false" } else { atf = "true" } }
-                      Scripts.save_card(userid,username,userphone,useremail,usercompany,
-                                                                                useralias,usermotto,usermain,website1,website2,website3,website4,
-                                                                                stf,atf,ctf,avimg,carddesign,usercat);
-                                                              OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
-                                                                                   useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
-                                                                                   avimg,carddesign,usercat);
-
-                  }
-
-
-              }
-
-          } */
-
-          Item {
-              width: if(cardindex == 0) {if(ctf == "true") {parent.width / 11} else {parent.width / 11} }
-              height: if(cardindex == 0) {if(ctf == "true") {parent.width / 11} else {parent.width / 11} }
-              anchors.verticalCenter: parent.verticalCenter
-
-              //name: if (saved == 0) {"add"} else {"starred"}
-              //name:"contact"
-
-              //z: -8
-
-              Image {
-                  id:contact_icon1
-                  visible: false
-                  //anchors.fill: parent
-                  anchors.centerIn: parent
-                  width:parent.width * 0.8
-                  height:parent.height * 0.8
-                  source: "./img/contact.svg"
-
-                  Image {
-                      //anchors.fill:parent
-                      visible: if (ctf == "true") {false} else {true}
-
-                      anchors.centerIn: parent
-                      width:parent.width * 1.17
-                      height:parent.height * 1.17
-                      source:"./img/cancel.svg"
-                  }
-
-              }
-
-              ColorOverlay {
-                  source:contact_icon1
-                  anchors.fill:contact_icon1
-                  color:overlayColor
-              }
-
-
-
-              Flasher {
-
-
-              }
-
-              MouseArea {
-                  anchors.fill: parent
-
-                  preventStealing: true
-                  onClicked: {if(cardindex == 0) {if(ctf == "true") {ctf = "false"; notification1.visible = true; notification1.themessage ="Contact info hidden" }
-                                                                    else { ctf = "true";notification1.visible = true; notification1.themessage ="Contact info shared" }
-
-                      Scripts.save_card(userid,username,userphone,useremail,usercompany,
-                                                                                useralias,usermotto,usermain,website1,website2,website3,website4,
-                                                                                stf,atf,ctf,avimg,carddesign,usercat);
-                                                              OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
-                                                                                   useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
-                                                                                   avimg,carddesign,usercat);
-
-                  }
-              }
-
-            }
-
-          }
-
-          Item {
-              width: /*units.gu(2) */ parent.width / 11
-              height: /*units.gu(2) */ parent.width / 11
-              anchors.verticalCenter: parent.verticalCenter
-
-
-              Image {
-                  id:stats_icon
-                  visible: false
-                  //anchors.fill: parent
-                  anchors.centerIn: parent
-                  width:parent.width * 0.8
-                  height:parent.height * 0.8
-                  source: "./img/stats.svg"
-
-
-
-              }
-
-              ColorOverlay {
-                  source:stats_icon
-                  anchors.fill: stats_icon
-                  color:overlayColor
-              }
-
-
-              Flasher {
-
-
-              }
-
-              MouseArea {
-                  anchors.fill: parent
-                  preventStealing: true
-                 // onClicked: swapopt.state = "Active"
-                  onClicked: notification1.visible = true,notification1.themessage = "Coming Soon"
-              }
-
-          }
-
-    }
-
-        }
-
-
-
-
-    DropShadow {
-        anchors.fill:bottomBar
-        horizontalOffset: 0
-        verticalOffset: -4
-        radius: 8.0
-        samples: 17
-        color: "#80000000"
-        source:bottomBar
-        z:1
-    }
 
 }
 

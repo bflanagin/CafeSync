@@ -2,9 +2,9 @@ import QtQuick 2.3
 import QtQuick.Window 2.2
 
 
-import "main.js" as Scripts
+import "../main.js" as Scripts
 import "kickstarter.js" as Site
-import "openseed.js" as OpenSeed
+import "../openseed.js" as OpenSeed
 
 
 Item {
@@ -15,7 +15,7 @@ Item {
     property string service:""
     property string extrathing:""
     property string sitedata:""
-    property string pluginlogo:"img/kickstarter.png"
+    property string pluginlogo:"../img/kickstarter.png"
     property string banner: ""
     property string pitch: ""
     property string title: ""
@@ -38,6 +38,7 @@ Item {
             PropertyChanges {
                 target: popup
                 visible:true
+
             }
 
         },
@@ -46,7 +47,10 @@ Item {
           PropertyChanges {
               target: popup
               visible:false
+
+
           }
+
         }
     ]
 
@@ -274,7 +278,7 @@ Item {
                  }
 
                 Image {
-                     source:"./img/message-sent.svg"
+                     source:".../img/message-sent.svg"
                          width:parent.height * 0.80
                          height:parent.height * 0.80
                          anchors.verticalCenter: parent.verticalCenter

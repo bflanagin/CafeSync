@@ -3,6 +3,9 @@
 
 #include <QtGui>
 #include <QtQuick>
+#include <QtAndroidExtras/QAndroidJniObject>
+#include <QtAndroid>
+
 
 #include "notificationclient.h"
 #include "myio.h"
@@ -24,7 +27,10 @@ int main(int argc, char *argv[])
         view.setSource(QUrl(QStringLiteral("qrc:/main.qml")));
         view.show();
 
-
+    QAndroidJniObject::callStaticMethod<void>("com/vagueentertainment/cafesync/OpenSeedService",
+                                              "startOpenSeedService",
+                                              "(Landroid/content/Context;)V",
+                                              QtAndroid::androidActivity().object());
 
     return app.exec();
 }

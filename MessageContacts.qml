@@ -83,7 +83,7 @@ color:backgroundColor
 ListView {
 id:contacts
 width:parent.width
-height:parent.height - bottomBar.height
+height:parent.height
 //verticalLayoutDirection: ListView.BottomToTop
 
 spacing:thisWindow.height * 0.01
@@ -221,7 +221,7 @@ Image {
     anchors.horizontalCenter: parent.horizontalCenter
     height:parent.height * 0.6
     width:parent.height * 0.6
-    source:"./img/add.svg"
+    source:"./icons/add.svg"
     Flasher {
 
     }

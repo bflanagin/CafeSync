@@ -2,24 +2,11 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>CCreator.qml</file>
-        <file>DA.qml</file>
         <file>DownTab.qml</file>
-        <file>etsy.js</file>
-        <file>Etsy.qml</file>
-        <file>facebook.js</file>
-        <file>FaceBook.qml</file>
         <file>Flasher.qml</file>
-        <file>gofundme.js</file>
-        <file>GoFundMe.qml</file>
         <file>Home.qml</file>
         <file>Info.qml</file>
-        <file>jamendo.js</file>
-        <file>Jamendo.qml</file>
-        <file>kickstarter.js</file>
-        <file>Kickstarter.qml</file>
         <file>LeftTab.qml</file>
-        <file>linkedin.js</file>
-        <file>Linkedin.qml</file>
         <file>main.js</file>
         <file>MainScreen.qml</file>
         <file>Menus.qml</file>
@@ -28,27 +15,12 @@
         <file>Payment.qml</file>
         <file>RightTab.qml</file>
         <file>RotateScreen.qml</file>
-        <file>RSS.qml</file>
         <file>Setup.qml</file>
         <file>slides.js</file>
         <file>SlideShow.qml</file>
-        <file>soundcloud.js</file>
-        <file>SoundCloud.qml</file>
         <file>ToggleUpDown.qml</file>
-        <file>tumblr.js</file>
-        <file>Tumblr.qml</file>
-        <file>twitch.js</file>
-        <file>Twitch.qml</file>
-        <file>twitter.js</file>
-        <file>Twitter.qml</file>
         <file>UpTab.qml</file>
-        <file>URL.qml</file>
         <file>VeButton.qml</file>
-        <file>vimeo.js</file>
-        <file>Vimeo.qml</file>
-        <file>webpage.js</file>
-        <file>youtube.js</file>
-        <file>YouTube.qml</file>
         <file>CardBack.qml</file>
         <file>Card.qml</file>
         <file>graphics/CafeSync.png</file>
@@ -142,62 +114,27 @@
         <file>img/wordpress.png</file>
         <file>img/YouTube-logo-full_color.png</file>
         <file>img/youtube.png</file>
-        <file>main.cpp</file>
         <file>img/back.svg</file>
-        <file>img/cancel.svg</file>
-        <file>img/delete.svg</file>
-        <file>img/find.svg</file>
         <file>img/go-down.svg</file>
         <file>img/go-next.svg</file>
         <file>img/go-previous.svg</file>
         <file>img/go-up.svg</file>
-        <file>img/help.svg</file>
-        <file>img/junk.svg</file>
-        <file>img/language-chooser.svg</file>
-        <file>img/location.svg</file>
-        <file>img/menu.svg</file>
-        <file>img/ok.svg</file>
-        <file>img/outgoing-call.svg</file>
-        <file>img/save.svg</file>
         <file>img/sc_square_84.png</file>
-        <file>img/starred.svg</file>
         <file>img/stock_website.svg</file>
-        <file>img/swap.svg</file>
-        <file>img/edit.svg</file>
         <file>img/overlay-dark.png</file>
         <file>SourceSelection.qml</file>
         <file>img/kickstarter-logo-k-color.png</file>
         <file>GetPic.qml</file>
         <file>Preview.qml</file>
-        <file>img/camera-photo.svg</file>
-        <file>img/FA.png</file>
-        <file>img/Fauto.png</file>
-        <file>img/Fcount.png</file>
-        <file>img/Fhyper.png</file>
-        <file>img/Finf.png</file>
-        <file>img/Fmacro.png</file>
-        <file>img/FO.png</file>
-        <file>img/frontC.png</file>
-        <file>img/FS.png</file>
         <file>img/backC.png</file>
         <file>img/gravatarlogo.jpg</file>
         <file>Wizard.qml</file>
         <file>SocialConnect.qml</file>
-        <file>img/reset.svg</file>
         <file>img/medium.png</file>
         <file>img/RSS.png</file>
         <file>Notification.qml</file>
-        <file>img/camera-flip.svg</file>
-        <file>img/flash-auto.svg</file>
-        <file>img/flash-off.svg</file>
-        <file>img/flash-on.svg</file>
-        <file>img/gps.svg</file>
         <file>img/tumblr.svg</file>
-        <file>img/overlay.svg</file>
         <file>SocialOpt.qml</file>
-        <file>img/check.svg</file>
-        <file>img/close.svg</file>
-        <file>img/edit-text.svg</file>
         <file>ProfileEntry.qml</file>
         <file>text.js</file>
         <file>Messages.qml</file>
@@ -206,19 +143,99 @@
         <file>messages.js</file>
         <file>requests.js</file>
         <file>SendRequest.qml</file>
-        <file>img/contact.svg</file>
-        <file>img/contact-group.svg</file>
-        <file>img/contact-new.svg</file>
-        <file>img/email.svg</file>
-        <file>img/message.svg</file>
-        <file>img/message-new.svg</file>
-        <file>img/private-browsing.svg</file>
-        <file>img/share.svg</file>
         <file>MessageContacts.qml</file>
-        <file>img/add.svg</file>
-        <file>img/reload.svg</file>
         <file>SocialOptfull.qml</file>
         <file>qtquickcontrols2.conf</file>
-        <file>img/stats.svg</file>
+        <file>TopBar.qml</file>
+        <file>Actions.qml</file>
+        <file>plugins/etsy.js</file>
+        <file>plugins/Etsy.qml</file>
+        <file>plugins/facebook.js</file>
+        <file>plugins/FaceBook.qml</file>
+        <file>plugins/jamendo.js</file>
+        <file>plugins/Jamendo.qml</file>
+        <file>plugins/kickstarter.js</file>
+        <file>plugins/Kickstarter.qml</file>
+        <file>plugins/linkedin.js</file>
+        <file>plugins/Linkedin.qml</file>
+        <file>plugins/RSS.qml</file>
+        <file>plugins/soundcloud.js</file>
+        <file>plugins/SoundCloud.qml</file>
+        <file>plugins/tumblr.js</file>
+        <file>plugins/Tumblr.qml</file>
+        <file>plugins/twitch.js</file>
+        <file>plugins/Twitch.qml</file>
+        <file>plugins/twitter.js</file>
+        <file>plugins/Twitter.qml</file>
+        <file>plugins/URL.qml</file>
+        <file>plugins/vimeo.js</file>
+        <file>plugins/Vimeo.qml</file>
+        <file>plugins/webpage.js</file>
+        <file>plugins/youtube.js</file>
+        <file>plugins/YouTube.qml</file>
+        <file>plugins/GoFundMe.qml</file>
+        <file>plugins/gofundme.js</file>
+        <file>plugins/fb.js</file>
+        <file>plugins/DA.qml</file>
+        <file>AchievmentsBar.qml</file>
+        <file>MicroBlogger.qml</file>
+        <file>AchievementInfo.qml</file>
+        <file>icons/add.svg</file>
+        <file>icons/camera-flip.svg</file>
+        <file>icons/camera-photo.svg</file>
+        <file>icons/cancel.svg</file>
+        <file>icons/check.svg</file>
+        <file>icons/close.svg</file>
+        <file>icons/contact-group.svg</file>
+        <file>icons/contact-new.svg</file>
+        <file>icons/contact.svg</file>
+        <file>icons/delete.svg</file>
+        <file>icons/edit-text.svg</file>
+        <file>icons/edit.svg</file>
+        <file>icons/email.svg</file>
+        <file>icons/FA.png</file>
+        <file>icons/Fauto.png</file>
+        <file>icons/Fcount.png</file>
+        <file>icons/Fhyper.png</file>
+        <file>icons/find.svg</file>
+        <file>icons/Finf.png</file>
+        <file>icons/flash-auto.svg</file>
+        <file>icons/flash-off.svg</file>
+        <file>icons/flash-on.svg</file>
+        <file>icons/Fmacro.png</file>
+        <file>icons/FO.png</file>
+        <file>icons/frontC.png</file>
+        <file>icons/FS.png</file>
+        <file>icons/gps.svg</file>
+        <file>icons/help.svg</file>
+        <file>icons/junk.svg</file>
+        <file>icons/location.svg</file>
+        <file>icons/message-new.svg</file>
+        <file>icons/message.svg</file>
+        <file>icons/ok.svg</file>
+        <file>icons/outgoing-call.svg</file>
+        <file>icons/private-browsing.svg</file>
+        <file>icons/reload.svg</file>
+        <file>icons/reset.svg</file>
+        <file>icons/save.svg</file>
+        <file>icons/share.svg</file>
+        <file>icons/starred.svg</file>
+        <file>icons/stats.svg</file>
+        <file>icons/stock_website.svg</file>
+        <file>icons/swap.svg</file>
+        <file>img/overlay.svg</file>
+        <file>icons/overlay.svg</file>
+        <file>icons/menu.svg</file>
+        <file>icons/language-chooser.svg</file>
+        <file>icons/back.svg</file>
+        <file>InputBack.qml</file>
+        <file>microblogger.js</file>
+        <file>icons/calendar.svg</file>
+        <file>icons/calendar-today.svg</file>
+        <file>CirclePic.qml</file>
+        <file>getpic.js</file>
+        <file>CircleIndicator.qml</file>
+        <file>CircleStat.qml</file>
+        <file>img/OpenCircle.png</file>
     </qresource>
 </RCC>

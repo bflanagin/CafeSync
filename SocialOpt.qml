@@ -45,9 +45,10 @@ Item {
                                     text:source
                                    color:if(bgcolor == cardcolor) {"black"} else {"white"}
                                     //color:"black"
-                                    width:parent.width
+                                    width:parent.width * 0.89
                                     font.pixelSize: parent.height * 0.3
                                     wrapMode: Text.WordWrap
+                                    clip:true
                                 }
                             }
                           }

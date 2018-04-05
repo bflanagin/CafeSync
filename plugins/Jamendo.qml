@@ -2,7 +2,7 @@ import QtQuick 2.3
 import QtQuick.Window 2.2
 
 
-import "main.js" as Scripts
+import "../main.js" as Scripts
 import "jamendo.js" as Site
 
 
@@ -14,7 +14,7 @@ Item {
     property string service:""
     property string extrathing:""
     property string sitedata:""
-    property string pluginlogo:"img/jamendo.png"
+    property string pluginlogo:"../img/jamendo.png"
 
     clip: true
 
@@ -26,7 +26,8 @@ Item {
             name:"Active"
             PropertyChanges {
                 target: popup
-                z: 3
+                visible:true
+
             }
 
         },
@@ -34,8 +35,11 @@ Item {
           name:"InActive"
           PropertyChanges {
               target: popup
-              z: -2
+              visible:false
+
+
           }
+
         }
     ]
 
@@ -148,7 +152,7 @@ Item {
                  }
 
                 Image {
-                     source:"./img/message-sent.svg"
+                     source:"../img/message-sent.svg"
                          width:parent.height * 0.80
                          height:parent.height * 0.80
                          anchors.verticalCenter: parent.verticalCenter

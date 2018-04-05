@@ -84,7 +84,7 @@ Item {
 
     Timer {
         id:checkchat
-        interval:1000
+        interval:5000
         running:false
         repeat:true
         onTriggered:Message.check_messages(roomId)
@@ -92,7 +92,7 @@ Item {
 
     Timer {
         id:chatsanthings
-        interval:1000
+        interval:200000
         running:true
         repeat:true
         onTriggered:if(usercardNum != "") {Message.retrieve_conversations(usercardNum)}
@@ -436,23 +436,38 @@ ListView {
     }
 
     delegate: Item {
-        width:parent.width * 0.80
-        height:content.height * 1.2
-        anchors.right:if(who == usercardNum) {parent.right} else {""}
-        //anchors.left:if(who != usercardNum) {parent.left} else {""}
+        width:parent.width
+        height:content.height + mainView.width * 0.04
         clip:true
+
+        CirclePic {
+            id:card_avatar_backing
+            width: parent.width * 0.2
+            height: parent.width * 0.2
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right:if(who != usercardNum) {parent.right} else {""}
+            anchors.margins: mainView.width * 0.01
+            whichPic: who
+            where: if(who != usercardNum){"saved"} else {"mycard"}
+
+            clip:true
+          }
+        //anchors.left:if(who != usercardNum) {parent.left} else {""}
+
         Rectangle {anchors.centerIn: content
             width:content.width
             height:content.height
+
             color:"white"
             radius:5
             border.color:"black"
-            border.width: 0,0,1,0
+            border.width: 1
         }
         Column {
             id:content
-            anchors.horizontalCenter: parent.horizontalCenter
-            width:parent.width * 0.98
+            anchors.right:if(who == usercardNum) {parent.right} else {""}
+            //anchors.horizontalCenter: parent.horizontalCenter
+            width:parent.width * 0.80
             spacing: thisWindow.height * 0.01
 
                 Text {
@@ -483,7 +498,7 @@ ListView {
             }
 
             Text {
-                text:"<p>"+message+"</p>"
+                text:"<p>"+message.replace(/&#x27;/g,"'")+"</p>"
                 font.pixelSize: thisWindow.width * 0.045
                 width:parent.width * 0.98
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -497,8 +512,9 @@ ListView {
 Rectangle {
     id:bottomBar
     anchors.bottom:parent.bottom
+    anchors.bottomMargin: mainView.width * 0.01
     width:parent.width
-    height:parent.height * 0.08
+    height:(parent.height * 0.01) + messageField.height
     color:bottombarColor
 
    Image {
@@ -506,36 +522,45 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left:parent.left
         anchors.leftMargin: thisWindow.height * 0.01
-        height:parent.height * 0.6
-        width:parent.height * 0.6
-        source:"./img/add.svg"
+        height:mainView.width * 0.06
+        width:mainView.width * 0.06
+        source:"./icons/add.svg"
         Flasher {
 
         }
     }
-   TextField {
+   TextArea {
        id:messageField
        focus: true
-       anchors.verticalCenter: parent.verticalCenter
+       anchors.bottom:parent.bottom
        anchors.horizontalCenter: parent.horizontalCenter
+       verticalAlignment: Text.AlignVCenter
+       wrapMode: Text.WordWrap
+       padding: width * 0.05
       // anchors.left:addstuff.right
       // anchors.leftMargin:addstuff.width * 0.4
        width:parent.width - addstuff.width * 1.8 - sendMsg.width * 1.5
        //height:parent.height * 0.7
-       font.pixelSize: parent.width * 0.045
-       maximumLength: 144
+       font.pixelSize: parent.width * 0.040
+       //maximumLength: 144
         Keys.onPressed: { if (event.key == Qt.Key_Enter || event.key == Qt.Key_Return) {Message.send_messages(roomId,messageField.text)} }
 
+        /*background:Rectangle {
+            border.color: borderColor
+            border.width: 1
+            radius: height / 2
+                 } */
+        background:InputBack{}
    }
 
    Image {
        id:sendMsg
        anchors.right:parent.right
        anchors.rightMargin: thisWindow.height * 0.01
-       source:"./img/message.svg"
+       source:"./icons/message.svg"
        anchors.verticalCenter: parent.verticalCenter
-       width:parent.height * 0.6
-       height:parent.height * 0.6
+       width:mainView.width * 0.06
+       height:mainView.width * 0.06
        Flasher {
 
        }

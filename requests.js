@@ -53,6 +53,7 @@ function check_requests() {
                     requestlog.clear();
                     requests = 0;
 
+
                     for(var num = 1;num < server.split("><").length;num = num + 1) {
 
                              var requestedby = server.split("><")[num].split("::")[0];
@@ -107,9 +108,13 @@ function check_requests() {
 
                     } else {
                                if(requestedby == usercardNum) {
+                                   if(accepted.search(values.split("::")[1]) == -1) {
                             accepted = values.split("::")[1]+","+accepted;
+                                   }
                                 } else {
+                                   if(accepted.search(values.split("::")[0]) == -1) {
                                  accepted = values.split("::")[0]+","+accepted;
+                                   }
                                }
                            }
 

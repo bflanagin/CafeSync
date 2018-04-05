@@ -13,11 +13,11 @@ import QtQuick.LocalStorage 2.0 as Sql
 import "main.js" as Scripts
 import "openseed.js" as OpenSeed
 
-import "webpage.js" as WebPage
+//import "plugins/webpage.js" as WebPage
 
-import "youtube.js" as YouTube
+//import "plugins/youtube.js" as YouTube
 
-
+import "./plugins/"
 
 
 
@@ -200,6 +200,27 @@ Item {
               target: home
               visible:true
           }
+        },
+
+        State {
+          name:"MicroBlog"
+          PropertyChanges {
+              target: webthing
+              z: 0
+          }
+          PropertyChanges {
+              target: web
+              visible:false
+              enabled:false
+          }
+          PropertyChanges {
+              target: home
+              visible:false
+          }
+          PropertyChanges {
+              target: log
+              visible:true
+          }
         }
 
 
@@ -246,6 +267,7 @@ Item {
             pagesource:thesource
             service:page
 
+
         }
 
         Linkedin {
@@ -255,8 +277,6 @@ Item {
             service:page
 
 
-
-
         }
 
         Twitter {
@@ -264,6 +284,7 @@ Item {
             anchors.fill:parent
             pagesource:thesource
             service:page
+
 
         }
 
@@ -304,6 +325,7 @@ Item {
             anchors.fill:parent
             pagesource:thesource
             service:page
+
         }
 
         Tumblr {
@@ -312,6 +334,7 @@ Item {
             pagesource:thesource
             service:page
 
+
         }
 
         RSS {
@@ -319,6 +342,7 @@ Item {
             anchors.fill:parent
             pagesource:thesource
             service:page
+
            // banner:thebanner
            // avatar:theavatar
           //  name:thename
@@ -334,6 +358,7 @@ Item {
             anchors.fill:parent
             pagesource:thesource
             service:page
+
 
         }
 
@@ -368,6 +393,10 @@ Item {
           visible:false
               }
 
+   MicroBlogger {
+          id:log
+          visible:false
+              }
 
    ListModel {
                    id:rssposts

@@ -416,11 +416,17 @@ function show_chat(room) {
              }
 
              var humanDate = new Date(chat.rows.item(sync).date*1);
+             var maybemore = "";
+             if(chat.rows.item(sync).message.search("http") != -1) {
+                 maybemore = "<img src="+chat.rows.item(sync).message+">";
+             } else {
+                 maybemore = "<p>"+chat.rows.item(sync).message+"</p>";
+             }
 
             chatlog.append({who:chat.rows.item(sync).speaker,
                             speaker:otherperson,
                             timecode:humanDate.toLocaleDateString(),
-                            message:chat.rows.item(sync).message
+                            message:maybemore
                            });
                 chatLog.positionViewAtEnd();
          }
@@ -458,7 +464,7 @@ function show_conversations(room) {
 
         var pull = tx.executeSql(getstuff);
          var pulls;
-         console.log("from show_conversations room "+ room + " number of conversations " + pull.rows.length);
+         //console.log("from show_conversations room "+ room + " number of conversations " + pull.rows.length);
 
 
 

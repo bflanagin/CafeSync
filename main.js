@@ -928,6 +928,43 @@ function Show_sites(cid,list) {
 
                         });
 
+        pagelist.append({
+                         webpage:"empty.html",
+                         thestate:"MicroBlog",
+                            pagewidth:mainScreen.width ,
+                            pageheight:mainScreen.height,
+                            motto:about[0],
+                            skills:about[1],
+                            school:about[2],
+                            work: about[3],
+                            cardId:currentcard_thecard,
+                            avatarimg:currentcard_avatarimg,
+                            companyname:currentcard_companyname.replace(/&#x27;/g,"'"),
+                            cardusername:currentcard_username.replace(/&#x27;/g,"'"),
+                            carduserphone:currentcard_userphone,
+                            carduseremail:currentcard_useremail,
+                            cardposition: currentcard_cardposition,
+                            cardbackimg:cardbackis,
+                            //pageindex:pages,
+                            cardsop:currentcard_cardsop,
+                            cardcat:currentcard_cardcat,
+                            saved:currentcard_saved,
+                            realcardback:currentcard_realcardback,
+
+                            spColor:spC,
+                            cardStatus:"Here on CafeSync",
+
+                            mainsite:currentcard_mainsite,
+                            URL1:currentcard_url1,
+                            URL2:currentcard_url2,
+                            URL3:currentcard_url3,
+                            URL4:currentcard_url4,
+
+                            pageindex:pages
+
+
+                        });
+
 
         if(currentcard_mainsite.length > 8) {
             pages = pages + 1;
@@ -1715,6 +1752,25 @@ function store_img (where,file,private) {
 
 }
 
+function Delete_img (file) {
+
+     var deletes = " DELETE FROM `LIBRARY` WHERE file ='"+file+"'";
+
+    db.transaction(function(tx) {
+
+        tx.executeSql('CREATE TABLE IF NOT EXISTS LIBRARY (id TEXT,thedir TEXT,file TEXT,thedate TEXT,private INT,picture_index INT, base64 BLOB)');
+
+            tx.executeSql(deletes);
+            notification1.visible =true;notification1.themessage = "Deleted image"
+            listimages();
+    });
+
+
+
+}
+
+//stats
+
 function totals() {
 
     var dataStr = "SELECT  id  FROM TempCards WHERE `id` !='"+usercardNum+"' AND `id` !=''";
@@ -1880,7 +1936,7 @@ function fillsites() {
                                      service:"",
                                      source:qsTr("Add New Source"),
                                      bgcolor:cardcolor,
-                                     serviceLogo:"./img/add.svg",
+                                     serviceLogo:"./icons/add.svg",
                                      po: 0
                                      });
         } else if(website1.length <=1) {
@@ -1889,7 +1945,7 @@ function fillsites() {
                                      service:"",
                                      source:qsTr("Add New Source"),
                                      bgcolor:cardcolor,
-                                     serviceLogo:"./img/add.svg",
+                                     serviceLogo:"./icons/add.svg",
                                      po: 1
                                      });
 
@@ -1900,7 +1956,7 @@ function fillsites() {
                                      service:"",
                                      source:qsTr("Add New Source"),
                                      bgcolor:cardcolor,
-                                     serviceLogo:"./img/add.svg",
+                                     serviceLogo:"./icons/add.svg",
                                      po: 2
                                      });
 
@@ -1911,7 +1967,7 @@ function fillsites() {
                                      service:"",
                                      source:qsTr("Add New Source"),
                                      bgcolor:cardcolor,
-                                     serviceLogo:"./img/add.svg",
+                                     serviceLogo:"./icons/add.svg",
                                      po:3
                                      });
 
@@ -1922,7 +1978,7 @@ function fillsites() {
                                      service:"",
                                      source:qsTr("Add New Source"),
                                      bgcolor:cardcolor,
-                                     serviceLogo:"./img/add.svg",
+                                     serviceLogo:"./icons/add.svg",
                                      po:4
                                      });
 
@@ -1933,9 +1989,6 @@ function fillsites() {
 
 function socialsetup(source) {
     var ssinfo = "not found";
-
-
-
 
     for(var num=0;num < slist.length;num = num+1) {
 

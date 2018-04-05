@@ -2,7 +2,7 @@ import QtQuick 2.3
 import QtQuick.Window 2.2
 
 
-import "main.js" as Scripts
+import "../main.js" as Scripts
 import "gofundme.js" as Site
 
 
@@ -14,7 +14,7 @@ Item {
     property string service:""
     property string extrathing:""
     property string sitedata:""
-    property string pluginlogo:"img/gofundme.png"
+    property string pluginlogo:"../img/gofundme.png"
 
     property string banner: ""
     property string title:""
@@ -37,6 +37,7 @@ Item {
             PropertyChanges {
                 target: popup
                 visible:true
+
             }
 
         },
@@ -45,7 +46,10 @@ Item {
           PropertyChanges {
               target: popup
               visible:false
+
+
           }
+
         }
     ]
 
@@ -69,7 +73,7 @@ Item {
 
     Image {
         anchors.centerIn: parent
-        source:"./img/shade.png"
+        source:"../img/shade.png"
         anchors.fill:parent
 
     }

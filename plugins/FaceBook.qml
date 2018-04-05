@@ -2,7 +2,7 @@ import QtQuick 2.3
 import QtQuick.Window 2.2
 
 
-import "main.js" as Scripts
+import "../main.js" as Scripts
 import "facebook.js" as Site
 
 
@@ -18,7 +18,7 @@ Item {
     property string message: ""
     property string profilename: ""
     property string stats:""
-    property string pluginlogo: "img/fb.png"
+    property string pluginlogo: "../img/fb.png"
     property int personal: 0
     property string service:""
 
@@ -32,6 +32,7 @@ Item {
             PropertyChanges {
                 target: popup
                 visible:true
+
             }
 
         },
@@ -40,7 +41,10 @@ Item {
           PropertyChanges {
               target: popup
               visible:false
+
+
           }
+
         }
     ]
 

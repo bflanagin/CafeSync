@@ -13,6 +13,14 @@ Item {
     height:parent.height * 1.2
     z:-1
 
+    Timer{
+        id:pressed
+        running:false
+        repeat: false
+        interval: 300
+        onTriggered: popup.state = "InActive"
+    }
+
     state:"InActive"
     states: [
         State {
@@ -28,6 +36,12 @@ Item {
                 //z: 3
                 visible:true
 
+            }
+
+            PropertyChanges {
+                target: pressed
+                //z: 3
+                running:true
             }
 
 

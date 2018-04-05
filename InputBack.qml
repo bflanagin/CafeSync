@@ -1,5 +1,7 @@
-import QtQuick 2.0
+import QtQuick 2.8
 
-Item {
-
-}
+Rectangle {
+    border.color: "black"
+    border.width: 1
+    radius: 20
+         }

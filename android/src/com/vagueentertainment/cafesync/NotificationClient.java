@@ -4,6 +4,7 @@ package com.vagueentertainment.cafesync;
     import android.app.NotificationManager;
     import android.content.Context;
 
+
     public class NotificationClient extends org.qtproject.qt5.android.bindings.QtActivity
     {
         private static NotificationManager m_notificationManager;
@@ -29,3 +30,6 @@ package com.vagueentertainment.cafesync;
         }
 
 }
+
+
+

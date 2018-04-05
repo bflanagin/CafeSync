@@ -4,9 +4,10 @@ import QtQuick.Window 2.2
 //import QtQuick.Controls.Styles 1.3
 //import Ubuntu.Components 1.2
 
-import "main.js" as Scripts
+import "../main.js" as Scripts
 import "twitch.js" as Site
 
+import "../"
 
 Item {
     id:popup
@@ -149,7 +150,7 @@ Item {
                  }
 
                 Image {
-                     source:"./img/message-sent.svg"
+                     source:"../img/message-sent.svg"
                          width:parent.height * 0.80
                          height:parent.height * 0.80
                          anchors.verticalCenter: parent.verticalCenter

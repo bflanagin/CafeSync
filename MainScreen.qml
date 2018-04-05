@@ -90,21 +90,23 @@ GridView {
         width:pagedots.width * 1.2
         height:pagedots.height * 1.6
         radius: parent.height * 0.1
-        color:Qt.rgba(0.4,0.4,0.4,0.4)
+        color:Qt.rgba(0.1,0.1,0.1,0.4)
+        visible: pagedots.visible
     }
 
     Row {
         id:pagedots
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom:parent.bottom
-        anchors.bottomMargin: parent.height * 0.11
+        anchors.bottomMargin: parent.width * 0.02
         spacing: parent.width * 0.02
+        visible: if(ms.count > 1) {true} else {false}
     Repeater {
             model:ms.count
             id:pageIndicator
             Rectangle {
-                       width: mainView.height * 0.014
-                       height: mainView.height * 0.014
+                       width: mainView.width * 0.044
+                       height: mainView.width * 0.044
                        border.width: 1
                        border.color:barColor
                        color: if(index == ms.indexAt(ms.contentX,0)) {highLightColor1} else {Qt.rgba(9,9,9,0);}

@@ -3,8 +3,8 @@ import QtQuick.Window 2.2
 
 //import Ubuntu.Web 0.2
 
-import "main.js" as Scripts
-import "openseed.js" as OpenSeed
+import "../main.js" as Scripts
+import "../openseed.js" as OpenSeed
 
 
 Item {
@@ -23,7 +23,7 @@ Item {
             name:"Active"
             PropertyChanges {
                 target: popup
-                visible:true
+                enabled:true
             }
 
         },
@@ -31,8 +31,10 @@ Item {
           name:"InActive"
           PropertyChanges {
               target: popup
-              visible:false
+              enabled:false
+
           }
+
         }
     ]
 

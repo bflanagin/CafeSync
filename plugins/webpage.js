@@ -50,7 +50,7 @@ http.onreadystatechange = function() {
 
                                      profilebanner = pagedata.substring(pagedata.search('<div id="site-header">'),pagedata.search('</div>'));
                                     thebanner = profilebanner.split('<img src="')[1].split('"')[0];
-                                    theavatar = "img/deviantart.png"
+                                    theavatar = "../img/deviantart.png"
                                     rss_reader2(link);
                         } else if(url.search("medium.com") != -1){
                                 theavatar = "img/medium.png"
@@ -62,12 +62,12 @@ http.onreadystatechange = function() {
                                       //  if(profilebanner != 'undefined') {
                                        //         thebanner = profilebanner.split('<img src="')[1].split('"')[0];
                                       //  } else {
-                                            thebanner = "./img/overlay-dark.png";
+                                            thebanner = "../img/overlay-dark.png";
                                       //  }
 
                                     banner = thebanner;
 
-                                theavatar = "img/wordpress.png";
+                                theavatar = "../img/wordpress.png";
 
                                  avatar = theavatar;
 
@@ -83,7 +83,7 @@ http.onreadystatechange = function() {
 
                 if(medsearch !=-1) {
                     var tomedium = pagedata.substring(pagedata.search('https://medium.com/'),pagedata.search('https://medium.com/')+100).split('"><')[0];
-                        theavatar = "img/medium.png"
+                        theavatar = "../img/medium.png"
                         get_html(tomedium);
                         //thebanner = tomedium;
                 }
@@ -232,7 +232,7 @@ function rss_reader2(url) {
 
     function rss_reader3(pagedata) {
 
-                    thebanner = "./img/overlay-dark.png";
+                    thebanner = "../img/overlay-dark.png";
                     var topblock = pagedata.substring(pagedata.search("<channel>"),pagedata.search("<generator>"));
 
                     thename = topblock.split("<title><![CDATA[")[1].split("]]></title>")[0];
@@ -274,7 +274,7 @@ function rss_medium(url) {
 
                 pagedata = http.responseText;
 
-                thebanner = "./img/overlay-dark.png";
+                thebanner = "../img/overlay-dark.png";
                 var topblock = pagedata.substring(pagedata.search("<channel>"),pagedata.search("<generator>"));
 
                 thename = topblock.split("<title><![CDATA[")[1].split("]]></title>")[0];

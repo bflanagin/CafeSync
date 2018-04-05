@@ -209,7 +209,7 @@ Item {
                 height:parent.height * 0.1
                 width:parent.height * 0.1
                 fillMode: Image.PreserveAspectFit
-                source:if(avimg.search("twitter") != -1) {"./img/twitter.png"} else if (avimg.search("gravatar") != -1) {"./img/gravatar.png"} else if (avimg.search("soundcloud") != -1) {"./img/soundcloud.png"} else if (avimg.search("tumblr") != -1) {"./img/tumblr.png"} else {"./img/camera-photo.svg"}
+                source:if(avimg.search("twitter") != -1) {"./img/twitter.png"} else if (avimg.search("gravatar") != -1) {"./img/gravatar.png"} else if (avimg.search("soundcloud") != -1) {"./img/soundcloud.png"} else if (avimg.search("tumblr") != -1) {"./img/tumblr.png"} else {"./icons/camera-photo.svg"}
             }
 
 
@@ -230,7 +230,7 @@ Item {
                 Image {
                      id:cameraicon
                     anchors.centerIn: parent
-                    source:if(check.source =="" ) {"./img/camera-photo.svg"} else {"./img/reset.svg"}
+                    source:if(check.source =="" ) {"./icons/camera-photo.svg"} else {"./icons/reset.svg"}
                     width:parent.width * 0.8
                     height:parent.height * 0.8
                     fillMode:Image.PreserveAspectFit
@@ -285,7 +285,7 @@ Item {
                     anchors.centerIn: parent
                     width:parent.width * 0.6
                     height:parent.width * 0.6
-                    source:"./img/check.svg"
+                    source:"./icons/check.svg"
 
 
                 }
@@ -348,7 +348,7 @@ Item {
                     anchors.centerIn: parent
                     width:parent.width * 0.6
                     height:parent.width * 0.6
-                    source:"./img/close.svg"
+                    source:"./icons/close.svg"
                 }
 
                 ColorOverlay {
@@ -412,7 +412,7 @@ Item {
                 Image {
                     id:cameratype
                     anchors.centerIn: parent
-                    source:"./img/camera-flip.svg"
+                    source:"./icons/camera-flip.svg"
                     width:parent.width * 0.6
                     height:parent.height * 0.6
                     fillMode:Image.PreserveAspectFit
@@ -466,7 +466,7 @@ Item {
                     Image {
                         id:flashtype
                         anchors.centerIn: parent
-                        source:"./img/flash-auto.svg"
+                        source:"./icons/flash-auto.svg"
                         width:parent.width * 0.6
                         height:parent.height * 0.6
                         fillMode:Image.PreserveAspectFit
@@ -485,9 +485,9 @@ Item {
                     MouseArea {
                                 anchors.fill: parent;
                                 onClicked:switch(setFlash) {
-                                          case 0: setFlash =1;flashtype.source = "./img/flash-off.svg";break;
-                                          case 1: setFlash = 2;flashtype.source = "./img/flash-on.svg";break;
-                                          case 2: setFlash = 0;flashtype.source = "./img/flash-auto.svg";break;
+                                          case 0: setFlash =1;flashtype.source = "./icons/flash-off.svg";break;
+                                          case 1: setFlash = 2;flashtype.source = "./icons/flash-on.svg";break;
+                                          case 2: setFlash = 0;flashtype.source = "./icons/flash-auto.svg";break;
                                           }
                 }
                 }
@@ -519,11 +519,11 @@ Item {
                 MouseArea {
                             anchors.fill: parent;
                             onClicked: switch(setFocus) {
-                                       case 0: setFocus =1;focustype.source = "./img/Fcount.png";break;
-                                       case 1: setFocus = 2;focustype.source = "./img/Fhyper.png";break;
-                                       case 2: setFocus = 3;focustype.source = "./img/Finf.png";break;
-                                       case 3: setFocus = 4;focustype.source = "./img/Fmacro.png";break;
-                                       case 4: setFocus = 0;focustype.source = "./img/Fauto.png";break;
+                                       case 0: setFocus =1;focustype.source = "./icons/Fcount.png";break;
+                                       case 1: setFocus = 2;focustype.source = "./icons/Fhyper.png";break;
+                                       case 2: setFocus = 3;focustype.source = "./icons/Finf.png";break;
+                                       case 3: setFocus = 4;focustype.source = "./icons/Fmacro.png";break;
+                                       case 4: setFocus = 0;focustype.source = "./icons/Fauto.png";break;
                                        }
                         }
             }
@@ -632,6 +632,7 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: avimg = imgsource
+                    onPressAndHold:Scripts.Delete_img(imgsource)
                 }
 
             }
@@ -957,7 +958,7 @@ Item {
         width:parent.height * 0.7
         height: parent.height * 0.7
         fillMode:Image.PreserveAspectFit
-        source:if(stf == "true") {"./img/share.svg"} else {"./img/private-browsing.svg"}
+        source:if(stf == "true") {"./icons/share.svg"} else {"./icons/private-browsing.svg"}
 
         Flasher{
             id:privateb

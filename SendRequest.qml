@@ -20,7 +20,8 @@ Item {
             name:"Active"
             PropertyChanges {
                 target: thisWindow
-                visible:true
+                //visible:true
+                x:0
                 enabled:true
 
             }
@@ -31,14 +32,33 @@ Item {
           name:"InActive"
           PropertyChanges {
               target:thisWindow
-              visible:false
+              //visible:false
+              x:width * -1
               enabled:false
           }
 
         }
     ]
 
-    anchors.centerIn: parent
+    transitions: [
+        Transition {
+            from: "InActive"
+            to: "Active"
+            reversible: true
+
+            NumberAnimation {
+                target: thisWindow
+                property: "x"
+                duration: 200
+                easing.type: Easing.InOutQuad
+            }
+
+        }
+
+
+    ]
+
+  //  anchors.centerIn: parent
 
 
 Item {
@@ -57,9 +77,18 @@ Item {
         spacing: thisWindow.height * 0.01
 
         Text {
-            text:"Request"
+            text:"Connection Request"
             anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: thisWindow.height * 0.1
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: thisWindow.height * 0.05
+            width:parent.width
+
+            Rectangle {
+                z:-1
+                color:barColor
+                anchors.fill: parent
+            }
+
         }
 
         Rectangle {
@@ -73,7 +102,7 @@ Item {
             text:"To: "+currentcard_username
             anchors.left:parent.left
             anchors.leftMargin: thisWindow.height * 0.01
-            font.pixelSize: thisWindow.height * 0.05
+            font.pixelSize: thisWindow.height * 0.04
         }
 
         TextArea {
@@ -81,7 +110,7 @@ Item {
             width:parent.width * 0.98
             anchors.horizontalCenter: parent.horizontalCenter
             height:thisWindow.height / 1.5
-            placeholderText: "Why we should connect."
+            placeholderText: "To start messaging the user they must accept your request."
             wrapMode: Text.WordWrap
             font.pixelSize: parent.width * 0.06
             Rectangle {
@@ -103,7 +132,7 @@ Item {
         anchors.left:parent.left
         anchors.bottom:parent.bottom
         anchors.margins: parent.height * 0.04
-        source:"./img/close.svg"
+        source:"./icons/close.svg"
         width:parent.height * 0.05
         height:parent.height * 0.05
         Flasher {
@@ -120,7 +149,7 @@ Item {
         anchors.right:parent.right
         anchors.bottom:parent.bottom
         anchors.margins: parent.height * 0.04
-        source:"./img/check.svg"
+        source:"./icons/check.svg"
         width:parent.height * 0.05
         height:parent.height * 0.05
         Flasher {

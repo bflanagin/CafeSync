@@ -256,7 +256,7 @@ Item {
                         anchors.centerIn: parent
                         width:parent.width * 0.7
                         height:parent.height * 0.7
-                        source:"./img/find.svg"
+                        source:"./icons/find.svg"
                     }
 
                     MouseArea {
@@ -283,7 +283,7 @@ Item {
                 anchors.centerIn: parent
                 width:parent.width * 0.7
                 height:parent.height * 0.7
-                source:"./img/check.svg"
+                source:"./icons/check.svg"
             }
 
             MouseArea {
@@ -338,7 +338,7 @@ Item {
                 anchors.centerIn: parent
                 width:parent.width * 0.6
                 height:parent.height * 0.6
-                source:"./img/close.svg"
+                source:"./icons/close.svg"
             }
 
             MouseArea {
@@ -498,7 +498,7 @@ Item {
                             anchors.centerIn: parent
                             width:parent.width * 0.7
                             height:parent.height * 0.7
-                            source:"./img/find.svg"
+                            source:"./icons/find.svg"
                         }
 
                         MouseArea {
@@ -531,7 +531,7 @@ Item {
                     anchors.centerIn: parent
                     width:parent.width * 0.6
                     height:parent.height * 0.6
-                    source:"./img/check.svg"
+                    source:"./icons/check.svg"
                 }
 
                 MouseArea {
@@ -594,7 +594,7 @@ Item {
                     anchors.centerIn: parent
                     width:parent.width * 0.6
                     height:parent.height * 0.6
-                    source:"./img/close.svg"
+                    source:"./icons/close.svg"
                 }
 
                 MouseArea {

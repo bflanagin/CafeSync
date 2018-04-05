@@ -17,7 +17,9 @@ Item {
              //page: Page {
  id:settingsPage
 
- clip: true
+ property bool simpleMode: true
+
+// clip: true
 // width:parent.width
 // height:parent.height
 // x:0
@@ -163,14 +165,29 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
              height:parent.height * 0.01
 
         }
-
+        Item {
+            width:parent.width
+            height:gentitle.height
          Text {
+             id:gentitle
              text: qsTr("General Settings")
              anchors.left:parent.left
-             font.pixelSize: parent.width * 0.04
+             font.pixelSize: parent.width * 0.06
              anchors.leftMargin: 4
+             width:parent.width * 0.60
              //anchors.verticalCenter: parent.verticalCenter
+
+
          }
+         Button {
+
+             text:if(simpleMode == true) {qsTr("Pro Mode")} else {qsTr("Simple Mode")}
+             anchors.right:parent.right
+             anchors.verticalCenter: parent.verticalCenter
+             onClicked: if(simpleMode == true) {simpleMode = false} else { simpleMode = true}
+         }
+        }
+
          Rectangle {
              width: parent.width * 0.98
              height:3
@@ -486,6 +503,7 @@ Item {
      }
 
 Text {
+     visible: if(simpleMode == false) {true} else {false}
     text: qsTr("Contact")
     anchors.left:parent.left
 
@@ -494,6 +512,7 @@ Text {
 
 }
 Rectangle {
+     visible: if(simpleMode == false) {true} else {false}
     width: parent.width * 0.98
     height:3
     anchors.horizontalCenter: parent.horizontalCenter
@@ -505,7 +524,7 @@ Rectangle {
 Item {
     width:parent.width
     height:contactLabel.y+(contactLabel.height * 2)
-
+    visible: if(simpleMode == false) {true} else {false}
 
  Rectangle {
     id:contactarea
@@ -722,6 +741,7 @@ Item {
               orientation: ListView.Horizontal
               spacing: 10
               clip:true
+              visible: if(simpleMode == false) {true} else {false}
 
               model: ListModel {
                   ListElement {
@@ -793,7 +813,7 @@ Item {
                   Image {
                       anchors.right:parent.right
                       anchors.bottom:parent.bottom
-                      source:"./img/edit-text.svg"
+                      source:"./icons/edit-text.svg"
                       height:parent.height * 0.06
                       width:parent.height * 0.06
 
@@ -937,7 +957,7 @@ Item {
                                             id:checked
                                             anchors.left:parent.right
                                             anchors.verticalCenter: parent.verticalCenter
-                                            source:"./img/check.svg"
+                                            source:"./icons/check.svg"
                                             height:parent.height
                                             width:parent.height
                                         }
@@ -963,7 +983,7 @@ Item {
                                     id:editbutton
                                     anchors.right:parent.right
                                     anchors.rightMargin: parent.width * 0.01
-                                    source:"./img/edit-text.svg"
+                                    source:"./icons/edit-text.svg"
                                     width:settingsPage.height * 0.02
                                     height:settingsPage.height * 0.02
                                 }
@@ -1109,7 +1129,7 @@ Item {
                                       id:checked1
                                       anchors.left:parent.right
                                       anchors.verticalCenter: parent.verticalCenter
-                                      source:"./img/check.svg"
+                                      source:"./icons/check.svg"
                                       height:parent.height
                                       width:parent.height
                                   }
@@ -1135,7 +1155,7 @@ Item {
                               id:editbutton1
                               anchors.right:parent.right
                               anchors.rightMargin: parent.width * 0.01
-                              source:"./img/edit-text.svg"
+                              source:"./icons/edit-text.svg"
                               width:settingsPage.height * 0.02
                               height:settingsPage.height * 0.02
                           }
@@ -1280,7 +1300,7 @@ Item {
                                       id:checked2
                                       anchors.left:parent.right
                                       anchors.verticalCenter: parent.verticalCenter
-                                      source:"./img/check.svg"
+                                      source:"./icons/check.svg"
                                       height:parent.height
                                       width:parent.height
                                   }
@@ -1306,7 +1326,7 @@ Item {
                               id:editbutton2
                               anchors.right:parent.right
                               anchors.rightMargin: parent.width * 0.01
-                              source:"./img/edit-text.svg"
+                              source:"./icons/edit-text.svg"
                               width:settingsPage.height * 0.02
                               height:settingsPage.height * 0.02
                           }
@@ -1445,6 +1465,7 @@ Rectangle {
                         width:parent.width * 0.98
                         height:contentHeight
                         //clip:true
+                        boundsBehavior:Flickable.StopAtBounds
                         spacing:settingsPage.height * 0.02
 
                         model: socialcontracts
@@ -1497,7 +1518,7 @@ Rectangle {
                                 Image {
                                     id:del_icon
                                     visible: false
-                                    source:"./img/close.svg"
+                                    source:"./icons/close.svg"
                                      anchors.fill:parent  
 
                                 }
@@ -1751,12 +1772,12 @@ Rectangle {
  ProfileEntry {
      id:enterProfile
      //y:-settingsPage.y
-    // y:-topBar.height
+     y:-topBar.height
      width:mainView.width
-     height:mainView.height * 0.94
+     height:(mainView.height + topBar.height) * 0.98
      state:"InActive"
      listindex: -1
-     onStateChanged: if(state == "InActive") { Scripts.skillListings(),Scripts.schoolListings(),Scripts.workListings()}
+     onStateChanged: if(state == "InActive") { Scripts.skillListings(),Scripts.schoolListings(),Scripts.workListings(),topBar.visible = true} else {topBar.visible = false}
 
  }
 

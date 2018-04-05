@@ -143,7 +143,7 @@ Item {
 
     Image {
         id:cancel
-        source:"./img/close.svg"
+        source:"./icons/close.svg"
         width:parent.width * 0.06
         anchors.bottom: parent.bottom
         anchors.left:parent.left
@@ -167,7 +167,7 @@ Item {
 
     Image {
         id:okay
-        source:"./img/check.svg"
+        source:"./icons/check.svg"
         width:parent.width * 0.06
         anchors.bottom: parent.bottom
         anchors.right:parent.right
@@ -213,7 +213,7 @@ Item {
 
     Image {
         id:rcancel
-        source:"./img/close.svg"
+        source:"./icons/close.svg"
         width:parent.width * 0.06
         anchors.bottom: parent.bottom
         anchors.left:parent.left
@@ -237,7 +237,7 @@ Item {
 
     Image {
         id:rokay
-        source:"./img/check.svg"
+        source:"./icons/check.svg"
         width:parent.width * 0.06
         anchors.bottom: parent.bottom
         anchors.right:parent.right
