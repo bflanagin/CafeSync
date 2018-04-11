@@ -259,12 +259,12 @@ function save_messages(theid,name,avatar1,part_id,part_names,part_avatar,roomid,
             var pull = tx.executeSql(testStr);
           //  console.log("From save_messages database input "+data);
 
-            if(pull.rows.length == 0) {
+            if(pull.rows.length === 0) {
              //   console.log("Inserting");
 
             tx.executeSql(userStr,data);
 
-                        if(thespeaker != usercardNum) {
+                        if(thespeaker !== usercardNum) {
 
                          dataStr1 = "SELECT  name,avatar  FROM SavedCards WHERE `id` ='"+thespeaker+"' AND `id` !=''";
                        db.transaction(function(tx) {
@@ -280,14 +280,14 @@ function save_messages(theid,name,avatar1,part_id,part_names,part_avatar,roomid,
                         }
 
 
-                    if(themessage == "<begin>") {
+                    if(themessage === "<begin>") {
                     notificationClient.notification = "New Chat from: "+otherperson;
                     } else {
-                        if(messagePage.showroom == true && messagePage.roomId == name) {
+                        if(messagePage.showroom == true && messagePage.roomId === name) {
                             console.log("updating chat");
                                 var humanDate = new Date(mesgdate*1);
 
-                            if(lastmessage != mesgdate) {
+                            if(lastmessage !== mesgdate) {
 
                             chatlog.append({who:thespeaker,
                                             speaker:otherperson,
@@ -302,7 +302,7 @@ function save_messages(theid,name,avatar1,part_id,part_names,part_avatar,roomid,
                         }
 
                         totalNewMessages = totalNewMessages + 1;
-                        if(thespeaker !=usercardNum) {
+                        if(thespeaker !==usercardNum) {
                         notificationClient.notification = "New Message from: "+otherperson;
                         }
                     }
@@ -329,7 +329,7 @@ function contactlist() {
         while(pull.rows.length > num) {
             var ava;
             if(pull.rows.item(num).avatar.length < 4) { ava = "img/default_avatar.png"} else {ava = pull.rows.item(num).avatar
-                         if(ava.search("/9j/4A") != -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
+                         if(ava.search("/9j/4A") !== -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
 
             }
 
@@ -370,7 +370,7 @@ function show_chat(room) {
     var you;
     var them;
 
-    if(room.split(",")[0] == usercardNum) {
+    if(room.split(",")[0] === usercardNum) {
         you = room.split(",")[0];
         them = room.split(",")[1];
     } else {
@@ -388,19 +388,19 @@ function show_chat(room) {
 
          //console.log(chat.rows.item(sync).speaker);
 
-        if(chat.rows.item(sync).speaker == you || chat.rows.item(sync).speaker == them) {
+        if(chat.rows.item(sync).speaker === you || chat.rows.item(sync).speaker === them) {
 
             //console.log(chat.rows.item(sync).speaker);
 
         var lr = 0;
         var dataStr1;
          var text = chat.rows.item(sync).message;
-         if(text.search("<begin>") == -1){
+         if(text.search("<begin>") === -1){
              var otherperson;
 
              var otherava;
 
-             if(them != usercardNum ) {
+             if(them !== usercardNum ) {
                     dataStr1 = "SELECT  name,avatar  FROM SavedCards WHERE `id` ='"+them+"' AND `id` !=''";
 
               var pull = tx.executeSql(dataStr1);
@@ -408,7 +408,7 @@ function show_chat(room) {
               otherperson = pull.rows.item(0).name;
                 whowith = otherperson;
               if(pull.rows.item(0).avatar.length < 4) { otherava = "img/default_avatar.png"} else {otherava = pull.rows.item(0).avatar
-                           if(otherava.search("/9j/4A") != -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
+                           if(otherava.search("/9j/4A") !== -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
 
               }
 
@@ -417,7 +417,7 @@ function show_chat(room) {
 
              var humanDate = new Date(chat.rows.item(sync).date*1);
              var maybemore = "";
-             if(chat.rows.item(sync).message.search("http") != -1) {
+             if(chat.rows.item(sync).message.search("http") !== -1) {
                  maybemore = "<img src="+chat.rows.item(sync).message+">";
              } else {
                  maybemore = "<p>"+chat.rows.item(sync).message+"</p>";
@@ -470,9 +470,9 @@ function show_conversations(room) {
 
     while(sync < pull.rows.length) {
 
-         if(pull.rows.item(sync).speaker.split(",").length == 2) {
+         if(pull.rows.item(sync).speaker.split(",").length === 2) {
 
-             if(pull.rows.item(sync).speaker.split(",")[0] == usercardNum) {
+             if(pull.rows.item(sync).speaker.split(",")[0] === usercardNum) {
                  you = pull.rows.item(sync).speaker.split(",")[0];
                  them = pull.rows.item(sync).speaker.split(",")[1];
              } else {
@@ -488,7 +488,7 @@ function show_conversations(room) {
                     otherperson = pulls.rows.item(0).name;
 
             if(pulls.rows.item(0).avatar.length < 4) { otherava = "img/default_avatar.png"} else {otherava = pulls.rows.item(0).avatar
-                         if(otherava.search("/9j/4A") != -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
+                         if(otherava.search("/9j/4A") !== -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
 
             }
             if(convers.toString().search(pull.rows.item(sync).name) == -1 ) {

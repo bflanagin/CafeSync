@@ -277,8 +277,11 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         interval: 10000
         running:false
         repeat:true
-        onTriggered:if(firstrun.state == "InActive") {OpenSeed.heartbeat(),Request.check_requests();}
+        onTriggered:if(firstrun.state == "InActive") {OpenSeed.heartbeat();
+                        Request.check_requests();}
     }
+
+Component.onCompleted: (console.log(Application.version));
 
     Timer {
         id:syncandsave
@@ -307,9 +310,6 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                 console.log("starting up");
                 heartbeats.running = true;
                  notification.visible = true;
-
-
-
 
             }
     }
@@ -378,8 +378,8 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                         Scripts.totals();
 
                    if(selection == 0)
-                   {Scripts.Temp_load(searchtext,listget);}
-                   else {Scripts.Cards_load(searchtext); }
+                   {Scripts.temp_Load(searchtext,listget);}
+                   else {Scripts.cards_Load(searchtext); }
 
                             tempcheck = remotetemp;
                           //console.log("what we have "+tempcheck);
@@ -392,6 +392,9 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
               }
             }
+
+    onConnectedChanged: Scripts.save_Stat(userid,"Impact",connected.split("><").length);
+    onAcceptedChanged: Scripts.save_Stat(userid,"2-Way",accepted.split(",").length - 1);
 
 
     PositionSource {
@@ -531,7 +534,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
         MouseArea {
             anchors.fill:parent
-            onClicked: { if(settingsPage.state == "show") {cardindex = 0,passby.state = "selected",saveded.state = "unselected"} else { selection = 0,passby.state = "selected",saveded.state = "unselected",pages = 0,cardslist.clear(),currentcard = -1,Scripts.Temp_load(searchtext,listget)
+            onClicked: { if(settingsPage.state == "show") {cardindex = 0,passby.state = "selected",saveded.state = "unselected"} else { selection = 0,passby.state = "selected",saveded.state = "unselected",pages = 0,cardslist.clear(),currentcard = -1,Scripts.temp_Load(searchtext,listget)
             }}
 
             onPressed: tempflash.state = "Active"
@@ -572,7 +575,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
         MouseArea {
             anchors.fill:parent
-            onClicked: { if(settingsPage.state == "show") {cardindex = 1,passby.state = "unselected",saveded.state = "selected"} else {selection = 1,passby.state = "unselected",saveded.state = "selected",pages =1,cardslist.clear(),currentcard = -1,Scripts.Cards_load(searchtext)
+            onClicked: { if(settingsPage.state == "show") {cardindex = 1,passby.state = "unselected",saveded.state = "selected"} else {selection = 1,passby.state = "unselected",saveded.state = "selected",pages =1,cardslist.clear(),currentcard = -1,Scripts.cards_Load(searchtext)
             }}
             onPressed: savedflash.state = "Active"
             onReleased: savedflash.state = "InActive"
@@ -606,9 +609,9 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
                  OpenSeed.retrieve_data(userid);
 
-                //Scripts.Temp_load();
+                //Scripts.temp_Load();
 
-                //Scripts.Cards_load();
+                //Scripts.cards_Load();
 
           }
         } */

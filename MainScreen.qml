@@ -15,7 +15,7 @@ import "openseed.js" as OpenSeed
 
 
 
-GridView {
+ListView {
     id:ms
     property string number: "0"
     property string list:""
@@ -28,9 +28,10 @@ GridView {
    // height: parent.height //- units.gu(4.8)
     snapMode: GridView.SnapOneRow
     //flow: GridView.FlowLeftToRight
-    flow:GridView.FlowTopToBottom
+ //   flow:GridView.FlowTopToBottom
     boundsBehavior: Flickable.DragAndOvershootBounds
-    flickableDirection: Flickable.VerticalFlick
+    orientation: Qt.Horizontal
+   // flickableDirection: Flickable.VerticalFlick
     //pressDelay: 1000
     onDraggingVerticallyChanged: if (draggingVertically == true) {enabled = false}
    // highlightFollowsCurrentItem: true
@@ -39,8 +40,8 @@ GridView {
     //cellHeight: units.gu(26)
     clip:true
     //cacheBuffer : 80
-    cellHeight:parent.height //passerbyGrid.height
-    cellWidth: mainScreen.width
+  //  cellHeight:parent.height //passerbyGrid.height
+   // cellWidth: mainScreen.width
 
     //onStateChanged: Scripts.loadActions(list)
     onStateChanged: if(state == "Active") {} else {gc();}
@@ -111,9 +112,6 @@ GridView {
                        border.color:barColor
                        color: if(index == ms.indexAt(ms.contentX,0)) {highLightColor1} else {Qt.rgba(9,9,9,0);}
                        radius:width /2
-
-
-
 
                         MouseArea {
                             anchors.fill:parent

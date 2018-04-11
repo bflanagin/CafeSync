@@ -303,12 +303,11 @@ function retrieve_data(id) {
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/updateloc.php";
 
-
+    console.log("Retreiving Data");
     var carddata = "";
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
             carddata = http.responseText;
-
 
             if(http.responseText == 100) {
 
@@ -537,6 +536,7 @@ function get_list(id,list) {
                         var tnum = 0;
                         while (remotetemp.split(",")[tnum] != null) {
                             if(remotetemp.split(",")[tnum] != "") {
+                                    //console.log("updating temp "+remotetemp.split(",")[tnum]);
                                     update_card(remotetemp.split(",")[tnum],"temp");
                                 justpulled = tnum;
                             }
@@ -648,13 +648,76 @@ function get_list(id,list) {
 
 }
 
+function check_for_update(id) {
+    var http = new XMLHttpRequest();
+    var url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/lastupdated.php?id="+userid+"&cid="+id;
+
+    //console.log(url);
+    var updateIt = 0;
+    if(id != 'undefined') {
+
+        var carddata = "";
+        http.onreadystatechange = function() {
+            if (http.readyState == 4) {
+                carddata = http.responseText;
+
+
+                if(http.responseText == 100) {
+
+                    console.log("Incorrect DevID");
+
+                } else if(http.responseText == 101) {
+                    console.log("Incorrect AppID");
+                } else {
+                    carddata = http.responseText;
+                    //console.log("from check for web update "+carddata);
+
+                    db.transaction(function(tx) {
+                           tx.executeSql('CREATE TABLE IF NOT EXISTS Stats(id TEXT, name TEXT,data TEXT, frequency INT)');
+
+                            var testStatupdated = "SELECT data FROM Stats WHERE id= '"+id+"' AND name = 'updated'";
+
+                            var pull = tx.executeSql(testStatupdated);
+
+                            // console.log("from check for update "+pull.rows.length);
+                              // console.log("from check for update "+pull.rows.item(0).data);
+
+                                if(pull.rows.item(0).data != carddata) {
+                                    updateIt = 0;
+
+                                } else {
+                                    updateIt = 1;
+                                }
+                       });
+                }
+
+            }
+        }
+        http.open('GET', url.trim(), true);
+        http.send(null);
+
+
+
+
+}
+
+    return updateIt;
+
+
+}
+
 
 function update_card(id,list) {
-  //  console.log("getting card "+id);
+
 
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/updatecard.php?id=" + userid+"&cid="+id+"&list="+list;
     //console.log(url);
+
+  // console.log("from update card "+check_for_update(id));
+
+    if(id != 'undefined' && check_for_update(id) == 1) {
+        console.log("getting card "+id);
 
     var carddata = "";
     http.onreadystatechange = function() {
@@ -671,7 +734,8 @@ function update_card(id,list) {
             } else {
 
 
-                    var cardpos = carddata.split(";&;");
+
+                var cardpos = carddata.split(";&;");
 
                 var cid = cardpos[0];
                 var name = cardpos[1];
@@ -692,11 +756,21 @@ function update_card(id,list) {
                 var cardbk = cardpos[13];
                 var cardcat = cardpos[14];
                 var cardsop = cardpos[15];
+                var lastseen = cardpos[16];
+                var updated = cardpos[17];
+
+                var updata = "";
+                var upfreq = 0;
+                var statname = "";
 
 
-                //console.log(cardpos);
+
+
                 var data = [cid,name,phone,email,company,calias,motto,main,link1,link2,link3,link4,avatar,cardbk,cardcat,cardsop];
-                var dataT = [cid,name,phone,email,company,calias,motto,main,link1,link2,link3,link4,avatar,cardbk,Date.now(),cardcat,cardsop];
+                var dataT = [cid,name,phone,email,company,calias,motto,main,link1,link2,link3,link4,avatar,cardbk,lastseen,cardcat,cardsop];
+
+                var dataLS = [cid,"lastseen",lastseen,0];
+                var dataLU = [cid,"updated",updated,0];
 
 
                // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
@@ -706,23 +780,32 @@ function update_card(id,list) {
                 var dataStrR = "INSERT INTO RegCards VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 var dataStrG = "INSERT INTO GlobCards VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
+                var dataStats = "INSERT INTO Stats VALUES(?,?,?,?)";
+
 
                 var update = "UPDATE SavedCards SET name='"+name+"', email='"+email+"', phone='"+phone+"', company='"+company+"', motto='"+motto+"', main='"+main+"',website1='"+link1+"', website2='"+link2+"', website3='"+link3+"', website4='"+link4+"', avatar='"+avatar+"', cardback='"+cardbk+"', cat='"+cardcat+"'  WHERE id='"+id+"'";
                 var updateT = "UPDATE TempCards SET name='"+name+"', email='"+email+"', phone='"+phone+"', company='"+company+"', motto='"+motto+"', main='"+main+"',website1='"+link1+"', website2='"+link2+"', website3='"+link3+"', website4='"+link4+"', avatar='"+avatar+"', cardback='"+cardbk+"', cat='"+cardcat+"'  WHERE id='"+id+"'";
                 var updateR = "UPDATE RegCards SET name='"+name+"', email='"+email+"', phone='"+phone+"', company='"+company+"', motto='"+motto+"', main='"+main+"',website1='"+link1+"', website2='"+link2+"', website3='"+link3+"', website4='"+link4+"', avatar='"+avatar+"', cardback='"+cardbk+"', cat='"+cardcat+"'  WHERE id='"+id+"'";
                 var updateG = "UPDATE GlobCards SET name='"+name+"', email='"+email+"', phone='"+phone+"', company='"+company+"', motto='"+motto+"', main='"+main+"',website1='"+link1+"', website2='"+link2+"', website3='"+link3+"', website4='"+link4+"', avatar='"+avatar+"', cardback='"+cardbk+"', cat='"+cardcat+"'  WHERE id='"+id+"'";
 
+                var updateLSStats = "UPDATE Stats SET data='"+lastseen+"',frequency='"+upfreq+"' WHERE id='"+cid+"' AND name='lastseen'";
+                var updateLUStats = "UPDATE Stats SET data='"+updated+"',frequency='"+upfreq+"' WHERE id='"+cid+"' AND name='updated'";
 
-
-                var testStr = "SELECT  *  FROM SavedCards WHERE id='"+cid+"'";
+                var testStr = "SELECT  name  FROM SavedCards WHERE id='"+cid+"'";
                 var testStrT = "";
                 var testStrR = "";
                 var testStrG = "";
 
+                var testStatlastseen = "";
+                var testStatupdated = "";
+
                     if(cid != "") {
-                        testStrT = "SELECT  *  FROM TempCards WHERE id='"+cid+"'";
-                        testStrR = "SELECT  *  FROM RegCards WHERE id='"+cid+"'";
-                        testStrG = "SELECT  *  FROM GlobCards WHERE id='"+cid+"'";
+                        testStrT = "SELECT  name  FROM TempCards WHERE id='"+cid+"'";
+                        testStrR = "SELECT  name  FROM RegCards WHERE id='"+cid+"'";
+                        testStrG = "SELECT  name  FROM GlobCards WHERE id='"+cid+"'";
+
+                        testStatlastseen = "SELECT name FROM Stats WHERE id='"+cid+"' AND name = 'lastseen'";
+                         testStatupdated = "SELECT name FROM Stats WHERE id='"+cid+"' AND name = 'updated'";
                     }
 
                 db.transaction(function(tx) {
@@ -732,6 +815,8 @@ function update_card(id,list) {
 
                     tx.executeSql('CREATE TABLE IF NOT EXISTS GlobCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT, website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT,cardsop INT)');
                     tx.executeSql('CREATE TABLE IF NOT EXISTS RegCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT, website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT,cardsop INT)');
+
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS Stats(id TEXT, name TEXT,data TEXT, frequency INT)');
 
                         var duplicate;
                     switch(list) {
@@ -751,6 +836,17 @@ function update_card(id,list) {
                     }
 
 
+
+                   var statLSdup = tx.executeSql(testStatlastseen);
+                   var statLUdup = tx.executeSql(testStatupdated);
+
+                        if(statLSdup.rows.length == 0) {tx.executeSql(dataStats, dataLS);} else {
+                            upfreq = statLSdup.rows.frequency + 1;
+                            tx.executeSql(updateLSStats);}
+                        if(statLUdup.rows.length == 0) {tx.executeSql(dataStats, dataLU);} else {
+                            upfreq = statLUdup.rows.frequency + 1;
+                            tx.executeSql(updateLUStats);}
+
                    });
 
             }
@@ -759,7 +855,7 @@ function update_card(id,list) {
     }
     http.open('GET', url.trim(), true);
     http.send(null);
-
+}
 
 gc();
 }
@@ -852,7 +948,7 @@ function remote_delete(id,list,cid) {
 function website_snap(id,url,sitenum) {
 
     var http = new XMLHttpRequest();
-    var url;
+    //var url;
      var carddata = "";
 
     url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/snaps.php?id="+id+"&url="+url+"&sitenum="+sitenum;
@@ -1603,6 +1699,7 @@ function connections(cardID) {
                   //console.log(carddata);
 
                   connected = carddata;
+
 
                   //console.log("from connections "+connected);
 

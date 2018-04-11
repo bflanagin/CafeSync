@@ -8,7 +8,7 @@ import QtQuick.LocalStorage 2.0 as Sql
 import "main.js" as Scripts
 import "openseed.js" as OpenSeed
 import "requests.js" as Requests
-
+import "microblogger.js" as MicroBlog
 
 
 Item {
@@ -200,7 +200,7 @@ Item {
                     height:mainView.width * 0.1
                     carduserName:cardusername
                     companyName:companyname
-                    menu:false
+                    menu:0
                 }
 
 
@@ -234,7 +234,7 @@ Item {
 
                         Text{
                             anchors.left:parent.left
-                            text:qsTr("Status:")
+                            text:qsTr("Status Update:")
                         }
                         Rectangle {
                                  anchors.horizontalCenter: parent.horizontalCenter
@@ -252,7 +252,7 @@ Item {
                             anchors.centerIn: parent
                             width:parent.width
                             wrapMode: Text.WordWrap
-                            text: "Sample Status"
+                            text: MicroBlog.latest_log("othercard",cardId)
                         }
 
                         TextField {
@@ -261,8 +261,32 @@ Item {
                             width:parent.width
                             padding:width * 0.05
                             wrapMode: Text.WordWrap
-                            text: "Sample Status"
+                           // text:MicroBlog.latest_log("mycard",cardId)
+                            placeholderText: "Update your Status"
                             background: InputBack{}
+                            //enabled: false
+
+                            Image {
+                                visible: if(statusField.text.length > 1) {true} else {false}
+                                anchors.right:parent.right
+                                anchors.rightMargin: mainView.width * 0.02
+                                anchors.verticalCenter: parent.verticalCenter
+                                width: parent.height * 0.6
+                                height:parent.height * 0.6
+                                source: "./icons/check.svg"
+
+                                Flasher {
+
+                                }
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked:{MicroBlog.send_log(usercardNum,statusField.text);
+                                                statusField.text = "";
+                                                statusField.focus = false;
+                                                }
+                                }
+                            }
                                 }
                              }
 
@@ -738,7 +762,7 @@ Item {
                             width:parent.width
                             height:(mainView.width * 0.11) * model
                             spacing: mainView.width * 0.02
-                            model: 3
+                            model: 0
                             boundsBehavior:Flickable.StopAtBounds
 
                             delegate: Item {
@@ -810,7 +834,7 @@ Item {
 
                         Text{
                             anchors.left:parent.left
-                            text:qsTr("Stats:")
+                            text:qsTr("Achievements:")
                         }
                         Rectangle {
                                  anchors.horizontalCenter: parent.horizontalCenter
@@ -831,7 +855,7 @@ Item {
                                 height:mainView.width * 0.22
 
                                 whichStat:qsTr("Collected")
-                                statNumber:accepted.split(",").length - 1
+                                statNumber:"0"
                                 statRank:0
                             }
 
@@ -846,7 +870,7 @@ Item {
                                 width:mainView.width * 0.22
                                 height:mainView.width * 0.22
                                 whichStat:qsTr("Impact")
-                                statNumber:connected.split("><").length -1
+                                statNumber:Scripts.load_Stat("Impact")
                                 statRank:0
                             }
                             CircleStat {
@@ -854,7 +878,7 @@ Item {
                                 height:mainView.width * 0.22
 
                                 whichStat:qsTr("2-Way")
-                                statNumber:accepted.split(",").length - 1
+                                statNumber:Scripts.load_Stat("2-Way")
                                 statRank:0
                             }
 
@@ -863,7 +887,7 @@ Item {
                                 height:mainView.width * 0.22
 
                                 whichStat:qsTr("Blog Read")
-                                statNumber:accepted.split(",").length - 1
+                                statNumber:"0"
                                 statRank:0
                             }
 
@@ -872,7 +896,7 @@ Item {
                                 height:mainView.width * 0.22
 
                                 whichStat:qsTr("Events")
-                                statNumber:accepted.split(",").length - 1
+                                statNumber:"0"
                                 statRank:0
                             }
 
@@ -881,7 +905,7 @@ Item {
                                 height:mainView.width * 0.22
 
                                 whichStat:qsTr("Personal Log")
-                                statNumber:accepted.split(",").length - 1
+                                statNumber:"0"
                                 statRank:0
                             }
 
@@ -890,7 +914,7 @@ Item {
                                 height:mainView.width * 0.22
 
                                 whichStat:qsTr("Replies")
-                                statNumber:accepted.split(",").length - 1
+                                statNumber:"0"
                                 statRank:0
                             }
                         }

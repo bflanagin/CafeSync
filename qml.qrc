@@ -237,5 +237,6 @@
         <file>CircleIndicator.qml</file>
         <file>CircleStat.qml</file>
         <file>img/OpenCircle.png</file>
+        <file>CFBorder.qml</file>
     </qresource>
 </RCC>

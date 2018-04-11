@@ -57,11 +57,11 @@ import "openseed.js" as OpenSeed
                                     Timer {id:selfdestruct;interval:3000; running: true; repeat: false
                                         onTriggered: {
 
-                                                if(issaved != 1) {
+                                                if(issaved !== 1) {
                                                     if(cardsop != 2) {
                                                         if(explodereset == 10000) {
 
-                                                        if(Scripts.Temp_elapsed(cardId) == 1) {
+                                                        if(Scripts.temp_Elapsed(cardId) === 1) {
                                                              OpenSeed.remote_delete(userid,listget,cardId);
                                                             cardslist.remove(index);
 
@@ -77,7 +77,7 @@ import "openseed.js" as OpenSeed
                                     }
 
 
-                                   /* Timer {
+                                    Timer {
                                         id:updatecard
                                         interval: 20000+(index*100)
                                         running: true
@@ -86,7 +86,7 @@ import "openseed.js" as OpenSeed
                                         onTriggered:OpenSeed.update_card(cardId,listget)//, notificationClient.notification = "Updating Card";
 
 
-                                    } */
+                                    }
 
                                    /* Timer {
                                         id:updateinfo
@@ -291,11 +291,11 @@ import "openseed.js" as OpenSeed
                                     //anchors.fill:parent
                                     x:0
                                     y:0
-                                    width:if(cards.side == 1) {0} else {parent.width}
-                                    height:if(cards.side == 1) {0} else {parent.height}
+                                    width:if(cards.side === 1) {0} else {parent.width}
+                                    height:if(cards.side === 1) {0} else {parent.height}
                                     //width:parent.width
                                     //height:parent.height
-                                    //onClicked: {currentcard = index; cards.flipped = !cards.flipped; if(cards.side == 0) {if(layouts.width >= units.gu(mobile_vert)) {Scripts.Show_sites(card);} } else { /*pages = 0;*///}
+                                    //onClicked: {currentcard = index; cards.flipped = !cards.flipped; if(cards.side == 0) {if(layouts.width >= units.gu(mobile_vert)) {Scripts.show_Sites(card);} } else { /*pages = 0;*///}
                                         onClicked: {currentcard = index;
                                             //cards.flipped = !cards.flipped;
                                                     pagelist.clear();
@@ -325,10 +325,10 @@ import "openseed.js" as OpenSeed
 
                                                   //  infotab.state = "Available";
                                            // pagelist.clear();
-                                            if(issaved == 1) {
-                                             Scripts.Show_sites(cardId,"saved");
+                                            if(issaved === 1) {
+                                             Scripts.show_Sites(cardId,"saved");
                                             } else {
-                                               Scripts.Show_sites(cardId,listget);
+                                               Scripts.show_Sites(cardId,listget);
                                             }
                                            // mainScreen.state = "Active";
                                             mainScreen.positionViewAtBeginning();

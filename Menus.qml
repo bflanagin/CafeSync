@@ -11,6 +11,8 @@ import "microblogger.js" as MBlog
 import "main.js" as Scripts
 import "text.js" as Scrubber
 
+import "microblogger.js" as MicroBlog
+
 
 Item {
     id:popup
@@ -49,7 +51,7 @@ Item {
 
             PropertyChanges {
                 target: quickactions
-                menu: true
+                menu: 1
                 visible:true
             }
 
@@ -64,7 +66,7 @@ Item {
 
           PropertyChanges {
               target: quickactions
-              menu: false
+              menu: 0
               visible:false
           }
         }
@@ -197,8 +199,8 @@ Item {
                             anchors.left: parent.left
                             anchors.leftMargin: 10
                             anchors.verticalCenter: parent.verticalCenter
-                            width:if(menuitem == 1) {parent.height}else {parent.height * 0.6}
-                            height:if(menuitem == 1) {parent.height}else {parent.height * 0.6}
+                            width:if(menuitem == 1) {parent.height} else {parent.height * 0.6}
+                            height:if(menuitem == 1) {parent.height} else {parent.height * 0.6}
                             Image {
                                 anchors.fill: parent
                                 visible: if(menuitem !=1) {true} else {false}
@@ -241,7 +243,7 @@ Item {
                                      case "4": qsTr("Messages ");break;
                                      case "5": qsTr("Requests ");break;
                                      case "6": qsTr("Events ");break;
-
+                                     case "8":"";break;
                                      default:menuitem;break;
                                      }
                                      } else {menuitem}
@@ -297,46 +299,50 @@ Item {
                 anchors.fill:parent
                 onClicked:switch(menuitem) {
                           case "0": {
-                                     requestPage.state = "InActive",
-                                     messagePage.state = "InActive",
-                                     settingsPage.state = "InActive",
-                                     cardPage.state = "show",
+                                     requestPage.state = "InActive";
+                                     messagePage.state = "InActive";
+                                     settingsPage.state = "InActive";
+                                     cardPage.state = "show";
                                      cardPage.state = "default";
                                      popup.state = "InActive";
                                      //saveded.state = "unselected";
                                     // passby.state = "selected";
-                                     pages = 1,cardslist.clear(),currentcard = -1
-                             ,topBar.isActive = false;
+                                     pages = 1;
+                              cardslist.clear();
+                              currentcard = -1;
+                             topBar.isActive = false;
                                   selection = 0;
                                   listget = "temp"
-                                  Scripts.Temp_load(searchtext,listget);
+                                  Scripts.temp_Load(searchtext,listget);
 
                           }break;
                           case "2":{
-                                    requestPage.state = "InActive",
-                                    messagePage.state = "InActive",
-                                    settingsPage.state = "InActive",
-                                    cardPage.state = "show",
+                                    requestPage.state = "InActive";
+                                    messagePage.state = "InActive";
+                                    settingsPage.state = "InActive";
+                                    cardPage.state = "show"
                                     cardPage.state = "default";
                                     popup.state = "InActive";
                                     //saveded.state = "unselected";
                                    // passby.state = "selected";
-                                    pages = 1,cardslist.clear(),currentcard = -1
-                            ,topBar.isActive = false;
+                                    pages = 1;
+                              cardslist.clear();
+                              currentcard = -1;
+                              topBar.isActive = false;
                               selection = 1;
                               listget = "saved";
-                                  Scripts.Cards_load(searchtext);
+                                  Scripts.cards_Load(searchtext);
                           }break;
                           //case "3": /*settingsPage.state = "Active",cardPage.state = "settings";popup.state = "InActive";cardindex = 0;*/break;
-                          case "1":requestPage.state = "InActive",
-                                   messagePage.state = "InActive",
-                                    settingsPage.state = "InActive",cardPage.state = "show",cardPage.state = "default";currentcard = -1;cardindex = 0;
-                                            pagelist.clear();Scripts.Show_sites("local",userid);mainScreen.state = "Active";mainScreen.fromRequest = false;popup.state = "InActive";mainScreen.positionViewAtBeginning();gc();
+                          case "1":requestPage.state = "InActive";
+                                   messagePage.state = "InActive";
+                                    settingsPage.state = "InActive";cardPage.state = "show";cardPage.state = "default";currentcard = -1;cardindex = 0;
+                                            pagelist.clear();Scripts.show_Sites("local",userid);mainScreen.state = "Active";mainScreen.fromRequest = false;popup.state = "InActive";mainScreen.positionViewAtBeginning();gc();
                                             currentcard_saved = 2;
                                             //if(layouts.width < units.gu(mobile_vert)) {
                                                // if(infotab.state == "Available" || infotab.state == "Active") {mainScreen.state = "Active",infotab.state = "InActive",cardPage.header.hide()} else {mainScreen.state = "InActive",infotab.state = "Active",cardPage.header.show()}
                                             //}
-                                             mainScreen.state = "Active",topBar.state = "person"
+                                             mainScreen.state = "Active";topBar.state = "person";
                                             break;
 
                           case "3": /* chatPage.state = "Available",popup.state = "InActive";topBar.isActive = false;topBar.state = "chat";*/break;
@@ -348,9 +354,9 @@ Item {
                           default:if(title == "Category") {currentcat = menuitem;
                                                                     cardslist.clear();
                                                                        if (selection == 0) {
-                                                                         Scripts.Temp_load(searchtextfield.text,listget);
+                                                                         Scripts.temp_Load(searchtextfield.text,listget);
                                                                        }else {
-                                                                        Scripts.Cards_load(searchtextfield.text);}
+                                                                        Scripts.cards_Load(searchtextfield.text);}
 
                                                                         } else {usercat = menuitem;} popup.state = "InActive",mainMenu2.rotation = 0;break;
                           }
@@ -365,25 +371,24 @@ Item {
                         enabled: visible
                         width:parent.width
                         height:parent.height
-                        TextField {
-                            id:searchtextfield
+                        Text {
+                            //id:searchtextfield
                            // anchors.right:back.left
                           //  anchors.rightMargin: parent.width * 0.02
                           //  anchors.left:mainMenu2.right
                           //  anchors.leftMargin: parent.width * 0.02
-                          //  anchors.verticalCenter: parent.verticalCenter
-                            padding: width * 0.05
+                            anchors.verticalCenter: parent.verticalCenter
+                            text:MicroBlog.latest_log("Menu",usercardNum)
+                            verticalAlignment:Text.AlignVCenter
+                            //padding: width * 0.2
+                            anchors.left: parent.left
+                            anchors.leftMargin: parent.width * 0.1
                             width:parent.width
                             height:parent.height * 0.80
-                            // height:parent.height
                             font.pixelSize: parent.width * 0.05
-                          //  text:searchtext
-                            placeholderText: qsTr("Status Update")
-                             background:InputBack{}
-                           // onTextChanged: {cardslist.clear();
-                       //         if(selection == 0) {Scripts.Temp_load(searchtextfield.text,listget)} else {Scripts.Cards_load(searchtextfield.text,listget) }
-                       // }
+
                         }
+
                     }
 
 

@@ -16,9 +16,10 @@ import "messages.js" as Message
 Item {
     z:1
 
-    property bool menu: false
+    property int menu: 0
     property string carduserName: ""
     property string companyName: ""
+    property string backingColor: bottombarColor
 
     //onMenuChanged: console.log(menu,carduserName,companyName)
 
@@ -27,12 +28,12 @@ Item {
         //anchors.bottom:parent.bottom
         width:parent.width
         height:parent.height
-        color:bottombarColor
+        color:backingColor
 
         Row {
           id:actions
          // anchors.horizontalCenter:parent.horizontalCenter
-          visible: if(carduserName == username || menu == true) {false} else {true}
+          visible: if(carduserName != username && menu == 0) {true} else {false}
           spacing:width / 6
           height:parent.height
           x:parent.width * 0.09
@@ -212,7 +213,7 @@ Item {
                                              cardslist.clear();
                                              OpenSeed.sync_cards(userid,3);
                                              OpenSeed.get_list(userid,"saved");
-                                             Scripts.Temp_load(searchtext,listget);
+                                             Scripts.temp_Load(searchtext,listget);
 
                                               currentcard_saved = 1;
                                             if(fromRequest == false) {
@@ -266,7 +267,7 @@ Item {
                                  cardslist.clear();
                                  OpenSeed.sync_cards(userid,3);
                                  OpenSeed.get_list(userid,"saved");
-                                 Scripts.Temp_load(searchtext,listget);}
+                                 Scripts.temp_Load(searchtext,listget);}
               onPressed: savflick.state = "Active"
               onReleased: savflick.state = "InActive"
 
@@ -290,8 +291,8 @@ Item {
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true
-                  onClicked: if (saved == 0){Scripts.Delete_card(thecard,listget);OpenSeed.remote_delete(userid,listget,thecard);cardslist.clear();Scripts.Temp_load(searchtext,listget);} else {
-                                      Scripts.Delete_card(thecard,"saved");OpenSeed.remote_delete(userid,"saved",thecard);cardslist.clear();Scripts.Cards_load(searchtext); //OpenSeed.sync_cards(userid,3);
+                  onClicked: if (saved == 0){Scripts.Delete_card(thecard,listget);OpenSeed.remote_delete(userid,listget,thecard);cardslist.clear();Scripts.temp_Load(searchtext,listget);} else {
+                                      Scripts.Delete_card(thecard,"saved");OpenSeed.remote_delete(userid,"saved",thecard);cardslist.clear();Scripts.cards_Load(searchtext); //OpenSeed.sync_cards(userid,3);
                              }
                   onPressed: delflick.state = "Active"
                   onReleased: delflick.state = "InActive"
@@ -306,7 +307,7 @@ Item {
 
         Row {
           id:youractions
-          visible: if(menu == true) {true} else if(carduserName == username && companyName == usercompany) {true} else {false}
+          visible: if(menu == 1) {true} else if(carduserName == username && companyName == usercompany) {true} else {false}
           spacing:width / 6
           height:parent.height
           x:parent.width * 0.24
@@ -563,6 +564,180 @@ Item {
     }
 
         }
+
+    Row {
+      id:blogactions
+      visible: if(menu == 2) {true} else {false}
+      spacing:width / 6
+      height:parent.height
+     // x:parent.width * 0.24
+      width:parent.width * 0.9
+      onVisibleChanged: if(visible == true) {currentcard_thecard = usercard}
+      anchors.horizontalCenter: parent.horizontalCenter
+      //clip: true
+
+      Item {
+          width: /*units.gu(2) */ parent.width / 11
+          height: /*units.gu(2) */ parent.width / 11
+          anchors.verticalCenter: parent.verticalCenter
+
+
+          Image {
+              id:like_icon
+              visible: false
+              //anchors.fill: parent
+              anchors.centerIn: parent
+              width:parent.width * 0.8
+              height:parent.height * 0.8
+              source: "./icons/check.svg"
+
+
+
+          }
+
+          ColorOverlay {
+              source:like_icon
+              anchors.fill: like_icon
+              color:overlayColor
+          }
+
+
+          Flasher {
+
+
+          }
+
+          MouseArea {
+              anchors.fill: parent
+              preventStealing: true
+             // onClicked: swapopt.state = "Active"
+              onClicked: notification1.visible = true,notification1.themessage = "Coming Soon"
+          }
+
+      }
+
+      Item {
+          width: /*units.gu(2) */ parent.width / 11
+          height: /*units.gu(2) */ parent.width / 11
+          anchors.verticalCenter: parent.verticalCenter
+
+
+          Image {
+              id:share_icon
+              visible: false
+              //anchors.fill: parent
+              anchors.centerIn: parent
+              width:parent.width * 0.8
+              height:parent.height * 0.8
+              source: "./icons/swap.svg"
+
+
+
+          }
+
+          ColorOverlay {
+              source:share_icon
+              anchors.fill: share_icon
+              color:overlayColor
+          }
+
+
+          Flasher {
+
+
+          }
+
+          MouseArea {
+              anchors.fill: parent
+              preventStealing: true
+             // onClicked: swapopt.state = "Active"
+              onClicked: notification1.visible = true,notification1.themessage = "Coming Soon"
+          }
+
+      }
+
+      Item {
+          width: /*units.gu(2) */ parent.width / 11
+          height: /*units.gu(2) */ parent.width / 11
+          anchors.verticalCenter: parent.verticalCenter
+
+
+          Image {
+              id:reply_icon
+              visible: false
+              //anchors.fill: parent
+              anchors.centerIn: parent
+              width:parent.width * 0.8
+              height:parent.height * 0.8
+              source: "./icons/message-new.svg"
+
+
+
+          }
+
+          ColorOverlay {
+              source:reply_icon
+              anchors.fill: reply_icon
+              color:overlayColor
+          }
+
+
+          Flasher {
+
+
+          }
+
+          MouseArea {
+              anchors.fill: parent
+              preventStealing: true
+             // onClicked: swapopt.state = "Active"
+              onClicked: notification1.visible = true,notification1.themessage = "Coming Soon"
+          }
+
+      }
+
+      Item {
+          width: /*units.gu(2) */ parent.width / 11
+          height: /*units.gu(2) */ parent.width / 11
+          anchors.verticalCenter: parent.verticalCenter
+
+
+          Image {
+              id:viewcard_icon
+              visible: false
+              //anchors.fill: parent
+              anchors.centerIn: parent
+              width:parent.width * 0.8
+              height:parent.height * 0.8
+              source: "./img/overlay.svg"
+
+
+
+          }
+
+          ColorOverlay {
+              source:viewcard_icon
+              anchors.fill: viewcard_icon
+              color:overlayColor
+          }
+
+
+          Flasher {
+
+
+          }
+
+          MouseArea {
+              anchors.fill: parent
+              preventStealing: true
+             // onClicked: swapopt.state = "Active"
+              onClicked: notification1.visible = true,notification1.themessage = "Coming Soon"
+          }
+
+      }
+
+
+    }
 
 
 

@@ -202,8 +202,6 @@ Item {
                 width:parent.width
                 height:messageblock.height * 1.2
 
-
-
        Rectangle {
         id:messageblock
         anchors.centerIn: parent
@@ -236,7 +234,7 @@ Item {
             id:postsplitter
             color:"gray"
             anchors.top:titletext.bottom
-            anchors.topMargin: -popup.width *0.01
+            anchors.topMargin: -popup.width *0.02
             width:parent.width
             height:messageblock.height * 0.01
             visible:if(posttitle.length > 2) {true} else {false}
@@ -361,7 +359,7 @@ Item {
 
                     PropertyChanges {
                    target:blinder
-                    y:parent.height * 0.92
+                    y:parent.height
                     radius:0
                     color:bottombarColor
                     }

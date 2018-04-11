@@ -12,7 +12,7 @@ function returnImage(who,locale) {
 
     var dataStr= "SELECT avatar FROM "+dbtable+" WHERE id ='"+who+"'";
     var ava = "";
-    if(locale != "mycard") {
+    if(locale !== "mycard") {
     db.transaction(function(tx) {
 
         tx.executeSql('CREATE TABLE IF NOT EXISTS TempCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT,cardsop INT)');
@@ -36,6 +36,7 @@ function returnImage(who,locale) {
 
     });
     } else {
+        //console.log("from Circle Pic "+avimg);
        ava = avimg;
     }
 

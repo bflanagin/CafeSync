@@ -5,6 +5,7 @@
 #include <QtQuick>
 #include <QtAndroidExtras/QAndroidJniObject>
 #include <QtAndroid>
+#include <QCommandLineParser>
 
 
 #include "notificationclient.h"
@@ -17,6 +18,14 @@ int main(int argc, char *argv[])
     qmlRegisterType<MyIOout>("IO", 1, 0, "MyIOout");
 
      QQuickView view;
+
+     QCommandLineParser parser;
+     QCommandLineOption fullMode("-main");
+     QCommandLineOption serviceMode("-service");
+
+     parser.addOption(fullMode);
+     parser.addOption(serviceMode);
+
 
    // QQmlApplicationEngine engine;
     //engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

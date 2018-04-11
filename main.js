@@ -182,9 +182,9 @@ function load_Card() {
                  fbgnum = sets.split(",")[0];
                  fsymbolnum = sets.split(",")[1];
                  ftextnum = sets.split(",")[2];
-                cardbImg = Card_Set("background",fbgnum);
-                cardsImg= Card_Set("symbol",fsymbolnum);
-                cardtplace = Card_Set("text",ftextnum);
+                cardbImg = card_Set("background",fbgnum);
+                cardsImg= card_Set("symbol",fsymbolnum);
+                cardtplace = card_Set("text",ftextnum);
             }
 
 
@@ -235,6 +235,8 @@ function load_Card() {
 
             cardloaded = 1;
 
+            //console.log("from loadcard "+avimg);
+
            // connect.start();
 
            // heartbeats.running = true;
@@ -256,8 +258,9 @@ function load_Card() {
 
             connect.start();
 
-          /*  console.log(usercardNum);
-            if(usercardNum == "150") {
+           //console.log("from card Loaded" + usercardNum);
+
+           /* if(usercardNum == "150") {
                 backgroundColor=Qt.rgba(0.98,0.90,0.90,1);
 
                 highLightColor1= Qt.rgba(0.99,0.95,0.88,1);
@@ -304,7 +307,7 @@ function load_Card() {
 }
 
 
-function Temp_load(search,locale) {
+function temp_Load(search,locale) {
 
   //  console.log(locale);
 
@@ -317,13 +320,15 @@ function Temp_load(search,locale) {
     default:dbtable="TempCards";break;
     }
 
+     var dataStr = "";
+
     if (search != "") {
 
-     var dataStr = "SELECT * FROM "+dbtable+" WHERE (name LIKE '%"+search+"%' OR company LIKE '%"+search+"%' OR motto LIKE '%#"+search+"%')";
+     dataStr = "SELECT * FROM "+dbtable+" WHERE (name LIKE '%"+search+"%' OR company LIKE '%"+search+"%' OR motto LIKE '%#"+search+"%')";
 
         } else {
-        var dataStr = "SELECT * FROM "+dbtable+" WHERE 1";
-}
+        dataStr = "SELECT * FROM "+dbtable+" WHERE 1";
+        }
 
 
 
@@ -395,13 +400,13 @@ function Temp_load(search,locale) {
 
                           card = "img/default_card.png";
 
-                          symbol = Card_Set("symbol",0);
-                          text = Card_Set("text",0);
+                          symbol = card_Set("symbol",0);
+                          text = card_Set("text",0);
 
                             } else {card = pull.rows.item(record).cardback
                                     design = card;
-                                symbol = Card_Set("symbol",0);
-                                text = Card_Set("text",0);
+                                symbol = card_Set("symbol",0);
+                                text = card_Set("text",0);
 
                             }
                   } else {
@@ -411,9 +416,9 @@ function Temp_load(search,locale) {
                       var fsnum = sets.split(",")[1];
                       var ftnum = sets.split(",")[2];
                       design = pull.rows.item(record).cardback;
-                     card = Card_Set("background",fbnum);
-                     symbol= Card_Set("symbol",fsnum);
-                     text = Card_Set("text",ftnum);
+                     card = card_Set("background",fbnum);
+                     symbol= card_Set("symbol",fsnum);
+                     text = card_Set("text",ftnum);
 
                   } */
 
@@ -458,7 +463,7 @@ function Temp_load(search,locale) {
 
 
 
-                    if(pull.rows.item(record).id !=usercardNum) {
+                    if(pull.rows.item(record).id.toString != usercardNum) {
 
                     cardslist.append({
                                     name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
@@ -479,7 +484,7 @@ function Temp_load(search,locale) {
                              URL4: w4,
 
                              spColor:spC,
-                             cardStatus:"Amazingly awesome early adopters",
+                             cardStatus:"",
 
             cardb:pull.rows.item(record).cardback,
            // cardsymbol:symbol,
@@ -521,7 +526,7 @@ function Temp_load(search,locale) {
 
 
 
-    if(pull.rows.item(record).id !=usercardNum) {
+    if(pull.rows.item(record).id != usercardNum) {
 
 
 
@@ -543,7 +548,7 @@ function Temp_load(search,locale) {
                 URL4: w4,
 
                 spColor:spC,
-                cardStatus:"Amazingly awesome early adopters",
+                cardStatus:"",
 
             //    cardback:card,
              //   cardsymbol:symbol,
@@ -604,22 +609,22 @@ function Cards_save(id,username,userphone,useremail,usercompany,useralias,usermo
         });
     cardsyncsaved = id+","+cardsyncsaved
 
-    //Delete_card(id,listget);
+    //delete_Card(id,listget);
    //console.log("FUNCTION!!! SAVE CARDS!!!")
 
 return 1;
 }
 
-function Cards_load(search) {
+function cards_Load(search) {
     //var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
-
+    var dataStr = "";
     cardsyncsaved = "";
     if (search.length > 0) {
-     var dataStr = "SELECT * FROM SavedCards WHERE (name LIKE '%"+search+"%' OR company LIKE '%"+search+"%' OR motto LIKE '%#"+search+"%')";
+     dataStr = "SELECT * FROM SavedCards WHERE (name LIKE '%"+search+"%' OR company LIKE '%"+search+"%' OR motto LIKE '%#"+search+"%')";
     } else {
-        var dataStr = "SELECT * FROM SavedCards WHERE 1";
+         dataStr = "SELECT * FROM SavedCards WHERE 1";
 
-}
+        }
 
        db.transaction(function(tx) {
        tx.executeSql('CREATE TABLE IF NOT EXISTS SavedCards(id INT UNIQUE, name TEXT, phone TEXT,email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,cat TEXT,cardsop INT)');
@@ -675,13 +680,13 @@ function Cards_load(search) {
                  if(pull.rows.item(record).cardback.length < 4) {
 
                      card = "img/default_card.png";
-                     symbol = Card_Set("symbol",0);
-                     text = Card_Set("text",0);
+                     //symbol = card_Set("symbol",0);
+                     //text = card_Set("text",0);
 
                        } else {
                             card = pull.rows.item(record).cardback
-                           symbol = Card_Set("symbol",0);
-                           text = Card_Set("text",0);
+                       //    symbol = card_Set("symbol",0);
+                       //    text = card_Set("text",0);
 
                        }
              } else {
@@ -690,9 +695,9 @@ function Cards_load(search) {
                  var fbnum = sets.split(",")[0];
                  var fsnum = sets.split(",")[1];
                  var ftnum = sets.split(",")[2];
-                card = Card_Set("background",fbnum);
-                symbol= Card_Set("symbol",fsnum);
-                text = Card_Set("text",ftnum);
+              //  card = card_Set("background",fbnum);
+             //   symbol= card_Set("symbol",fsnum);
+             //   text = card_Set("text",ftnum);
 
              }
 
@@ -750,7 +755,7 @@ function Cards_load(search) {
                  URL4: w4,
 
                  spColor:spC,
-                 cardStatus:"Amazingly awesome early adopters",
+                 cardStatus:"",
 
                  cardback:card,
                  cardsymbol:symbol,
@@ -783,7 +788,7 @@ function Cards_load(search) {
                      URL4: w4,
 
                      spColor:spC,
-                     cardStatus:"Amazingly awesome early adopters",
+                     cardStatus:"",
 
                      cardback:card,
                      cardsymbol:symbol,
@@ -817,17 +822,19 @@ function torf (num) {
     /* Older versions of the Ubuntu SDK would return 1 if true and 0 if false, and then require the actual word
       true or false to be returned. This code is setup to return whatever is right whatever is set */
 
+    var switcher = "true";
     switch(num) {
 
-    case "true": return ("true"); break;
-    case "false": return ("false");break;
-    case 0: return ("false");break;
-    default: return("true");break;
+    case "true": switcher ="true"; break;
+    case "false":switcher ="false";break;
+    case 0: switcher ="false";break;
+    default: switcher ="true";break;
     }
 
+    return switcher;
 }
 
-function Show_sites(cid,list) {
+function show_Sites(cid,list) {
 
    // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
     var dataStr;
@@ -1149,7 +1156,7 @@ function Show_sites(cid,list) {
            if (pull.rows.item(0).cardback.search("internal:") == -1) {
                     cardbackis = pull.rows.item(0).cardback;
                    } else {
-                cardbackis = Card_Set("background",1);
+                cardbackis = card_Set("background",1);
            }
             var phonenumber;
             var emailaddress;
@@ -1232,6 +1239,44 @@ function Show_sites(cid,list) {
 
 
                            });
+
+            pagelist.append({
+                             webpage:"empty.html",
+                             thestate:"MicroBlog",
+                                pagewidth:mainScreen.width ,
+                                pageheight:mainScreen.height,
+                                motto:about[0],
+                                skills:about[1],
+                                school:about[2],
+                                work: about[3],
+                                cardId:currentcard_thecard,
+                                avatarimg:currentcard_avatarimg,
+                                companyname:currentcard_companyname.replace(/&#x27;/g,"'"),
+                                cardusername:currentcard_username.replace(/&#x27;/g,"'"),
+                                carduserphone:currentcard_userphone,
+                                carduseremail:currentcard_useremail,
+                                cardposition: currentcard_cardposition,
+                                cardbackimg:cardbackis,
+                                //pageindex:pages,
+                                cardsop:currentcard_cardsop,
+                                cardcat:currentcard_cardcat,
+                                saved:currentcard_saved,
+                                realcardback:currentcard_realcardback,
+
+                                spColor:spC,
+                                cardStatus:"Here on CafeSync",
+
+                                mainsite:currentcard_mainsite,
+                                URL1:currentcard_url1,
+                                URL2:currentcard_url2,
+                                URL3:currentcard_url3,
+                                URL4:currentcard_url4,
+
+                                pageindex:pages
+
+
+                            });
+
 
 
            if(pull.rows.item(0).main.length > 8) {
@@ -1407,7 +1452,7 @@ function Show_sites(cid,list) {
 
 }
 
-function Temp_elapsed(cid) {
+function temp_Elapsed(cid) {
     var date = Date.now();
 
    // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
@@ -1428,7 +1473,7 @@ function Temp_elapsed(cid) {
 
              if(deletedate < date) {
                  //console.log("deleting "+cid);
-                 Delete_card(cid,"temp");
+                 delete_Card(cid,"temp");
                     deleted = 1;
                     get_list_updater.running = false;
                     cardload.running = false;
@@ -1450,7 +1495,7 @@ function Temp_elapsed(cid) {
 return deleted;
 }
 
-function Delete_card(cid,list) {
+function delete_Card(cid,list) {
 
     // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
@@ -1658,7 +1703,7 @@ function cardcreator() {
 
 }
 
-function Card_Set(location,num) {
+/*function card_Set(location,num) {
 
     switch(location) {
     case "background":return backgrounds.split(",")[num];break;
@@ -1667,7 +1712,7 @@ function Card_Set(location,num) {
     default:break;
     }
 
-}
+} */
 
 /*function setCurrent(id,username,userphone,position,useremail,companyname,motto,mainsite,url1,url2,url3,url4,avatarimg,realcardback,cardcat,cardsop,saved) {
 
@@ -2195,4 +2240,50 @@ function formatResume(type,stuff) {
 
 
     }
+}
+
+
+function load_Stat (statname) {
+    var theReturn = 0;
+    var teststr = "SELECT  * FROM Stats WHERE id= '"+userid+"' AND name ='"+statname+"'";
+    db.transaction(function(tx) {
+
+        tx.executeSql('CREATE TABLE IF NOT EXISTS Stats(id TEXT, name TEXT,data TEXT, frequency INT)');
+        var test = tx.executeSql(teststr);
+        if(test.rows.length != 0) {
+            //console.log(test.rows.item(0).data);
+            theReturn = test.rows.item(0).data;
+        } else {
+          //  console.log(0);
+            theReturn = 0;
+        }
+
+});
+
+    return theReturn;
+}
+
+function save_Stat (id,statname,data) {
+    var teststr = "SELECT  * FROM Stats WHERE id= '"+id+"' AND name ='"+statname+"'";
+    var thedata = [id,statname,data,0];
+     var update = "UPDATE Stats SET data='"+data+"' WHERE id= '"+id+"' AND name ='"+statname+"'";
+    var Str = "INSERT INTO Stats VALUES(?,?,?,?)";
+
+    db.transaction(function(tx) {
+
+        tx.executeSql('CREATE TABLE IF NOT EXISTS Stats(id TEXT, name TEXT,data TEXT, frequency INT)');
+
+
+
+        var test = tx.executeSql(teststr);
+        if(test.rows.length == 0) {
+            tx.executeSql(Str,thedata);
+
+        } else {
+
+            tx.executeSql(update);
+
+        }
+
+});
 }

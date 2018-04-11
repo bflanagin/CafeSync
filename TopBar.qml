@@ -473,7 +473,7 @@ Item {
             MouseArea {
                 anchors.fill:parent
                 onClicked: { messagePage.state  = "InActive",
-                    themenu.state = "InActive",settingsPage.state = "InActive",isActive = false, topBar.state = "standard"//,mainScreen.state = "InActive",pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
+                    themenu.state = "InActive",settingsPage.state = "InActive",isActive = false, topBar.state = "standard"//,mainScreen.state = "InActive",pagelist.clear(),Scripts.load_Card(),Scripts.show_Sites("local",userid);
 
                         }
 
@@ -549,11 +549,11 @@ Item {
 
                     topBar.isActive = false,
                     topBar.state = "standard"
-                    //,mainScreen.state = "InActive",pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
+                    //,mainScreen.state = "InActive",pagelist.clear(),Scripts.load_Card(),Scripts.show_Sites("local",userid);
                         } else if (messagePage.area == "Chat") {
                             messagePage.showroom  = false;
                             messagePage.area == "Conversations"
-                            //themenu.state = "InActive",settingsPage.state = "InActive",topBar.state = "standard"//,mainScreen.state = "InActive",pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
+                            //themenu.state = "InActive",settingsPage.state = "InActive",topBar.state = "standard"//,mainScreen.state = "InActive",pagelist.clear(),Scripts.load_Card(),Scripts.show_Sites("local",userid);
                         } else {
 
                             messageContactsPage.state = "InActive"
@@ -670,7 +670,7 @@ Item {
             MouseArea {
                 anchors.fill:parent
                 onClicked: { requestPage.state  = "InActive",
-                    themenu.state = "InActive",settingsPage.state = "InActive",topBar.isActive = false,topBar.state = "standard"//,mainScreen.state = "InActive",pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
+                    themenu.state = "InActive",settingsPage.state = "InActive",topBar.isActive = false,topBar.state = "standard"//,mainScreen.state = "InActive",pagelist.clear(),Scripts.load_Card(),Scripts.show_Sites("local",userid);
 
                         }
 
@@ -745,7 +745,7 @@ Item {
                                                                      useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
                                                                      avimg,carddesign,usercat); */
                         // settingsPage.saveit = true;
-                    themenu.state = "InActive",settingsPage.state = "InActive",topBar.isActive = false,topBar.state = "person",/*mainScreen.state = "InActive",*/pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
+                    themenu.state = "InActive",settingsPage.state = "InActive",topBar.isActive = false,topBar.state = "person",/*mainScreen.state = "InActive",*/pagelist.clear(),Scripts.load_Card(),Scripts.show_Sites("local",userid);
                     }
                         }
 
@@ -897,9 +897,9 @@ Item {
             onPressed: locflick.state = "Active"
             onReleased: locflick.state = "InActive"
             onClicked:if(selection != 1) {switch(location_switch.loc) {
-                                             case 0: currentcard = -1;/*location_switch.loc = 2;*/location_selected = "Region";cardslist.clear();listget = "region";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
-                                             //case 1: currentcard = -1;location_switch.loc = 2;location_selected = "Global";cardslist.clear();listget = "global";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
-                                             case 2: currentcard = -1;/*location_switch.loc = 0;*/location_selected = "Passers By";cardslist.clear();listget = "temp";OpenSeed.get_list(userid,listget);Scripts.Temp_load(searchtext,listget);break;
+                                             case 0: currentcard = -1;/*location_switch.loc = 2;*/location_selected = "Region";cardslist.clear();listget = "region";OpenSeed.get_list(userid,listget);Scripts.temp_Load(searchtext,listget);break;
+                                             //case 1: currentcard = -1;location_switch.loc = 2;location_selected = "Global";cardslist.clear();listget = "global";OpenSeed.get_list(userid,listget);Scripts.temp_Load(searchtext,listget);break;
+                                             case 2: currentcard = -1;/*location_switch.loc = 0;*/location_selected = "Passers By";cardslist.clear();listget = "temp";OpenSeed.get_list(userid,listget);Scripts.temp_Load(searchtext,listget);break;
                                              }
                         } else {
                             if(grabit.state == "InActive") {grabit.state = "Active"} else {grabit.state = "InActive"}
@@ -964,7 +964,7 @@ Item {
                                                                      useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
                                                                      avimg,carddesign,usercat); */
                         // settingsPage.saveit = true;
-                    themenu.state = "InActive",settingsPage.state = "InActive",topBar.isActive = false,mainMenu.rotation = 0,topBar.state = "person",/*mainScreen.state = "InActive",*/pagelist.clear(),Scripts.load_Card(),Scripts.Show_sites("local",userid);
+                    themenu.state = "InActive",settingsPage.state = "InActive",topBar.isActive = false,mainMenu.rotation = 0,topBar.state = "person",/*mainScreen.state = "InActive",*/pagelist.clear(),Scripts.load_Card(),Scripts.show_Sites("local",userid);
                     }
                         }
 
@@ -1132,7 +1132,7 @@ Item {
             placeholderText: qsTr(currentcat+":Search")
              background:InputBack{}
             onTextChanged: {cardslist.clear();
-                if(selection == 0) {Scripts.Temp_load(searchtextfield.text,listget)} else {Scripts.Cards_load(searchtextfield.text,listget) }
+                if(selection == 0) {Scripts.temp_Load(searchtextfield.text,listget)} else {Scripts.cards_Load(searchtextfield.text,listget) }
         }
         }
 
@@ -1275,7 +1275,7 @@ Item {
                        cardslist.clear();
                        OpenSeed.sync_cards(userid,3);
                        OpenSeed.get_list(userid,"saved");
-                       Scripts.Temp_load(searchtext,listget);
+                       Scripts.temp_Load(searchtext,listget);
 
                         currentcard_saved = 1;
                        break; */
@@ -1331,19 +1331,19 @@ Item {
 
                     switch(currentcard_saved ) {
 
-                   case 0: Scripts.Delete_card(currentcard_thecard,listget);OpenSeed.remote_delete(userid,listget,currentcard_thecard);cardslist.clear();Scripts.Temp_load(searchtext,listget);
+                   case 0: Scripts.delete_Card(currentcard_thecard,listget);OpenSeed.remote_delete(userid,listget,currentcard_thecard);cardslist.clear();Scripts.temp_Load(searchtext,listget);
                        mainScreen.state = "InActive";
                        topBar.state="standard";
                        break;
                    case 1:
-                            Scripts.Delete_card(currentcard_thecard,"saved");OpenSeed.remote_delete(userid,"saved",currentcard_thecard);cardslist.clear();Scripts.Cards_load(searchtext);
+                            Scripts.delete_Card(currentcard_thecard,"saved");OpenSeed.remote_delete(userid,"saved",currentcard_thecard);cardslist.clear();Scripts.cards_Load(searchtext);
                             mainScreen.state = "InActive";
                             topBar.state="standard";
                             break;
 
                    case 2: settingsPage.state = "Active";break;
 
-                   default:Scripts.Delete_card(currentcard_thecard,listget);OpenSeed.remote_delete(userid,listget,currentcard_thecard);cardslist.clear();Scripts.Temp_load(searchtext,listget);
+                   default:Scripts.delete_Card(currentcard_thecard,listget);OpenSeed.remote_delete(userid,listget,currentcard_thecard);cardslist.clear();Scripts.temp_Load(searchtext,listget);
                        mainScreen.state = "InActive";
                        topBar.state="standard";
                        break;

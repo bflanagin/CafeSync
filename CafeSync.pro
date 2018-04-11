@@ -34,7 +34,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    android/AndroidManifest.xml \
     android/gradle/wrapper/gradle-wrapper.jar \
     android/gradlew \
     android/res/values/libs.xml \
@@ -45,7 +44,24 @@ DISTFILES += \
     qtquickcontrols2.conf \
     android/src/com/vagueentertainment/cafesync/ContactsImport.java \
     android/src/com/vagueentertainment/cafesync/WindowMode.java \
-    android/src/com/vagueentertainment/cafesync/OpenSeedService.java
+    android/src/com/vagueentertainment/cafesync/OpenSeedService.java \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat \
+    android/AndroidManifest.xml \
+    android/AndroidManifest.xml \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/AndroidManifest.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat
 
 
 
@@ -53,7 +69,7 @@ ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_EXTRA_LIBS = \
-        /home/benjamin/Projects/CafeSync/openssl/libcrypto.so \
+        /home/benjamin/CafeSync/openssl/libcrypto.so \
         $$PWD/openssl/libssl.so
 
 }
