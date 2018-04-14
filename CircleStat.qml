@@ -11,8 +11,8 @@ Item {
         property string whichStat:""
         property string statNumber:""
         property int statRank:0
-        opacity: if(statNumber == "0") {0.2} else {1}
-
+        opacity: if(statNumber == "0" ) {0.2} else {1}
+       // visible: if(statNumber == "0") {false} else {true}
         clip:true
 
 
@@ -26,7 +26,7 @@ Item {
             color:Qt.rgba(1,1,1,1)
             radius: width / 2
             border.width: 1
-            border.color: if(statRank < 50) {"gray"}
+            border.color: if(statRank < 50 ) {"gray"} else {"goldenrod"}
         }
 
         Rectangle {
@@ -36,7 +36,7 @@ Item {
             width:parent.height * 0.74
             height:parent.height * 0.74
             radius: width / 2
-            color:if(statRank < 50) {"gray"}
+            color:if(statRank < 50 ) {"gray"} else {"goldenrod"}
             visible: false
         }
 

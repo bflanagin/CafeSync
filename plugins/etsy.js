@@ -73,18 +73,18 @@ function storelist(account) {
 
                 shoplist.clear();
     var items = pagedata.split('block-grid-item');
-        //console.log(items.length);
+       // console.log(items.length);
             var listnum = 1;
                 while (listnum < items.length && listnum < 10) {
                   // console.log(items[listnum].split('title="')[1].split('"')[0]);
-                 //  console.log(items[listnum].split('<img')[1].split('"')[1]);
+                  // console.log(items[listnum].split('<img')[1].split('"')[1]);
                  //  console.log(items[listnum].split('href="')[1].split('"')[0]);
-                //   console.log(items[listnum].split('<p class="n-listing-card__price text-gray strong mt-xs-0">')[1].split("</p>")[0].trim());
+                  // console.log(items[listnum].split('<p class="n-listing-card__price text-gray  mt-xs-0 strong">')[1].split("</p>")[0].trim());
 
     shoplist.append({itemname:items[listnum].split('title="')[1].split('"')[0].substring(0,45),
                         itemimage:items[listnum].split('<img')[1].split('"')[1],
                         itemlink:items[listnum].split('href="')[1].split('"')[0],
-                        itemprice:items[listnum].split('<p class="n-listing-card__price text-gray strong mt-xs-0">')[1].split("</p>")[0].trim()
+                        itemprice:items[listnum].split("<span class='currency-value'>")[1].split("</span>")[0].trim()
 
 
 

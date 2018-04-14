@@ -348,11 +348,11 @@ Component.onCompleted: (console.log(Application.version));
 
     Timer {
         id:get_list_updater
-        interval:50000; running: true; repeat: true
+        interval:20000; running: true; repeat: true
             onTriggered: {
                         if(firstrun.state == "InActive" && heart != "OffLine") {
                             //console.log("Updating List");
-                        OpenSeed.retrieve_data(userid);
+                      //  OpenSeed.retrieve_data(userid);
                         OpenSeed.get_list(userid,"temp");
                         OpenSeed.get_list(userid,"region");
                         OpenSeed.get_list(userid,"saved");
@@ -679,7 +679,7 @@ Component.onCompleted: (console.log(Application.version));
 
 
 
-                GridView {
+                ListView {
                     id: passerbyGrid
 
                     //z:-1
@@ -687,11 +687,12 @@ Component.onCompleted: (console.log(Application.version));
                     height: parent.height
                     topMargin:10
                     //anchors.verticalCenter: parent.verticalCenter
-                    snapMode: GridView.SnapToRow
-                    flow: GridView.FlowLeftToRight
+                    snapMode: ListView.SnapToRow
+                   // flow: GridView.FlowLeftToRight
                     boundsBehavior: Flickable.DragAndOvershootBounds
-                    flickableDirection: Flickable.VerticalFlick
+                   // flickableDirection: Flickable.VerticalFlick
                     visible: true
+                    spacing: mainView.width * 0.08
 
                     clip:true
 
@@ -699,10 +700,8 @@ Component.onCompleted: (console.log(Application.version));
                     delegate: Card {}
 
 
-
-
-                    cellHeight: passerbyGrid.width / 2 //passerbyGrid.height
-                    cellWidth: passerbyGrid.width
+                    //cellHeight: passerbyGrid.width / 2 //passerbyGrid.height
+                   // cellWidth: passerbyGrid.width
 
                     model: ListModel {
                             id: cardslist
@@ -742,6 +741,47 @@ Component.onCompleted: (console.log(Application.version));
                         anchors.fill: parent
                       themessage : qsTr("No Cards found\n(Pull to Refresh, or hit the center button to try a larger search area)");
                         visible: if(cardload.running == false && passerbyGrid.count == 0) {true} else {false}
+                    }
+
+
+
+
+
+                }
+
+                Item {
+                    anchors.bottom:parent.bottom
+                    anchors.right: parent.right
+                    anchors.rightMargin: mainView.width * 0.03
+                    anchors.bottomMargin: mainView.width * 0.03
+                    width: mainView.width * 0.07
+                    height:mainView.width * 0.07
+                    z:2
+
+                    Image {
+                        id:sicon
+                        visible: false
+                        anchors.centerIn: parent
+                        width: parent.width * 0.8
+                        fillMode: Image.PreserveAspectFit
+                        source:"./icons/view-sort-descending.svg"
+
+
+                    }
+
+                    ColorOverlay {
+                        source:sicon
+                        anchors.fill: sicon
+                        color:overlayColor
+                    }
+
+                     Flasher {}
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {notification1.themessage ="Not enough to sort";
+                                        notification1.visible = true;
+                                    }
                     }
 
 
@@ -857,8 +897,6 @@ Component.onCompleted: (console.log(Application.version));
 
     }
 
-
-
 }
 
  Setup {
@@ -896,7 +934,6 @@ Component.onCompleted: (console.log(Application.version));
 
 
  }
-
 
 
  Events {
@@ -1002,6 +1039,14 @@ Menus {
     title:"Category"
 
 
+}
+
+AchievmentsPage {
+    id:achievePage
+    width: parent.width
+    height: parent.height - topBar.height
+    anchors.bottom: parent.bottom
+    state:"InActive"
 }
 
 Info {

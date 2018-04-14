@@ -271,8 +271,8 @@ Item {
                                 anchors.right:parent.right
                                 anchors.rightMargin: mainView.width * 0.02
                                 anchors.verticalCenter: parent.verticalCenter
-                                width: parent.height * 0.6
-                                height:parent.height * 0.6
+                                width: mainView.width * 0.06
+                                height:mainView.width * 0.06
                                 source: "./icons/check.svg"
 
                                 Flasher {
@@ -729,10 +729,10 @@ Item {
             Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
-                height:statscontent.height + eventbox.height + mainView.width * 0.04
+                height:statscontent.height  + mainView.width * 0.04 // + eventbox.height
                 visible: if( cardusername == username) {true} else {false}
 
-                Rectangle {
+              /*  Rectangle {
                     id:eventbox
                     width:parent.width * 0.98
                     height:eventcontent.height + mainView.width * 0.04
@@ -814,14 +814,14 @@ Item {
                        color: "#80000000"
                        source: eventbox
 
-                   }
+                   } */
 
                 Rectangle {
                     id:statsbox
                     width:parent.width * 0.98
                     height:statscontent.height + mainView.width * 0.04
-                    anchors.top:eventbox.bottom
-                    anchors.topMargin:mainView.width * 0.04
+                  //  anchors.top:eventbox.bottom
+                  //  anchors.topMargin:mainView.width * 0.04
                     anchors.horizontalCenter: parent.horizontalCenter
 
                     color:cardcolor
@@ -882,7 +882,7 @@ Item {
                                 statRank:0
                             }
 
-                            CircleStat {
+                          /*  CircleStat {
                                 width:mainView.width * 0.22
                                 height:mainView.width * 0.22
 
@@ -916,7 +916,7 @@ Item {
                                 whichStat:qsTr("Replies")
                                 statNumber:"0"
                                 statRank:0
-                            }
+                            } */
                         }
 
 
@@ -942,9 +942,6 @@ Item {
 
 
     }
-
-
-
 
     Info {
         id:swapopt

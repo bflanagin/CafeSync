@@ -503,7 +503,7 @@ function show_conversations(room) {
                                 timecode:humanDate.toLocaleDateString(),
                                 message:pull.rows.item(sync).message,
                                 avatar:otherava,
-                                cardStatus:"We've talked"
+                                cardnum:pull.rows.item(sync).id,
 
                             });
         }

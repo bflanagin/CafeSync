@@ -177,7 +177,7 @@
         <file>plugins/gofundme.js</file>
         <file>plugins/fb.js</file>
         <file>plugins/DA.qml</file>
-        <file>AchievmentsBar.qml</file>
+        <file>AchievmentsPage.qml</file>
         <file>MicroBlogger.qml</file>
         <file>AchievementInfo.qml</file>
         <file>icons/add.svg</file>
@@ -238,5 +238,7 @@
         <file>CircleStat.qml</file>
         <file>img/OpenCircle.png</file>
         <file>CFBorder.qml</file>
+        <file>icons/view-sort-ascending.svg</file>
+        <file>icons/view-sort-descending.svg</file>
     </qresource>
 </RCC>

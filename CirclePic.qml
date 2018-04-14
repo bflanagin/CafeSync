@@ -46,7 +46,16 @@ Item {
 
          }
 
-
+        Image {
+            id:badge
+            width: parent.width * 0.2
+            height: parent.width * 0.2
+            fillMode: Image.PreserveAspectFit
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+            anchors.rightMargin: parent.width * 0.1
+            source:"./img/gold-badge.png"
+        }
 
 
 }

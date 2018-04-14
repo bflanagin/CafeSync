@@ -12,6 +12,7 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.LocalStorage 2.0 as Sql
 
 import "messages.js" as Message
+import "microblogger.js" as MicroBlog
 
 Item {
 
@@ -297,7 +298,7 @@ ListView {
             Text {
                 anchors.leftMargin: parent.width * 0.03
                 anchors.verticalCenter: parent.verticalCenter
-                text:qsTr("Status:")+cardStatus
+                text:qsTr("Status:")+MicroBlog.latest_log("conversed",cardnum)
                 color:"black"
             }
 

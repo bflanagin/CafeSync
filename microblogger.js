@@ -382,8 +382,9 @@ function latest_log(from,cardNum) {
              tx.executeSql('CREATE TABLE IF NOT EXISTS NARRATIVE (id TEXT, roomid TEXT,speaker TEXT, speech TEXT,branch INT, updated TEXT)');
 
         var chat = tx.executeSql(getstuff);
-
-        latestLog = chat.rows.item(0).speech;
+            if(chat.rows.length != 0) {
+                latestLog = chat.rows.item(0).speech;
+            }
 
     });
 

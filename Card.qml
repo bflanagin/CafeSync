@@ -77,7 +77,7 @@ import "openseed.js" as OpenSeed
                                     }
 
 
-                                    Timer {
+                                  /*  Timer {
                                         id:updatecard
                                         interval: 20000+(index*100)
                                         running: true
@@ -86,7 +86,7 @@ import "openseed.js" as OpenSeed
                                         onTriggered:OpenSeed.update_card(cardId,listget)//, notificationClient.notification = "Updating Card";
 
 
-                                    }
+                                    } */
 
                                    /* Timer {
                                         id:updateinfo

@@ -303,7 +303,7 @@ function retrieve_data(id) {
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/updateloc.php";
 
-    console.log("Retreiving Data");
+    //console.log("Retreiving Data");
     var carddata = "";
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
@@ -318,8 +318,9 @@ function retrieve_data(id) {
             } else {
                 if(tempc != http.responseText) {
                    tempc = http.responseText;
+                    //console.log(tempc);
 
-                    cardload.start();
+                   // cardload.start();
                 }
             }
 
@@ -425,7 +426,7 @@ function sync_cards(id,opt) {
         }
 
         if (cardsyncsaved.length < remotesaved.length ) {
-            console.log("Syncing local saved cards");
+            //console.log("Syncing local saved cards");
 
             var cardlist = remotesaved.split(",");
             var num = 0;
@@ -504,6 +505,7 @@ function get_list(id,list) {
                         sync_cards(userid,0);
                         //console.log("from interwebs saved "+carddata);
 
+
                 }
             }
         }
@@ -533,11 +535,13 @@ function get_list(id,list) {
                         //if(carddata.length != remotetemp) {
                         remotetemp = carddata;
 
+
+
                         var tnum = 0;
                         while (remotetemp.split(",")[tnum] != null) {
                             if(remotetemp.split(",")[tnum] != "") {
-                                    //console.log("updating temp "+remotetemp.split(",")[tnum]);
-                                    update_card(remotetemp.split(",")[tnum],"temp");
+                                // update_card(remotetemp.split(",")[tnum],list);
+                                 check_for_update(remotetemp.split(",")[tnum],list);
                                 justpulled = tnum;
                             }
                             tnum = tnum + 1;
@@ -551,7 +555,7 @@ function get_list(id,list) {
                     //if(remotetemp.split(",") > ptotal) {
 
                     //}
-
+                    //console.log("get list "+remotetemp);
                 }
             }
         }
@@ -581,7 +585,8 @@ function get_list(id,list) {
                         var tnum = 0;
                         while (remotetemp.split(",")[tnum] != null) {
                             if(remotetemp.split(",")[tnum] != "") {
-                                    update_card(remotetemp.split(",")[tnum],"region");
+                                // update_card(remotetemp.split(",")[tnum],list);
+                                 check_for_update(remotetemp.split(",")[tnum],list);
                                 justpulled = tnum;
                             }
                             tnum = tnum + 1;
@@ -622,7 +627,8 @@ function get_list(id,list) {
                         var tnum = 0;
                         while (remotetemp.split(",")[tnum] != null) {
                             if(remotetemp.split(",")[tnum] != "") {
-                                    update_card(remotetemp.split(",")[tnum],"global");
+                                   // update_card(remotetemp.split(",")[tnum],list);
+                                    check_for_update(remotetemp.split(",")[tnum],list);
                                 justpulled = tnum;
                             }
                             tnum = tnum + 1;
@@ -648,9 +654,19 @@ function get_list(id,list) {
 
 }
 
-function check_for_update(id) {
+function check_for_update(id,list) {
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/lastupdated.php?id="+userid+"&cid="+id;
+
+    var thelist = "TempCard";
+
+    switch(list) {
+        case "temp":thelist = "TempCards";break;
+        case "region":thelist = "RegCards";break;
+        case "global":thelist = "GlobCards";break;
+        case "saved":thelist = "SavedCards";break;
+        default:thelist ="TempCards";break;
+    }
 
     //console.log(url);
     var updateIt = 0;
@@ -670,25 +686,59 @@ function check_for_update(id) {
                     console.log("Incorrect AppID");
                 } else {
                     carddata = http.responseText;
-                    //console.log("from check for web update "+carddata);
+                  //  console.log("from check for web update on "+id+" last updated "+carddata);
 
                     db.transaction(function(tx) {
                            tx.executeSql('CREATE TABLE IF NOT EXISTS Stats(id TEXT, name TEXT,data TEXT, frequency INT)');
 
                             var testStatupdated = "SELECT data FROM Stats WHERE id= '"+id+"' AND name = 'updated'";
+                            var testExist = "SELECT id FROM `"+thelist+"` WHERE id= '"+id+"'";
+
 
                             var pull = tx.executeSql(testStatupdated);
+                            var epull = tx.executeSql(testExist);
 
-                            // console.log("from check for update "+pull.rows.length);
+                             //console.log("from check for update id exists "+pull.rows.length);
                               // console.log("from check for update "+pull.rows.item(0).data);
 
-                                if(pull.rows.item(0).data != carddata) {
-                                    updateIt = 0;
+                                if(epull.rows.length == 1) {
+                                        //console.log("Found Card");
+                                         if(pull.rows.length == 1) {
+                                         //    console.log("Found Stat");
+                                            if(pull.rows.item(0).data == carddata) {
+                                                 updateIt = 0;
+                                                      //  console.log("everything is good for "+id);
+                                                        if(list != "saved") {
+                                                        remote_delete(userid,list,id);
+                                                        }
+                                                } else {
+                                                        updateIt = 1;
+                                                        //console.log(pull.rows.item(0).data+ " "+ carddata);
+                                                      //  console.log("Stat needs updates "+id);
 
-                                } else {
-                                    updateIt = 1;
-                                }
-                       });
+                                                        if(usercardNum != id) {
+                                                                 notification1.visible = true; notification1.themessage = "Updating card!";
+                                                                update_card(id,list);
+                                                             }
+                                                }
+                                            } else {
+                                                    updateIt = 2;
+                                                   // console.log("No Card found "+id);
+                                                    if(usercardNum != id) {
+
+                                                            update_card(id,list);
+                                                        }
+                                            }
+                                     } else {
+                                            updateIt = 3;
+                                            //console.log("No Card Found "+id);
+
+                                            if(usercardNum != id) {
+                                                  //  notification1.visible = true; notification1.themessage = "New Cards found! "+id;
+                                                 update_card(id,list);
+                                                }
+                                        }
+                                });
                 }
 
             }
@@ -713,11 +763,13 @@ function update_card(id,list) {
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/updatecard.php?id=" + userid+"&cid="+id+"&list="+list;
     //console.log(url);
+   // var updatetype = check_for_update(id,list);
 
-  // console.log("from update card "+check_for_update(id));
+   // console.log("from Update card "+updatetype);
 
-    if(id != 'undefined' && check_for_update(id) == 1) {
-        console.log("getting card "+id);
+   // if(updatetype != 0) {
+
+        //console.log("getting card "+id);
 
     var carddata = "";
     http.onreadystatechange = function() {
@@ -836,16 +888,21 @@ function update_card(id,list) {
                     }
 
 
-
+                    if(testStatlastseen != "") {
                    var statLSdup = tx.executeSql(testStatlastseen);
-                   var statLUdup = tx.executeSql(testStatupdated);
-
                         if(statLSdup.rows.length == 0) {tx.executeSql(dataStats, dataLS);} else {
                             upfreq = statLSdup.rows.frequency + 1;
                             tx.executeSql(updateLSStats);}
+                    }
+                    if(testStatupdated != "") {
+                   var statLUdup = tx.executeSql(testStatupdated);
                         if(statLUdup.rows.length == 0) {tx.executeSql(dataStats, dataLU);} else {
                             upfreq = statLUdup.rows.frequency + 1;
                             tx.executeSql(updateLUStats);}
+
+                    }
+
+
 
                    });
 
@@ -855,7 +912,7 @@ function update_card(id,list) {
     }
     http.open('GET', url.trim(), true);
     http.send(null);
-}
+//}
 
 gc();
 }
@@ -866,7 +923,7 @@ function remote_delete(id,list,cid) {
     var url;
      var carddata = "";
 
-        console.log("deleting");
+        //console.log("deleting");
         get_list_updater.stop();
 
     switch(list) {

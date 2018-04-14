@@ -1227,7 +1227,7 @@ Item {
     MouseArea {
         anchors.fill:parent
         //onClicked: standardMenu.popup()
-        onClicked: mainScreen.state = "InActive", topBar.state="standard"
+        onClicked:if(achievePage.state == "Active") {achievePage.state = "InActive" } else { mainScreen.state = "InActive", topBar.state="standard" }
 
     }
 

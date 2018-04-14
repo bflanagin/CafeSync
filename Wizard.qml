@@ -469,7 +469,7 @@ Item {
                                    onTextChanged: usercompany = text
                              }
 
-                             Text {
+                            /* Text {
                                  font.pixelSize: parent.height * 0.06
                                  text:qsTr("Category: ")
                                  anchors.right:parent.right
@@ -520,7 +520,7 @@ Item {
                                 }
 
 
-                             }
+                             } */
 
                         }
 
@@ -836,6 +836,14 @@ Item {
                 z:1
             }
 
+            Text {
+                //id: name
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                anchors.margins: mainView.width * 0.1
+                text: qsTr("Swipe to proceed")
+            }
+
         }
 
 
@@ -924,7 +932,7 @@ What you choose to share within the applications is shared only with other users
         ListElement {
             thetitle: qsTr("Congratulations!")
             message:  qsTr("We're all set. Tapping \"finish\" will close this dialog and let you start using the network. \n Note: Because of our commitment to your privacy, your card is set to private.\
- \n .Change this by hitting the center bottom button on the main screen or check the \"share card\" check-box in settings under \"Your Card\"")
+ \n .Change this in the menu by tapping the mask in the button on the far let.")
             type:9
             image:"./img/overlay-dark.png"
         }

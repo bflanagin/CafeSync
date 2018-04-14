@@ -143,7 +143,7 @@ Item {
                     state:"InActive"
 
                     width:menulistview.width
-                    height:menulistview.height * 0.1
+                    height:if(menuitem == 1) {menulistview.height * 0.16} else {menulistview.height * 0.1}
                     //anchors.horizontalCenter: parent.horizontalCenter
                     Item {
                         id:menuSeperator
@@ -234,7 +234,7 @@ Item {
                                 horizontalAlignment: Text.AlignLeft
                                 //font.pixelSize: parent.width * 0.1 - text.length * 1.2
 
-                                font.pixelSize: if(menuitem == 1) {parent.height * 0.5} else {parent.height * 0.25}
+                                font.pixelSize: if(menuitem == 1) {parent.height * 0.4} else {parent.height * 0.25}
                                text: if(title != "Category") {switch(menuitem) {
                                      case "0": qsTr("Collected");break;
                                      case "2": qsTr("Contacts");break;
@@ -243,10 +243,28 @@ Item {
                                      case "4": qsTr("Messages ");break;
                                      case "5": qsTr("Requests ");break;
                                      case "6": qsTr("Events ");break;
-                                     case "8":"";break;
+                                     //case "8":"";break;
                                      default:menuitem;break;
                                      }
                                      } else {menuitem}
+
+                               Text {
+                                     id:stext
+                                     visible: if(menuitem == 1) {true} else {false}
+
+                                        anchors.top:parent.bottom
+                                         text:MicroBlog.latest_log("Menu",usercardNum)
+                                         verticalAlignment:Text.AlignVCenter
+                                         //padding: width * 0.2
+                                         anchors.left: parent.left
+                                         anchors.leftMargin: parent.width * 0.04
+                                         width:parent.width * 0.82
+                                         wrapMode: Text.WordWrap
+                                         //height:parent.height * 0.80
+                                         font.pixelSize: parent.width * 0.04
+                                          elide: Text.ElideRight
+                                         maximumLineCount: 1
+                                   }
 
                         }
 
@@ -370,9 +388,9 @@ Item {
                         visible: if (type == 3) {true} else {false}
                         enabled: visible
                         width:parent.width
-                        height:parent.height
-                        Text {
-                            //id:searchtextfield
+                        height:stext.height
+                       /* Text {
+                            id:stext
                            // anchors.right:back.left
                           //  anchors.rightMargin: parent.width * 0.02
                           //  anchors.left:mainMenu2.right
@@ -383,11 +401,13 @@ Item {
                             //padding: width * 0.2
                             anchors.left: parent.left
                             anchors.leftMargin: parent.width * 0.1
-                            width:parent.width
-                            height:parent.height * 0.80
-                            font.pixelSize: parent.width * 0.05
+                            width:parent.width * 0.95
+                            wrapMode: Text.WordWrap
+                            //height:parent.height * 0.80
+                            font.pixelSize: parent.width * 0.04
+                           // elide: Text.ElideRight
 
-                        }
+                        } */
 
                     }
 
@@ -404,10 +424,10 @@ Item {
                                             type:1
                                     }
 
-                                    ListElement {
+                                 /*   ListElement {
                                             menuitem: "8"
                                             type:3
-                                    }
+                                    } */
 
                                     ListElement {
                                             section: "1"
@@ -445,10 +465,10 @@ Item {
                                             type:1
                                     }
 
-                                    ListElement {
+                                   /* ListElement {
                                             menuitem: "6"
                                             type:1
-                                    }
+                                    } */
 
                                 }
 

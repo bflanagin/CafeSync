@@ -534,7 +534,7 @@ Item {
                   anchors.centerIn: parent
                   width:parent.width * 0.8
                   height:parent.height * 0.8
-                  source: "./icons/stats.svg"
+                  source: if(menu == 1) {"./icons/overlay.svg"} else {"./icons/stats.svg"}
 
 
 
@@ -555,8 +555,8 @@ Item {
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true
-                 // onClicked: swapopt.state = "Active"
-                  onClicked: notification1.visible = true,notification1.themessage = "Coming Soon"
+                  onClicked: if(menu == 1) {swapopt.state = "Active" } else {achievePage.state = "Active"}
+                 // onClicked: notification1.visible = true,notification1.themessage = "Coming Soon"
               }
 
           }

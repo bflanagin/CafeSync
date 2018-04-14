@@ -346,7 +346,7 @@ function temp_Load(search,locale) {
         var pull =  tx.executeSql(dataStr);
         numofcards = pull.rows.length;
 
-
+        //console.log(locale+" "+numofcards);
 
         var record = 0;
     while (pull.rows.length > record) {
@@ -463,7 +463,9 @@ function temp_Load(search,locale) {
 
 
 
-                    if(pull.rows.item(record).id.toString != usercardNum) {
+                    if(pull.rows.item(record).id != usercardNum) {
+
+                       console.log(record+" displaying "+pull.rows.item(record).id+" from "+locale);
 
                     cardslist.append({
                                     name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
@@ -529,6 +531,7 @@ function temp_Load(search,locale) {
     if(pull.rows.item(record).id != usercardNum) {
 
 
+            //console.log(record+" displaying "+pull.rows.item(record).id+" from "+locale);
 
             cardslist.append({
                 name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
@@ -935,7 +938,7 @@ function show_Sites(cid,list) {
 
                         });
 
-        pagelist.append({
+       /* pagelist.append({
                          webpage:"empty.html",
                          thestate:"MicroBlog",
                             pagewidth:mainScreen.width ,
@@ -970,7 +973,7 @@ function show_Sites(cid,list) {
                             pageindex:pages
 
 
-                        });
+                        }); */
 
 
         if(currentcard_mainsite.length > 8) {
@@ -1240,7 +1243,7 @@ function show_Sites(cid,list) {
 
                            });
 
-            pagelist.append({
+           /* pagelist.append({
                              webpage:"empty.html",
                              thestate:"MicroBlog",
                                 pagewidth:mainScreen.width ,
@@ -1275,7 +1278,7 @@ function show_Sites(cid,list) {
                                 pageindex:pages
 
 
-                            });
+                            }); */
 
 
 
