@@ -274,11 +274,12 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
     Timer {
         id:heartbeats
-        interval: 10000
+        interval: 6000
         running:false
         repeat:true
         onTriggered:if(firstrun.state == "InActive") {OpenSeed.heartbeat();
-                        Request.check_requests();}
+                        Request.check_requests();
+                        OpenSeed.retrieve_data(userid);}
     }
 
 Component.onCompleted: (console.log(Application.version));
@@ -327,7 +328,7 @@ Component.onCompleted: (console.log(Application.version));
 
     Timer {
         id:gpsupdate
-        interval:100000
+        interval:20000
         running: true
         repeat: true
         onTriggered: {
@@ -348,11 +349,11 @@ Component.onCompleted: (console.log(Application.version));
 
     Timer {
         id:get_list_updater
-        interval:20000; running: true; repeat: true
+        interval:24000; running: true; repeat: true
             onTriggered: {
                         if(firstrun.state == "InActive" && heart != "OffLine") {
                             //console.log("Updating List");
-                      //  OpenSeed.retrieve_data(userid);
+
                         OpenSeed.get_list(userid,"temp");
                         OpenSeed.get_list(userid,"region");
                         OpenSeed.get_list(userid,"saved");

@@ -19,7 +19,7 @@ Item {
 
     clip:true
     //visible: false
-
+    property string searchtextfieldText: ""
     property bool isActive: false
 
 
@@ -1084,7 +1084,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
 
             anchors.leftMargin: parent.width * 0.03
-
+            rotation:if(catmenu.state == "Active") {90} else {0}
             width:parent.height * 0.4
             height:parent.height * 0.4
 
@@ -1113,7 +1113,7 @@ Item {
 
             MouseArea {
                 anchors.fill:parent
-                onClicked: if(catmenu.state == "InActive") {catmenu.state = "Active",mainMenu2.rotation = 90} else {catmenu.state = "InActive",mainMenu2.rotation = 0}
+                onClicked: if(catmenu.state == "InActive") {catmenu.state = "Active"} else {catmenu.state = "InActive"}
             }
         }
 
@@ -1132,7 +1132,7 @@ Item {
             placeholderText: qsTr(currentcat+":Search")
              background:InputBack{}
             onTextChanged: {cardslist.clear();
-                if(selection == 0) {Scripts.temp_Load(searchtextfield.text,listget)} else {Scripts.cards_Load(searchtextfield.text,listget) }
+                if(selection == 0) {searchtext = text; Scripts.temp_Load(searchtextfield.text,listget)} else {Scripts.cards_Load(searchtextfield.text,listget) }
         }
         }
 

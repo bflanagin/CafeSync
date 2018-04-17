@@ -52,7 +52,7 @@ Item {
             PropertyChanges {
                 target: quickactions
                 menu: 1
-                visible:true
+                visible:if(title == "Category") {false} else {true}
             }
 
         },
@@ -372,9 +372,9 @@ Item {
                           default:if(title == "Category") {currentcat = menuitem;
                                                                     cardslist.clear();
                                                                        if (selection == 0) {
-                                                                         Scripts.temp_Load(searchtextfield.text,listget);
+                                                                         Scripts.temp_Load(searchtext,listget);
                                                                        }else {
-                                                                        Scripts.cards_Load(searchtextfield.text);}
+                                                                        Scripts.cards_Load(searchtext);}
 
                                                                         } else {usercat = menuitem;} popup.state = "InActive",mainMenu2.rotation = 0;break;
                           }

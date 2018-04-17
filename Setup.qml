@@ -181,10 +181,15 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
          }
          Button {
 
-             text:if(simpleMode == true) {qsTr("Pro Mode")} else {qsTr("Simple Mode")}
+             text:if(simpleMode == true) {qsTr("Simple")} else {qsTr("Advanced")}
              anchors.right:parent.right
              anchors.verticalCenter: parent.verticalCenter
              onClicked: if(simpleMode == true) {simpleMode = false} else { simpleMode = true}
+             background:Rectangle {
+                 border.color: highLightColor1
+                 //border.width: 1
+                // radius: height / 0.5
+                      }
          }
         }
 
