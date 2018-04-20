@@ -33,7 +33,7 @@ function check_messages(user) {
                         messagePage.messagelist =http.responseText;
                         retrieve_messages(user,userid);
 
-                   // notificationClient.notification = "New Message from "+user;
+                    notificationClient.notification = "New Message from "+user;
                 }
             }
 
@@ -71,6 +71,7 @@ function retrieve_messages(room,theid) {
                     // remote = 0;
                 } else {
                    //console.log("from server: "+raw);
+
                     var fromserver = raw.split("><");
                     var sync = 1;
                      while(sync < (fromserver.length -1)) {
@@ -99,7 +100,7 @@ function retrieve_messages(room,theid) {
 function retrieve_conversations(room) {
     //remote = 1;
    // console.log("sending to server: "+currentmessage+" : "+mesgdate);
-   // console.log("from RC:"+room);
+    console.log("from RC:"+room);
 
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/corescripts/chats.php";
@@ -122,7 +123,9 @@ function retrieve_conversations(room) {
                    //console.log("up to date");
                     // remote = 0;
                 } else {
-                   //console.log("from RC server: "+raw);
+
+                 //  console.log("from RC server: "+raw);
+
                     var fromserver = raw.split("><");
                     var sync = 1;
                     var dataStr1;
@@ -166,7 +169,7 @@ function send_messages(user,message) {
         messageField.text = "";
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/corescripts/chats.php";
-    console.log("send message "+user+":"+message);
+    //console.log("send message "+user+":"+message);
    // console.log(url)
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
@@ -177,7 +180,7 @@ function send_messages(user,message) {
             } else if(http.responseText == 101) {
                 console.log("Incorrect AppID");
             } else {
-              //  console.log(http.responseText);
+               console.log(http.responseText);
 
                 //createdb();
                 //save_messages(userid,user," "," "," "," "," ",mesgdate.getTime(),message,usercardNum);
@@ -503,7 +506,7 @@ function show_conversations(room) {
                                 timecode:humanDate.toLocaleDateString(),
                                 message:pull.rows.item(sync).message,
                                 avatar:otherava,
-                                cardnum:pull.rows.item(sync).id,
+                                cardnum:them,
 
                             });
         }

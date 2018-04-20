@@ -27,17 +27,49 @@ http.onreadystatechange = function() {
 
             pagedata = http.responseText;
 
-            //console.log(pagedata);
+            if(pagedata.length == 0) {
+
+                theavatar = "../img/overlay-dark.png";
+                thebanner = "../img/overlay-dark.png";
+                banner = thebanner;
+
+                rssposts.append({
+                             thepostimage:"",
+                             thepost:qsTr("Something is wrong with this site. Either the url is incorrect, or the host doesn't believe in the free exchange of information and is blocking CafeSync for some reason. It still may be possible to visit the site if you long press anywhere within this post.\
+Please consider submitting a bug by long pressing the post below, if the url is indeed correct. "),
+                             theposttitle:qsTr("Error connecting."),
+                             thelink:url
+
+                    });
+
+                rssposts.append({
+                             thepostimage:"",
+                             thepost:qsTr("Long pressing on this post will send you to our github page. Please add url causing the issue to the bug. And thank you for making CafeSync better."),
+                             theposttitle:qsTr("Bug Report for "+url+"."),
+                             thelink:"https://github.com/OpenSeedINC/CafeSync/issues/new"
+
+                    });
+                rssposts.append({
+                             thepostimage:"",
+                             thepost:qsTr("Just encase I didn't say long press enough, I think you should try long pressing one of the posts above."),
+                             theposttitle:qsTr("LONG PRESS "+url+"."),
+                             thelink:""
+
+                    });
+
+            } else {
+
+            var feed = pagedata.search(/feed/i);
             var rss = pagedata.search(/rss/i);
             var rssalt = pagedata.search('<rss xmlns');
             var medsearch = pagedata.search('medium.com');
 
-            if(rss !=-1 || rssalt !=-1 || medsearch !=-1) {
+            if(rss !=-1 || rssalt !=-1 || medsearch !=-1 || feed !=-1) {
 
                 hasrss = 1;
 
 
-                if(rss !=-1 ) {
+                if(rss !=-1 || feed !=-1) {
 
 
                     var link = pagedata.substring(rss,rss+800).split('href="')[1].split('"')[0];
@@ -53,7 +85,7 @@ http.onreadystatechange = function() {
                                     theavatar = "../img/deviantart.png"
                                     rss_reader2(link);
                         } else if(url.search("medium.com") != -1){
-                                theavatar = "img/medium.png"
+                                theavatar = "../img/medium.png"
                                 rss_medium(link);
 
 
@@ -66,6 +98,7 @@ http.onreadystatechange = function() {
                                       //  }
 
                                     banner = thebanner;
+
 
                                 theavatar = "../img/wordpress.png";
 
@@ -88,8 +121,14 @@ http.onreadystatechange = function() {
                         //thebanner = tomedium;
                 }
 
+               /* if(feed !=-1) {
+
+                } */
+
 
             } else { hasrss = 0;}
+        }
+
         }
 
     }

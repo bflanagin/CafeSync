@@ -240,5 +240,7 @@
         <file>CFBorder.qml</file>
         <file>icons/view-sort-ascending.svg</file>
         <file>icons/view-sort-descending.svg</file>
+        <file>Award.qml</file>
+        <file>News.qml</file>
     </qresource>
 </RCC>

@@ -66,6 +66,7 @@ Item {
     ////// Begin card info ///////
 
         //card one //
+    property int sort: 1
 
    property string username: ""
   property string userphone: ""
@@ -282,7 +283,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                         OpenSeed.retrieve_data(userid);}
     }
 
-Component.onCompleted: (console.log(Application.version));
+//Component.onCompleted: (console.log(Application.version));
 
     Timer {
         id:syncandsave
@@ -378,9 +379,10 @@ Component.onCompleted: (console.log(Application.version));
                      cardslist.clear();
                         Scripts.totals();
 
-                   if(selection == 0)
-                   {Scripts.temp_Load(searchtext,listget);}
-                   else {Scripts.cards_Load(searchtext); }
+                   if(selection == 0) {
+                            Scripts.temp_Load(searchtext,listget,0);
+                     } else {
+                       Scripts.cards_Load(searchtext,0); }
 
                             tempcheck = remotetemp;
                           //console.log("what we have "+tempcheck);
@@ -693,12 +695,43 @@ Component.onCompleted: (console.log(Application.version));
                     boundsBehavior: Flickable.DragAndOvershootBounds
                    // flickableDirection: Flickable.VerticalFlick
                     visible: true
-                    spacing: mainView.width * 0.08
+                    spacing: mainView.width * 0.05
 
                     clip:true
 
 
-                    delegate: Card {}
+                    delegate: Item {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                width: passerbyGrid.width * 0.98
+                                height: if(type != 9) {thecard.height} else {spacer.height}
+                                Item {
+                                    id:spacer
+                                    visible: if(type == 9) {true} else {false}
+                                    width: parent.width
+                                    height: mainView.height * 0.04
+                                    Text {
+                                        anchors.right: parent.right
+                                        anchors.rightMargin: mainView.width * 0.01
+                                        horizontalAlignment: Text.AlignRight
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        text: date
+                                    }
+
+                                    Rectangle {
+                                        color:seperatorColor1
+                                        width: parent.width
+                                        height: parent.height * 0.1
+                                        anchors.bottom: parent.bottom
+
+                                    }
+                                }
+
+                        Card {
+                               id:thecard
+                                visible: if(type != 9) {true} else {false}
+                                            }
+
+                    }
 
 
                     //cellHeight: passerbyGrid.width / 2 //passerbyGrid.height
@@ -780,8 +813,56 @@ Component.onCompleted: (console.log(Application.version));
 
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: {notification1.themessage ="Not enough to sort";
-                                        notification1.visible = true;
+                        onClicked: {    switch(sort) {
+                                            case 1:  notification1.themessage ="Sort by Name";
+                                                        notification1.visible = true;
+                                                        cardslist.clear();
+                                                        if(selection == 0) {
+                                                        Scripts.temp_Load(searchtext,listget,1);
+                                                        } else {
+                                                           Scripts.cards_Load(searchtext,1);
+                                                        }
+
+                                                        sort = 2
+                                                     break;
+                                            case 2:  notification1.themessage ="Sort by Company";
+                                                    notification1.visible = true;
+                                                    cardslist.clear();
+                                                    if(selection == 0) {
+                                                    Scripts.temp_Load(searchtext,listget,2);
+                                                    } else {
+                                                        Scripts.cards_Load(searchtext,2);
+                                                    }
+
+                                                    sort = 3;
+                                                         break;
+                                            case 3:  notification1.themessage ="Sort by Category";
+                                                    notification1.visible = true;
+                                                    cardslist.clear();
+                                                    if(selection == 0) {
+                                                    Scripts.temp_Load(searchtext,listget,3);
+                                                    }else {
+                                                        Scripts.cards_Load(searchtext,3);
+                                                    }
+
+                                                    sort = 0;
+                                                         break;
+                                            default:
+                                                cardslist.clear();
+                                                if(selection == 0) {
+                                                    notification1.themessage ="Sort by Date";
+                                                    notification1.visible = true;
+                                                Scripts.temp_Load(searchtext,listget,0);
+                                                }else {
+                                                    notification1.themessage ="Sort by Name";
+                                                    notification1.visible = true;
+                                                    Scripts.cards_Load(searchtext,0);
+                                                }
+
+                                                sort = 1;
+                                             break;
+
+                                            }
                                     }
                     }
 
@@ -1130,6 +1211,15 @@ MyIOout {
 
         }
 
+}
+
+News {
+    id:newsRelease
+    anchors.top:topBar.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    width: mainView.width * 0.95
+    height: mainView.height - topBar.height
+    visible:true
 }
 
 

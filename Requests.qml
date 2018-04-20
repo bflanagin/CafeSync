@@ -1,4 +1,4 @@
-import QtQuick 2.2
+import QtQuick 2.8
 import QtQuick.Controls 2.2
 import QtQuick.Dialogs 1.2
 //import QtWebKit 3.0

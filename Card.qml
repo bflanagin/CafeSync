@@ -12,6 +12,7 @@ import QtQuick.LocalStorage 2.0 as Sql
 
 import "main.js" as Scripts
 import "openseed.js" as OpenSeed
+import "microblogger.js" as MicroBlogger
 
 
                         Item {
@@ -38,9 +39,12 @@ import "openseed.js" as OpenSeed
                             property string w4: URL4
                             property string mainly: mainsite
                             property string issaved: saved
+                                 property string cardStatus: ""
 
                                     property int explodereset: 0
                                     property int lister: 0
+
+
 
 
                                // flickableDirection:Flickable.HorizontalFlick
@@ -50,6 +54,11 @@ import "openseed.js" as OpenSeed
                                     Component.onCompleted: if(name == 'undefined') {
                                                                OpenSeed.remote_delete(userid,listget,cardId);
                                                               cardslist.remove(index);
+
+                                                           } else {
+                                                              // cardStatus = MicroBlogger.latest_log_remote(usercardNum,cardId);
+                                                               MicroBlogger.latest_log_remote(usercardNum,cardId);
+                                                               //console.log(cardStatus);
                                                            }
 
 
@@ -187,7 +196,7 @@ import "openseed.js" as OpenSeed
                                         Text {
                                             id:comp
                                             visible:if(cardsop == 1) {true} else {false}
-                                            width:parent.width - card_avatar_backing
+                                            width:parent.width* 0.70
                                             anchors.right:parent.right
                                             anchors.bottom:parent.bottom
                                             anchors.rightMargin:parent.width * 0.02
@@ -197,6 +206,9 @@ import "openseed.js" as OpenSeed
                                             font.pixelSize: parent.width * 0.04 //units.gu(1.8)
                                            text: company
                                            wrapMode: Text.WordWrap
+                                           maximumLineCount: 1
+                                           elide: Text.ElideRight
+                                           horizontalAlignment: Text.AlignRight
                                           /* Image {
                                                anchors.fill: parent
                                                source:compImg
@@ -206,17 +218,26 @@ import "openseed.js" as OpenSeed
 
                                         }
 
+
                                         Rectangle {
+
+                                            //visible: if(cardStatus.length != 0) {true} else {false}
                                             anchors.left:parent.left
-                                           anchors.bottom:parent.bottom
-                                          //  anchors.bottomMargin: parent.height * 0.5
+                                            anchors.bottom:parent.bottom
+                                            //anchors.bottomMargin: parent.height * 0.05
                                             width:parent.width
                                             height:parent.height * 0.1
-                                            color:Qt.rgba(0.9,0.9,0.9,0.9)
+                                            color:Qt.rgba(0.94,0.94,0.94,0.9)
                                         Text {
-                                            anchors.leftMargin: parent.width * 0.03
+                                            anchors.left:parent.left
+                                            anchors.leftMargin: parent.width * 0.02
                                             anchors.verticalCenter: parent.verticalCenter
-                                            text:qsTr("Status:")+cardStatus
+                                            font.pixelSize: parent.height * 0.8
+                                            text:cardStatus
+                                            width: parent.width * 0.9
+                                            wrapMode: Text.WordWrap
+                                            maximumLineCount: 1
+                                            elide: Text.ElideRight
                                             color:"black"
                                         }
 

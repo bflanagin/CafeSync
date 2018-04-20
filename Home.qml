@@ -15,6 +15,7 @@ Item {
     id:popup
     property string number: "0"
     property string list:""
+    property string cardStatus: "No recent status updates"
 
    // property string backgroundColor:Qt.rgba(0.98,0.98,0.98,1)
 
@@ -42,6 +43,8 @@ Item {
             border.width:1
             radius: 4
         }
+
+        Component.onCompleted: MicroBlog.latest_log_remote("othercard",cardId)
 
 
 
@@ -225,6 +228,7 @@ Item {
                     height:parent.height * 0.98
                     anchors.centerIn: parent
                     color:cardcolor
+                    visible: if(cardStatus == "") {false} else {true}
 
                     Column {
                         id:statuscontent
@@ -234,6 +238,7 @@ Item {
 
                         Text{
                             anchors.left:parent.left
+                            padding:parent.width * 0.02
                             text:qsTr("Status Update:")
                         }
                         Rectangle {
@@ -251,8 +256,9 @@ Item {
                             visible: if( cardusername != username) {true} else {false}
                             anchors.centerIn: parent
                             width:parent.width
+                            padding: parent.width * 0.03
                             wrapMode: Text.WordWrap
-                            text: MicroBlog.latest_log("othercard",cardId)
+                            text: cardStatus
                         }
 
                         TextField {
@@ -261,6 +267,7 @@ Item {
                             width:parent.width
                             padding:width * 0.05
                             wrapMode: Text.WordWrap
+                            maximumLength: 244
                            // text:MicroBlog.latest_log("mycard",cardId)
                             placeholderText: "Update your Status"
                             background: InputBack{}
@@ -855,7 +862,7 @@ Item {
                                 height:mainView.width * 0.22
 
                                 whichStat:qsTr("Collected")
-                                statNumber:"0"
+                                statNumber:ptotal
                                 statRank:0
                             }
 

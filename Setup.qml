@@ -451,7 +451,7 @@ Item {
     Text {
         anchors.left:parent.left
         anchors.leftMargin: 10
-        text: qsTr("(tap text or image to edit)")
+        text: qsTr("(tap image to edit)")
         anchors.verticalCenter: parent.verticalCenter
         font.pointSize: mainView.height * 0.01
     }
