@@ -43,7 +43,7 @@ http.onreadystatechange = function() {
             profilebanner = profilebanner.split(")");
             banner = profilebanner[0];
             } else {
-                profilebanner = "./img/overlay.svg";
+                profilebanner = "../img/overlay.svg";
                 banner = profilebanner;
             }
             mission = pagedata.substring(pagedata.search('<p class="ProfileHeaderCard-bio u-dir" dir="ltr">'),pagedata.search('<div class="ProfileHeaderCard-location ">'));

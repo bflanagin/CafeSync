@@ -190,6 +190,9 @@ ListView {
         height:conversecontent.height * 1.2
         anchors.horizontalCenter: parent.horizontalCenter
         clip:true
+         property string cardStatus:""
+       // Component.onCompleted: MicroBlog.latest_log_remote("conversed",cardnum)
+
         Rectangle {
             anchors.centerIn: conversecontent
             width:conversecontent.width
@@ -285,24 +288,34 @@ ListView {
                 opacity: 0.2
             }
 
+
+
                 }
             }
-
             Rectangle {
-                //anchors.left:parent.left
-              // anchors.bottom:parent.bottom
-              //  anchors.bottomMargin: parent.height * 0.5
+
+                //visible: if(cardStatus.length != 0) {true} else {false}
+                anchors.left:parent.left
+               // anchors.bottom:parent.bottom
+                //anchors.bottomMargin: parent.height * 0.05
                 width:parent.width
-                height:parent.height * 0.1
-                color:Qt.rgba(0.9,0.9,0.9,0.9)
+                height:mainView.width * 0.04
+                color:Qt.rgba(0.94,0.94,0.94,0.9)
             Text {
-                anchors.leftMargin: parent.width * 0.03
+                anchors.left:parent.left
+                anchors.leftMargin: parent.width * 0.02
                 anchors.verticalCenter: parent.verticalCenter
-                text:qsTr("Status:")+MicroBlog.latest_log("conversed",cardnum)
+                font.pixelSize: parent.height * 0.8
+                text:cardStatus
+                width: parent.width * 0.9
+                wrapMode: Text.WordWrap
+                maximumLineCount: 1
+                elide: Text.ElideRight
                 color:"black"
             }
 
             }
+
 
         }
 

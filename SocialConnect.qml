@@ -396,8 +396,8 @@ Item {
                     snapMode:ListView.SnapOneItem
                     spacing:thisWindow.height * 0.01
                     clip:true
-                    onContentXChanged: theservice = "" , preview = false, useraccount = ""
-
+                    onContentXChanged: {theservice = ""; preview = false; useraccount = ""}
+                    onMovingHorizontallyChanged: if(socialSelect.movingHorizontally == true) {currentservice = "";taptitle.visible = false;} else {taptitle.visible = true;}
                     model: socialaccountslist
 
                     delegate: SocialOptfull {
@@ -408,7 +408,7 @@ Item {
 
                                  MouseArea {
                                      anchors.fill: parent
-                                     onClicked: theserviceLogo = serviceLogo, theservice = service, currentservice = service
+                                     onClicked: {theserviceLogo = serviceLogo; theservice = service; currentservice = service}
                                  }
 
                             }
@@ -460,6 +460,7 @@ Item {
                 } */
 
                 Text {
+                    id:taptitle
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.bottom:account1.bottom
                     text:qsTr("Tap to add Source")

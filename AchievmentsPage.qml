@@ -135,7 +135,7 @@ Item {
                     height:mainView.width * 0.22
 
                     whichStat:qsTr("Collected")
-                    statNumber:"0"
+                    statNumber:ptotal
                     statRank:0
                 }
 

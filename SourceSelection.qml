@@ -166,7 +166,7 @@ Item {
             Image {
                 id:check
                 anchors.fill:viewport
-                fillMode: Image.PreserveAspectFit
+                fillMode: Image.PreserveAspectCrop
 
                 //visible: if(Image.Ready == 1) {true}
             }

@@ -794,9 +794,9 @@ Item {
                                     onClicked: {
                                                     usercat = currentcat;
                                                 Scripts.save_card(userid,username.replace(/'/g," "),userphone,useremail,usercompany,useralias,usermotto+";::;;::;;::;"," ",
-                                                                 website1,website2,website3,website4,0,0,0," "," ",usercat);
+                                                                 website1,website2,website3,website4,1,0,1," "," ",usercat);
                                                 OpenSeed.upload_data(userid,username.replace(/'/g," "),userphone,useremail,usercompany,
-                                                             useralias,usermotto+";::;;::;;::;",0,0,0," ",website1,website2,website3,website4,
+                                                             useralias,usermotto+";::;;::;;::;",1,0,1," ",website1,website2,website3,website4,
                                                              " "," ",usercat);
                                                     currentcat = "All Cards";
                                                     thisWindow.state = "InActive"
@@ -931,8 +931,7 @@ What you choose to share within the applications is shared only with other users
 
         ListElement {
             thetitle: qsTr("Congratulations!")
-            message:  qsTr("We're all set. Tapping \"finish\" will close this dialog and let you start using the network. \n Note: Because of our commitment to your privacy, your card is set to private.\
- \n .Change this in the menu by tapping the mask in the button on the far let.")
+            message:  qsTr("We're all set. Tapping \"finish\" will close this dialog and let you start using the network.")
             type:9
             image:"./img/overlay-dark.png"
         }

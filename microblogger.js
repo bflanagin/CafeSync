@@ -375,7 +375,7 @@ function latest_log(from,cardNum) {
 
     var latestLog = "";
 
-     var getstuff = "SELECT  * FROM NARRATIVE WHERE `roomid` ='"+cardNum+"' ORDER BY updated ASC";
+     var getstuff = "SELECT  * FROM NARRATIVE WHERE `roomid` ='"+cardNum+"' ORDER BY updated DESC";
 
     db.transaction(function(tx) {
 
@@ -391,6 +391,97 @@ function latest_log(from,cardNum) {
    // console.log(from,cardNum,latestLog);
 
     return latestLog;
+}
+
+
+function latest_log_remote (from,cardNum) {
+
+    var latestLog = "";
+
+
+    var http = new XMLHttpRequest();
+    var url = "https://openseed.vagueentertainment.com:8675/corescripts/narrative.php";
+   // console.log(url)
+    // whowith = "Chat";
+
+   // console.log(room,theid);
+
+    http.onreadystatechange = function() {
+        if (http.readyState == 4) {
+            //console.log(http.responseText);
+            //userid = http.responseText;
+            if(http.responseText == 100) {
+                console.log("Incorrect DevID");
+            } else if(http.responseText == 101) {
+                console.log("Incorrect AppID");
+            } else {
+                //console.log(http.responseText);
+                var raw = http.responseText;
+                if(raw == "1") {
+                   //console.log("up to date");
+                    // remote = 0;
+                } else {
+                  // console.log("from server: "+raw);
+                    var fromserver = raw.split("><");
+                    var messageblock;
+                        //console.log(fromserver[1].split("::"));
+                        if(fromserver[1] != undefined) {
+                        messageblock = fromserver[1].split("::");
+
+                        } else {
+                            messageblock = "";
+                        }
+
+                        var lr = 0;
+                            if(cardNum == usercardNum) {
+                             save_log(userid,messageblock[1],messageblock[2],messageblock[3],messageblock[4],messageblock[7]);
+                            } else {
+                                latestLog = messageblock[3];
+
+                               // console.log(latestLog);
+                                if(latestLog != undefined) {
+                                    if(from == "othercard") {
+                                    cardStatus = messageblock[3];
+                                    } else {
+                                        cardStatus = qsTr("Status: ")+messageblock[3];
+                                    }
+                                     return latestLog;
+                                }
+                            }
+
+
+                    }
+
+                }
+
+        }
+    }
+    http.open('POST', url.trim(), true);
+    //http.send(null);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send("&id="+ userid +"&devid=" + devId + "&appid=" + appId + "&name="+ cardNum +"&type=retrieve&latest=1" );
+
+
+
+
+  /*   var getstuff = "SELECT  * FROM NARRATIVE WHERE `roomid` ='"+cardNum+"' ORDER BY updated ASC";
+
+    db.transaction(function(tx) {
+
+             tx.executeSql('CREATE TABLE IF NOT EXISTS NARRATIVE (id TEXT, roomid TEXT,speaker TEXT, speech TEXT,branch INT, updated TEXT)');
+
+        var chat = tx.executeSql(getstuff);
+            if(chat.rows.length != 0) {
+                latestLog = chat.rows.item(0).speech;
+            }
+
+    }); */
+
+
+
+   // console.log(from,cardNum,latestLog);
+
+    //return latestLog;
 }
 
 function dump() {

@@ -307,7 +307,7 @@ function load_Card() {
 }
 
 
-function temp_Load(search,locale) {
+function temp_Load(search,locale,sortOpt) {
 
   //  console.log(locale);
 
@@ -320,14 +320,22 @@ function temp_Load(search,locale) {
     default:dbtable="TempCards";break;
     }
 
+    var Sort = "";
+    switch(sortOpt) {
+    case 1:Sort="name ASC";break;
+    case 2:Sort="company ASC";break;
+    case 3:Sort="cat ASC";break;
+    default:Sort="stamp DESC";break;
+    }
+
      var dataStr = "";
 
     if (search != "") {
 
-     dataStr = "SELECT * FROM "+dbtable+" WHERE (name LIKE '%"+search+"%' OR company LIKE '%"+search+"%' OR motto LIKE '%#"+search+"%')";
+         dataStr = "SELECT * FROM "+dbtable+" WHERE (name LIKE '%"+search+"%' OR company LIKE '%"+search+"%' OR motto LIKE '%#"+search+"%') ORDER BY "+Sort;
 
         } else {
-        dataStr = "SELECT * FROM "+dbtable+" WHERE 1";
+            dataStr = "SELECT * FROM "+dbtable+" WHERE 1 ORDER BY "+Sort;
         }
 
 
@@ -355,9 +363,45 @@ function temp_Load(search,locale) {
                 var duplicate = 0;
 
             var savecheck = tx.executeSql(testStr);
-
-
+            var previousdate;
+            var datecollected = "SELECT  *  FROM Stats WHERE id= '"+pull.rows.item(record).id+"' AND name ='lastseen'";
            //if(duplicate.rows.length == 0) {
+                var date = tx.executeSql(datecollected);
+                var humanDate = new Date(pull.rows.item(record).stamp*1000);
+        if(pull.rows.item(record).id != usercardNum) {
+
+            switch(sortOpt) {
+            case 1: if(previousdate != pull.rows.item(record).name[0]) {
+                                    previousdate = pull.rows.item(record).name[0];
+                            cardslist.append({
+                                           type: 9,
+                                            date:pull.rows.item(record).name[0]
+                                        });
+                            } break;
+            case 2: if(previousdate != pull.rows.item(record).company[0]) {
+                                    previousdate = pull.rows.item(record).company[0];
+                            cardslist.append({
+                                           type: 9,
+                                            date:pull.rows.item(record).company[0]
+                                        });
+                            } break;
+            case 3: if(previousdate != pull.rows.item(record).cat) {
+                                    previousdate = pull.rows.item(record).cat;
+                            cardslist.append({
+                                           type: 9,
+                                            date:pull.rows.item(record).cat
+                                        });
+                            } break;
+            default: if(previousdate != pull.rows.item(record).stamp) {
+                                    previousdate = pull.rows.item(record).stamp;
+                            cardslist.append({
+                                           type: 9,
+                                            date:humanDate.toLocaleDateString()
+                                        });
+                            } break;
+
+                    }
+            }
 
         if(duplicate == 0) {
                 var w1;
@@ -468,6 +512,7 @@ function temp_Load(search,locale) {
                        console.log(record+" displaying "+pull.rows.item(record).id+" from "+locale);
 
                     cardslist.append({
+                                    type:0,
                                     name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
                                        colorCode: "white",
                                            imagesource: "img/default_avatar.png",
@@ -534,6 +579,7 @@ function temp_Load(search,locale) {
             //console.log(record+" displaying "+pull.rows.item(record).id+" from "+locale);
 
             cardslist.append({
+                type:0,
                 name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
                 colorCode: "white",
                 imagesource: "img/default_avatar.png",
@@ -618,14 +664,25 @@ function Cards_save(id,username,userphone,useremail,usercompany,useralias,usermo
 return 1;
 }
 
-function cards_Load(search) {
+function cards_Load(search,sortOpt) {
     //var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
     var dataStr = "";
     cardsyncsaved = "";
+
+    var Sort = "";
+
+    switch(sortOpt) {
+    case 1:Sort="name DESC";break;
+    case 2:Sort="company ASC";break;
+    case 3:Sort="cat ASC";break;
+    default:Sort="name ASC";break;
+    }
+
+
     if (search.length > 0) {
-     dataStr = "SELECT * FROM SavedCards WHERE (name LIKE '%"+search+"%' OR company LIKE '%"+search+"%' OR motto LIKE '%#"+search+"%')";
+     dataStr = "SELECT * FROM SavedCards WHERE (name LIKE '%"+search+"%' OR company LIKE '%"+search+"%' OR motto LIKE '%#"+search+"%') ORDER By "+Sort;
     } else {
-         dataStr = "SELECT * FROM SavedCards WHERE 1";
+         dataStr = "SELECT * FROM SavedCards WHERE 1 ORDER By "+Sort;
 
         }
 
@@ -633,13 +690,51 @@ function cards_Load(search) {
        tx.executeSql('CREATE TABLE IF NOT EXISTS SavedCards(id INT UNIQUE, name TEXT, phone TEXT,email TEXT,company TEXT,alias TEXT, motto TEXT, main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,cat TEXT,cardsop INT)');
 
        var pull =  tx.executeSql(dataStr);
-
+        var previousdate;
 
            var record = 0;
        while (pull.rows.length > record) {
 
+        if(pull.rows.item(record).id > 1) {
 
-           if(pull.rows.item(record).id > 1) {
+           if(pull.rows.item(record).id != usercardNum) {
+
+           switch(sortOpt) {
+           case 1: if(previousdate != pull.rows.item(record).name[0]) {
+                                   previousdate = pull.rows.item(record).name[0];
+                           cardslist.append({
+                                          type: 9,
+                                           date:pull.rows.item(record).name[0]
+                                       });
+                           } break;
+           case 2: if(previousdate != pull.rows.item(record).company[0]) {
+                                   previousdate = pull.rows.item(record).company[0];
+                           cardslist.append({
+                                          type: 9,
+                                           date:pull.rows.item(record).company[0]
+                                       });
+                           } break;
+           case 3: if(previousdate != pull.rows.item(record).cat) {
+                                   previousdate = pull.rows.item(record).cat;
+                           cardslist.append({
+                                          type: 9,
+                                           date:pull.rows.item(record).cat
+                                       });
+                           } break;
+           default: if(previousdate != pull.rows.item(record).name[0]) {
+                                   previousdate = pull.rows.item(record).name[0];
+                           cardslist.append({
+                                          type: 9,
+                                           date:pull.rows.item(record).name[0]
+                                       });
+                           } break;
+
+                   }
+           }
+
+
+
+
 
            cardsyncsaved = pull.rows.item(record).id +","+cardsyncsaved;
 
@@ -741,6 +836,7 @@ function cards_Load(search) {
                  if(currentcat == pull.rows.item(record).cat) {
 
              cardslist.append({
+                 type:0,
                  name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
                  colorCode: "white",
                  imagesource: "img/default_avatar.png",
@@ -773,6 +869,7 @@ function cards_Load(search) {
              }); }} else {
 
                      cardslist.append({
+                     type:0,
                      name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
                      colorCode: "white",
                      imagesource: "img/default_avatar.png",

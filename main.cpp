@@ -20,8 +20,8 @@ int main(int argc, char *argv[])
      QQuickView view;
 
      QCommandLineParser parser;
-     QCommandLineOption fullMode("-main");
-     QCommandLineOption serviceMode("-service");
+     QCommandLineOption fullMode("main");
+     QCommandLineOption serviceMode("service");
 
      parser.addOption(fullMode);
      parser.addOption(serviceMode);
