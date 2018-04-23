@@ -5,8 +5,29 @@ import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 import QtQuick.LocalStorage 2.0 as Sql
 
+import "news.js" as News
+import "markdown.js" as MD
+
 Item {
     id:thisWindow
+
+    property string thenews: ""
+     property string date: ""
+
+
+
+     Timer {
+         id:newscheck
+         interval: 1000
+         running: true
+         repeat: true
+         onTriggered: {
+             if(heart != "OffLine") {
+                 News.get_news();
+             }
+         }
+     }
+
     Rectangle {
         id:internalArea
         anchors.fill: parent
@@ -19,9 +40,20 @@ Item {
         id: title
         text: qsTr("NEWS")
         font.pixelSize: mainView.width * 0.1
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.left: parent.left
+        anchors.leftMargin:mainView.width * 0.03
         anchors.top:parent.top
         anchors.topMargin: mainView.width * 0.01
+    }
+
+    Text {
+        id: thedate
+        text:date
+        font.pixelSize: mainView.width * 0.04
+        anchors.right: parent.right
+        anchors.rightMargin:mainView.width * 0.03
+        anchors.bottom:title.bottom
+        anchors.bottomMargin: mainView.width * 0.01
     }
 
     Rectangle {
@@ -38,13 +70,15 @@ Item {
         anchors.bottom:okay.top
         width: parent.width
         contentHeight: news.height
+        clip:true
         Text {
             id: news
-            text: "<p>"+"</p>"
-            width: mainView.width * 0.96
+            text: "<p>"+MD.md2html(thenews)+"</p>"
+            width: mainView.width * 0.93
+            padding: mainView.width * 0.02
             wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignJustify
-
+            horizontalAlignment: Text.AlignLeft
+            anchors.horizontalCenter: parent.horizontalCenter
         }
 
     }
@@ -57,7 +91,12 @@ Item {
         width: parent.width * 0.60
         height: mainView.width * 0.1
         text:"Okay"
-        onClicked: thisWindow.visible = false
+        onClicked: News.dismiss_news(date)
+
+        background: Rectangle {
+                color:highLightColor1
+                radius: mainView.width * 0.01
+        }
     }
 
     }

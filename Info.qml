@@ -29,7 +29,7 @@ Item {
         running: false
         repeat: false
         interval: 800
-        onTriggered:cardslist.clear(),Scripts.Cards_load("")
+        onTriggered:{cardslist.clear();Scripts.Cards_load("");}
     }
 
 
