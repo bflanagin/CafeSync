@@ -11,7 +11,8 @@ Due to the nature of this project your milage will vary when it comes to buildin
 4. If you have CafeSync installed on your phone you will need to uninstall it as you do not have the Key needed to sign the application, and the build will fail at install with out it if a signed version is 
 available. 
 
-Hits: Your systems Java implementation should work, but I have found that if it gives you trouble Androids SDK has a version that will work. 9/10 of your build issues will be because of Java so Check to make sure it is functioning properly before continuing.
+Hints: Your systems Java implementation should work, but I have found that if it gives you trouble Android's SDK has a version that will work. 9/10 of your build issues will be because of Java so Check to make sure it is functioning properly before continuing.
+
 
 #Install
 
