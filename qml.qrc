@@ -242,5 +242,7 @@
         <file>icons/view-sort-descending.svg</file>
         <file>Award.qml</file>
         <file>News.qml</file>
+        <file>news.js</file>
+        <file>markdown.js</file>
     </qresource>
 </RCC>

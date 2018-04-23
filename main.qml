@@ -1158,7 +1158,7 @@ Info {
     width:parent.width * 0.95
     height:parent.height * 0.40
     state:"InActive"
-    title:qsTr("Share Card")+"("+currentcard_thecard+")"
+    title:qsTr("Share ")+currentcard_username+qsTr("'s Card");
     type:"send"
     message:onetimecode
     onStateChanged:if(swapopt.state =="Active") {OpenSeed.onetime(currentcard_thecard,"1")}
@@ -1216,10 +1216,11 @@ MyIOout {
 News {
     id:newsRelease
     anchors.top:topBar.bottom
+    anchors.topMargin: mainView.width * 0.02
     anchors.horizontalCenter: parent.horizontalCenter
     width: mainView.width * 0.95
-    height: mainView.height - topBar.height
-    visible:true
+    height: (mainView.height* 0.98)- topBar.height
+    visible:false
 }
 
 
