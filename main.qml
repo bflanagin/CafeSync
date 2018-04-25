@@ -45,14 +45,14 @@ Item {
 
 
  //   property string backgroundColor: "#DFDFD9"
-    property string backgroundColor:Qt.rgba(0.98,0.98,0.98,1)
+    property string backgroundColor:Qt.rgba(0.97,0.97,0.97,1)
 
     property string highLightColor1: Qt.rgba(0.99,0.95,0.88,1)
     property string seperatorColor1: "#795548"
     property string barColor: Qt.rgba(0.98,0.98,0.96,1)
     property string bottombarColor: Qt.rgba(0.98,0.98,0.96,1)
     property string activeColor: "#6E4879"
-    property string cardcolor: Qt.rgba(0.98,0.98,0.96,1)
+    property string cardcolor: Qt.rgba(0.98,0.98,0.98,1)
     property string overlayColor: "#795548"
     property string fontColorTitle: "black"
 
@@ -219,6 +219,9 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
     property string currentcard_cardcat: ""
     property string currentcard_cardsop: ""
 
+    property var deletelist: []
+    property var deletelistOld: []
+
     property var db: Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
    // "Facebook::"+"#3C5A8A"+"::./img/fb.png::facebook::pagename","Linkedin::"+"#6084C4"+"::./img/linkedin.png::linkedin::user-name",
@@ -329,7 +332,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
     Timer {
         id:gpsupdate
-        interval:20000
+        interval:3000
         running: true
         repeat: true
         onTriggered: {
@@ -340,10 +343,12 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                 PositionSource.NoPositioningMethods) {
             positionSource.nmeaSource = "nmealog.txt";
             sourceText.text = "(filesource): " + printableMethod(positionSource.supportedPositioningMethods);
+
         }
 
         positionSource.update();
     }
+            gpsupdate.interval = 20000;
         }
     }
 
@@ -396,6 +401,27 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
               }
             }
 
+    Timer {
+            id:listdeleter
+            property int checkcount: 0
+            interval:1000; running: false; repeat:true
+            onTriggered:if(deletelist.length > deletelistOld) {
+                            deletelistOld = deletelist;
+                        } else {
+                            checkcount = checkcount + 1;
+                            if(checkcount == 3) {
+                                OpenSeed.remote_delete_list(userid,listget,deletelist);
+                                listdeleter.stop();
+                                deletelistOld = [];
+                                deletelist = [];
+                                checkcount = 0;
+                                cardload.running = true;
+                            }
+                        }
+
+
+    }
+
     onConnectedChanged: Scripts.save_Stat(userid,"Impact",connected.split("><").length);
     onAcceptedChanged: Scripts.save_Stat(userid,"2-Way",accepted.split(",").length - 1);
 
@@ -417,10 +443,12 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                 if (sourceError == PositionSource.NoError)
                     return
 
-                //console.log("Source error: " + sourceError)
+                notification1.delay = 6;notification1.visible = true; notification1.themessage = "Location services are off. Card collection will be limited to Wifi"
+               // console.log("Source error: " + sourceError)
                 //activityText.fadeOut = true
                 stop()
             }
+
 
             onUpdateTimeout: {
                }
@@ -714,7 +742,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                                         anchors.rightMargin: mainView.width * 0.01
                                         horizontalAlignment: Text.AlignRight
                                         anchors.verticalCenter: parent.verticalCenter
-                                        text: date
+                                        text: ""+date
                                     }
 
                                     Rectangle {
@@ -743,9 +771,9 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
                     }
 
-                    add: Transition {
-                            NumberAnimation { properties: "y"; from: 0; duration: 200 }
-                        }
+                   /* remove: Transition {
+                            NumberAnimation { properties: "x"; from: 0; duration: 400 }
+                        } */
 
 
                     onContentYChanged: if(contentY < (-1 *(parent.height * 0.3)) && draggingVertically == false) {
@@ -1215,6 +1243,16 @@ MyIOout {
 
 News {
     id:newsRelease
+    anchors.top:topBar.bottom
+    anchors.topMargin: mainView.width * 0.02
+    anchors.horizontalCenter: parent.horizontalCenter
+    width: mainView.width * 0.95
+    height: (mainView.height* 0.98)- topBar.height
+    visible:false
+}
+
+EULA {
+    id: latestEULA
     anchors.top:topBar.bottom
     anchors.topMargin: mainView.width * 0.02
     anchors.horizontalCenter: parent.horizontalCenter

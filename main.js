@@ -358,6 +358,13 @@ function temp_Load(search,locale,sortOpt) {
 
         var record = 0;
     while (pull.rows.length > record) {
+
+        var c;
+        var n;
+        var p;
+        var e;
+        var cp;
+
             var testStr = "SELECT  *  FROM SavedCards WHERE id= "+pull.rows.item(record).id;
             //var duplicate = tx.executeSql(testStr);
                 var duplicate = 0;
@@ -403,12 +410,12 @@ function temp_Load(search,locale,sortOpt) {
                     }
             }
 
-        if(duplicate == 0) {
-                var w1;
-                 var w2;
-                 var w3;
-                 var w4;
-                 var main;
+        if(duplicate == 0 && pull.rows.item(record).id != 'undefined' ) {
+                var w1 ="";
+                 var w2 ="";
+                 var w3 ="";
+                 var w4 ="";
+                 var main ="";
 
                var card;
                var symbol;
@@ -420,24 +427,60 @@ function temp_Load(search,locale,sortOpt) {
 
                cardsynctemp = pull.rows.item(record).id +","+cardsynctemp;
 
-               switch(pull.rows.item(record).website1.substring(0,4)) {
-               case "https":w1 = pull.rows.item(record).website1;break;
-               case "http":w1 = pull.rows.item(record).website1;break;
-               case "HTTP":w1 = pull.rows.item(record).website1;break;
-               case "Http":w1 = pull.rows.item(record).website1;break;
-               default: w1 = "http://"+pull.rows.item(record).website1;break;
-               }
+            if(pull.rows.item(record).website1 != 'undefined') {
+                switch(pull.rows.item(record).website1.substring(0,4)) {
+                     case "http":w1 = pull.rows.item(record).website1;break;
+                     case "HTTP":w1 = pull.rows.item(record).website1;break;
+                     case "Http":w1 = pull.rows.item(record).website1;break;
+                     default: w1 = "http://"+pull.rows.item(record).website1;break;
+                    }
+            } else {
+                w1 = "";
+            }
 
-                  //if(pull.rows.item(record).website1.substring(0,4) != "http") {w1 = "http://"+pull.rows.item(record).website1;}
-                  //    else { w1 = pull.rows.item(record).website1; }
-                  if(pull.rows.item(record).website2.substring(0,4) != "http") {w2 = "http://"+pull.rows.item(record).website2;}
-                      else { w2 = pull.rows.item(record).website2; }
-                  if(pull.rows.item(record).website3.substring(0,4) != "http") {w3 = "http://"+pull.rows.item(record).website3;}
-                      else { w3 = pull.rows.item(record).website3; }
-                  if(pull.rows.item(record).website4.substring(0,4) != "http") {w4 = "http://"+pull.rows.item(record).website4;}
-                      else { w4 = pull.rows.item(record).website4; }
-                  if(pull.rows.item(record).main.substring(0,4) != "http") {main = "http://"+pull.rows.item(record).main;}
-                      else { main = pull.rows.item(record).main; }
+            if(pull.rows.item(record).website2 != 'undefined') {
+                switch(pull.rows.item(record).website2.substring(0,4)) {
+                     case "http":w2 = pull.rows.item(record).website2;break;
+                     case "HTTP":w2 = pull.rows.item(record).website2;break;
+                     case "Http":w2 = pull.rows.item(record).website2;break;
+                     default: w2 = "http://"+pull.rows.item(record).website2;break;
+                    }
+            } else {
+                w2 = "";
+            }
+
+            if(pull.rows.item(record).website3 != 'undefined') {
+                switch(pull.rows.item(record).website3.substring(0,4)) {
+                     case "http":w3 = pull.rows.item(record).website3;break;
+                     case "HTTP":w3 = pull.rows.item(record).website3;break;
+                     case "Http":w3 = pull.rows.item(record).website3;break;
+                     default: w3 = "http://"+pull.rows.item(record).website3;break;
+                    }
+            } else {
+                w3 = "";
+            }
+
+            if(pull.rows.item(record).website4 != 'undefined') {
+                switch(pull.rows.item(record).website4.substring(0,4)) {
+                     case "http":w4 = pull.rows.item(record).website4;break;
+                     case "HTTP":w4 = pull.rows.item(record).website4;break;
+                     case "Http":w4 = pull.rows.item(record).website4;break;
+                     default: w4 = "http://"+pull.rows.item(record).website4;break;
+                    }
+            } else {
+                w4 = "";
+            }
+
+            if(pull.rows.item(record).main != 'undefined') {
+                switch(pull.rows.item(record).main.substring(0,4)) {
+                     case "http":main = pull.rows.item(record).main;break;
+                     case "HTTP":main = pull.rows.item(record).main;break;
+                     case "Http":main = pull.rows.item(record).main;break;
+                     default: main = "http://"+pull.rows.item(record).main;break;
+                    }
+            } else {
+                main = "";
+            }
 
                  /* if(pull.rows.item(record).cardback.search("internal:") == -1) {
                       if(pull.rows.item(record).cardback.length < 4) {
@@ -471,7 +514,7 @@ function temp_Load(search,locale,sortOpt) {
 
                    }
 
-                   var spC;
+                   var spC = seperatorColor1;
 
                    for(var num =0;num < category_list.split(",").length;num = num + 1) {
 
@@ -505,22 +548,52 @@ function temp_Load(search,locale,sortOpt) {
                           //  if(pull.rows.item(record).company.replace(/&#x27;/g,"'") == usercompany) {carddup++;} else {carddup--;}
 
 
+                            if(pull.rows.item(record).name != 'undefined') {
+                                n = pull.rows.item(record).name.replace(/&#x27;/g,"'");
+                            } else {
+                                n = "";
+                            }
+
+                            if(pull.rows.item(record).company != 'undefined') {
+                                c = pull.rows.item(record).company.replace(/&#x27;/g,"'");
+                            } else {
+                                c = "";
+                            }
+
+                            if(pull.rows.item(record).phone != 'undefined') {
+                                p = pull.rows.item(record).phone;
+                            } else {
+                                p = "";
+                            }
+
+                            if(pull.rows.item(record).email != 'undefined') {
+                                e = pull.rows.item(record).email;
+                            } else {
+                                e= "";
+                            }
+
+                            if(pull.rows.item(record).alias != 'undefined') {
+                                cp = pull.rows.item(record).alias;
+                            } else {
+                                cp= "";
+                            }
+
 
 
                     if(pull.rows.item(record).id != usercardNum) {
 
-                       console.log(record+" displaying "+pull.rows.item(record).id+" from "+locale);
+                       //console.log(record+" displaying "+pull.rows.item(record).id+" from "+locale);
 
                     cardslist.append({
                                     type:0,
-                                    name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
+                                    name: n,
                                        colorCode: "white",
                                            imagesource: "img/default_avatar.png",
                                         //  cardback:"img/default_card.png",
-                                            company: pull.rows.item(record).company.replace(/&#x27;/g,"'"),
-                                             phone:  pull.rows.item(record).phone,
-                                              email:  pull.rows.item(record).email,
-                                         cardposition: pull.rows.item(record).alias,
+                                            company: c,
+                                             phone:  p,
+                                              email:  e,
+                                         cardposition: cp,
                                          motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
                                             cardId: pull.rows.item(record).id.toString(),
 
@@ -576,18 +649,49 @@ function temp_Load(search,locale,sortOpt) {
     if(pull.rows.item(record).id != usercardNum) {
 
 
+        if(pull.rows.item(record).name != 'undefined') {
+            n = pull.rows.item(record).name.replace(/&#x27;/g,"'");
+        } else {
+            n = "";
+        }
+
+        if(pull.rows.item(record).company != 'undefined') {
+            c = pull.rows.item(record).company.replace(/&#x27;/g,"'");
+        } else {
+            c = "";
+        }
+
+        if(pull.rows.item(record).phone != 'undefined') {
+            p = pull.rows.item(record).phone;
+        } else {
+            p = "";
+        }
+
+        if(pull.rows.item(record).email != 'undefined') {
+            e = pull.rows.item(record).email;
+        } else {
+            e= "";
+        }
+
+        if(pull.rows.item(record).alias != 'undefined') {
+            cp = pull.rows.item(record).alias;
+        } else {
+            cp= "";
+        }
+
+
             //console.log(record+" displaying "+pull.rows.item(record).id+" from "+locale);
 
             cardslist.append({
                 type:0,
-                name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
+                name: n,
                 colorCode: "white",
                 imagesource: "img/default_avatar.png",
                // cardback:"img/default_card.png",
-                company: pull.rows.item(record).company.replace(/&#x27;/g,"'"),
-                phone:  pull.rows.item(record).phone,
-                email:  pull.rows.item(record).email,
-                cardposition: pull.rows.item(record).alias,
+                company: c,
+                phone: p,
+                email:  e,
+                cardposition: cp,
                 motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
                 cardId: pull.rows.item(record).id.toString(),
                 mainsite: main,
@@ -738,37 +842,76 @@ function cards_Load(search,sortOpt) {
 
            cardsyncsaved = pull.rows.item(record).id +","+cardsyncsaved;
 
-          var w1;
-           var w2;
-           var w3;
-           var w4;
-           var main;
+          var w1 = "";
+           var w2 = "";
+           var w3 = "";
+           var w4 = "";
+           var main = "";
            var card;
-           var ava;
+           var ava = "";
            var symbol;
            var text;
 
+           var c;
+           var n;
+           var p;
+           var e;
+           var cp;
 
-                switch(pull.rows.item(record).website1.substring(0,4)) {
-                case "http":w1 = pull.rows.item(record).website1;break;
-                case "HTTP":w1 = pull.rows.item(record).website1;break;
-                case "Http":w1 = pull.rows.item(record).website1;break;
-                default: w1 = "http://"+pull.rows.item(record).website1;break;
+                if(pull.rows.item(record).website1 != 'undefined') {
+                    switch(pull.rows.item(record).website1.substring(0,4)) {
+                         case "http":w1 = pull.rows.item(record).website1;break;
+                         case "HTTP":w1 = pull.rows.item(record).website1;break;
+                         case "Http":w1 = pull.rows.item(record).website1;break;
+                         default: w1 = "http://"+pull.rows.item(record).website1;break;
+                        }
+                } else {
+                    w1 = "";
                 }
 
-            //if(pull.rows.item(record).website1.substring(0,4) != "http") {w1 = "http://"+pull.rows.item(record).website1;}
-             //   else { w1 = pull.rows.item(record).website1; }
-            if(pull.rows.item(record).website2.substring(0,4) != "http") {w2 = "http://"+pull.rows.item(record).website2;}
-                else { w2 = pull.rows.item(record).website2; }
-            if(pull.rows.item(record).website3.substring(0,4) != "http") {w3 = "http://"+pull.rows.item(record).website3;}
-                else { w3 = pull.rows.item(record).website3; }
-            if(pull.rows.item(record).website4.substring(0,4) != "http") {w4 = "http://"+pull.rows.item(record).website4;}
-                else { w4 = pull.rows.item(record).website4; }
-            if(pull.rows.item(record).main.substring(0,4) != "http") {main = "http://"+pull.rows.item(record).main;}
-                else { main = pull.rows.item(record).main; }
+                if(pull.rows.item(record).website2 != 'undefined') {
+                    switch(pull.rows.item(record).website2.substring(0,4)) {
+                         case "http":w2 = pull.rows.item(record).website2;break;
+                         case "HTTP":w2 = pull.rows.item(record).website2;break;
+                         case "Http":w2 = pull.rows.item(record).website2;break;
+                         default: w2 = "http://"+pull.rows.item(record).website2;break;
+                        }
+                } else {
+                    w2 = "";
+                }
 
+                if(pull.rows.item(record).website3 != 'undefined') {
+                    switch(pull.rows.item(record).website3.substring(0,4)) {
+                         case "http":w3 = pull.rows.item(record).website3;break;
+                         case "HTTP":w3 = pull.rows.item(record).website3;break;
+                         case "Http":w3 = pull.rows.item(record).website3;break;
+                         default: w3 = "http://"+pull.rows.item(record).website3;break;
+                        }
+                } else {
+                    w3 = "";
+                }
 
+                if(pull.rows.item(record).website4 != 'undefined') {
+                    switch(pull.rows.item(record).website4.substring(0,4)) {
+                         case "http":w4 = pull.rows.item(record).website4;break;
+                         case "HTTP":w4 = pull.rows.item(record).website4;break;
+                         case "Http":w4 = pull.rows.item(record).website4;break;
+                         default: w4 = "http://"+pull.rows.item(record).website4;break;
+                        }
+                } else {
+                    w4 = "";
+                }
 
+                if(pull.rows.item(record).main != 'undefined') {
+                    switch(pull.rows.item(record).main.substring(0,4)) {
+                         case "http":main = pull.rows.item(record).main;break;
+                         case "HTTP":main = pull.rows.item(record).main;break;
+                         case "Http":main = pull.rows.item(record).main;break;
+                         default: main = "http://"+pull.rows.item(record).main;break;
+                        }
+                } else {
+                    main = "";
+                }
 
 
              //if(pull.rows.item(record).cardback.length < 4 ) { card = "img/default_card.png"} else {card = pull.rows.item(record).cardback}
@@ -799,7 +942,7 @@ function cards_Load(search,sortOpt) {
 
              }
 
-             var spC;
+             var spC = seperatorColor1;
 
              for(var num =0;num < category_list.split(",").length;num = num + 1) {
 
@@ -827,23 +970,54 @@ function cards_Load(search,sortOpt) {
 
              }
 
+             if(pull.rows.item(record).name != 'undefined') {
+                 n = pull.rows.item(record).name.replace(/&#x27;/g,"'");
+             } else {
+                 n = " ";
+             }
+
+             if(pull.rows.item(record).company != 'undefined') {
+                 c = pull.rows.item(record).company.replace(/&#x27;/g,"'");
+             } else {
+                 c = " ";
+             }
+
+             if(pull.rows.item(record).phone != 'undefined') {
+                 p = pull.rows.item(record).phone;
+             } else {
+                 p = " ";
+             }
+
+             if(pull.rows.item(record).email != 'undefined') {
+                 e = pull.rows.item(record).email;
+             } else {
+                 e= " ";
+             }
+
+             if(pull.rows.item(record).alias != 'undefined') {
+                 cp = pull.rows.item(record).alias;
+             } else {
+                 cp= " ";
+             }
 
 
              if(pull.rows.item(record).id !=usercardNum) {
 
            if (currentcat.length > 2 & currentcat != qsTr("All Cards") ) {
 
+
+
                  if(currentcat == pull.rows.item(record).cat) {
 
              cardslist.append({
                  type:0,
-                 name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
+                 name: n,
                  colorCode: "white",
                  imagesource: "img/default_avatar.png",
                  cardback:"img/default_card.png",
-                 company: pull.rows.item(record).company.replace(/&#x27;/g,"'"),
-                 phone:  pull.rows.item(record).phone,
-                 email:  pull.rows.item(record).email,
+                 company: c,
+                 phone:  p,
+                 email:  e,
                  motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
                  cardId: pull.rows.item(record).id.toString(),
 
@@ -870,14 +1044,14 @@ function cards_Load(search,sortOpt) {
 
                      cardslist.append({
                      type:0,
-                     name: pull.rows.item(record).name.replace(/&#x27;/g,"'"),
+                     name: n,
                      colorCode: "white",
                      imagesource: "img/default_avatar.png",
                      cardback:"img/default_card.png",
-                     company: pull.rows.item(record).company.replace(/&#x27;/g,"'"),
-                        cardposition: pull.rows.item(record).alias,
-                     phone:  pull.rows.item(record).phone,
-                     email:  pull.rows.item(record).email,
+                     company: c,
+                        cardposition: cp,
+                     phone:  p,
+                     email:  e,
                      motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
                      cardId: pull.rows.item(record).id.toString(),
 
@@ -983,7 +1157,7 @@ function show_Sites(cid,list) {
         console.log("From Show Sites:"+currentcard_thecard);
 
 
-        var spC;
+        var spC = seperatorColor1;
         for(var num =0;num < category_list.split(",").length;num = num + 1) {
 
             if(currentcard_cardcat == category_list.split(",")[num].split("::")[0]) {
@@ -1284,7 +1458,7 @@ function show_Sites(cid,list) {
 
             }
 
-            var spC;
+            var spC = seperatorColor1;
             for(var num =0;num < category_list.split(",").length;num = num + 1) {
 
                 if(pull.rows.item(0).cat == category_list.split(",")[num].split("::")[0]) {
@@ -1340,7 +1514,7 @@ function show_Sites(cid,list) {
 
                            });
 
-           /* pagelist.append({
+            pagelist.append({
                              webpage:"empty.html",
                              thestate:"MicroBlog",
                                 pagewidth:mainScreen.width ,
@@ -1375,7 +1549,7 @@ function show_Sites(cid,list) {
                                 pageindex:pages
 
 
-                            }); */
+                            });
 
 
 
@@ -1566,7 +1740,7 @@ function temp_Elapsed(cid) {
         var pull = tx.executeSql(dataStr);
 
          var num = 0;
-         //while(pull.rows.item(num).stamp != undefined) {
+         //while(pull.rows.item(num).stamp != 'undefined') {
             var deletedate = pull.rows.item(num).stamp + (172800 * 1000)
 
          if(pull.rows.item(num).stamp != 999) {
@@ -1642,7 +1816,7 @@ menuList.clear();
     // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
     var num = 0;
-    while(category_list.split(",")[num] != undefined) {
+    while(category_list.split(",")[num] != 'undefined') {
             menuList.append({menuitem:category_list.split(",")[num].split("::")[0]});
         num = num + 1;
     }
@@ -1656,7 +1830,7 @@ menuList.clear();
    //  var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
     var num = 0;
-    while(category_list.split(",")[num] != undefined) {
+    while(category_list.split(",")[num] != 'undefined') {
             menuList.append({menuitem:category_list.split(",")[num].split("::")[0]});
         num = num + 1;
     }

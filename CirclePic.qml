@@ -9,8 +9,8 @@ import "getpic.js" as Scripts
 Item {
         id:card_avatar_backing
         property string whichPic:""
-        property string where:"mycard"
-        property string thesource:""
+        property string where:""
+        property string thesource:"./img/default_avatar.png"
         //property string theImage:"./img/default_avatar.png"
 
        // anchors.verticalCenter: parent.verticalCenter
@@ -18,14 +18,14 @@ Item {
 
         clip:true
 
-
+        Component.onCompleted: Scripts.returnImage(whichPic,where)
 
         Image {
             id:cardsava
             anchors.fill:parent
             anchors.margins: 4
             visible: false
-            source: if(thesource == "") {Scripts.returnImage(whichPic,where)} else {thesource}
+            source: thesource
             fillMode: Image.PreserveAspectCrop
 
             Image {

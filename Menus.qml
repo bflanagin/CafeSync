@@ -218,8 +218,11 @@ Item {
                             }
                             CirclePic {
                                 anchors.fill: parent
-                                visible: if(menuitem ==1) {true} else {false}
+                                visible: if(menuitem == 1) {true} else {false}
                                 //theImage:"./icons/contact.svg"
+                                 whichPic:"150"
+                                 where:"menu"
+                                 //thesource: avimg
 
                             }
 

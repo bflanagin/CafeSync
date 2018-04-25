@@ -125,7 +125,7 @@ Item {
                             Rectangle {
                                 width:parent.width
                                 height:3
-                                color:spColor
+                                color:""+spColor
                             }
 
                             Text {
@@ -383,7 +383,7 @@ Item {
                 width: parent.width * 0.98
                 height:content.height + popup.height * 0.01
                 visible: if(cardusername !=username && skillstats.count > 0) {true} else {false}
-                    property string dataMine: skills
+                    property string dataMine: ""+skills
 
                     onDataMineChanged: Scripts.formatResume("skill",dataMine);
                  Rectangle {
@@ -500,7 +500,7 @@ Item {
                 height:scontent.height + popup.height * 0.01
                 visible: if(cardusername !=username && schoolstats.count > 0) {true} else {false}
 
-                property string dataMine: school
+                property string dataMine: ""+school
 
                 onDataMineChanged: Scripts.formatResume("school",dataMine);
 
@@ -619,7 +619,7 @@ Item {
                 visible: if(cardusername !=username && workstats.count > 0) {true} else {false}
                 clip:true
 
-                property string dataMine: work
+                property string dataMine: ""+work
 
                 onDataMineChanged: Scripts.formatResume("work",dataMine);
 
