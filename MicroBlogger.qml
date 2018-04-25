@@ -13,12 +13,25 @@ Item {
     clip:true
 
     property int narrativeList: 0
+    property var remotelog:[]
 
     Component.onCompleted:{ MicroBlog.retrieve_log(currentcard_thecard,usercardNum);
-                            MicroBlog.show_log(currentcard_thecard);
-
+                           // MicroBlog.show_log(currentcard_thecard);
+                            if(currentcard_thecard != usercardNum) {
+                          //  remotelogGet.start();
+                            } else {
+                                MicroBlog.show_log(currentcard_thecard);
+                            }
                                // MicroBlog.dump();
     }
+
+   /* Timer {
+        id:remotelogGet
+        interval: 1000
+        repeat: true
+        running: false
+       // onTriggered: console.log("From timer "+remotelog);
+    } */
 
     Rectangle {
         anchors.fill: parent
@@ -26,7 +39,7 @@ Item {
     }
 
     Item {
-        visible: if(narrativeList > 0) {false} else {true}
+        visible: if(narrativeList > 1) {false} else {true}
         //anchors.centerIn: parent
         anchors.fill: parent
         Image {
@@ -70,6 +83,7 @@ Item {
              anchors.horizontalCenter: parent.horizontalCenter
              width:parent.width * 0.98
              height:parent.height
+             color: cardcolor
          }
 
          Column {
@@ -86,6 +100,9 @@ Item {
                      id:pic
                      width: parent.height
                      height: parent.height
+                     whichPic: card
+                     where: "narrative"
+                     thesource: imgsource
                  }
 
              Text {
@@ -118,8 +135,9 @@ Item {
 
              Text {
                  width: parent.width * 0.98
-                 anchors.rightMargin: mainView.width * 0.02
+                 anchors.rightMargin: mainView.width * 0.01
                  anchors.right: parent.right
+                 horizontalAlignment: Text.AlignRight
                 text:date
                 color:"gray"
              }
@@ -132,7 +150,7 @@ Item {
 
              Actions {
                 menu: 2
-                backingColor: "white"
+                backingColor: cardcolor
                 width: parent.width
                 height: mainView.width * 0.1
              }

@@ -33,11 +33,11 @@ import "microblogger.js" as MicroBlogger
                              //transformOrigin: Item.Center
                              // rotation:90
 
-                            property string w1: URL1
-                            property string w2: URL2
-                            property string w3: URL3
-                            property string w4: URL4
-                            property string mainly: mainsite
+                            property string w1:""+URL1
+                            property string w2:""+URL2
+                            property string w3: ""+URL3
+                            property string w4:""+URL4
+                            property string mainly: ""+mainsite
                             property string issaved: saved
                                  property string cardStatus: ""
 
@@ -52,7 +52,7 @@ import "microblogger.js" as MicroBlogger
 
 
                                     Component.onCompleted: if(name == 'undefined') {
-                                                               OpenSeed.remote_delete(userid,listget,cardId);
+                                                             //  OpenSeed.remote_delete(userid,listget,cardId);
                                                               cardslist.remove(index);
 
                                                            } else {
@@ -63,27 +63,42 @@ import "microblogger.js" as MicroBlogger
 
 
 
-                                    Timer {id:selfdestruct;interval:3000; running: true; repeat: false
+                                    Timer {id:selfdestruct;interval:1000; running: true; repeat: false
                                         onTriggered: {
+                                                    //console.log("checking card "+cardId);
+                                                    if(listget == "temp") {
+                                                    if(type == 0) {
+                                                            if(saved != 1) {
+                                                      //  console.log("Card is not saved "+saved+" or from Contacts");
+                                                                if(cardsop != 2) {
+                                                     //   console.log("Card is not a special card");
+                                                      //  if(explodereset == 10000) {
+                                                                      if(Scripts.temp_Elapsed(cardId) == 1) {
+                                                       //         console.log("Cards time has elapsed");
+                                                                          //   OpenSeed.remote_delete(userid,listget,cardId);
+                                                                            deletelist.push(cardId);
+                                                                             cardslist.remove(index);
 
-                                                if(issaved !== 1) {
-                                                    if(cardsop != 2) {
-                                                        if(explodereset == 10000) {
 
-                                                        if(Scripts.temp_Elapsed(cardId) === 1) {
-                                                             OpenSeed.remote_delete(userid,listget,cardId);
-                                                            cardslist.remove(index);
 
-                                                            }
-                                                        explodereset = 0;
-                                                    } else {explodereset = explodereset + 1;}
+                                                                             }
+                                                      //  explodereset = 0;
+                                                    //} else {explodereset = explodereset + 1;}
 
                                                 }
 
                                                 }
                                                 //Scripts.Temp_load(searchtext);
+                                                    }
+                                                    if(deletelist.length > 0) {
+                                                    console.log(deletelist);
+                                                        listdeleter.start();
+                                                    }
+                                            }
                                         }
+
                                     }
+
 
 
                                   /*  Timer {
@@ -120,7 +135,7 @@ import "microblogger.js" as MicroBlogger
 
                                         Rectangle {
                                             id:thecard
-                                            width: parent.width
+                                            width: parent.width * 0.98
                                             height: parent.height * 0.98
                                             color: cardcolor
                                             radius: 2
@@ -142,7 +157,9 @@ import "microblogger.js" as MicroBlogger
                                                 height: parent.height * 0.9
                                                 anchors.verticalCenter: parent.verticalCenter
                                                 anchors.left:parent.left
-                                                thesource:imgsource
+                                                thesource:""+imgsource
+                                                where:listget
+                                                whichPic:cardId
                                                 }
 
 
@@ -172,7 +189,7 @@ import "microblogger.js" as MicroBlogger
                                             anchors.left:card_avatar_backing.right
                                             width:parent.width * 0.57
                                             height:3
-                                            color:spColor
+                                            color:""+spColor
                                         }
 
                                         Text {
@@ -204,7 +221,7 @@ import "microblogger.js" as MicroBlogger
                                             anchors.bottomMargin: parent.height * 0.02 //units.gu(2.4)
                                             //font.bold: true
                                             font.pixelSize: parent.width * 0.04 //units.gu(1.8)
-                                           text: company
+                                           text:""+company
                                            wrapMode: Text.WordWrap
                                            maximumLineCount: 1
                                            elide: Text.ElideRight
@@ -224,7 +241,7 @@ import "microblogger.js" as MicroBlogger
                                             //visible: if(cardStatus.length != 0) {true} else {false}
                                             anchors.left:parent.left
                                             anchors.bottom:parent.bottom
-                                            //anchors.bottomMargin: parent.height * 0.05
+                                           // anchors.bottomMargin: parent.height * 0.05
                                             width:parent.width
                                             height:parent.height * 0.1
                                             color:Qt.rgba(0.94,0.94,0.94,0.9)

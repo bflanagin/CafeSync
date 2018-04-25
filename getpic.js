@@ -1,5 +1,6 @@
 function returnImage(who,locale) {
 
+  //  console.log("from Circle Pic "+who+" "+locale);
 
     var dbtable = "";
     switch(locale) {
@@ -12,6 +13,7 @@ function returnImage(who,locale) {
 
     var dataStr= "SELECT avatar FROM "+dbtable+" WHERE id ='"+who+"'";
     var ava = "";
+    if(who.length > 1 ) {
     if(locale !== "mycard") {
     db.transaction(function(tx) {
 
@@ -27,18 +29,30 @@ function returnImage(who,locale) {
     var pull =  tx.executeSql(dataStr);
     //numofcards = pull.rows.length;
 
+        if(pull.rows.length == 1) {
 
-
-    if(pull.rows.item(0).avatar.length < 4) { ava = "img/default_avatar.png"} else {ava = pull.rows.item(0).avatar
+    if(pull.rows.item(0).avatar.length < 4) { ava = "img/default_avatar.png";} else {ava = pull.rows.item(0).avatar;
                  if(ava.search("/9j/4A") != -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
 
     }
 
+        } else {
+            ava = currentcard_avatarimg;
+        }
+
     });
+        thesource = ava;
+
     } else {
-        //console.log("from Circle Pic "+avimg);
-       ava = avimg;
+
+        if(avimg < 4) { ava = "img/default_avatar.png";} else {ava = avimg;
+                     if(ava.search("/9j/4A") != -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
+
+        }
+      // ava = avimg;
+        thesource = ava;
     }
+}
 
     return ava;
 }

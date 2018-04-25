@@ -85,7 +85,7 @@ Item {
 
     Timer {
         id:checkchat
-        interval:5000
+        interval:2000
         running:false
         repeat:true
         onTriggered:Message.check_messages(roomId)
@@ -93,10 +93,10 @@ Item {
 
     Timer {
         id:chatsanthings
-        interval:200000
+        interval:2000
         running:true
         repeat:true
-        onTriggered:if(usercardNum != "") {Message.retrieve_conversations(usercardNum)}
+        onTriggered:if(usercardNum != "" && heart != "Offline") {Message.retrieve_conversations(usercardNum)}
     }
 
 

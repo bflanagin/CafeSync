@@ -316,12 +316,12 @@ function retrieve_data(id) {
             } else if(http.responseText == 101) {
                 console.log("Incorrect AppID");
             } else {
-                if(tempc != http.responseText) {
-                   tempc = http.responseText;
-                    //console.log(tempc);
+               // if(tempc != http.responseText) {
+                  // tempc = http.responseText;
+                   // console.log(tempc);
 
                    // cardload.start();
-                }
+               // }
             }
 
         }
@@ -709,7 +709,7 @@ function check_for_update(id,list) {
                                                  updateIt = 0;
                                                       //  console.log("everything is good for "+id);
                                                         if(list != "saved") {
-                                                        remote_delete(userid,list,id);
+                                                       // remote_delete(userid,list,id);
                                                         }
                                                 } else {
                                                         updateIt = 1;
@@ -945,10 +945,10 @@ function remote_delete(id,list,cid) {
                     console.log("Incorrect AppID");
                 } else {
                         carddata = http.responseText;
-                        remotesaved = carddata;
+                       // var remotesaved = carddata;
                         sync_cards(userid,0);
                         //console.log("from interwebs saved "+carddata);
-                        get_list_updater.restart();
+                       // get_list_updater.restart();
 
                 }
             }
@@ -962,7 +962,7 @@ function remote_delete(id,list,cid) {
     case "temp":
         url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/deleteref.php?id=" + id+"&list="+list+"&cid="+cid;
         carddata = "";
-        //console.log(url);
+        console.log(url);
         //console.log("removing from server temp");
         http.onreadystatechange = function() {
             if (http.readyState == 4) {
@@ -977,16 +977,108 @@ function remote_delete(id,list,cid) {
                     console.log("Incorrect AppID");
                 } else {
                         carddata = http.responseText;
+                        console.log(carddata);
                         remotetemp = carddata;
                         var tnum = 0;
-                        while (remotetemp.split(",")[tnum] != null) {
+                       while (remotetemp.split(",")[tnum] != null) {
                             update_card(remotetemp.split(",")[tnum],"temp");
-                            tnum = tnum + 1;
-                                get_list_updater.restart();
+                           tnum = tnum + 1;
+                             get_list_updater.restart();
                         }
 
                         //sync_cards(userid,0);
                         //console.log("from interwebs temp "+carddata);
+                    //
+
+                }
+            }
+        }
+                http.open('GET', url.trim(), true);
+                http.send(null);
+        break;
+
+    default:get_list_updater.restart();break;
+
+    }
+
+
+}
+
+
+
+function remote_delete_list(id,list,cid_list) {
+
+    var http = new XMLHttpRequest();
+    var url;
+     var carddata = "";
+
+        //console.log("deleting");
+        get_list_updater.stop();
+
+    switch(list) {
+    case "saved":
+        url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/deleteref.php?id=" + id+"&list="+list+"&cid="+cid;
+        carddata = "";
+        //console.log("removing from server saved");
+       //console.log(url);
+
+        http.onreadystatechange = function() {
+            if (http.readyState == 4) {
+                carddata = http.responseText;
+
+
+                if(http.responseText == 100) {
+
+                    console.log("Incorrect DevID");
+
+                } else if(http.responseText == 101) {
+                    console.log("Incorrect AppID");
+                } else {
+                        carddata = http.responseText;
+                       // var remotesaved = carddata;
+                        sync_cards(userid,0);
+                        //console.log("from interwebs saved "+carddata);
+                       // get_list_updater.restart();
+
+                }
+            }
+        }
+                http.open('GET', url.trim(), true);
+                http.send(null);
+       break;
+
+
+
+    case "temp":
+        url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/deleteref.php?id=" + id+"&list="+list+"&cid="+cid_list;
+        carddata = "";
+        console.log(url);
+        //console.log("removing from server temp");
+        http.onreadystatechange = function() {
+            if (http.readyState == 4) {
+                carddata = http.responseText;
+
+
+                if(http.responseText == 100) {
+
+                    console.log("Incorrect DevID");
+
+                } else if(http.responseText == 101) {
+                    console.log("Incorrect AppID");
+                } else {
+                        carddata = http.responseText;
+                        console.log(carddata);
+                      //  remotetemp = carddata;
+                        //var tnum = 0;
+                     //  while (remotetemp.split(",")[tnum] != null) {
+                      //      update_card(remotetemp.split(",")[tnum],"temp");
+                      //     tnum = tnum + 1;
+                             //get_list_updater.restart();
+                      //  }
+
+                        //sync_cards(userid,0);
+                        //console.log("from interwebs temp "+carddata);
+                    //
 
                 }
             }

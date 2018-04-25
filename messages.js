@@ -100,13 +100,11 @@ function retrieve_messages(room,theid) {
 function retrieve_conversations(room) {
     //remote = 1;
    // console.log("sending to server: "+currentmessage+" : "+mesgdate);
-    console.log("from RC:"+room);
+    //console.log("from RC:"+room);
 
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/corescripts/chats.php";
    // console.log(url)
-
-
 
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
@@ -137,15 +135,10 @@ function retrieve_conversations(room) {
                      while(sync < fromserver.length) {
                         var messageblock = fromserver[sync].split("::");
 
-
                             save_messages(userid,messageblock[2]," "," "," "," "," ",messageblock[3],messageblock[4],messageblock[2]);
 
 
                         var lr = 0;
-
-
-
-
 
                         sync = sync + 1;
                     }
@@ -285,6 +278,7 @@ function save_messages(theid,name,avatar1,part_id,part_names,part_avatar,roomid,
 
                     if(themessage === "<begin>") {
                     notificationClient.notification = "New Chat from: "+otherperson;
+                         chatsanthings.interval = 2000;
                     } else {
                         if(messagePage.showroom == true && messagePage.roomId === name) {
                             console.log("updating chat");
@@ -301,18 +295,25 @@ function save_messages(theid,name,avatar1,part_id,part_names,part_avatar,roomid,
 
                             lastmessage =mesgdate;
                             }
-
+                             chatsanthings.interval = 2000;
                         }
 
                         totalNewMessages = totalNewMessages + 1;
                         if(thespeaker !==usercardNum) {
                         notificationClient.notification = "New Message from: "+otherperson;
+                             chatsanthings.interval = 2000;
                         }
                     }
 
 
 
                        // console.log("Already there");
+            } else {
+                if(chatsanthings.interval > 20000) {
+                chatsanthings.interval = chatsanthings.interval + 1000;
+                } else {
+                    chatsanthings.interval = 20000;
+                }
             }
 
         });

@@ -244,5 +244,7 @@
         <file>News.qml</file>
         <file>news.js</file>
         <file>markdown.js</file>
+        <file>EULA.qml</file>
+        <file>eula.js</file>
     </qresource>
 </RCC>
