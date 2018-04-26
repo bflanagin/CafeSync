@@ -256,7 +256,7 @@ Item {
                                      visible: if(menuitem == 1) {true} else {false}
 
                                         anchors.top:parent.bottom
-                                         text:MicroBlog.latest_log("Menu",usercardNum)
+                                         text:"<p>"+MicroBlog.latest_log("Menu",usercardNum)+"</p>"
                                          verticalAlignment:Text.AlignVCenter
                                          //padding: width * 0.2
                                          anchors.left: parent.left

@@ -246,5 +246,9 @@
         <file>markdown.js</file>
         <file>EULA.qml</file>
         <file>eula.js</file>
+        <file>graphics/newicon1.png</file>
+        <file>icons/view-sort-alpha-assending.svg</file>
+        <file>icons/view-sort-alpha-descending.svg</file>
+        <file>icons/view-sort-company-decending.svg</file>
     </qresource>
 </RCC>

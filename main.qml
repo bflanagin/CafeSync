@@ -826,7 +826,11 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                         anchors.centerIn: parent
                         width: parent.width * 0.8
                         fillMode: Image.PreserveAspectFit
-                        source:"./icons/view-sort-descending.svg"
+                        source:switch(sort) {
+                                case 2: "./icons/view-sort-alpha-descending.svg";break;
+                                case 3: "./icons/view-sort-company-decending.svg";break;
+                               default:"./icons/view-sort-descending.svg";break;
+                               }
 
 
                     }
@@ -1267,10 +1271,19 @@ ListModel {
 
     }
 
-Image {
+/*Image {
     id:mask
     anchors.fill:parent
-    source:"/graphics/CafeSync.png"
+    source:"/graphics/newicon1.png"
+    visible: false
+
+} */
+
+Rectangle {
+    id:mask
+    radius: width /2
+    width: parent.width * 0.94
+    height: parent.width * 0.94
     visible: false
 
 }
