@@ -1755,21 +1755,21 @@ function temp_Elapsed(cid) {
                     deletedate = pull.rows.item(num).stamp + 259200;
                 }
          if(pull.rows.item(num).stamp != 999) {
-                    console.log("Collected On "+pull.rows.item(num).stamp);
-                    console.log("time till deletion "+(deletedate - pull.rows.item(num).stamp));
+                  //  console.log("Collected On "+pull.rows.item(num).stamp);
+                  //  console.log("time till deletion "+(deletedate - date));
 
              if(deletedate < date) {
                  //console.log("deleting "+cid);
                  delete_Card(cid,"temp");
                     deleted = 1;
-                    get_list_updater.running = false;
-                    cardload.running = false;
+                 //   get_list_updater.running = false;
+                  //  cardload.running = false;
 
          }  else {
                  //console.log(cid+" has "+(deletedate - date) / 1000+ " seconds left");
                 // deleted = 0;
-                get_list_updater.running = true;
-                cardload.running = true;
+               // get_list_updater.running = true;
+               // cardload.running = true;
                 }
          }
             num = num + 1;

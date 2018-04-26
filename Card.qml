@@ -82,9 +82,11 @@ import "microblogger.js" as MicroBlogger
                                                                             deletelist.push(cardId);
                                                                              cardslist.remove(index);
 
-
-
-                                                                             }
+                                                                             } else {
+                                                                                        selfdestruct.interval = 5000;
+                                                                                        selfdestruct.repeat = true;
+                                                                                        selfdestruct.restart();
+                                                                                        }
                                                       //  explodereset = 0;
                                                     //} else {explodereset = explodereset + 1;}
 
@@ -154,7 +156,7 @@ import "microblogger.js" as MicroBlogger
                                                 height: parent.height * 0.90
                                                 clip:true
 
-                                               /* Rectangle {
+                                              /*  Rectangle {
                                                     anchors.centerIn: card_avatar_backing
                                                     radius: width / 2
                                                     height:card_avatar_backing.height * 1.001
