@@ -22,10 +22,10 @@ function get_eula() {
 
     theeula = "\n## End User Agreement\\n All users of CafeSync must agree to continue using the software and its network. Please read the following carefully. \\n
 <br> ### CafeSync and OpenSeed\\n
-CafeSync is in large part a client of the OpenSeed API and as such both products will collect certain information about the user. the data collected will only go as far as what is required to render\
+CafeSync is in large part a client of the OpenSeed API and as such both products will collect certain information about the user. The data collected will only go as far as what is required to render\
  the desired results of the application. Furthermore, your data is only accessible by those participating on the network and as long as that information isn't considered a part of securing an account or set private by the user or application.\
  Passwords, encryption keys, pin numbers, and passphrases are considered secure data. CafeSync offers businesses (not ad networks) the ability to gather data that is publicly accessible by those on the network for the\
-  purpose of anylitics and advertising. No data will be sold to third party ad networks by CafeSync or OpenSeed.\\n
+  purpose of analytics and advertising. No data will be sold to third party ad networks by CafeSync or OpenSeed.\\n
 <br> ### User expectations\\n
 - Users will not assume another persons name or likeness for the purpose of defamation or personal gain.\\n
 - Users will not harass or bully any other user on the system.\\n

@@ -44,6 +44,9 @@ import "microblogger.js" as MicroBlogger
                                     property int explodereset: 0
                                     property int lister: 0
 
+                                 property int deletetime: 9999999
+                                 property int collecttime: 99999
+
 
 
 
@@ -63,7 +66,7 @@ import "microblogger.js" as MicroBlogger
 
 
 
-                                    Timer {id:selfdestruct;interval:1000; running: true; repeat: false
+                                    Timer {id:selfdestruct;interval:800; running:true ; repeat: false
                                         onTriggered: {
                                                     //console.log("checking card "+cardId);
                                                     if(listget == "temp") {
@@ -150,6 +153,14 @@ import "microblogger.js" as MicroBlogger
                                                 width: parent.width
                                                 height: parent.height * 0.90
                                                 clip:true
+
+                                               /* Rectangle {
+                                                    anchors.centerIn: card_avatar_backing
+                                                    radius: width / 2
+                                                    height:card_avatar_backing.height * 1.001
+                                                    width:  card_avatar_backing.width * 1.001
+                                                    color: "goldenrod"
+                                                } */
 
                                                 CirclePic {
                                                 id:card_avatar_backing

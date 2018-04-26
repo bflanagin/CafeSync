@@ -374,7 +374,13 @@ function temp_Load(search,locale,sortOpt) {
             var datecollected = "SELECT  *  FROM Stats WHERE id= '"+pull.rows.item(record).id+"' AND name ='lastseen'";
            //if(duplicate.rows.length == 0) {
                 var date = tx.executeSql(datecollected);
-                var humanDate = new Date(pull.rows.item(record).stamp*1000);
+                var humanDate = "";
+                    if(pull.rows.item(record).stamp.length > 10) {
+                    humanDate = new Date(pull.rows.item(record).stamp);
+                    } else {
+                        humanDate = new Date(pull.rows.item(record).stamp*1000);
+                    }
+
         if(pull.rows.item(record).id != usercardNum) {
 
             switch(sortOpt) {
@@ -1727,7 +1733,7 @@ function show_Sites(cid,list) {
 }
 
 function temp_Elapsed(cid) {
-    var date = Date.now();
+    var date = Date.now() / 1000;
 
    // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
     var dataStr = "SELECT * FROM TempCards WHERE 1";
@@ -1741,9 +1747,16 @@ function temp_Elapsed(cid) {
 
          var num = 0;
          //while(pull.rows.item(num).stamp != 'undefined') {
-            var deletedate = pull.rows.item(num).stamp + (172800 * 1000)
 
+            var deletedate = ""
+                if(pull.rows.item(num).stamp.length > 10) {
+                    deletedate = (pull.rows.item(num).stamp / 1000) + 259200;
+                } else {
+                    deletedate = pull.rows.item(num).stamp + 259200;
+                }
          if(pull.rows.item(num).stamp != 999) {
+                    console.log("Collected On "+pull.rows.item(num).stamp);
+                    console.log("time till deletion "+(deletedate - pull.rows.item(num).stamp));
 
              if(deletedate < date) {
                  //console.log("deleting "+cid);

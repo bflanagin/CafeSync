@@ -316,12 +316,13 @@ function retrieve_data(id) {
             } else if(http.responseText == 101) {
                 console.log("Incorrect AppID");
             } else {
-               // if(tempc != http.responseText) {
-                  // tempc = http.responseText;
-                   // console.log(tempc);
+                if(tempc != http.responseText) {
+                   tempc = http.responseText;
+                    //console.log(tempc);
+
 
                    // cardload.start();
-               // }
+                }
             }
 
         }
