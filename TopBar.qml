@@ -1280,9 +1280,9 @@ Item {
                         currentcard_saved = 1;
                        break; */
                    //case 2:settingsPage.state = "Active";mainScreen.state = "InActive";break;
-                   case 2:swapopt.state ="Active";break;
-                    case 1:swapopt.state ="Active";break;
-                    case 0:swapopt.state ="Active";break;
+                   case 2:swapopt.where = "";swapopt.state ="Active";break;
+                    case 1:swapopt.where = "";swapopt.state ="Active";break;
+                    case 0:swapopt.where = "";swapopt.state ="Active";break;
 
                    }
 

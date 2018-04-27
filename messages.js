@@ -449,6 +449,7 @@ function show_conversations(room) {
     var dataStr1;
     var otherperson;
     var otherava;
+    var ava;
     var you;
     var them;
     var convers = [];
@@ -495,6 +496,14 @@ function show_conversations(room) {
                          if(otherava.search("/9j/4A") !== -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
 
             }
+           /* if(pulls.rows.item(0).avatar.length < 4) { ava = "img/default_avatar.png"} else {ava = pulls.rows.item(0).avatar
+                         if(ava.search("/9j/4A") !== -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
+
+            } */
+             if(avimg <4) { ava = "img/default_avatar.png"} else {ava = avimg;
+                 if(ava.search("/9j/4A") !== -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
+             }
+
             if(convers.toString().search(pull.rows.item(sync).name) == -1 ) {
                 convers.push(pull.rows.item(sync).name);
 
@@ -506,7 +515,8 @@ function show_conversations(room) {
                                 speaker:otherperson,
                                 timecode:humanDate.toLocaleDateString(),
                                 message:pull.rows.item(sync).message,
-                                avatar:otherava,
+                                avatar1:otherava,
+                                avatar2:ava,
                                 cardnum:them,
 
                             });

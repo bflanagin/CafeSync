@@ -1,6 +1,6 @@
 function returnImage(who,locale) {
 
-  //  console.log("from Circle Pic "+who+" "+locale);
+
 
     var dbtable = "";
     switch(locale) {
@@ -8,13 +8,15 @@ function returnImage(who,locale) {
     case "region":dbtable="RegCards";break;
     case "global":dbtable="GlobCards";break;
     case "saved":dbtable="SavedCards";break;
+    case "mycard":dbtable="Card";break;
     default:dbtable="TempCards";break;
     }
 
     var dataStr= "SELECT avatar FROM "+dbtable+" WHERE id ='"+who+"'";
     var ava = "";
-    if(who.length > 1 ) {
-    if(locale !== "mycard") {
+    if(locale.length > 1 ) {
+        //console.log("from Circle Pic "+who+" "+locale);
+    if(locale != "mycard") {
     db.transaction(function(tx) {
 
         tx.executeSql('CREATE TABLE IF NOT EXISTS TempCards(id INT UNIQUE, name TEXT, phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT,website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT, cardback TEXT,stamp INT,cat TEXT,cardsop INT)');
@@ -45,12 +47,19 @@ function returnImage(who,locale) {
 
     } else {
 
-        if(avimg < 4) { ava = "img/default_avatar.png";} else {ava = avimg;
+            dataStr= "SELECT avatar FROM "+dbtable+" WHERE 1";
+
+         db.transaction(function(tx) {
+          var pull =  tx.executeSql(dataStr);
+
+        if(pull.rows.item(0).avatar.length < 4) { ava = "img/default_avatar.png";} else {ava = pull.rows.item(0).avatar;
                      if(ava.search("/9j/4A") != -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
 
         }
       // ava = avimg;
         thesource = ava;
+
+         });
     }
 }
 

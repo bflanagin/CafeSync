@@ -309,7 +309,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
     Timer {
             id:startup
-            interval:10; running:true; repeat: false
+            interval:1; running:true; repeat: false
             onTriggered: {
             Scripts.load_Card();
                 console.log("starting up");
@@ -355,7 +355,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
     Timer {
         id:get_list_updater
-        interval:24000; running: true; repeat: true
+        interval:2400; running: true; repeat: true
             onTriggered: {
                         if(firstrun.state == "InActive" && heart != "OffLine") {
                             //console.log("Updating List");
@@ -718,7 +718,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                     height: parent.height
                     topMargin:10
                     //anchors.verticalCenter: parent.verticalCenter
-                    snapMode: ListView.SnapToRow
+                   // snapMode: ListView.SnapToRow
                    // flow: GridView.FlowLeftToRight
                     boundsBehavior: Flickable.DragAndOvershootBounds
                    // flickableDirection: Flickable.VerticalFlick
@@ -1190,7 +1190,7 @@ Info {
     width:parent.width * 0.95
     height:parent.height * 0.40
     state:"InActive"
-    title:qsTr("Share ")+currentcard_username+qsTr("'s Card");
+    title:if(where == "mycard") {qsTr("Share ")+username.trim()+qsTr("'s Card");} else {qsTr("Share ")+currentcard_username.trim()+qsTr("'s Card");}
     type:"send"
     message:onetimecode
     onStateChanged:if(swapopt.state =="Active") {OpenSeed.onetime(currentcard_thecard,"1")}

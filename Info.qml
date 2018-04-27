@@ -18,7 +18,7 @@ Item {
     property string number: "0"
     property string list:""
     property string type: ""
-
+    property string where: ""
     property string title:""
     property string message:""
 

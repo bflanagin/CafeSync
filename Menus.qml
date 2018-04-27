@@ -217,11 +217,12 @@ Item {
                                        } } else {""}
                             }
                             CirclePic {
+                                id:menuPic
                                 anchors.fill: parent
                                 visible: if(menuitem == 1) {true} else {false}
                                 //theImage:"./icons/contact.svg"
-                                 whichPic:"150"
-                                 where:"menu"
+                                 whichPic:usercardNum
+                                 where:"mycard"
                                  //thesource: avimg
 
                             }
@@ -357,7 +358,7 @@ Item {
                           //case "3": /*settingsPage.state = "Active",cardPage.state = "settings";popup.state = "InActive";cardindex = 0;*/break;
                           case "1":requestPage.state = "InActive";
                                    messagePage.state = "InActive";
-                                    settingsPage.state = "InActive";cardPage.state = "show";cardPage.state = "default";currentcard = -1;cardindex = 0;
+                                    settingsPage.state = "InActive";cardPage.state = "show";cardPage.state = "default";currentcard = -1;currentcard_username = username;cardindex = 0;
                                             pagelist.clear();Scripts.show_Sites("local",userid);mainScreen.state = "Active";mainScreen.fromRequest = false;popup.state = "InActive";mainScreen.positionViewAtBeginning();gc();
                                             currentcard_saved = 2;
                                             //if(layouts.width < units.gu(mobile_vert)) {

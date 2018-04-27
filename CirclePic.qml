@@ -18,7 +18,9 @@ Item {
 
         clip:true
 
-        Component.onCompleted: Scripts.returnImage(whichPic,where)
+        Component.onCompleted: {Scripts.returnImage(whichPic,where)}
+
+
 
         Image {
             id:cardsava

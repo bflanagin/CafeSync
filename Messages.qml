@@ -194,21 +194,36 @@ ListView {
        // Component.onCompleted: MicroBlog.latest_log_remote("conversed",cardnum)
 
         Rectangle {
+            id:converblock
             anchors.centerIn: conversecontent
-            width:conversecontent.width
-            height:conversecontent.height
+           /* width:conversecontent.width
+            height:conversecontent.height */
+            width: parent.width * 0.97
+            height: parent.height * 0.97
             color:"white"
-            radius:5
+            radius:mainView.width * 0.01
+        }
+
+        DropShadow {
+            anchors.fill:converblock
+            horizontalOffset: 0
+            verticalOffset: 4
+            radius: 8.0
+            samples: 17
+            color: "#80000000"
+            source:converblock
+            //z:1
         }
         Column {
             id:conversecontent
-            anchors.horizontalCenter: parent.horizontalCenter
-            width:parent.width * 0.98
+          //  anchors.horizontalCenter: parent.horizontalCenter
+            anchors.centerIn: parent
+            width:parent.width * 0.96
             //spacing: thisWindow.height * 0.01
 
             Row {
                 width:parent.width
-                Item {
+              /*  Item {
                     width:parent.width * 0.30
                     height:parent.width * 0.30
                 Image {
@@ -227,13 +242,13 @@ ListView {
 
                 }
 
-                /*Image {
+                Image {
                     id:mask
                     anchors.fill:parent
                     source:"/graphics/CafeSync.png"
                     visible: false
 
-                } */
+                }
 
                 OpacityMask {
                      anchors.fill: contactImg
@@ -241,7 +256,25 @@ ListView {
                      maskSource: mask
                     //visible:if(cardsop == 1) {true} else {false}
                  }
+                } */
+
+                CirclePic {
+                    id:speaker1
+                    width:parent.width * 0.30
+                    height:parent.width * 0.30
+                    thesource: avatar1
+
+                    CirclePic {
+                        id:speaker2
+                        anchors.bottom: parent.bottom
+                        anchors.left: parent.left
+                        width:parent.width * 0.35
+                        height:parent.width * 0.35
+                        thesource: avatar2
+                    }
                 }
+
+
 
 
 
@@ -292,7 +325,7 @@ ListView {
 
                 }
             }
-            Rectangle {
+          /*  Rectangle {
 
                 //visible: if(cardStatus.length != 0) {true} else {false}
                 anchors.left:parent.left
@@ -300,21 +333,10 @@ ListView {
                 //anchors.bottomMargin: parent.height * 0.05
                 width:parent.width
                 height:mainView.width * 0.04
-                color:Qt.rgba(0.94,0.94,0.94,0.9)
-            Text {
-                anchors.left:parent.left
-                anchors.leftMargin: parent.width * 0.02
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: parent.height * 0.8
-                text:cardStatus
-                width: parent.width * 0.9
-                wrapMode: Text.WordWrap
-                maximumLineCount: 1
-                elide: Text.ElideRight
-                color:"black"
-            }
+                color:converblock.color
 
-            }
+
+            } */
 
 
         }
@@ -468,20 +490,37 @@ ListView {
           }
         //anchors.left:if(who != usercardNum) {parent.left} else {""}
 
-        Rectangle {anchors.centerIn: content
+        Rectangle {
+            id:messageblock
+            anchors.centerIn: content
             width:content.width
             height:content.height
-
+            visible: false
             color:"white"
-            radius:5
-            border.color:"black"
-            border.width: 1
+            radius:mainView.width * 0.03
+           // border.color:"black"
+           // border.width: 1
         }
+
+        DropShadow {
+            anchors.fill:messageblock
+            horizontalOffset: 0
+            verticalOffset: 4
+            radius: 8.0
+            samples: 17
+            color: "#80000000"
+            source:messageblock
+            //z:1
+        }
+
         Column {
             id:content
             anchors.right:if(who == usercardNum) {parent.right} else {""}
+            anchors.rightMargin: mainView.width * 0.02
+            anchors.left:if(who != usercardNum) {parent.left} else {""}
+            anchors.leftMargin: mainView.width * 0.02
             //anchors.horizontalCenter: parent.horizontalCenter
-            width:parent.width * 0.80
+            width:parent.width * 0.75
             spacing: thisWindow.height * 0.01
 
                 Text {
@@ -520,6 +559,9 @@ ListView {
                 wrapMode: Text.WordWrap
             }
         }
+
+
+
     }
 }
 

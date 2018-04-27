@@ -120,7 +120,11 @@ Item {
                             Text {
                                 text:if(cardsop == 1) {cardusername} else {companyname}
                                 font.bold: true
-                                font.pixelSize: (nameBack.width  - companyname.length * 1.5) * 0.064
+                                //font.pixelSize: (nameBack.width  - companyname.length * 1.5) * 0.064
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                wrapMode: Text.WordWrap
+                                font.pixelSize: mainView.width * 0.063
                             }
                             Rectangle {
                                 width:parent.width
@@ -258,7 +262,7 @@ Item {
                             width:parent.width
                             padding: parent.width * 0.03
                             wrapMode: Text.WordWrap
-                            text: cardStatus
+                            text: "<div>"+cardStatus+"</div>"
                         }
 
                         TextField {
