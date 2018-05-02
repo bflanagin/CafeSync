@@ -75,7 +75,8 @@ Item {
 
     ]
 
-    onShowroomChanged: if(showroom == true) {conversations.state = "Inactive",room.state = "Active",Message.show_chat(roomId),checkchat.running = true} else {conversations.state = "Active",room.state = "InActive",checkchat.running = false}
+    onShowroomChanged: if(showroom == true) {conversations.state = "Inactive";room.state = "Active";Message.show_chat(roomId);checkchat.running = true}
+                       else {conversations.state = "Active";room.state = "InActive";checkchat.running = false;Message.show_conversations(usercardNum)}
 
    // onAreaChanged: if(area == "Conversations") {Message.retrieve_conversations(usercardNum)}
 
@@ -592,14 +593,14 @@ Rectangle {
        anchors.horizontalCenter: parent.horizontalCenter
        verticalAlignment: Text.AlignVCenter
        wrapMode: Text.WordWrap
-       padding: width * 0.05
+       leftPadding: width * 0.05
       // anchors.left:addstuff.right
       // anchors.leftMargin:addstuff.width * 0.4
        width:parent.width - addstuff.width * 1.8 - sendMsg.width * 1.5
        //height:parent.height * 0.7
-       font.pixelSize: parent.width * 0.040
+       font.pixelSize: parent.width * 0.04
        //maximumLength: 144
-        Keys.onPressed: { if (event.key == Qt.Key_Enter || event.key == Qt.Key_Return) {Message.send_messages(roomId,messageField.text)} }
+        Keys.onPressed: { if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {Message.send_messages(roomId,messageField.text)} }
 
         /*background:Rectangle {
             border.color: borderColor

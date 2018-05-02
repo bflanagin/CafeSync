@@ -555,7 +555,7 @@ Item {
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true
-                  onClicked: if(menu == 1) {swapopt.where ="mycard";swapopt.state = "Active" } else {achievePage.state = "Active"}
+                  onClicked: if(menu == 1) {swapopt.where ="mycard";swapopt.type = "send";swapopt.state = "Active";topBar.state="person" } else { achievePage.state = "Active";topBar.state="person"}
                  // onClicked: notification1.visible = true,notification1.themessage = "Coming Soon"
               }
 

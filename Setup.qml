@@ -207,36 +207,39 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
 Item {
     width:parent.width
     //height:settingsPage.height * 0.35
-    height:generalarea.height
+    height:generalarea.height * 1.1
 
 
  Rectangle {
     id:generalarea
     clip:true
    // y:cardsava.y + cardsava.height + 10
-    anchors.horizontalCenter: parent.horizontalCenter
+    //anchors.horizontalCenter: parent.horizontalCenter
+    anchors.centerIn: parent
     width:parent.width * 0.98
     height:generalcolumn.height * 1.05
     color:"white"
 
    Column {
        id:generalcolumn
-       y:10
+       //y:10
        width:parent.width
       // height:parent.height
-       spacing:mainView.height * 0.02
-     //  anchors.centerIn: parent
+       spacing:mainView.width * 0.05
+      anchors.centerIn: parent
 
 
     Row {
-        width:parent.width
+        anchors.horizontalCenter: parent.horizontalCenter
+        width:parent.width* 0.98
        // height: parent.height * 0.72
-        clip:true
+       // clip:true
+        spacing: mainView.width * 0.03
 
     Item {
            id:imagearea
-     height:mainView.width * 0.38
-     width:mainView.width * 0.38
+     height:mainView.width * 0.30
+     width:mainView.width * 0.30
 
      Image {
          id:cardsava
@@ -259,13 +262,13 @@ Item {
 
      }
 
-     Image {
+     /*Image {
          id:mask
          anchors.fill:parent
          source:"/graphics/CafeSync.png"
          visible: false
 
-     }
+     } */
 
      OpacityMask {
          id:opmask
@@ -278,8 +281,8 @@ Item {
     DropShadow {
             anchors.fill: opmask
             horizontalOffset: 0
-            verticalOffset: 4
-            radius: 8.0
+            verticalOffset: 2
+            radius: 5.0
             samples: 17
             color: "#80000000"
             source: opmask
@@ -291,7 +294,12 @@ Item {
         anchors.fill: parent
         onClicked:sourceselect = true
     }
-
+    Text {
+        anchors.top:cardsava.bottom
+        anchors.horizontalCenter:parent.horizontalCenter
+        text: qsTr("(tap image to edit)")
+        font.pixelSize: mainView.width * 0.04
+    }
 
 
 }
@@ -299,7 +307,7 @@ Item {
         //y:20
         width:parent.width * 0.6
        // height:parent.height * 0.8
-        spacing:mainView.height * 0.02
+        spacing:mainView.width * 0.02
         anchors.verticalCenter: parent.verticalCenter
 
   Text {
@@ -419,7 +427,7 @@ Item {
          placeholderText: qsTr("Company Name")
          font.pixelSize: (parent.width  - usercompany.length * 1.5) * 0.08
          width:parent.width
-         horizontalAlignment: Text.AlignRight
+         horizontalAlignment: Text.AlignLeft
         // onVisibleChanged: if(visible == true) {focus = true}
          //   onFocusChanged: if(focus == false) {visible = false}
 
@@ -448,18 +456,12 @@ Item {
         height:parent.height * 0.12
        // clip:true
 
-    Text {
-        anchors.left:parent.left
-        anchors.leftMargin: 10
-        text: qsTr("(tap image to edit)")
-        anchors.verticalCenter: parent.verticalCenter
-        font.pointSize: mainView.height * 0.01
-    }
+
 
  Text {
      id:onlineLabel
      text: qsTr("Share Card")
-     font.pointSize: mainView.width * 0.02
+     font.pixelSize: mainView.width * 0.04
    //  anchors.top:parent.top
     // anchors.topMargin: 10
      anchors.right:parent.right
@@ -519,7 +521,7 @@ Text {
 Rectangle {
      visible: if(simpleMode == false) {true} else {false}
     width: parent.width * 0.98
-    height:3
+    height:parent.width * 0.01
     anchors.horizontalCenter: parent.horizontalCenter
 
     color:seperatorColor1
@@ -528,7 +530,8 @@ Rectangle {
 
 Item {
     width:parent.width
-    height:contactLabel.y+(contactLabel.height * 2)
+   // height:contactLabel.y+(contactLabel.height * 2)
+    height: contactcolumn.height * 1.3
     visible: if(simpleMode == false) {true} else {false}
 
  Rectangle {
@@ -540,17 +543,19 @@ Item {
     width:parent.width * 0.98
     height:parent.height
     color:"white"
-    anchors.horizontalCenter: parent.horizontalCenter
+   anchors.centerIn: parent
 
     Column {
+        id:contactcolumn
         y:20
         width:parent.width
-        height:parent.height
-        spacing: parent.height * 0.1
+        //height:parent.height
+        anchors.centerIn: parent
+        spacing: mainView.width * 0.05
 
         Item {
             width:parent.width
-            height:parent.height * 0.01
+            height:mainView.width * 0.01
         }
 
 
@@ -564,18 +569,19 @@ Item {
       //anchors.top:contactLabel.bottom
     //  anchors.topMargin: 25
       text: qsTr("Phone:")
-      font.pixelSize: mainView.height * 0.02
+      font.pixelSize: mainView.width * 0.04
 
       TextField {
          id: userPhone
 
          anchors.left: parent.right
          anchors.leftMargin: 4
-         anchors.bottom: parent.bottom
+         //anchors.bottom: parent.bottom
+         anchors.verticalCenter: parent.verticalCenter
          //anchors.top: parent.top
 
          placeholderText: qsTr("0 555-555-5555")
-         font.pixelSize: mainView.height * 0.02
+         font.pixelSize: mainView.width * 0.04
          width:(contactarea.width * 0.96) - phoneLabel.width
         // width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
          inputMethodHints: Qt.ImhDialableCharactersOnly
@@ -595,16 +601,16 @@ Item {
       //width:phoneLabel.width
 
       text: qsTr("Email:")
-      font.pixelSize: mainView.height * 0.02
+      font.pixelSize: mainView.width * 0.04
       TextField {
          id: userEmail
 
          anchors.left: parent.right
          anchors.leftMargin: 4
-         anchors.bottom: parent.bottom
+         anchors.verticalCenter: parent.verticalCenter
          //anchors.top: parent.top
          placeholderText: qsTr("johndoe@example.com")
-         font.pixelSize: mainView.height * 0.02
+         font.pixelSize: mainView.width * 0.04
          width:(contactarea.width * 0.96) -emailLabel.width
 
        //  width:if(layouts.width > units.gu(mobile_vert)){appWindow.width - parent.width - cardBacking.width - units.gu(12)} else {appWindow.width - parent.width - units.gu(1)}
@@ -628,7 +634,7 @@ Item {
   Text {
       id:contactLabel
       text: qsTr("Share Contact Info")
-      font.pointSize: mainView.width * 0.02
+      font.pointSize: mainView.width * 0.03
       //font.bold: true
       horizontalAlignment: Text.AlignLeft
      // anchors.top:parent.top
@@ -774,7 +780,7 @@ Item {
                   Text {
                       anchors.centerIn: parent
                       text: name
-                      font.pixelSize: (parent.height * 0.5) - name.length
+                      font.pixelSize: (parent.height * 0.5)
                   }
 
                   MouseArea {
@@ -838,10 +844,10 @@ Item {
                  }
 
              Text {
-                 font.pixelSize: settingsPage.height * 0.03
+                 font.pixelSize: mainView.widtht * 0.03
                  text:qsTr("Category: ")
                  anchors.top:profileRow.bottom
-                 anchors.topMargin: settingsPage.height * 0.01
+                 anchors.topMargin: if(simpleMode == true) {mainView.width * 0.04} else {mainView.width * 0.01}
                  anchors.right:parent.right
                  anchors.rightMargin: catbutton.width * 1.1
 
@@ -861,7 +867,7 @@ Item {
                         id:catText
                      //anchors.left:parent.right
                         anchors.centerIn: parent
-                     font.pixelSize:24
+                     font.pixelSize:mainView.width * 0.05
                     // anchors.verticalCenter: parent.verticalCenter
                      text:if(cardindex == 0) { if(usercat.length < 1) {qsTr("Select Category")} else {usercat}}
                      //onTextChanged: usercat = text;
@@ -1038,7 +1044,7 @@ Item {
                   Text {
                       anchors.centerIn: parent
                       text:qsTr("Add Skill")
-                      font.pixelSize: (parent.height * 0.8) - text.length
+                      font.pixelSize: (parent.height * 0.5)
                   }
 
                   MouseArea {
@@ -1211,7 +1217,7 @@ Item {
                   Text {
                       anchors.centerIn: parent
                       text:qsTr("Add School")
-                      font.pixelSize: (parent.height * 0.8) - text.length
+                      font.pixelSize: (parent.height * 0.5)
                   }
 
 
@@ -1376,7 +1382,7 @@ Item {
                   Text {
                       anchors.centerIn: parent
                       text:qsTr("Add Work Expr.")
-                      font.pixelSize: (parent.height * 0.8) - text.length
+                      font.pixelSize: (parent.height * 0.5)
                   }
 
                   MouseArea {
@@ -1709,7 +1715,7 @@ Rectangle {
      y:topBar.height
      width:parent.width
     // y:topBar.height
-     height:parent.height - topBar.height
+     height:parent.height
      state:"InActive"
      title:"Category Select"
 
@@ -1779,7 +1785,7 @@ Rectangle {
      //y:-settingsPage.y
      y:-topBar.height
      width:mainView.width
-     height:(mainView.height + topBar.height) * 0.98
+     height:mainView.height
      state:"InActive"
      listindex: -1
      onStateChanged: if(state == "InActive") { Scripts.skillListings(),Scripts.schoolListings(),Scripts.workListings(),topBar.visible = true} else {topBar.visible = false}

@@ -1,5 +1,5 @@
-//#include <QGuiApplication>
-//#include <QQmlApplicationEngine>
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
 
 #include <QtGui>
 #include <QtQuick>
@@ -13,11 +13,13 @@
 
 int main(int argc, char *argv[])
 {
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
     QGuiApplication app(argc, argv);
 
     qmlRegisterType<MyIOout>("IO", 1, 0, "MyIOout");
 
-     QQuickView view;
+     //QQuickView view;
 
      QCommandLineParser parser;
      QCommandLineOption fullMode("main");
@@ -27,14 +29,14 @@ int main(int argc, char *argv[])
      parser.addOption(serviceMode);
 
 
-   // QQmlApplicationEngine engine;
-    //engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    QQmlApplicationEngine view;
+    view.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
   NotificationClient *notificationClient = new NotificationClient(&view);
-        view.engine()->rootContext()->setContextProperty(QLatin1String("notificationClient"),notificationClient);
-        view.setResizeMode(QQuickView::SizeRootObjectToView);
-        view.setSource(QUrl(QStringLiteral("qrc:/main.qml")));
-        view.show();
+        view.rootContext()->setContextProperty(QLatin1String("notificationClient"),notificationClient);
+        //view.setResizeMode(QQuickView::SizeRootObjectToView);
+        //view.setSource(QUrl(QStringLiteral("qrc:/main.qml")));
+      //  view.show();
 
     QAndroidJniObject::callStaticMethod<void>("com/vagueentertainment/cafesync/OpenSeedService",
                                               "startOpenSeedService",

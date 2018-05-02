@@ -1,8 +1,9 @@
 function get_html(account) {
 
-    var url = "https://"+account.split("::")[1]+".tumblr.com/";
+    var url = "https://steemit.com/"+account.split("::")[1];
+    console.log(url);
 
-    tumblrposts.clear();
+    steemitposts.clear();
 
 var http = new XMLHttpRequest();
 
@@ -23,7 +24,7 @@ http.onreadystatechange = function() {
         } else {
 
             pagedata = http.responseText;
-            //sitedata = pagedata;
+            console.log(pagedata);
 
             if(pagedata.search("header-image") != -1) {
 
@@ -31,38 +32,39 @@ http.onreadystatechange = function() {
 
             } else {banner = "../img/overlay-dark.png";}
 
-            if(pagedata.search('class="blog-title"') != -1) {
-            name = pagedata.substring(pagedata.search('<h1 class="blog-title"><a href="/">'),pagedata.search(' <h1 class="blog-title"><a href="/">')+ 100).split(">")[2].split("<")[0];
+            if(pagedata.search('{\"name\":\"') != -1) {
+            name = pagedata.split('{\"name\":\"')[1].split('\",\"')[0];
 
             } else {
-                name = pagedata.split("<title>")[1].split("</title>")[0];
+                name = pagedata.split('<meta name="description" content="')[1].split('.')[0];
             }
 
-            if(pagedata.search('class="user-avatar"><img src="') != -1) {
-            avatar = pagedata.substring(pagedata.search('class="user-avatar"><img src="'),pagedata.search('class="user-avatar"><img src="')+100).split('"')[3];
+            if(pagedata.search('\"profile_image\":\"') != -1) {
+            avatar = pagedata.split('\"profile_image\":\"')[1].split('\",\"')[0];
             } else {
             avatar = pagedata.split('property="og:image" content="')[1].split('" />')[0].trim();
             }
-            if(pagedata.search('<span class="description">') != -1) {
-            message = pagedata.substring(pagedata.search('<span class="description">'),pagedata.search('<span class="description">') + 200).split(">")[1].split("</")[0].trim();
+            if(pagedata.search('\"about\":\"') != -1) {
+            message = "<p>"+pagedata.split('\"about\":\"')[1].split('\",\"')[0];
             } else {
-             message = "<p>"+pagedata.split('<meta name="description" content="')[1].split('" />')[0]+"</p>";
+             message = "<p>"+pagedata.split('<meta name="description" content="')[1].split('.')[2]+"</p>";
             }
                 var num = 1;
                 var posts;
-            if(pagedata.search('<article') != -1) {
-                posts = pagedata.split('<article');
+            if(pagedata.search('<h2 class="articles__h2 entry-title"') != -1) {
+                posts = pagedata.split('<h2 class="articles__h2 entry-title"');
             } else {
                 posts = pagedata.split('<div class="post">');
             }
 
             postcount = posts.length;
 
+
             while(posts.length > num && num <= 5) {
 
          // postinfo = pagedata.substring(pagedata.search('<article'),pagedata.search('</article>'));
-                 if(posts[num].search('</article>') != -1) {
-                        postinfo = posts[num].split('</article>')[0];
+                 if(posts[num].search('</h2>') != -1) {
+                        postinfo = posts[num].split('</h2')[0];
                     } else {
                      postinfo = posts[num].split('</div><!-- end .post -->')[0];
                  }
@@ -70,19 +72,19 @@ http.onreadystatechange = function() {
 
                 if(postinfo.search('<div class="video-wrapper">') != -1) {
                     //console.log("found a video");
-                    tumblrposts.append({
+                    steemitposts.append({
                     posttitle:"",
                     postimage:"img/youtube.png",
                    post:postinfo.substring(postinfo.search("<p>")+3,postinfo.search("</p>"))
                     });
 
                 } else if(postinfo.search('<div class="post-content">') != -1) {
-                        tumblrposts.append({
+                        steemitposts.append({
                         posttitle:postinfo.substring(postinfo.search('<h2 class="title">'),postinfo.search('</h2>')).split(">")[2].split("<")[0],
                        post:postinfo.substring(postinfo.search('<p>'),postinfo.search('</p>'))
                                                });
                     } else if(postinfo.search('<div class="photo-wrapper">') != -1) {
-                            tumblrposts.append({
+                            steemitposts.append({
                             posttitle:"",
                             //tmpostimage: postinfo.substring(postinfo.search('src="')+5,postinfo.search('" alt=')),
                              postimage: postinfo.split('<img src="')[1].split('" alt=')[0],
@@ -91,14 +93,14 @@ http.onreadystatechange = function() {
                         } else if (postinfo.search('<div class="media_post photo_post">') != -1) {
 
                             if(postinfo.search("photoset") == -1) {
-                            tumblrposts.append({
+                            steemitposts.append({
                                 posttitle:"",
                                 postimage:postinfo.split('<img src="')[1].split('"')[0],
                                 post: postinfo.split('<div class="credit">')[1].split('</div><!-- end .credit -->')[0]
 
                                                });
                             } else {
-                                tumblrposts.append({
+                                steemitposts.append({
                                     posttitle:"Photo Set",
                                     postimage:pluginlogo,
                                     post: "Photo Sets aren't support...Yet"
@@ -108,7 +110,7 @@ http.onreadystatechange = function() {
 
                         } else if(postinfo.search('<div class="quote_post">') != -1) {
 
-                                tumblrposts.append({
+                                steemitposts.append({
                                         posttitle:"Quote",
                                         postimage:"",
                                         post:postinfo.split('<div class="quote_post"><span>&ldquo;</span>')[1].split('</div>')[0]+"<br><br>"+postinfo.split('<div class="body">')[1].split('</div>')[0],
@@ -116,7 +118,7 @@ http.onreadystatechange = function() {
 
                             } else {
 
-                                tumblrposts.append({
+                                steemitposts.append({
                                     posttitle:"post "+num,
                                     postimage:pluginlogo,
                                     post:postinfo.split('<div class=')[1].split('>')[0]

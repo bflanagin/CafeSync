@@ -5,7 +5,6 @@
         <file>DownTab.qml</file>
         <file>Flasher.qml</file>
         <file>Home.qml</file>
-        <file>Info.qml</file>
         <file>LeftTab.qml</file>
         <file>main.js</file>
         <file>MainScreen.qml</file>
@@ -233,7 +232,7 @@
         <file>icons/calendar.svg</file>
         <file>icons/calendar-today.svg</file>
         <file>CirclePic.qml</file>
-        <file>getpic.js</file>
+        <file>circlepic.js</file>
         <file>CircleIndicator.qml</file>
         <file>CircleStat.qml</file>
         <file>img/OpenCircle.png</file>
@@ -250,5 +249,10 @@
         <file>icons/view-sort-alpha-assending.svg</file>
         <file>icons/view-sort-alpha-descending.svg</file>
         <file>icons/view-sort-company-decending.svg</file>
+        <file>plugins/steemit.js</file>
+        <file>plugins/Steemit.qml</file>
+        <file>img/steemit-vector-logo.png</file>
+        <file>Share.qml</file>
+        <file>pages.js</file>
     </qresource>
 </RCC>

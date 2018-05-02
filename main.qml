@@ -17,8 +17,8 @@ import "text.js" as Scrubber
 import "requests.js" as Request
 import "messages.js" as Message
 
-Item {
-//ApplicationWindow {
+//Item {
+ApplicationWindow {
 
     id:mainView
 
@@ -227,7 +227,8 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
    // "Facebook::"+"#3C5A8A"+"::./img/fb.png::facebook::pagename","Linkedin::"+"#6084C4"+"::./img/linkedin.png::linkedin::user-name",
     property var slist : ["Twitter::"+"lightblue"+"::./img/twitter.png::twitter::@username","Tumblr::"+"#343460"+"::./img/tumblr.png::tumblr::username/blogname",
     "Medium::"+cardcolor+"::./img/medium.png::medium::example.com","WordPress::"+"darkgray"+"::./img/wordpress.png::wordpress::example.com",
-        "RSS::"+"lightgray"+"::./img/RSS.png::blog::example.com","SoundCloud::"+"orange"+"::./img/soundcloud.png::soundcloud::bandname","Etsy::"+"#F56400"+"::./img/etsy.png::etsy::store"];
+        "RSS::"+"lightgray"+"::./img/RSS.png::blog::example.com","SoundCloud::"+"orange"+"::./img/soundcloud.png::soundcloud::bandname","Etsy::"+"#F56400"+"::./img/etsy.png::etsy::store",
+        "Steemit::"+"lightgray"+"::./img/steemit-vector-logo.png::steemit::@username"];
 
 
 
@@ -238,11 +239,11 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
     //height:Screen.desktopAvailableHeight
     //background: "black"
 
-    //title: "CafeSync"
+    title: "CafeSync"
 
     property int closeit: 0
 
-   /* onClosing: {
+    onClosing: {
       /*  if(viewpic.state == "Show") {viewpic.state = "Hide"}
         if(settings.visible == true) {
             thefooter.state ="Show"
@@ -253,18 +254,49 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         }
         if(viewfinder.state == "Show") {viewfinder.state = "Hide"
 
+        } */
+
+        if(swapopt.state == "Active") {
+            swapopt.state = "InActive";
+            close.accepted = false;
+        }else if(achievePage.state == "Active") {
+                    achievePage.state = "InActive";
+                    close.accepted = false;
+        } else if(themenu.state == "Active") {
+            themenu.state = "InActive";
+            close.accepted = false;
+         } else if(settingsPage.state == "Active") {
+                        settingsPage.state = "InActive";
+                        topBar.state="person";
+                        close.accepted = false;
+        } else if(mainScreen.state == "Active") {
+            mainScreen.state = "InActive";
+            topBar.state="standard";
+            close.accepted = false;
+        } else if(messagePage.state == "Active") {
+            if(messagePage.showroom ==true) {
+                messagePage.showroom = false;
+            } else {
+            messagePage.state = "InActive";
+            topBar.state="standard";
+            }
+            close.accepted = false;
+        } else if(requestPage.state == "Active") {
+            requestPage.state = "InActive";
+            topBar.state="standard";
+            close.accepted = false;
         }
 
 
-    if(closeit == 1) {
-        close.accepted = true
+        else if(closeit == 1) {
+                    close.accepted = true
 
-    } else { closeit = closeit +1;
-        close.accepted = false
-        notification1.visible = true; notification1.themessage = "Tap again to exit";notificationFade.start();
+                } else { closeit = closeit +1;
+                            close.accepted = false;
+                            notification1.visible = true; notification1.themessage = "Tap again to exit";notificationFade.start();
+                    }
+
     }
-
-    } */
 
 
 
@@ -282,7 +314,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         running:false
         repeat:true
         onTriggered:if(firstrun.state == "InActive") {OpenSeed.heartbeat();
-                        Request.check_requests();
+
                         OpenSeed.retrieve_data(userid);}
     }
 
@@ -466,8 +498,8 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
     DropShadow {
            anchors.fill: topBar
            horizontalOffset: 0
-           verticalOffset: 4
-           radius: 8.0
+           verticalOffset: 2
+           radius: 5.0
            samples: 17
            color: "#80000000"
            source: topBar
@@ -784,12 +816,14 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                                                 notification.visible = true; notification.themessage = qsTr("Release to reload");
                                         }
 
-                    onCountChanged: if(passerbyGrid.count == 0) {
+                    onCountChanged: if(passerbyGrid.count == 1) {
 
                                         notification.visible = true;
                                         if(selection == 0) {
+                                            notification.delay = 9999;
                                         notification.themessage = qsTr("No Cards found\n(Pull to Refresh, or hit the center button to try a larger search area)");
                                         } else {
+                                            notification.delay = 9999;
                                             notification.themessage = qsTr("No Cards found\n(Pull to Refresh, or hit the center button to swap with another user)");
                                         }
                                     } else {
@@ -1013,6 +1047,19 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
 }
 
+
+ Menus {
+     id:themenu
+     //anchors.centerIn: parent
+     x:0
+     width:parent.width
+     y:topBar.height
+     height:parent.height - topBar.height
+     state:"InActive"
+     title:"MainMenu"
+
+ }
+
  Setup {
      id:settingsPage
 
@@ -1131,17 +1178,7 @@ CardBack {
 
 
 
-Menus {
-    id:themenu
-    //anchors.centerIn: parent
-    x:0
-    width:parent.width
-    y:topBar.height
-    height:parent.height - topBar.height
-    state:"InActive"
-    title:"MainMenu"
 
-}
 
 Menus {
     id:catmenu
@@ -1163,20 +1200,20 @@ AchievmentsPage {
     state:"InActive"
 }
 
-Info {
+Share {
     id:infoview
-    width:parent.width * 0.50
+    width:parent.width * 0.95
     height:parent.height * 0.90
     anchors.centerIn: parent
     state:"InActive"
 }
 
 
-Info{
+Share {
     id:grabit
     //width:if(window_width > mobile_width) {parent.width * 0.50} else {parent.width * 0.95}
     width:parent.width * 0.95
-    height:parent.height * 0.40
+    height:parent.height * 0.90
     state:"InActive"
     title:qsTr("Receive Card")
     type:"receive"
@@ -1184,20 +1221,22 @@ Info{
 }
 
 
-Info {
+Share {
     id:swapopt
     //width:if(window_width > mobile_width) {parent.width * 0.50} else {parent.width * 0.95}
-    width:parent.width * 0.95
-    height:parent.height * 0.40
+    width:parent.width
+    height:parent.height - topBar.height
+    anchors.bottom:parent.bottom
     state:"InActive"
-    title:if(where == "mycard") {qsTr("Share ")+username.trim()+qsTr("'s Card");} else {qsTr("Share ")+currentcard_username.trim()+qsTr("'s Card");}
+    title:if(where == "mycard") {username.trim();} else {currentcard_username.trim();}
+    company:if(where == "mycard") {usercompany.trim();} else {currentcard_companyname.trim();}
     type:"send"
     message:onetimecode
     onStateChanged:if(swapopt.state =="Active") {OpenSeed.onetime(currentcard_thecard,"1")}
-    MouseArea {
+  /*  MouseArea {
         anchors.fill:parent
         onClicked:swapopt.state = "InActive",OpenSeed.onetime(currentcard_thecard,"0")
-    }
+    } */
 }
 
 SendRequest {

@@ -27,7 +27,7 @@ Item {
         wrapMode: Text.WordWrap
         text: themessage
         color:"white"
-        font.pointSize: if(pos == 0) {mainView.width * 0.032} else {mainView.width * 0.02}
+        font.pixelSize: if(pos == 0) {mainView.width * 0.06} else {mainView.width * 0.04}
         Rectangle {
             anchors.centerIn: parent
             width:parent.width * 1.2

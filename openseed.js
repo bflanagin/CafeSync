@@ -1057,7 +1057,7 @@ function remote_delete_list(id,list,cid_list) {
     case "temp":
         url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/deleteref.php?id=" + id+"&list="+list+"&cid="+cid_list;
         carddata = "";
-        console.log(url);
+        //console.log(url);
         //console.log("removing from server temp");
         http.onreadystatechange = function() {
             if (http.readyState == 4) {
@@ -1072,7 +1072,7 @@ function remote_delete_list(id,list,cid_list) {
                     console.log("Incorrect AppID");
                 } else {
                         carddata = http.responseText;
-                        console.log(carddata);
+                     //   console.log(carddata);
                       //  remotetemp = carddata;
                         //var tnum = 0;
                      //  while (remotetemp.split(",")[tnum] != null) {

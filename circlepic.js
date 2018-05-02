@@ -1,4 +1,4 @@
-function returnImage(who,locale) {
+function returnImage(who,locale,source) {
 
 
 
@@ -14,7 +14,18 @@ function returnImage(who,locale) {
 
     var dataStr= "SELECT avatar FROM "+dbtable+" WHERE id ='"+who+"'";
     var ava = "";
-    if(locale.length > 1 ) {
+
+    if(source.length > 4) {
+
+        if(source.search("/9j/4A") != -1 && source.search("data:image/jpeg;base64") == -1)
+                               { ava = "data:image/jpeg;base64, "+source.replace(/ /g, "+");
+           fixpic = ava;
+        } else {
+           fixpic = source;
+        }
+
+
+    } else if(locale.length > 1 ) {
         //console.log("from Circle Pic "+who+" "+locale);
     if(locale != "mycard") {
     db.transaction(function(tx) {
@@ -32,32 +43,33 @@ function returnImage(who,locale) {
     //numofcards = pull.rows.length;
 
         if(pull.rows.length == 1) {
-
+            //console.log("Found image for "+who);
     if(pull.rows.item(0).avatar.length < 4) { ava = "img/default_avatar.png";} else {ava = pull.rows.item(0).avatar;
-                 if(ava.search("/9j/4A") != -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
+                 if(ava.search("/9j/4A") != -1 && ava.search("data:image/jpeg;base64") == -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
 
     }
-
+        fixpic = ava;
         } else {
             ava = currentcard_avatarimg;
         }
 
     });
-        thesource = ava;
+        fixpic = ava;
 
     } else {
-
+           // console.log("Loading Users Image from "+dbtable);
             dataStr= "SELECT avatar FROM "+dbtable+" WHERE 1";
 
          db.transaction(function(tx) {
           var pull =  tx.executeSql(dataStr);
 
-        if(pull.rows.item(0).avatar.length < 4) { ava = "img/default_avatar.png";} else {ava = pull.rows.item(0).avatar;
-                     if(ava.search("/9j/4A") != -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
+        if(pull.rows.item(0).avatar.length < 4) { ava = "./img/default_avatar.png";} else {ava = pull.rows.item(0).avatar;
+                     if(ava.search("/9j/4A") != -1 && ava.search("data:image/jpeg;base64") == -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
 
         }
+
       // ava = avimg;
-        thesource = ava;
+        fixpic = ava;
 
          });
     }

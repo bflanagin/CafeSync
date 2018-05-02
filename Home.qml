@@ -295,6 +295,7 @@ Item {
                                     onClicked:{MicroBlog.send_log(usercardNum,statusField.text);
                                                 statusField.text = "";
                                                 statusField.focus = false;
+
                                                 }
                                 }
                             }
@@ -954,7 +955,7 @@ Item {
 
     }
 
-    Info {
+    /*Share {
         id:swapopt
         //width:if(window_width > mobile_width) {parent.width * 0.50} else {parent.width * 0.95}
         width:parent.width * 0.95
@@ -968,7 +969,7 @@ Item {
             anchors.fill:parent
             onClicked:swapopt.state = "InActive",OpenSeed.onetime(cardId,"0")
         }
-    }
+    } */
 
 
 

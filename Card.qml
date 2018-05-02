@@ -398,12 +398,12 @@ import "microblogger.js" as MicroBlogger
 
 
 
-                                Info {
+                               /* Share {
                                     id:shade
                                     anchors.fill:parent
                                     state:"InActive"
                                     type:"darken"
-                                }
+                                } */
                         }
 
 

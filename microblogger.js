@@ -177,7 +177,7 @@ function send_log(user,message) {
 
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/corescripts/narrative.php";
-    console.log("send message "+user+":"+message);
+    //console.log("send message "+user+":"+message);
    // console.log(url)
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
@@ -189,7 +189,7 @@ function send_log(user,message) {
                 console.log("Incorrect AppID");
             } else {
                 //console.log(http.responseText);
-
+                      log.fupdate = true;
                 //createdb();
                // save_log(userid,user,usercardNum,message,0,mesgdate.getTime());
             }
@@ -333,17 +333,19 @@ if(room != usercardNum) {
                otherperson = pull.rows.item(0).name;
                otherCompany = pull.rows.item(0).company;
                if(pull.rows.item(0).avatar.length < 4) { otherava = "img/default_avatar.png"} else {otherava = pull.rows.item(0).avatar
-                           if(otherava.search("/9j/4A") != -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
+                           if(otherava.search("/9j/4A") != -1 && otherava.search("data:image/jpeg;base64") == -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
 
               }
 
-           } else {
+           } else if(pull1.rows.length == 1){
                otherperson = pull1.rows.item(0).name;
                otherCompany = pull1.rows.item(0).company;
                if(pull1.rows.item(0).avatar.length < 4) { otherava = "img/default_avatar.png"} else {otherava = pull1.rows.item(0).avatar
-                            if(otherava.search("/9j/4A") != -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
+                            if(otherava.search("/9j/4A") != -1 && otherava.search("data:image/jpeg;base64") == -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
 
                }
+           } else {
+               otherava = "./img/default_avatar.png";
            }
 
        });
@@ -412,7 +414,7 @@ if(room != usercardNum) {
               otherCompany = pull.rows.item(0).company;
               //  whowith = otherperson;
               if(pull.rows.item(0).avatar.length < 4) { otherava = "img/default_avatar.png"} else {otherava = pull.rows.item(0).avatar
-                           if(otherava.search("/9j/4A") != -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
+                           if(otherava.search("/9j/4A") != -1 && otherava.search("data:image/jpeg;base64") == -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
 
               }
 

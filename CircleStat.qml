@@ -4,7 +4,7 @@ import IO 1.0
 
 import QtQuick.LocalStorage 2.0 as Sql
 
-import "getpic.js" as Scripts
+import "circlepic.js" as Scripts
 
 Item {
         id:card_avatar_backing

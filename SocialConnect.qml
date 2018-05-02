@@ -397,7 +397,7 @@ Item {
                     spacing:thisWindow.height * 0.01
                     clip:true
                     onContentXChanged: {theservice = ""; preview = false; useraccount = ""}
-                    onMovingHorizontallyChanged: if(socialSelect.movingHorizontally == true) {currentservice = "";taptitle.visible = false;} else {taptitle.visible = true;}
+                    onMovingHorizontallyChanged: if(socialSelect.movingHorizontally == true) {currentservice = "";}
                     model: socialaccountslist
 
                     delegate: SocialOptfull {
@@ -468,9 +468,9 @@ Item {
                     color:"black"
                     width:parent.width
                     horizontalAlignment:Text.AlignHCenter
-                    font.pixelSize: parent.width * 0.04
+                    font.pixelSize: mainView.width * 0.04
                     wrapMode: Text.WordWrap
-                    visible: if(currentservice =="") {true} else {false}
+                    visible: if(account1.visible == false ) {true} else {false}
                 }
 
                 TextField {
@@ -482,7 +482,7 @@ Item {
                        // enabled: if(visible == true) {true} else {false}
                         placeholderText: if(useraccount.length > 2){Scripts.socialsetup(useraccount.split("::")[0]).split("::")[4]} else if (currentservice.length > 2){Scripts.socialsetup(currentservice).split("::")[4]} else {""}
                         anchors.horizontalCenter: parent.horizontalCenter
-                        font.pixelSize: 32
+                        font.pixelSize: mainView.width * 0.06
                         width:parent.width * 0.80
                         onTextChanged: servicecheck.restart()
 
@@ -490,15 +490,15 @@ Item {
                         anchors.right:parent.right
                         anchors.rightMargin: 10
                         anchors.verticalCenter: parent.verticalCenter
-                        width:parent.height * 0.8
-                        height:parent.height * 0.8
+                        width:parent.height * 0.5
+                        height:parent.height * 0.5
                         color:highLightColor1
                         radius: width /2
 
                         Image {
                             anchors.centerIn: parent
-                            width:parent.width * 0.7
-                            height:parent.height * 0.7
+                            width:parent.width * 0.5
+                            height:parent.width * 0.5
                             source:"./icons/find.svg"
                         }
 

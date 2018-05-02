@@ -9,29 +9,53 @@ import "microblogger.js" as MicroBlog
 
 
 Item {
+    id:thisWindow
     anchors.fill:parent
     clip:true
 
     property int narrativeList: 0
     property var remotelog:[]
+    property bool fupdate: false
 
     Component.onCompleted:{ MicroBlog.retrieve_log(currentcard_thecard,usercardNum);
                            // MicroBlog.show_log(currentcard_thecard);
                             if(currentcard_thecard != usercardNum) {
-                          //  remotelogGet.start();
+                           // remotelogGet.start();
                             } else {
                                 MicroBlog.show_log(currentcard_thecard);
                             }
                                // MicroBlog.dump();
+                            remotelogGet.start();
     }
 
-   /* Timer {
+    onFocusChanged: if(focus ==true) {console.log("I have focus");}
+
+   Timer {
         id:remotelogGet
-        interval: 1000
+        interval: 60000
         repeat: true
         running: false
-       // onTriggered: console.log("From timer "+remotelog);
-    } */
+        onTriggered: { MicroBlog.retrieve_log(currentcard_thecard,usercardNum);
+            // MicroBlog.show_log(currentcard_thecard);
+             if(currentcard_thecard != usercardNum) {
+           //  remotelogGet.start();
+             } else {
+                 MicroBlog.show_log(currentcard_thecard);
+             }
+                // MicroBlog.dump();
+}
+   }
+
+   onFupdateChanged: if(fupdate == true) {
+                        MicroBlog.retrieve_log(currentcard_thecard,usercardNum);
+                                    // MicroBlog.show_log(currentcard_thecard);
+                                     if(currentcard_thecard != usercardNum) {
+                                   //  remotelogGet.start();
+                                     } else {
+                                         MicroBlog.show_log(currentcard_thecard);
+                                     }
+                                     fupdate = false;
+                    }
 
     Rectangle {
         anchors.fill: parent
@@ -101,8 +125,8 @@ Item {
                      width: parent.height
                      height: parent.height
                      whichPic: card
-                     where: "narrative"
-                     thesource: imgsource
+                     where: listget
+                   //  thesource:imgsource
                  }
 
              Text {

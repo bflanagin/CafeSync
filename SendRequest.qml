@@ -110,7 +110,7 @@ Item {
             width:parent.width * 0.98
             anchors.horizontalCenter: parent.horizontalCenter
             height:thisWindow.height / 1.5
-            placeholderText: "To start messaging the user they must accept your request."
+            placeholderText: "To start messaging the user\n they must accept your request."
             wrapMode: Text.WordWrap
             font.pixelSize: parent.width * 0.06
             Rectangle {
@@ -126,45 +126,58 @@ Item {
 
     }
 
-
-
+Item {
+    anchors.left:parent.left
+    anchors.bottom:parent.bottom
+    anchors.margins: mainView.width * 0.04
+    width:parent.width * 0.08
+    height:parent.width * 0.08
     Image {
-        anchors.left:parent.left
-        anchors.bottom:parent.bottom
-        anchors.margins: parent.height * 0.04
+
         source:"./icons/close.svg"
-        width:parent.height * 0.05
-        height:parent.height * 0.05
-        Flasher {
+        width:parent.height * 0.8
+        height:parent.height * 0.8
+        anchors.centerIn: parent
+    }
+    Flasher {
 
-        }
+    }
 
-        MouseArea {
-            anchors.fill: parent
-            onClicked: thisWindow.state = "InActive"
+    MouseArea {
+        anchors.fill: parent
+        onClicked: thisWindow.state = "InActive"
+    }
+}
+
+    Item {
+        anchors.right:parent.right
+        anchors.bottom:parent.bottom
+        anchors.margins: mainView.width * 0.04
+        width:parent.width * 0.08
+        height:parent.width * 0.08
+    Image {
+
+        source:"./icons/check.svg"
+        width:parent.height * 0.8
+        height:parent.height * 0.8
+        anchors.centerIn: parent
+
+    }
+
+    Flasher {
+
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            Request.send_request(currentcard_thecard,requestmessage.text);
+
+            thisWindow.state = "InActive"
+
         }
     }
 
-    Image {
-        anchors.right:parent.right
-        anchors.bottom:parent.bottom
-        anchors.margins: parent.height * 0.04
-        source:"./icons/check.svg"
-        width:parent.height * 0.05
-        height:parent.height * 0.05
-        Flasher {
-
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                Request.send_request(currentcard_thecard,requestmessage.text);
-
-                thisWindow.state = "InActive"
-
-            }
-        }
     }
 
 }
