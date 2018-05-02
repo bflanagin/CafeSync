@@ -19,6 +19,7 @@ Item {
     property string number: "0"
     property string list:""
     property string title:""
+    property string latestStatus:""
 
     clip: true
 
@@ -27,7 +28,7 @@ Item {
     onStateChanged: {switch(title) {
                        case "Category": Scripts.Category_search();break;
                        case "Category Select": Scripts.Category_set();break;
-                       default: Scripts.totals();break;
+                       default: Scripts.totals();latestStatus = MicroBlog.latest_log("Menu",usercardNum);break;
                     }
             //console.log(username)
             }
@@ -197,7 +198,7 @@ Item {
                         Item{
                             id:icon
                             anchors.left: parent.left
-                            anchors.leftMargin: 10
+                            anchors.leftMargin: if(menuitem != "3") {mainView.width * 0.03} else {mainView.width * 0.70}
                             anchors.verticalCenter: parent.verticalCenter
                             width:if(menuitem == 1) {parent.height} else {parent.height * 0.6}
                             height:if(menuitem == 1) {parent.height} else {parent.height * 0.6}
@@ -208,7 +209,7 @@ Item {
                                        case "0": "./icons/gps.svg";break;
                                        case "2": "./icons/contact-group.svg";break;
                                       case "1": "./icons/contact.svg";break;
-                                       case "3": "./icons/message.svg";break;
+                                       case "3": "./icons/edit.svg";break;
                                        case "4": "./icons/message.svg";break;
                                        case "5": "./icons/swap.svg";break;
                                        case "6": "./icons/calendar.svg";break;
@@ -217,12 +218,13 @@ Item {
                                        } } else {""}
                             }
                             CirclePic {
+                                id:menuPic
                                 anchors.fill: parent
                                 visible: if(menuitem == 1) {true} else {false}
                                 //theImage:"./icons/contact.svg"
-                                 whichPic:"150"
-                                 where:"menu"
-                                 //thesource: avimg
+                                 whichPic:usercardNum
+                                 where:"mycard"
+
 
                             }
 
@@ -242,11 +244,11 @@ Item {
                                      case "0": qsTr("Collected");break;
                                      case "2": qsTr("Contacts");break;
                                     case "1": username;break;
-                                     case "3": qsTr("Chat ");break;
+                                     case "3": qsTr("");break;
                                      case "4": qsTr("Messages ");break;
                                      case "5": qsTr("Requests ");break;
                                      case "6": qsTr("Events ");break;
-                                     //case "8":"";break;
+                                     //case "8":qsTr("");break;
                                      default:menuitem;break;
                                      }
                                      } else {menuitem}
@@ -256,7 +258,7 @@ Item {
                                      visible: if(menuitem == 1) {true} else {false}
 
                                         anchors.top:parent.bottom
-                                         text:"<p>"+MicroBlog.latest_log("Menu",usercardNum)+"</p>"
+                                         text:"<p>"+latestStatus+"</p>"
                                          verticalAlignment:Text.AlignVCenter
                                          //padding: width * 0.2
                                          anchors.left: parent.left
@@ -282,7 +284,7 @@ Item {
                                   case "0":"("+ptotal+")";break;
                                   case "2":"("+ctotal+")";break;
                                  case "1":"";break;
-                                  case "3": qsTr("(Coming Soon)");break;
+                                  case "3": qsTr("Edit Profile");break;
                                   case "4": qsTr("("+totalNewMessages+")");break;
                                   case "5": qsTr("("+requests+")");break;
                                   case "6": qsTr("(Coming Soon)");break;
@@ -298,7 +300,7 @@ Item {
                                 height:parent.height * 1.4
                                 anchors.verticalCenter: parent.verticalCenter
                                 color:seperatorColor1
-                                visible: if(parent.text !="") {true} else {false}
+                                visible: if(parent.text != "") {if(menuitem !="3") {true} else {false} } else {false}
 
                             }
 
@@ -329,12 +331,12 @@ Item {
                                      //saveded.state = "unselected";
                                     // passby.state = "selected";
                                      pages = 1;
-                              cardslist.clear();
-                              currentcard = -1;
-                             topBar.isActive = false;
-                                  selection = 0;
-                                  listget = "temp"
-                                  Scripts.temp_Load(searchtext,listget);
+                                        cardslist.clear();
+                                        currentcard = -1;
+                                        topBar.isActive = false;
+                                             selection = 0;
+                                            listget = "temp"
+                                            Scripts.temp_Load(searchtext,listget);
 
                           }break;
                           case "2":{
@@ -354,10 +356,22 @@ Item {
                               listget = "saved";
                                   Scripts.cards_Load(searchtext);
                           }break;
-                          //case "3": /*settingsPage.state = "Active",cardPage.state = "settings";popup.state = "InActive";cardindex = 0;*/break;
+
+                          case "3": settingsPage.state = "Active";
+                                    cardPage.state = "settings";
+                                   // popup.state = "InActive";
+                                    cardindex = 0;
+                                    break;
+
                           case "1":requestPage.state = "InActive";
                                    messagePage.state = "InActive";
-                                    settingsPage.state = "InActive";cardPage.state = "show";cardPage.state = "default";currentcard = -1;cardindex = 0;
+                                    settingsPage.state = "InActive";cardPage.state = "show";cardPage.state = "default";currentcard = -1;currentcard_username = username;
+                                            currentcard_companyname = usercompany;
+                                            currentcard_avatarimg = avimg;
+
+
+
+                                            cardindex = 0;
                                             pagelist.clear();Scripts.show_Sites("local",userid);mainScreen.state = "Active";mainScreen.fromRequest = false;popup.state = "InActive";mainScreen.positionViewAtBeginning();gc();
                                             currentcard_saved = 2;
                                             //if(layouts.width < units.gu(mobile_vert)) {
@@ -427,10 +441,10 @@ Item {
                                             type:1
                                     }
 
-                                 /*   ListElement {
-                                            menuitem: "8"
+                                    ListElement {
+                                            menuitem: "3"
                                             type:3
-                                    } */
+                                    }
 
                                     ListElement {
                                             section: "1"

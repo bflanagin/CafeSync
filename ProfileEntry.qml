@@ -186,8 +186,8 @@ Flickable {
         visible: if(type == "skill") {true} else {false}
         anchors.horizontalCenter: parent.horizontalCenter
         //anchors.verticalCenter: parent.verticalCenter
-        width:parent.width * 0.98
-        height:parent.height * 0.98
+        width:parent.width
+        height:parent.height
         clip:true
 
 
@@ -370,8 +370,8 @@ Flickable {
         visible: if(type == "work") {true} else {false}
         anchors.horizontalCenter: parent.horizontalCenter
         //anchors.verticalCenter: parent.verticalCenter
-        width:parent.width * 0.98
-        height:parent.height * 0.98
+        width:parent.width
+        height:parent.height
         clip:true
 
         Rectangle {
@@ -560,8 +560,8 @@ Flickable {
         visible: if(type == "school") {true} else {false}
         anchors.horizontalCenter: parent.horizontalCenter
         //anchors.verticalCenter: parent.verticalCenter
-        width:parent.width * 0.98
-        height:parent.height * 0.98
+        width:parent.width
+        height:parent.height
         clip:true
 
         Rectangle {
@@ -672,30 +672,49 @@ Flickable {
 
     }
 
-    Image {
+    Item {
         anchors.left:parent.left
         anchors.bottom:parent.bottom
-        anchors.margins: parent.height * 0.04
-        source:"./icons/close.svg"
-        width:parent.height * 0.05
-        height:parent.height * 0.05
-        Flasher {
+        anchors.margins: mainView.width * 0.04
+        width:parent.width * 0.08
+        height:parent.width * 0.08
 
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: thisWindow.state = "InActive",listindex = -1
-        }
-    }
 
     Image {
+
+        source:"./icons/close.svg"
+        width:parent.height * 0.7
+        height:parent.height * 0.7
+        anchors.centerIn: parent
+
+    }
+
+    Flasher {
+
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: thisWindow.state = "InActive",listindex = -1
+    }
+
+    }
+
+    Item {
         anchors.right:parent.right
         anchors.bottom:parent.bottom
-        anchors.margins: parent.height * 0.04
+        anchors.margins: mainView.width * 0.04
+        width:parent.width * 0.08
+        height:parent.width * 0.08
+    Image {
+
         source:"./icons/check.svg"
-        width:parent.height * 0.05
-        height:parent.height * 0.05
+        width:parent.height * 0.7
+        height:parent.height * 0.7
+        anchors.centerIn: parent
+
+    }
+
         Flasher {
 
         }

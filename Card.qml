@@ -183,12 +183,14 @@ import "microblogger.js" as MicroBlogger
                                             visible:if(cardsop == 1) {true} else {false}
                                             text: "<div>"+name+"</div>"
                                             //width:thecard.width * 2
-                                            //wrapMode: Text.WordWrap
-                                            font.pixelSize:mainView.height * 0.034
+                                            wrapMode: Text.WordWrap
+                                            font.pixelSize:mainView.width * 0.063
                                             font.bold: true
-                                            anchors.horizontalCenter: parent.horizontalCenter
+                                          //  anchors.horizontalCenter: parent.horizontalCenter
                                             anchors.left:card_avatar_backing.right
-                                           anchors.leftMargin: parent.width * 0.008
+                                            anchors.leftMargin: parent.width * 0.008
+                                            anchors.right:parent.right
+                                            anchors.rightMargin: parent.width * 0.008
                                             anchors.top: parent.top
                                             anchors.topMargin: parent.height * 0.07
                                            // wrapMode:Text.WordWrap
@@ -263,7 +265,7 @@ import "microblogger.js" as MicroBlogger
                                             anchors.leftMargin: parent.width * 0.02
                                             anchors.verticalCenter: parent.verticalCenter
                                             font.pixelSize: parent.height * 0.8
-                                            text:cardStatus
+                                            text:"<div>"+cardStatus+"</div>"
                                             width: parent.width * 0.9
                                             wrapMode: Text.WordWrap
                                             maximumLineCount: 1
@@ -396,12 +398,12 @@ import "microblogger.js" as MicroBlogger
 
 
 
-                                Info {
+                               /* Share {
                                     id:shade
                                     anchors.fill:parent
                                     state:"InActive"
                                     type:"darken"
-                                }
+                                } */
                         }
 
 

@@ -1,7 +1,7 @@
 import QtQuick 2.8
 import QtQuick.Controls 2.2
 import QtQuick.Dialogs 1.2
-import QtQuick.Controls.Material 2.2
+//import QtQuick.Controls.Material 2.2
 import QtGraphicalEffects 1.0
 
 import IO 1.0
@@ -413,7 +413,7 @@ Item {
             Text {
                 anchors.centerIn: parent
                 text: qsTr("Wizard")
-                font.pixelSize: parent.height * 0.4
+                font.pixelSize: parent.height * 0.5
                 color:fontColorTitle
             }
         }
@@ -433,7 +433,7 @@ Item {
             Text {
                 anchors.centerIn: parent
                 text: qsTr("Chat")
-                font.pixelSize: parent.height * 0.4
+                font.pixelSize: parent.height * 0.5
                 color:fontColorTitle
             }
         }
@@ -445,8 +445,8 @@ Item {
 
             anchors.leftMargin: parent.width * 0.03
 
-            width:parent.height * 0.4
-            height:parent.height * 0.4
+            width:parent.height * 0.5
+            height:parent.height * 0.5
 
 
             Image {
@@ -502,7 +502,7 @@ Item {
             Text {
                 anchors.centerIn: parent
                 text: if(messagePage.area =="Chat") {messagePage.whowith} else {messagePage.area}
-                font.pixelSize: parent.height * 0.4
+                font.pixelSize: parent.height * 0.5
                 color:fontColorTitle
             }
         }
@@ -514,8 +514,8 @@ Item {
 
             anchors.leftMargin: parent.width * 0.03
 
-            width:parent.height * 0.4
-            height:parent.height * 0.4
+            width:parent.height * 0.5
+            height:parent.height * 0.5
 
 
             Image {
@@ -581,8 +581,8 @@ Item {
             visible: if(messagePage.area == "Conversations") {true} else {false}
             anchors.rightMargin: parent.width * 0.03
 
-            width:parent.height * 0.4
-            height:parent.height * 0.4
+            width:parent.height * 0.5
+            height:parent.height * 0.5
 
 
             Image {
@@ -630,7 +630,7 @@ Item {
             Text {
                 anchors.centerIn: parent
                 text: qsTr("Requests")
-                font.pixelSize: parent.height * 0.4
+                font.pixelSize: parent.height * 0.5
                 color:fontColorTitle
             }
         }
@@ -642,8 +642,8 @@ Item {
 
             anchors.leftMargin: parent.width * 0.03
 
-            width:parent.height * 0.4
-            height:parent.height * 0.4
+            width:parent.height * 0.5
+            height:parent.height * 0.5
 
 
             Image {
@@ -695,7 +695,7 @@ Item {
             Text {
                 anchors.centerIn: parent
                 text: qsTr("Events")
-                font.pixelSize: parent.height * 0.4
+                font.pixelSize: parent.height * 0.5
                 color:fontColorTitle
             }
         }
@@ -708,8 +708,8 @@ Item {
 
             anchors.leftMargin: parent.width * 0.03
 
-            width:parent.height * 0.4
-            height:parent.height * 0.4
+            width:parent.height * 0.5
+            height:parent.height * 0.5
 
 
             Image {
@@ -777,8 +777,8 @@ Item {
     rotation:if(themenu.state == "Active") {90} else {0}
 
     anchors.leftMargin: parent.width * 0.03
-    width:parent.height * 0.4
-    height:parent.height * 0.4
+    width:parent.height * 0.5
+    height:parent.height * 0.5
 
     Image {
         anchors.fill: parent
@@ -826,8 +826,8 @@ Item {
     Item {
         id:search
 
-        width:parent.height * 0.4
-      height:parent.height * 0.4
+        width:parent.height * 0.5
+      height:parent.height * 0.5
       anchors.right:parent.right
       anchors.rightMargin:parent.width * 0.03
       anchors.verticalCenter: parent.verticalCenter
@@ -896,14 +896,15 @@ Item {
         //onClicked: {menuLocx = parent.x;menuLocy = parent.height;if(themenu.state == "InActive") {themenu.state = "Active"} else {themenu.state = "InActive"}}
             onPressed: locflick.state = "Active"
             onReleased: locflick.state = "InActive"
-            onClicked:if(selection != 1) {switch(location_switch.loc) {
+            onClicked:if(themenu.state != "Active") { if(selection != 1) {switch(location_switch.loc) {
                                              case 0: currentcard = -1;/*location_switch.loc = 2;*/location_selected = "Region";cardslist.clear();listget = "region";OpenSeed.get_list(userid,listget);Scripts.temp_Load(searchtext,listget);break;
                                              //case 1: currentcard = -1;location_switch.loc = 2;location_selected = "Global";cardslist.clear();listget = "global";OpenSeed.get_list(userid,listget);Scripts.temp_Load(searchtext,listget);break;
                                              case 2: currentcard = -1;/*location_switch.loc = 0;*/location_selected = "Passers By";cardslist.clear();listget = "temp";OpenSeed.get_list(userid,listget);Scripts.temp_Load(searchtext,listget);break;
                                              }
                         } else {
-                            if(grabit.state == "InActive") {grabit.state = "Active"} else {grabit.state = "InActive"}
+                            if(swapopt.state == "InActive") {swapopt.type ="receive";swapopt.state = "Active";} else {swapopt.type ="receive";swapopt.state = "InActive";}
                         }
+                      }
 
         }
     }
@@ -927,8 +928,8 @@ Item {
 
             anchors.leftMargin: parent.width * 0.03
 
-            width:parent.height * 0.4
-            height:parent.height * 0.4
+            width:parent.height * 0.5
+            height:parent.height * 0.5
 
 
             Image {
@@ -964,7 +965,21 @@ Item {
                                                                      useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
                                                                      avimg,carddesign,usercat); */
                         // settingsPage.saveit = true;
-                    themenu.state = "InActive",settingsPage.state = "InActive",topBar.isActive = false,mainMenu.rotation = 0,topBar.state = "person",/*mainScreen.state = "InActive",*/pagelist.clear(),Scripts.load_Card(),Scripts.show_Sites("local",userid);
+                        if(themenu.state == "InActive") {
+                                themenu.state = "InActive";
+                                settingsPage.state = "InActive";
+                                topBar.isActive = false;
+                                mainMenu.rotation = 0;
+                                topBar.state = "person";
+                                /*mainScreen.state = "InActive";*/
+                                pagelist.clear();
+                                Scripts.load_Card();
+                                Scripts.show_Sites("local",userid);
+                    } else {
+                            settingsPage.state = "InActive";
+                            topBar.state = "standard";
+                        }
+
                     }
                         }
 
@@ -989,8 +1004,8 @@ Item {
             anchors.right:parent.right
             anchors.rightMargin:parent.width * 0.03
             anchors.verticalCenter: parent.verticalCenter
-            width:parent.height * 0.4
-            height:parent.height * 0.4
+            width:parent.height * 0.5
+            height:parent.height * 0.5
 
 
 
@@ -1085,8 +1100,8 @@ Item {
 
             anchors.leftMargin: parent.width * 0.03
             rotation:if(catmenu.state == "Active") {90} else {0}
-            width:parent.height * 0.4
-            height:parent.height * 0.4
+            width:parent.height * 0.5
+            height:parent.height * 0.5
 
             Image {
                 id:menu_icon2
@@ -1124,10 +1139,12 @@ Item {
             anchors.rightMargin: parent.width * 0.02
             anchors.left:mainMenu2.right
             anchors.leftMargin: parent.width * 0.02
-            anchors.verticalCenter: parent.verticalCenter
-            padding: width * 0.05
-           // height:parent.height
+            anchors.bottom: parent.bottom
+          //  anchors.verticalCenter: parent.verticalCenter
+            leftPadding: width * 0.05
+            //height:parent.height * 0.4
             font.pixelSize: parent.width * 0.05
+           // verticalAlignment: Text.AlignVCenter
             text:searchtext
             placeholderText: qsTr(currentcat+":Search")
              background:InputBack{}
@@ -1143,8 +1160,8 @@ Item {
             anchors.right:parent.right
             anchors.rightMargin: 10
             anchors.verticalCenter: parent.verticalCenter
-            width:parent.height * 0.4
-            height:parent.height * 0.4
+            width:parent.height * 0.5
+            height:parent.height * 0.5
 
 
 
@@ -1199,8 +1216,8 @@ Item {
 
 
     anchors.leftMargin: parent.width * 0.03
-    width:parent.height * 0.4
-    height:parent.height * 0.4
+    width:parent.height * 0.5
+    height:parent.height * 0.5
 
     Image {
         id:back_icon3
@@ -1227,8 +1244,15 @@ Item {
     MouseArea {
         anchors.fill:parent
         //onClicked: standardMenu.popup()
-        onClicked:if(achievePage.state == "Active") {achievePage.state = "InActive" } else { mainScreen.state = "InActive", topBar.state="standard" }
+        onClicked: { if(achievePage.state == "Active")
+                            {achievePage.state = "InActive" }
+                              else if (swapopt.state == "Active") {swapopt.state = "InActive"}
+                                else { mainScreen.state = "InActive"; topBar.state="standard" }
 
+                        if(themenu.state == "Active") {
+                                    topBar.state="standard";
+                        }
+        }
     }
 
 
@@ -1266,7 +1290,7 @@ Item {
 
     MouseArea {
         anchors.fill:parent
-        onClicked: switch (currentcard_saved){
+        onClicked: if(themenu.state != "Active") { switch (currentcard_saved){
                   /* case 0: Scripts.Cards_save(currentcard_thecard,currentcard_username,currentcard_userphone,currentcard_useremail,currentcard_companyname,currentcard_cardposition,currentcard_motto,
                                           currentcard_mainsite,currentcard_url1,currentcard_url2,currentcard_url3,currentcard_url4,currentcard_avatarimg,currentcard_realcardback,currentcard_cardcat,currentcard_cardsop);
 
@@ -1280,11 +1304,11 @@ Item {
                         currentcard_saved = 1;
                        break; */
                    //case 2:settingsPage.state = "Active";mainScreen.state = "InActive";break;
-                   case 2:swapopt.state ="Active";break;
-                    case 1:swapopt.state ="Active";break;
-                    case 0:swapopt.state ="Active";break;
+                   case 2:swapopt.where = "";if(swapopt.state == "InActive") {swapopt.type = "send"; swapopt.state ="Active"} else {swapopt.state = "InActive"};break;
+                    case 1:swapopt.where = "";if(swapopt.state == "InActive") {swapopt.type = "send"; swapopt.state ="Active"} else {swapopt.state = "InActive"};break;
+                    case 0:swapopt.where = "";if(swapopt.state == "InActive") {swapopt.type = "send"; swapopt.state ="Active"} else {swapopt.state = "InActive"};break;
 
-                   }
+                   } }
 
     onPressed: sav1flick.state = "Active"
     onReleased: sav1flick.state = "InActive"
@@ -1295,8 +1319,8 @@ Item {
 
 Item {
     id:editdelete
-    width:  parent.height  * 0.4
-    height:  parent.height * 0.4
+    width:  parent.height  * 0.5
+    height:  parent.height * 0.5
     anchors.right:parent.right
     anchors.rightMargin: parent.width * 0.03
     anchors.verticalCenter: parent.verticalCenter

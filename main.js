@@ -302,7 +302,7 @@ function load_Card() {
 
     }
 
-    //console.log(sendCard.checked,test);
+   // console.log(avimg);
 
 }
 

@@ -32,7 +32,7 @@ function send_request(requestid,message) {
 
 }
 
-function check_requests() {
+function check_requests(where) {
 
     var old_requests = requests;
     var http = new XMLHttpRequest();
@@ -49,11 +49,12 @@ function check_requests() {
             } else {
                // console.log(http.responseText);
                var server = http.responseText;
-
+                    if(where != "timer") {
                     requestlog.clear();
+
+                    }
+
                     requests = 0;
-
-
                     for(var num = 1;num < server.split("><").length;num = num + 1) {
 
                              var requestedby = server.split("><")[num].split("::")[0];
@@ -61,7 +62,7 @@ function check_requests() {
 
                             var stat = "";
 
-                           if(values.split("::")[4] != "1") {
+                           //if(values.split("::")[4] != "1") {
 
                         if(requestedby == usercardNum) {
 
@@ -71,18 +72,39 @@ function check_requests() {
                             case "2": stat = "Denied";break;
                             default: stat = "Sent";break;
                             }
+                                switch(requestPage.type) {
+                                 case "new": if(stat == "Sent") {requestlog.append({
+                                                                                    who:values.split("::")[1],
+                                                                                    speaker: values.split("::")[6],
+                                                                                    timecode:"?",
+                                                                                    message:values.split("::")[2],
+                                                                                    direction: 0,
+                                                                                    status: stat,
+                                                                                    requestid:values.split("::")[3],
+                                                                                        });
+                                                                                    };break;
+                                case "accepted":if(stat == "Accepted") {requestlog.append({
+                                                                                          who:values.split("::")[1],
+                                                                                          speaker: values.split("::")[6],
+                                                                                          timecode:"?",
+                                                                                          message:values.split("::")[2],
+                                                                                          direction: 0,
+                                                                                          status: stat,
+                                                                                          requestid:values.split("::")[3],
+                                                                                            });
+                                                                                         };break;
+                                case "denied":if(stat == "Denied") {requestlog.append({
+                                                                                          who:values.split("::")[1],
+                                                                                          speaker: values.split("::")[6],
+                                                                                          timecode:"?",
+                                                                                          message:values.split("::")[2],
+                                                                                          direction: 0,
+                                                                                          status: stat,
+                                                                                          requestid:values.split("::")[3],
+                                                                                            });
+                                                                                         };break;
 
-                                 requestlog.append({
-                                              who:values.split("::")[1],
-                                              speaker: values.split("::")[6],
-                                              timecode:"?",
-                                              message:values.split("::")[2],
-                                              direction: 0,
-                                              status: stat,
-                                              requestid:values.split("::")[3],
-
-
-                                          });
+                                }
 
                                 } else {
                                         switch(values.split("::")[4]) {
@@ -92,21 +114,55 @@ function check_requests() {
                                         default: stat = "New";break;
                                              }
                                      requests = requests + 1;
-                            requestlog.append({
+                                        switch(requestPage.type) {
+                                         case "new": if(stat == "New") {
+                                                                        if(requests > old_requests) {
+                                                                            requestlog.clear();
+                                                                             notificationClient.notification = "New Connection Requests.";
+                                                                            }
+                                                                        requestlog.append({
+                                                                                            who:values.split("::")[0],
+                                                                                            speaker: values.split("::")[5],
+                                                                                            timecode:"?",
+                                                                                            message:values.split("::")[2],
+                                                                                            direction: 1,
+                                                                                            status: stat,
+                                                                                            requestid:values.split("::")[3],
+                                                                                                });
 
-                                         who:values.split("::")[0],
-                                         speaker: values.split("::")[5],
-                                         timecode:"?",
-                                         message:values.split("::")[2],
-                                         direction: 1,
-                                         status: stat,
-                                         requestid:values.split("::")[3],
+                                                                                            };break;
+                                         case "accepted": if(stat == "Accepted") {requestlog.append({
+                                                                                            who:values.split("::")[0],
+                                                                                            speaker: values.split("::")[5],
+                                                                                            timecode:"?",
+                                                                                            message:values.split("::")[2],
+                                                                                            direction: 1,
+                                                                                            status: stat,
+                                                                                            requestid:values.split("::")[3],
+                                                                                                });
+                                                                                            };break;
+                                         case "denied": if(stat == "Denied") {requestlog.append({
+                                                                                            who:values.split("::")[0],
+                                                                                            speaker: values.split("::")[5],
+                                                                                            timecode:"?",
+                                                                                            message:values.split("::")[2],
+                                                                                            direction: 1,
+                                                                                            status: stat,
+                                                                                            requestid:values.split("::")[3],
+                                                                                                });
+                                                                                            };break;
 
-                                     });
+                                            }
 
+                                        if(requests > old_requests) {
+                                           // requestlog.clear();
+                                             notificationClient.notification = "New Connection Requests.";
+                                            }
                         }
 
-                    } else {
+
+
+                        if(values.split("::")[4] != "1")  {
                                if(requestedby == usercardNum) {
                                    if(accepted.search(values.split("::")[1]) == -1) {
                             accepted = values.split("::")[1]+","+accepted;
@@ -117,12 +173,11 @@ function check_requests() {
                                    }
                                }
                            }
+                        }
 
-                    }
 
-                    if(requests > old_requests) {
-                        notificationClient.notification = "New Connection Requests.";
-                    }
+
+
 
             }
 

@@ -4,13 +4,14 @@ import IO 1.0
 
 import QtQuick.LocalStorage 2.0 as Sql
 
-import "getpic.js" as Scripts
+import "circlepic.js" as Scripts
 
 Item {
         id:card_avatar_backing
         property string whichPic:""
         property string where:""
-        property string thesource:"./img/default_avatar.png"
+        property string thesource:""
+        property string fixpic: ""
         //property string theImage:"./img/default_avatar.png"
 
        // anchors.verticalCenter: parent.verticalCenter
@@ -18,14 +19,19 @@ Item {
 
         clip:true
 
-        Component.onCompleted: Scripts.returnImage(whichPic,where)
+        Component.onCompleted: {Scripts.returnImage(whichPic,where,thesource)}
+
+        onWhichPicChanged: {Scripts.returnImage(whichPic,where,thesource)}
+
+        onWhereChanged:  {Scripts.returnImage(whichPic,where,thesource)}
+
 
         Image {
             id:cardsava
             anchors.fill:parent
             anchors.margins: 4
             visible: false
-            source: thesource
+            source: fixpic
             fillMode: Image.PreserveAspectCrop
 
             Image {

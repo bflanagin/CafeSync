@@ -127,6 +127,10 @@ Item {
          }else if(page.search("blog") != -1) {
                                  custompage = 13;
 
+          } else if(page.search("steemit") != -1) {
+                             custompage = 14;
+
+
         } else if(custompage == 0) {
                //  WebPage.get_html(page.split("::")[1]);
                    }
@@ -152,6 +156,12 @@ Item {
             PropertyChanges {
                 target: home
                 visible:false
+                enabled:false
+            }
+            PropertyChanges {
+                target: log
+                visible:false
+                enabled:false
             }
 
         },
@@ -169,6 +179,7 @@ Item {
           PropertyChanges {
               target: home
               visible:false
+              enabled:false
           }
         },
         State {
@@ -197,8 +208,14 @@ Item {
               enabled:false
           }
           PropertyChanges {
+              target: log
+              visible:false
+              enabled:false
+          }
+          PropertyChanges {
               target: home
               visible:true
+              enabled:true
           }
         },
 
@@ -216,6 +233,7 @@ Item {
           PropertyChanges {
               target: home
               visible:false
+              enabled:false
           }
           PropertyChanges {
               target: log
@@ -278,6 +296,8 @@ Item {
 
 
         }
+
+
 
         Twitter {
             state:if(custompage == 3 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
@@ -361,6 +381,14 @@ Item {
 
 
         }
+       Steemit {
+            state:if(custompage == 14 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
+            anchors.fill:parent
+            pagesource:thesource
+            service:page
+
+
+        }
 
        /* Kickstarter {
             state:if(custompage == 11) {"Active"} else {"InActive"}
@@ -388,14 +416,18 @@ Item {
          }
 
 
-   Home {
+     Home {
+         //   enabled: if(custompage == 0 && pindex == ms.indexAt(ms.contentX,0)) {true} else {false}
           id:home
           visible:false
+          enabled: false
               }
 
    MicroBlogger {
+          //  enabled: if(custompage == 0 && pindex == ms.indexAt(ms.contentX,0)) {true} else {false}
           id:log
           visible:false
+
               }
 
    ListModel {
@@ -413,6 +445,10 @@ Item {
 
    ListModel {
                    id:shopposts
+
+           }
+   ListModel {
+                   id:steemitposts
 
            }
 }

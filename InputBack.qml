@@ -1,7 +1,9 @@
 import QtQuick 2.8
 
 Rectangle {
-    border.color: "black"
-    border.width: 1
-    radius: 20
+    border.color: "darkgray"
+    border.width: 0.5
+    //anchors.verticalCenter: parent.verticalCenter
+    radius: mainView.width * 0.05
+
          }

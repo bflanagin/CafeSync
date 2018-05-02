@@ -4,7 +4,7 @@ import QtGraphicalEffects 1.0
 
 
 import "../main.js" as Scripts
-import "webpage.js" as Site
+import "steemit.js" as Site
 
 
 Item {
@@ -15,7 +15,7 @@ Item {
     property string service:""
     property string extrathing:""
     property string sitedata:""
-    property string pluginlogo: "../"+Scripts.socialsetup(service.split("::")[0]).split("::")[2]
+    property string pluginlogo:"../img/steemit-vector-logo.png"
     property string avatar: ""
     property string name: ""
     property string banner: ""
@@ -24,8 +24,7 @@ Item {
     property string posttitle:""
     property string post:""
     property string postimage:""
-    property string link:""
-   //  property int postcount: 0
+    property int postcount: 0
 
     clip: true
 
@@ -38,6 +37,7 @@ Item {
             PropertyChanges {
                 target: popup
                 visible:true
+
             }
 
         },
@@ -46,7 +46,10 @@ Item {
           PropertyChanges {
               target: popup
               visible:false
+
+
           }
+
         }
     ]
 
@@ -56,23 +59,17 @@ Item {
         id:bg
         anchors.centerIn: parent
         source:banner
-        width:parent.width * 0.90
-        height:parent.height * 0.90
-        fillMode:Image.PreserveAspectFit
+        anchors.fill: parent
+        fillMode:Image.PreserveAspectCrop
         opacity: 0.1
     }
 
-    /*Text {
-        text:theurl
-        anchors.centerIn: parent
-    } */
-
-    /*Rectangle {
+   /* Rectangle {
         anchors.fill:parent
         radius:10
         color:Qt.rgba(0.5,0.5,0.5,0.6)
         border.width:1
-    }*/
+    } */
 
     /*Image {
         id:shade
@@ -87,18 +84,19 @@ Item {
         anchors.topMargin:10
         anchors.horizontalCenter: parent.horizontalCenter
         width:parent.width * 0.98
-        height:parent.width * 0.15
+        height:parent.height * 0.15
         color:Qt.rgba(0.5,0.5,0.5,0.8)
-        radius:5
+        radius:4
+        clip:true
        // border.color: "white"
-      //  border.width:1
+       // border.width:1
         z:1
         Image {
             id:avimage
             anchors.left:parent.left
             anchors.verticalCenter: parent.verticalCenter
-            width:parent.height * 0.85
-            height:parent.height * 0.85
+            width:parent.height * 0.80
+            height:parent.height * 0.80
             fillMode:Image.PreserveAspectFit
             source:avatar
 
@@ -107,24 +105,27 @@ Item {
             id:blogtitle
             anchors.left:avimage.right
             text:name
-            minimumPixelSize: 20
-            font.pixelSize: avimage.height * 0.60
+            font.pixelSize: parent.height * 0.45 - text.length
             color:"white"
+            minimumPixelSize: 20
         }
         Text {
             id:about
             anchors.left:avimage.right
             anchors.top:blogtitle.bottom
+            anchors.topMargin: parent.height * 0.01
             text:message
-            font.pixelSize: blogtitle.height * 0.30 - message.length
+            font.pixelSize: blogtitle.height * 0.25 - text.length
             color:"white"
+            wrapMode: Text.WordWrap
+            width:parent.width * 0.80
         }
 
     }
 
     ListView {
         width:parent.width * 0.98
-        height:parent.height * 0.89
+        height:parent.height * 0.85
        // contentHeight: postbg.height * 1.2
        // contentWidth: width
         //anchors.centerIn: parent
@@ -132,42 +133,42 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: parent.height * 0.05
         cacheBuffer: 180
-        clip:true
+       clip:true
 
-        delegate: Item {
-                        width:popup.width * 0.95
-                        height:postcontent.height + mainView.height * 0.06
-                        anchors.horizontalCenter: parent.horizontalCenter
+        delegate:Item {
+                    width:parent.width * 0.98
+                    height:postcontent.height
+                    anchors.horizontalCenter: parent.horizontalCenter
 
             Rectangle {
-                        id:postbg
-                            radius:3
-                            color:cardcolor
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            //color:Qt.rgba(0.7,0.7,0.7,0.9)
-                           // border.color:"gray"
-                           // border.width:1
-                             width:parent.width
-                             height:parent.height
-                             //height:parent.height * 0.70
+        id:postbg
+        radius:5
+        //anchors.centerIn: parent
+        color:cardcolor
+        //border.color:"gray"
+       // border.width:4
+        width:parent.width
+        height:parent.height
 
-                              clip:true
-                             z:0
+        anchors.horizontalCenter: parent.horizontalCenter
+        //height:postcontent.height + 10
+        clip:true
+        z:0
 
         Item {
             id:postcontent
-            width:parent.width * 0.98
             anchors.horizontalCenter: parent.horizontalCenter
-            height:titletext.height+postsplitter.height+postimg.height+posttext.height+mainView.height * 0.06
+            width:parent.width * 0.98
+            height:titletext.height+ postdata.height + postimg.height
             Text {
                 id:titletext
                 width:parent.width
                 horizontalAlignment: Text.AlignHCenter
-                visible:if(theposttitle.length > 2) {true} else {false}
-                text:"<br>"+theposttitle
-                font.pixelSize: postbg.width * 0.08
+                visible:if(posttitle.length > 2) {true} else {false}
+                text:"<b>"+posttitle+"</b>"
+                font.pixelSize: postbg.width * 0.12 - posttitle.length
                 wrapMode:Text.WordWrap
-                //color:"white"
+                color:"black"
             }
 
             Rectangle {
@@ -175,61 +176,56 @@ Item {
                 color:"gray"
                 anchors.top:titletext.bottom
                 width:parent.width
-                height:parent.width * 0.01
-                visible:if(theposttitle.length > 2) {true} else {false}
+                height:postbg.height * 0.01
+                visible:if(posttitle.length > 2) {true} else {false}
             }
 
             Image {
-                visible: if(thepostimage.length > 2) {true} else {false}
+                visible: if(postimage.length > 2) {true} else {false}
                 anchors.top:postsplitter.bottom
-                anchors.topMargin: parent.width * 0.1
-                width:parent.width * 0.95
+                width:parent.width * 0.98
+                //height:if(postimage.length > 2) {popup.height * 0.70} else {10}
                 fillMode: Image.PreserveAspectFit
                 anchors.horizontalCenter: parent.horizontalCenter
-                source:thepostimage
+                source:postimage
                 id:postimg
             }
             Text {
-                id:posttext
+                id:postdata
                 anchors.top:postimg.bottom
-                anchors.topMargin: parent.width * 0.01
+                anchors.topMargin:8
                 //anchors.bottom:parent.bottom
                 width:parent.width * 0.95
-                anchors.horizontalCenter: parent.horizontalCenter
-                horizontalAlignment: Text.AlignJustify
+                horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: postbg.width * 0.04
-                text:thepost
+                text:"<p>"+post+"</p>"
                 wrapMode:Text.WordWrap
-               // color:"white"
+                color:"black"
             }
         }
 
-        MouseArea {
-          anchors.fill:parent
-             //onClicked: showurl = link,fullWeb.state = "show"
-            // ,cardPage.header.hide()
-                onPressAndHold:Qt.openUrlExternally(thelink);
-
-
-         }
-
     }
 
-        DropShadow {
-            anchors.fill:postbg
-            horizontalOffset: 0
-            verticalOffset: 4
-            radius: 8.0
-            samples: 17
-            color: "#80000000"
-            source:postbg
-            z:1
+            DropShadow {
+                anchors.fill:postbg
+                horizontalOffset: 0
+                verticalOffset: 4
+                radius: 8.0
+                samples: 17
+                color: "#80000000"
+                source:postbg
+                z:1
+            }
         }
+
+        model:steemitposts
+
+
     }
 
-        model:rssposts
 
-    }
+
+
 
     Rectangle {
         //y:if(bg.status == Image.Ready) {parent.height} else {0}
@@ -237,8 +233,8 @@ Item {
         width:parent.width
         height:parent.height
         color:backgroundColor
-        //radius:10
-        //border.color:seperatorColor1
+        radius:10
+       // border.color:"black"
         z:2
 
         states: [
@@ -261,6 +257,7 @@ Item {
                    target:blinder
                     y:parent.height
 
+                   opacity: 1
                     radius:0
                     color:bottombarColor
                     }
@@ -278,7 +275,7 @@ Item {
 
        transitions: Transition {
             PropertyAnimation { target: blinder
-                                      properties:"y,radius,color"; duration: 500 }
+                                      properties:"y,radius"; duration: 500 }
         }
 
     Item {
@@ -313,7 +310,7 @@ Item {
             anchors.verticalCenter:servicelogo.verticalCenter
             //font.underline: true
             font.pixelSize: servicelogo.height * 0.5
-            text:postcount -1
+            text:postcount
             color:fontColorTitle
         }
 
@@ -329,7 +326,6 @@ Item {
 
     }
 
-
     DropShadow {
         anchors.fill:blinder
         horizontalOffset: 0
@@ -344,10 +340,10 @@ Item {
     Image {
         id:logo
         anchors.centerIn: parent
-        source:""+pluginlogo
+        source:pluginlogo
         height:parent.height /3
         fillMode:Image.PreserveAspectFit
-        z:3
+        z:2
 
         states: [
                      State {  name:"Loading"
@@ -375,7 +371,7 @@ Item {
                      }
 
                  ]
-                 state:"loading"
+                 state:"Loading"
 
                  transitions: Transition {
                       PropertyAnimation { target: logo
@@ -406,7 +402,6 @@ Item {
 
         opacity:logo.opacity
     }
-
 
 
 }

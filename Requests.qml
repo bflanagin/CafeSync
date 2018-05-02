@@ -19,6 +19,7 @@ Item {
 
     id:thisWindow
     property int roomId: 0
+    property string type: "new"
 
     clip: true
 
@@ -64,7 +65,9 @@ Item {
 
     ]
 
-    onStateChanged: if(thisWindow.state == "Active") {Request.check_requests()} else {}
+    onStateChanged: if(thisWindow.state == "Active") {Request.check_requests("dialog")} else {}
+
+    onTypeChanged: Request.check_requests("dialog")
 
     property string readystate: "Not Ready"
     property int card: 0
@@ -81,27 +84,81 @@ Item {
     }
 
 
+    Timer {
+        id:requeststimer
+        interval: 6000
+        running:false
+        repeat:true
+        onTriggered:if(heartbeat != "Offline" && thisWindow.state != "Active") {
+                                Request.check_requests("timer");
+                        }
+    }
+
 Rectangle {
     anchors.fill: parent
     color:backgroundColor
 }
 
+Item {
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    width: parent.width
+    height: parent.height * 0.10
+    clip: true
+
+    Button {
+        width:parent.width * 0.32
+        height: parent.height * 0.80
+        text: "New"
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+        background: Rectangle {
+                    color:if(type == "new") {highLightColor1} else {"white"}
+                    }
+        onClicked: type = "new"
+    }
+
+    Button {
+        width:parent.width * 0.32
+        height: parent.height * 0.80
+        text: "Accepted"
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        background: Rectangle {
+                    color:if(type == "accepted") {highLightColor1} else {"white"}
+                    }
+        onClicked: type = "accepted"
+    }
+    Button {
+        width:parent.width * 0.32
+        height: parent.height * 0.80
+        text: "Denied"
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        background: Rectangle {
+                    color:if(type == "denied") {highLightColor1} else {"white"}
+                    }
+        onClicked: type = "denied"
+    }
+}
+
 ListView {
-    id:chatLog
+    id:requestLog
     width:parent.width
-    y:parent.height * 0.01
-    height:parent.height - bottomBar.height
+    anchors.bottom: parent.bottom
+    height:parent.height * 0.89
 
 
     spacing:thisWindow.height * 0.02
-    //clip:true
+    clip:true
 
     model: requestlog
 
     delegate: Item {
-        width:parent.width * 0.90
-        height:content.height * 1.2
-        anchors.right:if(direction == 0) {parent.right} else {""}
+        width:parent.width * 0.98
+        height:content.height * 1.3
+       // anchors.right:if(direction == 0) {parent.right} else {""}
+        anchors.horizontalCenter: parent.horizontalCenter
 
         clip:true
         Rectangle {
@@ -110,9 +167,21 @@ ListView {
             width:content.width
             height:content.height * 1.2
             color:"white"
-            radius:5
+            radius:mainView.width * 0.01
             visible: false
         }
+
+        DropShadow {
+            anchors.fill:backing
+            horizontalOffset: 0
+            verticalOffset: 4
+            radius: 8.0
+            samples: 17
+            color: "#80000000"
+            source:backing
+            //z:-1
+        }
+
         Column {
             id:content
             anchors.horizontalCenter: parent.horizontalCenter
@@ -164,16 +233,7 @@ ListView {
         }
 
 
-        DropShadow {
-            anchors.fill:backing
-            horizontalOffset: 0
-            verticalOffset: 4
-            radius: 8.0
-            samples: 17
-            color: "#80000000"
-            source:backing
-            z:-1
-        }
+
 
         MouseArea {
 
@@ -193,53 +253,5 @@ ListView {
 
     }
 }
-
-Rectangle {
-    id:bottomBar
-    anchors.bottom:parent.bottom
-    width:parent.width
-    height:parent.height * 0.08
-    color:bottombarColor
-
-   Image {
-       id:addstuff
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.horizontalCenter:parent.horizontalCenter
-        height:parent.height * 0.6
-        width:parent.height * 0.6
-        source:"./icons/email.svg"
-
-        Flasher {
-
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: Qt.openUrlExternally(Qt.openUrlExternally('mailto:?subject=CafeSync%20Invite&body=Connect with '+username+' on CafeSync
-
-Never heard of CafeSync?
-
-Find out more by checking out the link below.
-
-https://www.vagueentertainment.com/?page_id=434
-
-                            Sent from CafeSync
-                            '))
-        }
-    }
-
-}
-
-DropShadow {
-    anchors.fill:bottomBar
-    horizontalOffset: 0
-    verticalOffset: -4
-    radius: 8.0
-    samples: 17
-    color: "#80000000"
-    source:bottomBar
-    z:1
-}
-
 
 }

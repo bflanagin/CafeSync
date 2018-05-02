@@ -926,12 +926,14 @@ function remote_delete(id,list,cid) {
 
         //console.log("deleting");
         get_list_updater.stop();
+        gpsupdate.stop();
+        heartbeats.stop();
 
     switch(list) {
     case "saved":
         url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/deleteref.php?id=" + id+"&list="+list+"&cid="+cid;
         carddata = "";
-        //console.log("removing from server saved");
+       // console.log("removing "+cid+" from server saved");
        //console.log(url);
         http.onreadystatechange = function() {
             if (http.readyState == 4) {
@@ -946,10 +948,12 @@ function remote_delete(id,list,cid) {
                     console.log("Incorrect AppID");
                 } else {
                         carddata = http.responseText;
-                       // var remotesaved = carddata;
-                        sync_cards(userid,0);
-                        //console.log("from interwebs saved "+carddata);
-                       // get_list_updater.restart();
+                        var remotesaved = carddata;
+                        //sync_cards(userid,0);
+                        //console.log("from Server: "+carddata);
+                        get_list_updater.restart();
+                        gpsupdate.restart();
+                        heartbeats.restart();
 
                 }
             }
@@ -1039,7 +1043,7 @@ function remote_delete_list(id,list,cid_list) {
                        // var remotesaved = carddata;
                         sync_cards(userid,0);
                         //console.log("from interwebs saved "+carddata);
-                       // get_list_updater.restart();
+                        get_list_updater.restart();
 
                 }
             }
@@ -1053,7 +1057,7 @@ function remote_delete_list(id,list,cid_list) {
     case "temp":
         url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/deleteref.php?id=" + id+"&list="+list+"&cid="+cid_list;
         carddata = "";
-        console.log(url);
+        //console.log(url);
         //console.log("removing from server temp");
         http.onreadystatechange = function() {
             if (http.readyState == 4) {
@@ -1068,7 +1072,7 @@ function remote_delete_list(id,list,cid_list) {
                     console.log("Incorrect AppID");
                 } else {
                         carddata = http.responseText;
-                        console.log(carddata);
+                     //   console.log(carddata);
                       //  remotetemp = carddata;
                         //var tnum = 0;
                      //  while (remotetemp.split(",")[tnum] != null) {

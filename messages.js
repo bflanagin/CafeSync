@@ -33,7 +33,7 @@ function check_messages(user) {
                         messagePage.messagelist =http.responseText;
                         retrieve_messages(user,userid);
 
-                    notificationClient.notification = "New Message from "+user;
+                 //   notificationClient.notification = "New Message from "+user;
                 }
             }
 
@@ -173,7 +173,7 @@ function send_messages(user,message) {
             } else if(http.responseText == 101) {
                 console.log("Incorrect AppID");
             } else {
-               console.log(http.responseText);
+             //  console.log(http.responseText);
 
                 //createdb();
                 //save_messages(userid,user," "," "," "," "," ",mesgdate.getTime(),message,usercardNum);
@@ -239,9 +239,26 @@ function save_messages(theid,name,avatar1,part_id,part_names,part_avatar,roomid,
 
     var dataStr1;
     var otherperson;
+    var you;
+    var them;
     var data = [theid,name,avatar1,part_id,part_names,part_avatar,roomid,mesgdate,themessage,thespeaker];
 
      //console.log("From save_messages "+data);
+
+    //console.log(thespeaker);
+
+    if(thespeaker.split(",").length === 2) {
+
+        if(thespeaker.split(",")[0] === usercardNum) {
+            you = thespeaker.split(",")[0];
+            them = thespeaker.split(",")[1];
+        } else {
+            you = thespeaker.split(",")[1];
+            them = thespeaker.split(",")[0];
+        }
+      } else {
+        them = thespeaker;
+    }
 
     var userStr = "INSERT INTO CHATS VALUES(?,?,?,?,?,?,?,?,?,?)";
 
@@ -262,26 +279,28 @@ function save_messages(theid,name,avatar1,part_id,part_names,part_avatar,roomid,
 
                         if(thespeaker !== usercardNum) {
 
-                         dataStr1 = "SELECT  name,avatar  FROM SavedCards WHERE `id` ='"+thespeaker+"' AND `id` !=''";
+                         dataStr1 = "SELECT  name,avatar  FROM SavedCards WHERE `id` ='"+them+"' AND `id` !=''";
                        db.transaction(function(tx) {
 
                            var pull = tx.executeSql(dataStr1);
-
+                            if(pull.rows.length !=0) {
                            otherperson = pull.rows.item(0).name;
-
+                            } else {
+                                otherperson = them;
+                            }
                     });
 
                         } else {
-                            otherperson = "";
+                            otherperson = them;
                         }
 
 
                     if(themessage === "<begin>") {
-                    notificationClient.notification = "New Chat from: "+otherperson;
+                  //  notificationClient.notification = "New Chat from: "+otherperson;
                          chatsanthings.interval = 2000;
                     } else {
                         if(messagePage.showroom == true && messagePage.roomId === name) {
-                            console.log("updating chat");
+                            //console.log("updating chat");
                                 var humanDate = new Date(mesgdate*1);
 
                             if(lastmessage !== mesgdate) {
@@ -302,6 +321,7 @@ function save_messages(theid,name,avatar1,part_id,part_names,part_avatar,roomid,
                         if(thespeaker !==usercardNum) {
                         notificationClient.notification = "New Message from: "+otherperson;
                              chatsanthings.interval = 2000;
+                            show_conversations(usercardNum);
                         }
                     }
 
@@ -367,7 +387,7 @@ function show_chat(room) {
     var reverseroom = room.split(",")[1]+","+room.split(",")[0];
     var getstuff = "SELECT  * FROM CHATS WHERE `name` ='"+room+"' OR `name` ='"+reverseroom+"' ORDER BY date ASC";
 
-    console.log(room);
+    //console.log(room);
 
      chatlog.clear();
 
@@ -449,6 +469,7 @@ function show_conversations(room) {
     var dataStr1;
     var otherperson;
     var otherava;
+    var ava;
     var you;
     var them;
     var convers = [];
@@ -492,9 +513,17 @@ function show_conversations(room) {
                     otherperson = pulls.rows.item(0).name;
 
             if(pulls.rows.item(0).avatar.length < 4) { otherava = "img/default_avatar.png"} else {otherava = pulls.rows.item(0).avatar
-                         if(otherava.search("/9j/4A") !== -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
+                         if(otherava.search("/9j/4A") !== -1 && otherava.search("data:image/jpeg;base64") == -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
 
             }
+           /* if(pulls.rows.item(0).avatar.length < 4) { ava = "img/default_avatar.png"} else {ava = pulls.rows.item(0).avatar
+                         if(ava.search("/9j/4A") !== -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
+
+            } */
+             if(avimg <4) { ava = "img/default_avatar.png"} else {ava = avimg;
+                 if(ava.search("/9j/4A") !== -1 && ava.search("data:image/jpeg;base64") == -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
+             }
+
             if(convers.toString().search(pull.rows.item(sync).name) == -1 ) {
                 convers.push(pull.rows.item(sync).name);
 
@@ -506,7 +535,8 @@ function show_conversations(room) {
                                 speaker:otherperson,
                                 timecode:humanDate.toLocaleDateString(),
                                 message:pull.rows.item(sync).message,
-                                avatar:otherava,
+                                avatar1:otherava,
+                                avatar2:ava,
                                 cardnum:them,
 
                             });
