@@ -53,7 +53,7 @@ Item {
             PropertyChanges {
                 target: quickactions
                 menu: 1
-                visible:if(title == "Category") {false} else {true}
+                visible:if(title == "Category" || title == "Category Select") {false} else {true}
             }
 
         },
