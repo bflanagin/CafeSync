@@ -79,7 +79,7 @@ Item {
                 anchors.top: parent.bottom
                 anchors.topMargin: mainView.width * 0.02
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("No Blog Entries")
+                text: qsTr("No Micro Blog Entries")
 
             }
         }

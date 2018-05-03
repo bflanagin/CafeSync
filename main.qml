@@ -262,12 +262,14 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         }else if(achievePage.state == "Active") {
                     achievePage.state = "InActive";
                     close.accepted = false;
-        } else if(themenu.state == "Active") {
-            themenu.state = "InActive";
-            close.accepted = false;
-         } else if(settingsPage.state == "Active") {
+        } else if(settingsPage.state == "Active") {
                         settingsPage.state = "InActive";
+                        if(themenu.state != "Active") {
                         topBar.state="person";
+                        } else {
+                            topBar.state = "standard";
+                        }
+
                         close.accepted = false;
         } else if(mainScreen.state == "Active") {
             mainScreen.state = "InActive";
@@ -285,7 +287,10 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
             requestPage.state = "InActive";
             topBar.state="standard";
             close.accepted = false;
-        }
+        }  else if(themenu.state == "Active") {
+            themenu.state = "InActive";
+            close.accepted = false;
+         }
 
 
         else if(closeit == 1) {
