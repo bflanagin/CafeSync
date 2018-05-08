@@ -79,7 +79,7 @@ Item {
             mainScreen.state = "Active";
             topBar.state = "person";
 
-            Scripts.Show_sites(card,"preview");
+            Scripts.show_Sites(card,"preview");
             }
     }
 

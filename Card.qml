@@ -23,8 +23,8 @@ import "microblogger.js" as MicroBlogger
 
                                 width: passerbyGrid.width * 0.96
 
-                               // width: passerbyGrid.width * 0.90
-                                height: if(cardsop == 1) {passerbyGrid.width * 0.46} else {passerbyGrid.width * 0.46}
+                                // width: passerbyGrid.width * 0.90
+                               height: if(cardsop == 1) {passerbyGrid.width * 0.46} else {passerbyGrid.width * 0.46}
 
 
                                  clip: true
@@ -184,7 +184,7 @@ import "microblogger.js" as MicroBlogger
                                             text: "<div>"+name+"</div>"
                                             //width:thecard.width * 2
                                             wrapMode: Text.WordWrap
-                                            font.pixelSize:mainView.width * 0.063
+                                            font.pixelSize:cards.width * 0.063
                                             font.bold: true
                                           //  anchors.horizontalCenter: parent.horizontalCenter
                                             anchors.left:card_avatar_backing.right

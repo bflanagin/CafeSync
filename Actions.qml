@@ -10,7 +10,7 @@ import QtQuick.LocalStorage 2.0 as Sql
 import "main.js" as Scripts
 import "openseed.js" as OpenSeed
 import "text.js" as Scrubber
-import "requests.js" as Request
+import "requests.js" as Requests
 import "messages.js" as Message
 
 Item {

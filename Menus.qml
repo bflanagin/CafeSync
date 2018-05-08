@@ -238,8 +238,9 @@ Item {
                                 anchors.leftMargin: 10
                                 horizontalAlignment: Text.AlignLeft
                                 //font.pixelSize: parent.width * 0.1 - text.length * 1.2
-
-                                font.pixelSize: if(menuitem == 1) {parent.height * 0.4} else {parent.height * 0.25}
+                                wrapMode: Text.WordWrap
+                                font.bold:if(menuitem == 1) {true} else {false}
+                                font.pixelSize: if(menuitem == 1) {parent.width * 0.06} else {parent.width * 0.04}
                                text: if(title != "Category") {switch(menuitem) {
                                      case "0": qsTr("Collected");break;
                                      case "2": qsTr("Contacts");break;
@@ -263,7 +264,7 @@ Item {
                                          //padding: width * 0.2
                                          anchors.left: parent.left
                                          anchors.leftMargin: parent.width * 0.04
-                                         width:parent.width * 0.82
+                                         width:parent.width * 0.72
                                          wrapMode: Text.WordWrap
                                          //height:parent.height * 0.80
                                          font.pixelSize: parent.width * 0.04
