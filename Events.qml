@@ -1,5 +1,384 @@
-import QtQuick 2.0
+import QtQuick 2.8
+import QtQuick.Dialogs 1.2
+import QtQuick.Controls 2.2
+import QtQuick.Controls.Material 2.2
+import QtGraphicalEffects 1.0
+import QtQuick.LocalStorage 2.0 as Sql
 
 Item {
+     id:thisWindow
+     property string type: "current"
+
+     states: [
+         State {
+             name: "Active"
+             PropertyChanges {
+                 target:thisWindow
+                 x:0
+
+
+             }
+         },
+         State {
+              name: "InActive"
+              PropertyChanges {
+                  target:thisWindow
+
+                  x:width * -1
+
+
+              }
+         }
+
+
+
+     ]
+
+     transitions: [
+         Transition {
+             from: "InActive"
+             to: "Active"
+             reversible: true
+
+
+             NumberAnimation {
+                 target: thisWindow
+                 property: "x"
+                 duration: 200
+                 easing.type: Easing.InOutQuad
+             }
+         }
+
+
+     ]
+
+
+    Rectangle {
+        anchors.fill:parent
+            color:backgroundColor
+    }
+
+    Item {
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: parent.width
+        height: parent.height * 0.10
+        clip: true
+
+        Button {
+            width:parent.width * 0.49
+            height: parent.height * 0.80
+            text: "Scheduled"
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+            background: Rectangle {
+                        color:if(type == "current") {highLightColor1} else {backgroundColor}
+                        }
+            onClicked: type = "current"
+        }
+
+        Button {
+            width:parent.width * 0.49
+            height: parent.height * 0.80
+            text: "Log"
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter
+            background: Rectangle {
+                        color:if(type == "log") {highLightColor1} else {backgroundColor}
+                        }
+            onClicked: type = "log"
+        }
+    }
+
+    ListView {
+        id:eventListLog
+        visible: if(type =="log") {true} else {false}
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: parent.width * 0.98
+        height: parent.height * 0.90
+       // spacing: thisWindow.width * 0.01
+        clip:true
+
+        model: elLog
+
+        delegate: Item {
+                    height:thisWindow.height * 0.30
+                    width: parent.width
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    clip:true
+
+                    Rectangle {
+                        id:backfill
+                        anchors.fill: parent
+                        color:if(index %2 == 0) {cardcolor} else {backgroundColor}
+                       // visible: false
+                        //radius: parent.width * 0.01
+                        border.width: 1
+                        border.color: "lightgray"
+                    }
+
+                    /*DropShadow {
+                        anchors.fill: backfill
+                        source:backfill
+                        samples: 17
+                        radius: 5.0
+                        horizontalOffset: 0
+                        verticalOffset: 0
+                        color:"#80000000"
+                    }*/
+
+                    Text {
+                        id:logTitle
+                       anchors.top:parent.top
+                       anchors.left:parent.left
+                       anchors.margins: thisWindow.width * 0.02
+                       text:eventname
+                       font.pixelSize: parent.width * 0.07
+                       Text {
+                           anchors.top:parent.bottom
+                           anchors.left:parent.left
+                           anchors.margins: thisWindow.width * 0.01
+                           text: location
+                           font.pixelSize:parent.height * 0.4
+                       }
+
+                    }
+                    Rectangle {
+                        anchors.centerIn: memberRow
+                        width:memberRow.width * 1.1
+                        height:memberRow.height * 1.1
+                        border.color: seperatorColor1
+                        border.width: 2
+                        color:backfill.color
+                    }
+
+                    Row{
+                        id:memberRow
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.verticalCenterOffset: logTitle.height / 2
+                        width:parent.width * 0.98
+                        height:parent.height * 0.40
+                        spacing: parent.width * 0.01
+                        clip:true
+
+                        Repeater {
+                            model:partymembers.split(",").length
+
+                        CirclePic {
+                            anchors.verticalCenter: parent.verticalCenter
+                            width:parent.height *0.9
+                            height:parent.height * 0.9
+                            whichPic:partymembers.split(",")[index]
+                            where:if(partymembers.split(",")[index] === usercardNum) {"mycard"} else {"saved"}
+                        }
+
+                        }
+                    }
+
+                    Text {
+                       anchors.bottom:parent.bottom
+                       anchors.left:parent.left
+                       anchors.margins: thisWindow.width * 0.02
+                       text:duration
+                       font.pixelSize: parent.width * 0.04
+
+                    }
+
+
+                    Text {
+                       anchors.bottom:parent.bottom
+                       anchors.right:parent.right
+                       anchors.margins: thisWindow.width * 0.02
+                       text:date
+                       font.pixelSize: parent.width * 0.04
+
+                    }
+
+
+
+        }
+
+    }
+
+    Item {
+         visible: if(type =="current") {true} else {false}
+        anchors.fill: parent
+
+    ListView {
+        id:eventListCurrent
+
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: parent.width * 0.98
+        height: parent.height * 0.90
+        spacing: thisWindow.width * 0.01
+        clip:true
+
+        model: elCurrent
+
+        delegate: Item {
+                    height:thisWindow.height * 0.30
+                    width: parent.width * 0.95
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    Rectangle {
+                        id:backing
+                        anchors.fill: parent
+                        color:if(index %2 == 0) {cardcolor} else {backgroundColor}
+                        visible: false
+                       // radius: parent.width * 0.01
+                    }
+
+                    DropShadow {
+                        anchors.fill: backing
+                        source:backing
+                        samples: 17
+                        radius: 2.0
+                        horizontalOffset: 0
+                        verticalOffset: 2
+                        color:"#80000000"
+                    }
+
+                    Text {
+                       anchors.top:parent.top
+                       anchors.left:parent.left
+                       anchors.margins: thisWindow.width * 0.02
+                       text:"Meeting With People"
+                       font.pixelSize: parent.width * 0.07
+                        Text {
+                            anchors.top:parent.bottom
+                            anchors.left:parent.left
+                            anchors.margins: thisWindow.width * 0.01
+                            text: "Location"
+                            font.pixelSize:parent.height * 0.4
+                        }
+                    }
+
+                    Row{
+                        anchors.centerIn: parent
+                        width:parent.width
+                        height:parent.height * 0.40
+                        spacing: parent.width * 0.01
+
+                        CirclePic {
+                            anchors.verticalCenter: parent.verticalCenter
+                            width:parent.height *0.9
+                            height:parent.height * 0.9
+                        }
+
+                        CirclePic {
+                            anchors.verticalCenter: parent.verticalCenter
+                            width:parent.height *0.9
+                            height:parent.height * 0.9
+                        }
+
+                        CirclePic {
+                            anchors.verticalCenter: parent.verticalCenter
+                            width:parent.height *0.9
+                            height:parent.height * 0.9
+                        }
+
+                        CirclePic {
+                            anchors.verticalCenter: parent.verticalCenter
+                            width:parent.height *0.9
+                            height:parent.height * 0.9
+                        }
+                    }
+
+                    Text {
+                       anchors.bottom:parent.bottom
+                       anchors.left:parent.left
+                       anchors.margins: thisWindow.width * 0.02
+                       text:"Duration:0:50:00"
+                       font.pixelSize: parent.width * 0.04
+
+                    }
+
+
+                    Text {
+                       anchors.bottom:parent.bottom
+                       anchors.right:parent.right
+                       anchors.margins: thisWindow.width * 0.02
+                       text:"Date:Some date"
+                       font.pixelSize: parent.width * 0.04
+
+                    }
+
+
+
+        }
+
+    }
+
+    Item {
+        anchors.bottom:parent.bottom
+        anchors.right: parent.right
+        anchors.rightMargin: thisWindow.width * 0.04
+        anchors.bottomMargin: thisWindow.width * 0.04
+        width: thisWindow.width * 0.09
+        height:thisWindow.width * 0.09
+        z:2
+
+        Image {
+            id:sicon
+            visible: false
+            anchors.centerIn: parent
+            width: parent.width * 0.8
+            fillMode: Image.PreserveAspectFit
+            source:"./icons/calendar-today.svg"
+
+        }
+
+        ColorOverlay {
+            source:sicon
+            anchors.fill: sicon
+            color:overlayColor
+        }
+
+         Flasher {}
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {eventEdit.edit = false;
+                        eventEdit.state = "Active"}
+        }
+    }
+
+}
+
+ListModel {
+    id: elLog
+
+    ListElement {
+        eventname: "Chance Meeting"
+        location: "Ben's House"
+        partymembers: "150,161"
+        date:"5/10/2018"
+        duration:"09:28:08"
+    }
+
+    ListElement {
+        eventname: "Meet at Bar"
+        location: "Some bar"
+        partymembers: "150,152,161"
+        date:"4/20/2018"
+        duration:"01:30:00"
+    }
+
+    ListElement {
+        eventname: "D&D Day!!!"
+        location: "Ben's House"
+        partymembers: "150,152,161,240"
+        date:"5/3/2018"
+        duration:"03:28:08"
+    }
+
+
+}
+
+ListModel {
+    id: elCurrent
+}
 
 }

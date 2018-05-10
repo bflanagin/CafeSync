@@ -287,6 +287,19 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
             requestPage.state = "InActive";
             topBar.state="standard";
             close.accepted = false;
+
+
+        } else if(eventEdit.state == "Active") {
+            eventEdit.state = "InActive";
+            topBar.state="events";
+            close.accepted = false;
+
+        } else if(eventsPage.state == "Active") {
+            eventsPage.state = "InActive";
+            topBar.state="standard";
+            close.accepted = false;
+
+
         }  else if(themenu.state == "Active") {
             themenu.state = "InActive";
             close.accepted = false;
@@ -1106,8 +1119,16 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
      id:eventsPage
      width:parent.width
      height:parent.height- topBar.height
-        y:topBar.height
+    y:topBar.height
          state: "InActive"
+ }
+
+ EventEdit {
+     id:eventEdit
+     width:parent.width
+     height:parent.height- topBar.height
+      y:topBar.height
+     state: "InActive"
  }
 
 Wizard {

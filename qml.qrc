@@ -254,5 +254,6 @@
         <file>img/steemit-vector-logo.png</file>
         <file>Share.qml</file>
         <file>pages.js</file>
+        <file>EventEdit.qml</file>
     </qresource>
 </RCC>

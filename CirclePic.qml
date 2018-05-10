@@ -12,6 +12,7 @@ Item {
         property string where:""
         property string thesource:""
         property string fixpic: ""
+        property int badge: 0
         //property string theImage:"./img/default_avatar.png"
 
        // anchors.verticalCenter: parent.verticalCenter
@@ -61,6 +62,7 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: parent.width * 0.1
             source:"./img/gold-badge.png"
+            visible: if(badge == 0) {false} else {true}
         }
 
 

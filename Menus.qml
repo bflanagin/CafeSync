@@ -144,7 +144,7 @@ Item {
                     state:"InActive"
 
                     width:menulistview.width
-                    height:if(menuitem == 1) {menulistview.height * 0.16} else {menulistview.height * 0.1}
+                    height:if(menuitem == 1) {menulistview.height * 0.15} else {menulistview.height * 0.09}
                     //anchors.horizontalCenter: parent.horizontalCenter
                     Item {
                         id:menuSeperator
@@ -233,14 +233,15 @@ Item {
                         Text {
                                 //anchors.horizontalCenter: parent.horizontalCenter
                                 anchors.verticalCenter: parent.verticalCenter
-                                width:parent.width * 0.89
+                                anchors.verticalCenterOffset: if(menuitem == 1) {parent.width * -0.04} else {0}
+                                width:parent.width * 0.80
                                 anchors.left:icon.right
                                 anchors.leftMargin: 10
                                 horizontalAlignment: Text.AlignLeft
                                 //font.pixelSize: parent.width * 0.1 - text.length * 1.2
                                 wrapMode: Text.WordWrap
                                 font.bold:if(menuitem == 1) {true} else {false}
-                                font.pixelSize: if(menuitem == 1) {parent.width * 0.06} else {parent.width * 0.04}
+                                font.pixelSize: if(menuitem == 1) {parent.width * 0.085} else {parent.width * 0.04}
                                text: if(title != "Category") {switch(menuitem) {
                                      case "0": qsTr("Collected");break;
                                      case "2": qsTr("Contacts");break;
@@ -288,7 +289,7 @@ Item {
                                   case "3": qsTr("Edit Profile");break;
                                   case "4": qsTr("("+totalNewMessages+")");break;
                                   case "5": qsTr("("+requests+")");break;
-                                  case "6": qsTr("(Coming Soon)");break;
+                                  case "6": qsTr("(0)");break;
 
                                   default:"";break;
                                   }
@@ -384,7 +385,7 @@ Item {
                           case "3": /* chatPage.state = "Available",popup.state = "InActive";topBar.isActive = false;topBar.state = "chat";*/break;
                           case "4": messagePage.from =="Menu",messagePage.state = "Active",popup.state = "InActive";topBar.isActive = false;topBar.state = "messages";break;
                           case "5": messagePage.state = "InActive", requestPage.state = "Active",popup.state = "InActive";topBar.isActive = false;topBar.state = "requests";break;
-                          case "6": /* eventsPage.state = "Available",popup.state = "InActive";topBar.isActive = false;topBar.state = "events"; */break;
+                          case "6":  eventsPage.state = "Active",popup.state = "InActive";topBar.isActive = false;topBar.state = "events"; break;
 
 
                           default:if(title == "Category") {currentcat = menuitem;
@@ -483,10 +484,10 @@ Item {
                                             type:1
                                     }
 
-                                   /* ListElement {
+                                    ListElement {
                                             menuitem: "6"
                                             type:1
-                                    } */
+                                    }
 
                                 }
 
