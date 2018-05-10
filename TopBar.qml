@@ -735,17 +735,9 @@ Item {
 
             MouseArea {
                 anchors.fill:parent
-                onClicked: { if(settingsPage.sourceselect == true) { settingsPage.sourceselect = false} else {
+                onClicked: { if(eventEdit.state == "Active") { topBar.state = "events"; eventEdit.state = "InActive"} else {
 
-
-                              /*  Scripts.save_card(userid,username,userphone,useremail,usercompany,
-                                                                  useralias,usermotto,usermain,website1,website2,website3,website4,
-                                                                  stf,atf,ctf,avimg,carddesign,usercat);
-                                                OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
-                                                                     useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
-                                                                     avimg,carddesign,usercat); */
-                        // settingsPage.saveit = true;
-                    themenu.state = "InActive",settingsPage.state = "InActive",topBar.isActive = false,topBar.state = "person",/*mainScreen.state = "InActive",*/pagelist.clear(),Scripts.load_Card(),Scripts.show_Sites("local",userid);
+                    themenu.state = "InActive";eventsPage.state = "InActive";topBar.state = "standard"
                     }
                         }
 

@@ -17,7 +17,7 @@ Item {
              //page: Page {
  id:settingsPage
 
- property bool simpleMode: true
+ property bool simpleMode: false
 
 // clip: true
 // width:parent.width
@@ -170,7 +170,7 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
             height:gentitle.height
          Text {
              id:gentitle
-             text: qsTr("General Settings")
+             text: qsTr("User Profile")
              anchors.left:parent.left
              font.pixelSize: parent.width * 0.06
              anchors.leftMargin: 4
@@ -179,7 +179,7 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
 
 
          }
-         Button {
+         /*Button {
 
              text:if(simpleMode == true) {qsTr("Simple")} else {qsTr("Advanced")}
              anchors.right:parent.right
@@ -190,7 +190,7 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
                  //border.width: 1
                 // radius: height / 0.5
                       }
-         }
+         } */
         }
 
          Rectangle {

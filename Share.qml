@@ -554,7 +554,7 @@ Sent from CafeSync
             anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
             background: Rectangle {
-                        color:if(type == "send") {highLightColor1} else {"white"}
+                        color:if(type == "send") {highLightColor1} else {backgroundColor}
                         }
             onClicked: type = "send"
         }
@@ -566,7 +566,7 @@ Sent from CafeSync
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
             background: Rectangle {
-                        color:if(type == "receive") {highLightColor1} else {"white"}
+                        color:if(type == "receive") {highLightColor1} else {backgroundColor}
                         }
             onClicked: type = "receive"
         }
