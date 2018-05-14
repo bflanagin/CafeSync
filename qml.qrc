@@ -255,5 +255,7 @@
         <file>Share.qml</file>
         <file>pages.js</file>
         <file>EventEdit.qml</file>
+        <file>events.js</file>
+        <file>EventInfo.qml</file>
     </qresource>
 </RCC>

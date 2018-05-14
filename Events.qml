@@ -5,9 +5,15 @@ import QtQuick.Controls.Material 2.2
 import QtGraphicalEffects 1.0
 import QtQuick.LocalStorage 2.0 as Sql
 
+import "events.js" as Events
+import "text.js" as Strings
+
 Item {
      id:thisWindow
      property string type: "current"
+     property bool updateevents: false
+     property bool invitecheck: true
+     property bool updatecheck: true
 
      states: [
          State {
@@ -52,6 +58,29 @@ Item {
 
      ]
 
+     onUpdateeventsChanged: {Events.load_current();
+                                Events.check_invites();
+                                updateevents = false;
+                                }
+
+     Timer {
+         id:eventInvites
+         interval: 5007
+         running: invitecheck
+         repeat: true
+         onTriggered:{Events.check_invites();}
+
+     }
+
+
+    Timer {
+        id:eventsUpdate
+        interval: 10000
+        running: updatecheck
+        repeat: true
+        onTriggered:{Events.get_events();}
+
+    }
 
     Rectangle {
         anchors.fill:parent
@@ -74,7 +103,9 @@ Item {
             background: Rectangle {
                         color:if(type == "current") {highLightColor1} else {backgroundColor}
                         }
-            onClicked: type = "current"
+            onClicked: {type = "current"
+                            Events.load_current();
+                        }
         }
 
         Button {
@@ -86,7 +117,9 @@ Item {
             background: Rectangle {
                         color:if(type == "log") {highLightColor1} else {backgroundColor}
                         }
-            onClicked: type = "log"
+            onClicked: {type = "log";
+                            Events.load_log();
+                        }
         }
     }
 
@@ -97,16 +130,50 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width * 0.98
         height: parent.height * 0.90
-       // spacing: thisWindow.width * 0.01
+        spacing: thisWindow.width * 0.02
         clip:true
 
         model: elLog
 
-        delegate: Item {
+        delegate:
+
+            Item {
+
+                       // height:thisWindow.height * 0.30
+                        width: parent.width * 0.95
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        height: if(itemtype != 9) {logcard.height} else {logspacer.height}
+
+                        Item {
+                            id:logspacer
+                            visible: if(itemtype == 9) {true} else {false}
+                            width: parent.width
+                            height: mainView.height * 0.04
+                            Text {
+                                anchors.right: parent.right
+                                anchors.rightMargin: mainView.width * 0.01
+                                horizontalAlignment: Text.AlignRight
+                                anchors.verticalCenter: parent.verticalCenter
+                                text: ""+date
+                            }
+
+                            Rectangle {
+                                color:seperatorColor1
+                                width: parent.width
+                                height: parent.height * 0.1
+                                anchors.bottom: parent.bottom
+
+                            }
+                        }
+
+
+            Item {
+                    id:logcard
                     height:thisWindow.height * 0.30
                     width: parent.width
                     anchors.horizontalCenter: parent.horizontalCenter
                     clip:true
+                    visible: if(itemtype == 0) {true} else {false}
 
                     Rectangle {
                         id:backfill
@@ -118,7 +185,7 @@ Item {
                         border.color: "lightgray"
                     }
 
-                    /*DropShadow {
+                    DropShadow {
                         anchors.fill: backfill
                         source:backfill
                         samples: 17
@@ -126,7 +193,7 @@ Item {
                         horizontalOffset: 0
                         verticalOffset: 0
                         color:"#80000000"
-                    }*/
+                    }
 
                     Text {
                         id:logTitle
@@ -163,14 +230,15 @@ Item {
                         clip:true
 
                         Repeater {
-                            model:partymembers.split(",").length
+                            model:partymembers.split(",")
 
                         CirclePic {
                             anchors.verticalCenter: parent.verticalCenter
                             width:parent.height *0.9
                             height:parent.height * 0.9
-                            whichPic:partymembers.split(",")[index]
-                            where:if(partymembers.split(",")[index] === usercardNum) {"mycard"} else {"saved"}
+                            whichPic:modelData.split(":")[0]
+                            where:if(modelData.split(":")[0] === usercardNum) {"mycard"} else {"saved"}
+                            badge:modelData.split(":")[1]
                         }
 
                         }
@@ -180,7 +248,7 @@ Item {
                        anchors.bottom:parent.bottom
                        anchors.left:parent.left
                        anchors.margins: thisWindow.width * 0.02
-                       text:duration
+                       text:date
                        font.pixelSize: parent.width * 0.04
 
                     }
@@ -190,12 +258,12 @@ Item {
                        anchors.bottom:parent.bottom
                        anchors.right:parent.right
                        anchors.margins: thisWindow.width * 0.02
-                       text:date
+                       text:time
                        font.pixelSize: parent.width * 0.04
 
                     }
 
-
+            }
 
         }
 
@@ -212,16 +280,49 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width * 0.98
         height: parent.height * 0.90
-        spacing: thisWindow.width * 0.01
+        spacing: thisWindow.width * 0.02
         clip:true
 
         model: elCurrent
 
-        delegate: Item {
-                    height:thisWindow.height * 0.30
-                    width: parent.width * 0.95
-                    anchors.horizontalCenter: parent.horizontalCenter
+        delegate:Item {
 
+           // height:thisWindow.height * 0.30
+            width: parent.width * 0.95
+            anchors.horizontalCenter: parent.horizontalCenter
+            height: if(itemtype != 9) {thecard.height} else {spacer.height}
+
+            Item {
+                id:spacer
+                visible: if(itemtype == 9) {true} else {false}
+                width: parent.width
+                height: mainView.height * 0.04
+                Text {
+                    anchors.right: parent.right
+                    anchors.rightMargin: mainView.width * 0.01
+                    horizontalAlignment: Text.AlignRight
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: ""+date
+                }
+
+                Rectangle {
+                    color:seperatorColor1
+                    width: parent.width
+                    height: parent.height * 0.1
+                    anchors.bottom: parent.bottom
+
+                }
+            }
+
+                Item {
+                        id:thecard
+
+                      height:thisWindow.height * 0.30
+                      width: parent.width
+                      //anchors.horizontalCenter: parent.horizontalCenter
+
+                        visible: if(itemtype == 0) {true} else {false}
+                    clip:true
                     Rectangle {
                         id:backing
                         anchors.fill: parent
@@ -241,48 +342,50 @@ Item {
                     }
 
                     Text {
+                        id:eventTitle
                        anchors.top:parent.top
                        anchors.left:parent.left
                        anchors.margins: thisWindow.width * 0.02
-                       text:"Meeting With People"
+                       text:eventname
                        font.pixelSize: parent.width * 0.07
                         Text {
                             anchors.top:parent.bottom
                             anchors.left:parent.left
                             anchors.margins: thisWindow.width * 0.01
-                            text: "Location"
+                            text:location
                             font.pixelSize:parent.height * 0.4
                         }
                     }
 
+                    Rectangle {
+                        anchors.centerIn: partyRow
+                        width:partyRow.width * 1.1
+                        height:partyRow.height * 1.1
+                        border.color: seperatorColor1
+                        border.width: 2
+                        color:backing.color
+                    }
+
                     Row{
-                        anchors.centerIn: parent
+                        id:partyRow
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.verticalCenterOffset: eventTitle.height / 2
                         width:parent.width
                         height:parent.height * 0.40
                         spacing: parent.width * 0.01
+                        Repeater {
+
+                        model:partymembers.split(",")
 
                         CirclePic {
                             anchors.verticalCenter: parent.verticalCenter
                             width:parent.height *0.9
                             height:parent.height * 0.9
+                            whichPic:modelData.split(":")[0]
+                            where:if(whichPic === usercardNum) {"mycard"} else {"saved"}
+                            badge:modelData.split(":")[1]
                         }
 
-                        CirclePic {
-                            anchors.verticalCenter: parent.verticalCenter
-                            width:parent.height *0.9
-                            height:parent.height * 0.9
-                        }
-
-                        CirclePic {
-                            anchors.verticalCenter: parent.verticalCenter
-                            width:parent.height *0.9
-                            height:parent.height * 0.9
-                        }
-
-                        CirclePic {
-                            anchors.verticalCenter: parent.verticalCenter
-                            width:parent.height *0.9
-                            height:parent.height * 0.9
                         }
                     }
 
@@ -290,7 +393,7 @@ Item {
                        anchors.bottom:parent.bottom
                        anchors.left:parent.left
                        anchors.margins: thisWindow.width * 0.02
-                       text:"Duration:0:50:00"
+                       text:date
                        font.pixelSize: parent.width * 0.04
 
                     }
@@ -300,13 +403,13 @@ Item {
                        anchors.bottom:parent.bottom
                        anchors.right:parent.right
                        anchors.margins: thisWindow.width * 0.02
-                       text:"Date:Some date"
+                       text:time
                        font.pixelSize: parent.width * 0.04
 
                     }
 
 
-
+            }
         }
 
     }
@@ -341,7 +444,7 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {eventEdit.edit = false;
-                        eventEdit.state = "Active"}
+                        eventEdit.state = "Active";}
         }
     }
 
@@ -350,29 +453,7 @@ Item {
 ListModel {
     id: elLog
 
-    ListElement {
-        eventname: "Chance Meeting"
-        location: "Ben's House"
-        partymembers: "150,161"
-        date:"5/10/2018"
-        duration:"09:28:08"
-    }
 
-    ListElement {
-        eventname: "Meet at Bar"
-        location: "Some bar"
-        partymembers: "150,152,161"
-        date:"4/20/2018"
-        duration:"01:30:00"
-    }
-
-    ListElement {
-        eventname: "D&D Day!!!"
-        location: "Ben's House"
-        partymembers: "150,152,161,240"
-        date:"5/3/2018"
-        duration:"03:28:08"
-    }
 
 
 }

@@ -12,7 +12,7 @@ Item {
         property string where:""
         property string thesource:""
         property string fixpic: ""
-        property int badge: 0
+        property int badge: 1000
         //property string theImage:"./img/default_avatar.png"
 
        // anchors.verticalCenter: parent.verticalCenter
@@ -54,16 +54,35 @@ Item {
          }
 
         Image {
-            id:badge
-            width: parent.width * 0.2
-            height: parent.width * 0.2
+            id:thebadge
+            width: parent.width * 0.25
+            height: parent.width * 0.25
             fillMode: Image.PreserveAspectFit
             anchors.bottom: parent.bottom
             anchors.right: parent.right
-            anchors.rightMargin: parent.width * 0.1
-            source:"./img/gold-badge.png"
-            visible: if(badge == 0) {false} else {true}
+            anchors.rightMargin: parent.width * 0.04
+            source:switch(badge) {
+                   case 0:"./icons/help.svg";break;
+                   case 1: "./icons/ok.svg";break;
+                   case 2: "./icons/cancel.svg";break;
+                   default: "./img/gold-badge.png";break;
+                   }
+            visible: if(badge == 1000) {false} else {true}
         }
+
+        ColorOverlay {
+               anchors.fill: thebadge
+               source: thebadge
+               visible:if(badge > 2) {false} else {true}
+               color: switch(badge) {
+                      case 0:"yellow";break;
+                      case 1:"green";break;
+                      case 2: "red";break;
+                      default:"black";break;
+                      }
+           }
+
+
 
 
 }

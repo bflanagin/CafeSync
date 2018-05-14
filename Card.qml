@@ -96,7 +96,7 @@ import "microblogger.js" as MicroBlogger
                                                 //Scripts.Temp_load(searchtext);
                                                     }
                                                     if(deletelist.length > 0) {
-                                                    console.log(deletelist);
+                                                   // console.log(deletelist);
                                                         listdeleter.start();
                                                     }
                                             }

@@ -357,9 +357,10 @@ function contactlist() {
 
             }
 
-            if(connected.search(pull.rows.item(num).id) != -1 && accepted.search(pull.rows.item(num).id) !=-1) {
+            if(connected.search(pull.rows.item(num).id) != -1 || accepted.search(pull.rows.item(num).id) !=-1) {
 
                 var humanDate = new Date(pull.rows.item(num).date*1);
+
 
 
             collectedContacts.append({

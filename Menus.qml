@@ -385,7 +385,7 @@ Item {
                           case "3": /* chatPage.state = "Available",popup.state = "InActive";topBar.isActive = false;topBar.state = "chat";*/break;
                           case "4": messagePage.from =="Menu",messagePage.state = "Active",popup.state = "InActive";topBar.isActive = false;topBar.state = "messages";break;
                           case "5": messagePage.state = "InActive", requestPage.state = "Active",popup.state = "InActive";topBar.isActive = false;topBar.state = "requests";break;
-                          case "6":  eventsPage.state = "Active",popup.state = "InActive";topBar.isActive = false;topBar.state = "events"; break;
+                          case "6": eventsPage.type = "current";eventsPage.updateevents = true; eventsPage.state = "Active",popup.state = "InActive";topBar.isActive = false;topBar.state = "events"; break;
 
 
                           default:if(title == "Category") {currentcat = menuitem;

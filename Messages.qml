@@ -344,7 +344,15 @@ ListView {
 
         MouseArea {
             anchors.fill:parent
-            onClicked: {thisWindow.area = "Chat",roomId = who,Message.check_messages(who),messagePage.showroom = true}//Message.show_chat(who)}
+            onClicked: {
+                thisWindow.area = "Chat";
+                    roomId = who;
+                    Message.check_messages(who);
+                    messagePage.showroom = true
+
+
+
+            }
         }
     }
 

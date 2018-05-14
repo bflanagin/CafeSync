@@ -1,7 +1,5 @@
 function returnImage(who,locale,source) {
 
-
-
     var dbtable = "";
     switch(locale) {
     case "temp":dbtable="TempCards";break;
