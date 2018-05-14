@@ -20,6 +20,8 @@ id:thisWindow
 //property bool contactlist: false
 //property bool showroom: false
 
+property string type : "messages"
+
 
 clip: true
 
@@ -134,13 +136,13 @@ delegate: Item {
 
             }
 
-            Image {
+         /*   Image {
                 id:mask
                 anchors.fill:parent
                 source:"/graphics/CafeSync.png"
                 visible: false
 
-            }
+            } */
 
             OpacityMask {
                  anchors.fill: contactImg
@@ -198,7 +200,19 @@ delegate: Item {
 
     MouseArea {
         anchors.fill:parent
-        onClicked: {thisWindow.state = "InActive",messagePage.roomId = usercardNum+","+who,Message.check_messages(usercardNum+","+who),messagePage.showroom = true }
+        onClicked: { if(type == "messages") {
+
+                thisWindow.state = "InActive";
+                messagePage.roomId = usercardNum+","+who;
+                Message.check_messages(usercardNum+","+who);
+                messagePage.showroom = true;
+            } else {
+
+                eventEdit.party.push(who+":0");
+                eventEdit.update = true;
+                thisWindow.state = "InActive";
+            }
+          }
     }
 }
 

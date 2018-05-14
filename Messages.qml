@@ -80,7 +80,7 @@ Item {
 
    // onAreaChanged: if(area == "Conversations") {Message.retrieve_conversations(usercardNum)}
 
-    onStateChanged: if(thisWindow.state == "Active") {Message.show_conversations(usercardNum),Message.retrieve_conversations(usercardNum)}
+    onStateChanged: if(thisWindow.state == "Active") {Message.show_conversations(usercardNum);Message.retrieve_conversations(usercardNum);}
 
 
 
@@ -344,7 +344,15 @@ ListView {
 
         MouseArea {
             anchors.fill:parent
-            onClicked: {thisWindow.area = "Chat",roomId = who,Message.check_messages(who),messagePage.showroom = true}//Message.show_chat(who)}
+            onClicked: {
+                thisWindow.area = "Chat";
+                    roomId = who;
+                    Message.check_messages(who);
+                    messagePage.showroom = true
+
+
+
+            }
         }
     }
 

@@ -275,6 +275,12 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
             mainScreen.state = "InActive";
             topBar.state="standard";
             close.accepted = false;
+
+        } else if(messageContactsPage.state == "Active") {
+            messageContactsPage.state = "InActive";
+            topBar.state="chat";
+            close.accepted = false;
+
         } else if(messagePage.state == "Active") {
             if(messagePage.showroom ==true) {
                 messagePage.showroom = false;
@@ -286,6 +292,11 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         } else if(requestPage.state == "Active") {
             requestPage.state = "InActive";
             topBar.state="standard";
+            close.accepted = false;
+
+        } else if(eventContactsPage.state == "Active") {
+            eventContactsPage.state = "InActive";
+            topBar.state="events";
             close.accepted = false;
 
 
@@ -1110,9 +1121,11 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
      height:parent.height - topBar.height
      y:topBar.height
      state:"InActive"
-
+     type:"messages"
 
  }
+
+
 
 
  Events {
@@ -1129,6 +1142,16 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
      height:parent.height- topBar.height
       y:topBar.height
      state: "InActive"
+ }
+
+ MessageContacts {
+     id:eventContactsPage
+     width:parent.width
+     height:parent.height - topBar.height
+     y:topBar.height
+     state:"InActive"
+     type:"event"
+
  }
 
 Wizard {
@@ -1328,6 +1351,13 @@ EULA {
     width: mainView.width * 0.95
     height: (mainView.height* 0.98)- topBar.height
     visible:false
+}
+
+EventInfo {
+    id:eventInfo
+    width:parent.width * 0.98
+    height:parent.width * 0.60
+    state: "InActive"
 }
 
 
