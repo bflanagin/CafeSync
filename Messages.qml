@@ -80,7 +80,7 @@ Item {
 
    // onAreaChanged: if(area == "Conversations") {Message.retrieve_conversations(usercardNum)}
 
-    onStateChanged: if(thisWindow.state == "Active") {Message.show_conversations(usercardNum),Message.retrieve_conversations(usercardNum)}
+    onStateChanged: if(thisWindow.state == "Active") {Message.show_conversations(usercardNum);Message.retrieve_conversations(usercardNum);}
 
 
 

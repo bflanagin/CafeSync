@@ -12,6 +12,7 @@ function load_current() {
         var test = "SELECT * FROM EVENTS WHERE `date` >"+d.getTime()+" ORDER by date";
         var pull = tx.executeSql(test);
            // console.log(pull.rows.length);
+        eventsPage.counter = pull.rows.length;
 
         for(var num = 0;num < pull.rows.length;num = num + 1) {
 
@@ -35,6 +36,8 @@ function load_current() {
                 date:dd.toLocaleDateString(),
                 time:dd.toLocaleTimeString(),
             });
+
+
         }
 
 

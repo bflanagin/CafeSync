@@ -15,6 +15,8 @@ Item {
      property bool invitecheck: true
      property bool updatecheck: true
 
+     property int counter: 0
+
      states: [
          State {
              name: "Active"
@@ -57,6 +59,8 @@ Item {
 
 
      ]
+
+     Component.onCompleted: Events.load_current();
 
      onUpdateeventsChanged: {Events.load_current();
                                 Events.check_invites();

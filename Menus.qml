@@ -289,7 +289,7 @@ Item {
                                   case "3": qsTr("Edit Profile");break;
                                   case "4": qsTr("("+totalNewMessages+")");break;
                                   case "5": qsTr("("+requests+")");break;
-                                  case "6": qsTr("(0)");break;
+                                  case "6": qsTr("("+eventsPage.counter+")");break;
 
                                   default:"";break;
                                   }
