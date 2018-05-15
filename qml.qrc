@@ -257,5 +257,7 @@
         <file>EventEdit.qml</file>
         <file>events.js</file>
         <file>EventInfo.qml</file>
+        <file>img/darktheme.png</file>
+        <file>img/defaulttheme.png</file>
     </qresource>
 </RCC>

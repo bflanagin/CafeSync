@@ -263,22 +263,18 @@ Sent from CafeSync
                     onClicked: {
                         if(username != currentcard_username) {console.log(currentcard);
                             Qt.openUrlExternally('mailto:?subject=CafeSync%20Invite&body='+username+' wants you to view '+currentcard_username+'\'s card on CafeSync.
-\nNever heard of CafeSync?
+\nDownload CafeSync on Android at:
 
-Find out more by checking out the link below.
-
-https://www.vagueentertainment.com/?page_id=434
+https://play.google.com/store/apps/details?id=com.vagueentertainment.cafesync&hl=en
 
 Sent from CafeSync
                                 ');
                         } else {
 
                         Qt.openUrlExternally('mailto:?subject=CafeSync%20Invite&body=Connect with '+username+' on CafeSync
-\nNever heard of CafeSync?
+\nDownload CafeSync on Android at:
 
-Find out more by checking out the link below.
-
-https://www.vagueentertainment.com/?page_id=434
+https://play.google.com/store/apps/details?id=com.vagueentertainment.cafesync&hl=en
 
 Sent from CafeSync
                             '); }

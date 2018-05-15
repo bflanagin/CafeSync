@@ -68,16 +68,16 @@ import "microblogger.js" as MicroBlogger
 
                                     Timer {id:selfdestruct;interval:800; running:true ; repeat: false
                                         onTriggered: {
-                                                    //console.log("checking card "+cardId);
+                                                    console.log("checking card "+cardId+" in "+listget);
                                                     if(listget == "temp") {
                                                     if(type == 0) {
-                                                            if(saved != 1) {
-                                                      //  console.log("Card is not saved "+saved+" or from Contacts");
+                                                            //if(saved != 1) {
+                                                       // console.log("Card is not saved "+saved+" or from Contacts");
                                                                 if(cardsop != 2) {
-                                                     //   console.log("Card is not a special card");
+                                                       console.log("Card is not a special card");
                                                       //  if(explodereset == 10000) {
                                                                       if(Scripts.temp_Elapsed(cardId) == 1) {
-                                                       //         console.log("Cards time has elapsed");
+                                                                console.log("Cards time has elapsed");
                                                                           //   OpenSeed.remote_delete(userid,listget,cardId);
                                                                             deletelist.push(cardId);
                                                                              cardslist.remove(index);
@@ -92,7 +92,10 @@ import "microblogger.js" as MicroBlogger
 
                                                 }
 
-                                                }
+                                                //} //else {
+                                                        // console.log("Card is saved");
+                                                         //   }
+
                                                 //Scripts.Temp_load(searchtext);
                                                     }
                                                     if(deletelist.length > 0) {

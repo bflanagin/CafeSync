@@ -15,9 +15,10 @@ import "text.js" as Scrubber
 Item {
              //title: qsTr("Settings")
              //page: Page {
- id:settingsPage
+ id:thisWindow
 
  property bool simpleMode: false
+ property string type:"profile"
 
 // clip: true
 // width:parent.width
@@ -34,7 +35,7 @@ Item {
      State {
          name: "Active"
          PropertyChanges {
-             target:settingsPage
+             target:thisWindow
 
              x:0
 
@@ -44,7 +45,7 @@ Item {
      State {
           name: "InActive"
           PropertyChanges {
-              target:settingsPage
+              target:thisWindow
 
               x:width * -1
 
@@ -64,7 +65,7 @@ Item {
 
 
          NumberAnimation {
-             target: settingsPage
+             target: thisWindow
              property: "x"
              duration: 200
              easing.type: Easing.InOutQuad
@@ -84,7 +85,7 @@ Item {
  property string yourabout:""
 
 
-onStateChanged: if(settingsPage.state == "Active") {topBar.state = "settings"; Scripts.skillListings();Scripts.schoolListings();Scripts.workListings();Scripts.fillsites();} else {topBar.state = "standard";
+onStateChanged: if(thisWindow.state == "Active") {topBar.state = "settings"; Scripts.skillListings();Scripts.schoolListings();Scripts.workListings();Scripts.fillsites();} else {topBar.state = "standard";
 
                                     /*Scripts.save_card(userid,userName.text,userPhone.text,userEmail.text,userCompany.text,
                                                       userAlias.text,personalMotto.text,usermain,website1,website2,website3,website4,
@@ -129,9 +130,384 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
      //border.width: 1
  }
 
+ Item {
+     id:pages
+     anchors.top: parent.top
+     anchors.horizontalCenter: parent.horizontalCenter
+     width: parent.width
+     height: parent.height * 0.10
+     clip: true
+
+     Button {
+         width:parent.width * 0.49
+         height: parent.height * 0.80
+         text: "Profile"
+         anchors.left: parent.left
+         anchors.verticalCenter: parent.verticalCenter
+         background: Rectangle {
+                     color:if(type == "profile") {highLightColor1} else {backgroundColor}
+                     }
+         onClicked: {type = "profile"
+
+                     }
+     }
+
+     Button {
+         width:parent.width * 0.49
+         height: parent.height * 0.80
+         text: "System"
+         anchors.right: parent.right
+         anchors.verticalCenter: parent.verticalCenter
+         background: Rectangle {
+                     color:if(type == "settings") {highLightColor1} else {backgroundColor}
+                     }
+         onClicked: {type = "settings";
+
+                     }
+     }
+ }
+
+Flickable {
+    id:settingFlick
+    visible: if(type == "settings") {true} else {false}
+    clip:true
+    y: pages.height
+    height: parent.height - pages.height
+    width: parent.width * 0.98
+    anchors.horizontalCenter: parent.horizontalCenter
+    contentHeight:settingsColumn.height
+
+    Column {
+        id:settingsColumn
+        width:parent.width
+        anchors.horizontalCenter: parent.horizontalCenter
+        spacing:mainView.width * 0.04
+
+
+        Item {
+            width:parent.width
+            height:parent.height * 0.01
+
+       }
+       Item {
+           width:parent.width
+           height:settitle.height
+        Text {
+            id:settitle
+            text: qsTr("CafeSync Settings")
+            anchors.left:parent.left
+            font.pixelSize: parent.width * 0.07
+            anchors.leftMargin: 4
+            width:parent.width * 0.60
+            //anchors.verticalCenter: parent.verticalCenter
+
+
+        }
+
+    }
+
+       Rectangle {
+           width: parent.width * 0.98
+           height:3
+           anchors.horizontalCenter: parent.horizontalCenter
+
+           color:seperatorColor1
+
+       }
+
+       Item {
+           width:parent.width
+           height:collectionColumn.height * 1.1
+
+           Rectangle {
+               id:colback
+            anchors.fill:parent
+            visible: false
+            color:cardcolor
+           }
+
+           DropShadow {
+
+              anchors.fill: colback
+              horizontalOffset: 0
+              verticalOffset: 3
+              radius: 8.0
+              samples: 17
+              color: "#80000000"
+              source: colback
+
+            }
+
+               Column {
+                id: collectionColumn
+                width:parent.width * 0.98
+                anchors.centerIn: parent
+                spacing: thisWindow.width * 0.006
+
+                    Text {
+                        text:qsTr("Collection:")
+                        font.pixelSize: mainView.width * 0.07
+                        }
+                    Rectangle {
+                        width: parent.width * 0.98
+                        height:3
+                        anchors.horizontalCenter: parent.horizontalCenter
+
+                        color:seperatorColor1
+
+                    }
+
+                     SpinBox {
+                        anchors.right:parent.right
+                       //anchors.bottom:parent.bottom
+                        id: delSpin
+                        from:1
+                        to: 99
+                        value: 3
+                        textFromValue: function(value) {
+                            return value+" Days";
+                        }
+
+                        Text {
+                            anchors.right: parent.left
+                            anchors.verticalCenter: parent.verticalCenter
+                            width:(thisWindow.width * 0.95) - parent.width
+                            text:qsTr("Supress deleted temporary cards for:")
+                            wrapMode: Text.WordWrap
+                            font.pixelSize: mainView.width * 0.04
+                            verticalAlignment: Text.AlignVCenter
+                        }
+                   }
+
+                       SpinBox {
+                           anchors.right:parent.right
+                           //anchors.bottom:parent.bottom
+                            id: keepSpin
+                            from:1
+                            to: 5
+                            value: 3
+                            textFromValue: function(value) {
+                                return value+" Days";
+                            }
+
+                            Text {
+                                anchors.right: parent.left
+                                anchors.verticalCenter: parent.verticalCenter
+                                width:(thisWindow.width * 0.95) - parent.width
+                                text:qsTr("Keep collected cards for:")
+                                font.pixelSize: mainView.width * 0.04
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                       }
+
+
+
+
+
+                   SpinBox {
+                       anchors.right:parent.right
+                       //anchors.bottom:parent.bottom
+                        id: areaSpin
+                        from:10
+                        to: 50
+                        value: 30
+
+                        textFromValue: function(value) {
+                            return value+ " Miles";
+                        }
+
+                        Text {
+                            anchors.right: parent.left
+                            anchors.verticalCenter: parent.verticalCenter
+                            width:(thisWindow.width * 0.95) - parent.width
+                            text:qsTr("Area Search Range:")
+                            font.pixelSize: mainView.width * 0.04
+                            verticalAlignment: Text.AlignVCenter
+                        }
+                   }
+
+
+                }
+
+
+             }
+
+
+       Item {
+           width:parent.width
+           height:eventsColumn.height * 1.1
+
+           Rectangle {
+               id:eventsback
+            anchors.fill:parent
+            visible: false
+            color:cardcolor
+           }
+
+           DropShadow {
+
+              anchors.fill: eventsback
+              horizontalOffset: 0
+              verticalOffset: 3
+              radius: 8.0
+              samples: 17
+              color: "#80000000"
+              source: eventsback
+
+            }
+
+       Column {
+           id:eventsColumn
+           width:parent.width * 0.98
+           anchors.centerIn: parent
+           spacing: thisWindow.width * 0.006
+
+           Text {
+               text:qsTr("Events:")
+               font.pixelSize: mainView.width * 0.07
+           }
+
+           Rectangle {
+               width: parent.width * 0.98
+               height:3
+               anchors.horizontalCenter: parent.horizontalCenter
+
+               color:seperatorColor1
+
+           }
+
+           Text {
+               text:qsTr("Auto Created Events:")
+               font.pixelSize: mainView.width * 0.05
+
+           }
+
+       CheckBox {
+           id:chance
+           anchors.left:parent.left
+           anchors.leftMargin: thisWindow.width * 0.01
+           text:qsTr("Chance Meetings")
+       }
+       CheckBox {
+           id:fequent
+           anchors.left:parent.left
+           anchors.leftMargin: thisWindow.width * 0.01
+           text:qsTr("Fequent Meetings")
+       }
+       CheckBox {
+           id:missed
+           anchors.left:parent.left
+           anchors.leftMargin: thisWindow.width * 0.01
+            text:qsTr("Missed Meetings")
+       }
+
+       }
+
+  }
+
+       Item {
+           width:parent.width
+           height:lofColumn.height * 1.1
+
+           Rectangle {
+               id:lofback
+            anchors.fill:parent
+            visible: false
+            color:cardcolor
+           }
+
+           DropShadow {
+
+              anchors.fill: lofback
+              horizontalOffset: 0
+              verticalOffset: 3
+              radius: 8.0
+              samples: 17
+              color: "#80000000"
+              source: lofback
+
+            }
+
+           Column {
+               id:lofColumn
+               width:parent.width * 0.98
+               anchors.centerIn: parent
+               spacing: thisWindow.width * 0.006
+
+       Text {
+           text:qsTr("Look and Feel:")
+           font.pixelSize: mainView.width * 0.07
+       }
+
+       Rectangle {
+           width: parent.width * 0.98
+           height:3
+           anchors.horizontalCenter: parent.horizontalCenter
+
+           color:seperatorColor1
+
+       }
+
+       Text {
+           text:qsTr("Theming")
+           font.pixelSize: mainView.width * 0.05
+       }
+
+       ListView {
+           width:parent.width
+           height:mainView.height * 0.6
+           orientation: ListView.Horizontal
+           snapMode: ListView.SnapOneItem
+           clip:true
+           spacing: thisWindow.width * 0.02
+
+           model: ListModel {
+               id:themelist
+
+               ListElement {
+                   name:"default"
+                   img:"./img/defaulttheme.png"
+               }
+
+               ListElement {
+                   name:"Pink"
+                   img:"./img/darktheme.png"
+               }
+           }
+
+           delegate: Item {
+                        width:thisWindow.width
+                        height:thisWindow.height * 0.6
+
+                    Image {
+                        id:themepreview
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        //width:parent.width * 0.9
+                        height:parent.height * 0.8
+                        fillMode: Image.PreserveAspectFit
+                        source:img
+                    }
+
+                    Text {
+                        anchors.top:themepreview.bottom
+                        text:name
+                        anchors.horizontalCenter: themepreview.horizontalCenter
+                        font.pixelSize: thisWindow.width * 0.06
+                    }
+
+           }
+       }
+
+    }
+
+  }
+}
+
+}
 
  Flickable {
-     id:setupFlick
+     id:profileFlick
+     visible: if(type == "profile") {true} else {false}
      clip:true
      contentHeight:pageColumn.height
     /* anchors {
@@ -140,8 +516,8 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
          left:parent.left
          right:parent.right
      } */
-     y: 0
-     height: parent.height
+     y: pages.height
+     height: parent.height - pages.height
      width: parent.width * 0.98
      anchors.horizontalCenter: parent.horizontalCenter
 
@@ -172,7 +548,7 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
              id:gentitle
              text: qsTr("User Profile")
              anchors.left:parent.left
-             font.pixelSize: parent.width * 0.06
+             font.pixelSize: parent.width * 0.07
              anchors.leftMargin: 4
              width:parent.width * 0.60
              //anchors.verticalCenter: parent.verticalCenter
@@ -206,7 +582,7 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
 
 Item {
     width:parent.width
-    //height:settingsPage.height * 0.35
+    //height:thisWindow.height * 0.35
     height:generalarea.height * 1.1
 
 
@@ -748,7 +1124,7 @@ Item {
 
           ListView {
               width:rectangle1.width
-              height:settingsPage.height * 0.05
+              height:thisWindow.height * 0.05
               orientation: ListView.Horizontal
               spacing: 10
               clip:true
@@ -796,7 +1172,7 @@ Item {
           Item {
               id:profileRow
               width: parent.width
-              height: settingsPage.height / 2.4
+              height: thisWindow.height / 2.4
               visible: if(profilesection == 0) {true} else {false}
 
 
@@ -813,7 +1189,7 @@ Item {
               Text {
                   anchors.horizontalCenter: parent.horizontalCenter
                   anchors.top:parent.top
-                  anchors.topMargin: settingsPage.height * 0.005
+                  anchors.topMargin: thisWindow.height * 0.005
                   wrapMode: Text.WordWrap
                   id:personalMotto
                   width:profileRow.width * 0.98
@@ -904,7 +1280,7 @@ Item {
           Item {
               id:exprRow
               width: parent.width
-              height: settingsPage.height / 2.15
+              height: thisWindow.height / 2.15
               visible: if(profilesection == 1) {true} else {false}
               //clip:true
               onVisibleChanged: if(visible == true) {Scripts.skillListings()}
@@ -925,14 +1301,14 @@ Item {
                   width:parent.width * 0.98
                   height:parent.height * 0.90
                   clip:true
-                  spacing:settingsPage.height * 0.02
+                  spacing:thisWindow.height * 0.02
 
                   model: skills
 
                   delegate: Item {
 
                             width:parent.width
-                            //height:settingsPage.height * 0.12
+                            //height:thisWindow.height * 0.12
                             height:editbutton.y + editbutton.height
 
                             Rectangle {
@@ -945,7 +1321,7 @@ Item {
 
                                     width:parent.width
                                     height:parent.height
-                                    spacing:settingsPage.height * 0.01
+                                    spacing:thisWindow.height * 0.01
 
                                 Text {
                                     text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
@@ -954,7 +1330,7 @@ Item {
                                     anchors.left:parent.left
                                     anchors.leftMargin: parent.height * 0.1
                                     width:parent.width
-                                    font.pixelSize: (settingsPage.height * 0.04)
+                                    font.pixelSize: (thisWindow.height * 0.04)
 
 
                                     Text {
@@ -984,7 +1360,7 @@ Item {
 
                                 Text {
                                     anchors.left:parent.left
-                                    anchors.leftMargin:settingsPage.height * 0.01
+                                    anchors.leftMargin:thisWindow.height * 0.01
                                     width:parent.width*0.98
                                     wrapMode: Text.WordWrap
                                     text:"Discription:\n"+discription.substring(1,discription.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
@@ -995,8 +1371,8 @@ Item {
                                     anchors.right:parent.right
                                     anchors.rightMargin: parent.width * 0.01
                                     source:"./icons/edit-text.svg"
-                                    width:settingsPage.height * 0.02
-                                    height:settingsPage.height * 0.02
+                                    width:thisWindow.height * 0.02
+                                    height:thisWindow.height * 0.02
                                 }
 
                                 }
@@ -1075,7 +1451,7 @@ Item {
           Item {
               id:schoolRow
               width: parent.width
-              height: settingsPage.height / 2.15
+              height: thisWindow.height / 2.15
               visible: if(profilesection == 2) {true} else {false}
               //clip:true
               onVisibleChanged: if(visible == true) {Scripts.schoolListings()}
@@ -1097,14 +1473,14 @@ Item {
                   width:parent.width * 0.98
                   height:parent.height * 0.90
                   clip:true
-                  spacing:settingsPage.height * 0.02
+                  spacing:thisWindow.height * 0.02
 
                   model: school
 
                   delegate: Item {
 
                       width:parent.width
-                      //height:settingsPage.height * 0.12
+                      //height:thisWindow.height * 0.12
                       height:editbutton1.y + editbutton1.height
 
                       Rectangle {
@@ -1117,7 +1493,7 @@ Item {
 
                               width:parent.width
                               height:parent.height
-                              spacing:settingsPage.height * 0.01
+                              spacing:thisWindow.height * 0.01
 
                           Text {
                               text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
@@ -1126,7 +1502,7 @@ Item {
                               anchors.left:parent.left
                               anchors.leftMargin: parent.height * 0.1
                               width:parent.width
-                              font.pixelSize: (settingsPage.height * 0.04)
+                              font.pixelSize: (thisWindow.height * 0.04)
 
 
                               Text {
@@ -1156,7 +1532,7 @@ Item {
 
                           Text {
                               anchors.left:parent.left
-                              anchors.leftMargin:settingsPage.height * 0.01
+                              anchors.leftMargin:thisWindow.height * 0.01
                               width:parent.width*0.98
                               wrapMode: Text.WordWrap
                               text:"Discription:\n"+discription.substring(1,discription.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
@@ -1167,8 +1543,8 @@ Item {
                               anchors.right:parent.right
                               anchors.rightMargin: parent.width * 0.01
                               source:"./icons/edit-text.svg"
-                              width:settingsPage.height * 0.02
-                              height:settingsPage.height * 0.02
+                              width:thisWindow.height * 0.02
+                              height:thisWindow.height * 0.02
                           }
 
                           }
@@ -1247,7 +1623,7 @@ Item {
           Item {
               id:workRow
               width: parent.width
-              height: settingsPage.height / 2.15
+              height: thisWindow.height / 2.15
               visible: if(profilesection == 3) {true} else {false}
               //clip:true
               onVisibleChanged: if(visible == true) {Scripts.workListings()}
@@ -1268,14 +1644,14 @@ Item {
                   width:parent.width * 0.98
                   height:parent.height * 0.90
                   clip:true
-                  spacing:settingsPage.height * 0.02
+                  spacing:thisWindow.height * 0.02
 
                   model: workexpr
 
                   delegate: Item {
 
                       width:parent.width
-                      //height:settingsPage.height * 0.12
+                      //height:thisWindow.height * 0.12
                       height:editbutton2.y + editbutton2.height
 
                       Rectangle {
@@ -1288,7 +1664,7 @@ Item {
 
                               width:parent.width
                               height:parent.height
-                              spacing:settingsPage.height * 0.01
+                              spacing:thisWindow.height * 0.01
 
                           Text {
                               text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
@@ -1297,7 +1673,7 @@ Item {
                               anchors.left:parent.left
                               anchors.leftMargin: parent.height * 0.1
                               width:parent.width
-                              font.pixelSize: (settingsPage.height * 0.04)
+                              font.pixelSize: (thisWindow.height * 0.04)
 
 
                               Text {
@@ -1327,7 +1703,7 @@ Item {
 
                           Text {
                               anchors.left:parent.left
-                              anchors.leftMargin:settingsPage.height * 0.01
+                              anchors.leftMargin:thisWindow.height * 0.01
                               width:parent.width*0.98
                               wrapMode: Text.WordWrap
                               text:"Discription:\n"+discription.substring(1,discription.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
@@ -1338,8 +1714,8 @@ Item {
                               anchors.right:parent.right
                               anchors.rightMargin: parent.width * 0.01
                               source:"./icons/edit-text.svg"
-                              width:settingsPage.height * 0.02
-                              height:settingsPage.height * 0.02
+                              width:thisWindow.height * 0.02
+                              height:thisWindow.height * 0.02
                           }
 
                           }
@@ -1477,14 +1853,14 @@ Rectangle {
                         height:contentHeight
                         //clip:true
                         boundsBehavior:Flickable.StopAtBounds
-                        spacing:settingsPage.height * 0.02
+                        spacing:thisWindow.height * 0.02
 
                         model: socialcontracts
 
                         delegate: SocialOpt {
 
                                 width:parent.width * 0.95
-                                height:settingsPage.height * 0.08
+                                height:thisWindow.height * 0.08
 
                                 MouseArea {
                                     anchors.fill: parent
@@ -1782,7 +2158,7 @@ Rectangle {
 
  ProfileEntry {
      id:enterProfile
-     //y:-settingsPage.y
+     //y:-thisWindow.y
      y:-topBar.height
      width:mainView.width
      height:mainView.height

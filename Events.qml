@@ -339,9 +339,9 @@ Item {
                         anchors.fill: backing
                         source:backing
                         samples: 17
-                        radius: 2.0
+                        radius: 5.0
                         horizontalOffset: 0
-                        verticalOffset: 2
+                        verticalOffset: 0
                         color:"#80000000"
                     }
 
