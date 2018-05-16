@@ -169,6 +169,7 @@ Item {
                                      case "2": qsTr("Social");break;
                                      default: qsTr("Unknown Section ")+section;break;
                                      }
+                                color:fontColor
                             }
 
                         Rectangle {
@@ -254,6 +255,7 @@ Item {
                                      default:menuitem;break;
                                      }
                                      } else {menuitem}
+                               color:fontColor
 
                                Text {
                                      id:stext
@@ -271,6 +273,7 @@ Item {
                                          font.pixelSize: parent.width * 0.04
                                           elide: Text.ElideRight
                                          maximumLineCount: 1
+                                         color:fontColor
                                    }
 
                         }
@@ -282,6 +285,7 @@ Item {
                             font.pixelSize: parent.height * 0.25
                             horizontalAlignment: Text.AlignRight
                             anchors.verticalCenter: parent.verticalCenter
+                            color:fontColor
                             text: if(title != "Category") {switch(menuitem) {
                                   case "0":"("+ptotal+")";break;
                                   case "2":"("+ctotal+")";break;
@@ -503,6 +507,7 @@ Item {
         anchors.bottomMargin:mainView.width * 0.01
         width:parent.width
         height:mainView.width * 0.10
+        backingColor:backgroundColor
     }
 
 

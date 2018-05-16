@@ -104,6 +104,16 @@ Item {
             text: "Scheduled"
             anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
+
+            contentItem: Text {
+                               width:parent.width
+                               horizontalAlignment: Text.AlignHCenter
+                               verticalAlignment: Text.AlignVCenter
+                               font:parent.font
+                               text:parent.text
+                               color:fontColorTitle
+                           }
+
             background: Rectangle {
                         color:if(type == "current") {highLightColor1} else {backgroundColor}
                         }
@@ -118,6 +128,16 @@ Item {
             text: "Log"
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
+
+            contentItem: Text {
+                               width:parent.width
+                               horizontalAlignment: Text.AlignHCenter
+                               verticalAlignment: Text.AlignVCenter
+                               font:parent.font
+                               text:parent.text
+                               color:fontColorTitle
+                           }
+
             background: Rectangle {
                         color:if(type == "log") {highLightColor1} else {backgroundColor}
                         }
@@ -159,6 +179,7 @@ Item {
                                 horizontalAlignment: Text.AlignRight
                                 anchors.verticalCenter: parent.verticalCenter
                                 text: ""+date
+                                color:fontColor
                             }
 
                             Rectangle {
@@ -182,11 +203,11 @@ Item {
                     Rectangle {
                         id:backfill
                         anchors.fill: parent
-                        color:if(index %2 == 0) {cardcolor} else {backgroundColor}
+                        color:cardcolor
                        // visible: false
                         //radius: parent.width * 0.01
-                        border.width: 1
-                        border.color: "lightgray"
+                       // border.width: 1
+                       // border.color: "lightgray"
                     }
 
                     DropShadow {
@@ -206,12 +227,14 @@ Item {
                        anchors.margins: thisWindow.width * 0.02
                        text:eventname
                        font.pixelSize: parent.width * 0.07
+                       color:fontColor
                        Text {
                            anchors.top:parent.bottom
                            anchors.left:parent.left
                            anchors.margins: thisWindow.width * 0.01
                            text: location
                            font.pixelSize:parent.height * 0.4
+                           color:fontColor
                        }
 
                     }
@@ -254,6 +277,7 @@ Item {
                        anchors.margins: thisWindow.width * 0.02
                        text:date
                        font.pixelSize: parent.width * 0.04
+                       color:fontColor
 
                     }
 
@@ -264,6 +288,7 @@ Item {
                        anchors.margins: thisWindow.width * 0.02
                        text:time
                        font.pixelSize: parent.width * 0.04
+                       color:fontColor
 
                     }
 
@@ -307,6 +332,7 @@ Item {
                     horizontalAlignment: Text.AlignRight
                     anchors.verticalCenter: parent.verticalCenter
                     text: ""+date
+                    color:fontColor
                 }
 
                 Rectangle {
@@ -330,7 +356,7 @@ Item {
                     Rectangle {
                         id:backing
                         anchors.fill: parent
-                        color:if(index %2 == 0) {cardcolor} else {backgroundColor}
+                        color:cardcolor
                         visible: false
                        // radius: parent.width * 0.01
                     }
@@ -339,9 +365,9 @@ Item {
                         anchors.fill: backing
                         source:backing
                         samples: 17
-                        radius: 2.0
+                        radius: 5.0
                         horizontalOffset: 0
-                        verticalOffset: 2
+                        verticalOffset: 0
                         color:"#80000000"
                     }
 
@@ -352,12 +378,14 @@ Item {
                        anchors.margins: thisWindow.width * 0.02
                        text:eventname
                        font.pixelSize: parent.width * 0.07
+                       color:fontColor
                         Text {
                             anchors.top:parent.bottom
                             anchors.left:parent.left
                             anchors.margins: thisWindow.width * 0.01
                             text:location
                             font.pixelSize:parent.height * 0.4
+                            color:fontColor
                         }
                     }
 
@@ -399,6 +427,7 @@ Item {
                        anchors.margins: thisWindow.width * 0.02
                        text:date
                        font.pixelSize: parent.width * 0.04
+                       color:fontColor
 
                     }
 
@@ -409,6 +438,7 @@ Item {
                        anchors.margins: thisWindow.width * 0.02
                        text:time
                        font.pixelSize: parent.width * 0.04
+                       color:fontColor
 
                     }
 

@@ -697,7 +697,7 @@ Item {
                 Text {
                     anchors.verticalCenter: parent.verticalCenter
                     text:"Use Gravatar"
-                    color:"white"
+                    color:fontColor
                     width:parent.width
                     font.pixelSize: parent.height * 0.3
                     wrapMode: Text.WordWrap
@@ -768,7 +768,7 @@ Item {
                 Text {
                     anchors.verticalCenter: parent.verticalCenter
                     text:"Use SoundCloud"
-                    color:"white"
+                    color:fontColor
                     font.pixelSize: parent.height * 0.3
                     width:parent.width
                     wrapMode: Text.WordWrap
@@ -843,7 +843,7 @@ Item {
                 Text {
                     anchors.verticalCenter: parent.verticalCenter
                     text:"Use Twitter"
-                    color:"white"
+                    color:fontColor
                     width:parent.width
                     font.pixelSize: parent.height * 0.3
                     wrapMode: Text.WordWrap
@@ -912,7 +912,7 @@ Item {
                 Text {
                     anchors.verticalCenter: parent.verticalCenter
                     text:"Use Tumblr"
-                    color:"white"
+                    color:fontColor
                     font.pixelSize: parent.height * 0.3
                     width:parent.width
                     wrapMode: Text.WordWrap
@@ -994,7 +994,7 @@ Item {
             anchors.centerIn: parent
             Text {
                 anchors.centerIn: parent
-                color:"black"
+                color:fontColor
                 text:qsTr("Close")
                 font.pixelSize: parent.height * 0.5 - text.length
             }

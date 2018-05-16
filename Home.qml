@@ -125,6 +125,7 @@ Item {
                                 anchors.right: parent.right
                                 wrapMode: Text.WordWrap
                                 font.pixelSize: mainView.width * 0.063
+                                color:fontColor
                             }
                             Rectangle {
                                 width:parent.width
@@ -138,6 +139,7 @@ Item {
                                 text:if(cardsop == 1) {qsTr("Job Title: ")+cardposition} else {qsTr("Category: ")+cardcat}
                                 width:parent.width
                                 wrapMode: Text.WordWrap
+                                color:fontColor
 
                             }
                             Text {
@@ -146,6 +148,7 @@ Item {
                                 text:if(cardsop == 1) {qsTr("Company: ")+companyname} else {""}
                                 width:parent.width
                                 wrapMode: Text.WordWrap
+                                color:fontColor
 
                             }
 
@@ -163,6 +166,7 @@ Item {
                                 text:carduserphone
                                 anchors.right:parent.right
                                 anchors.rightMargin: parent.width * 0.01
+                                color:fontColor
                             }
                             Text {
                                 id:email
@@ -171,6 +175,7 @@ Item {
                                 text:carduseremail
                                 anchors.right:parent.right
                                 anchors.rightMargin: parent.width * 0.01
+                                color:fontColor
                             }
                         }
 
@@ -240,10 +245,11 @@ Item {
                         anchors.horizontalCenter: parent.horizontalCenter
                         spacing: mainView.width * 0.04
 
-                        Text{
+                        Text {
                             anchors.left:parent.left
                             padding:parent.width * 0.02
                             text:qsTr("Status Update:")
+                            color:fontColor
                         }
                         Rectangle {
                                  anchors.horizontalCenter: parent.horizontalCenter
@@ -263,6 +269,7 @@ Item {
                             padding: parent.width * 0.03
                             wrapMode: Text.WordWrap
                             text: "<div>"+cardStatus+"</div>"
+                            color:fontColor
                         }
 
                         TextField {
@@ -350,6 +357,7 @@ Item {
                              wrapMode: Text.WordWrap
                              text:qsTr("About:")
                              font.pixelSize: 24
+                             color:fontColor
                         }
 
                        Rectangle {
@@ -365,6 +373,7 @@ Item {
                             width:parent.width - 10
                             wrapMode: Text.WordWrap
                              text:"<p>"+motto.replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")+"</p>"
+                             color:fontColor
                         }
 
                     }
@@ -413,6 +422,7 @@ Item {
                              wrapMode: Text.WordWrap
                              text:qsTr("Skills:")
                              font.pixelSize: 24
+                             color:fontColor
                         }
 
                        Rectangle {
@@ -453,6 +463,7 @@ Item {
                                             font.pixelSize: popup.height * 0.035
                                             text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
                                             width:parent.width
+                                            color:fontColor
 
                                             Text {
                                                 anchors.bottom:parent.bottom
@@ -460,6 +471,7 @@ Item {
                                                 anchors.rightMargin: popup.height * 0.01
                                                 font.pixelSize: popup.height * 0.02
                                                 text:"Years of Experience: "+yoe.substring(1,yoe.length-1)
+                                                color:fontColor
                                             }
                                         }
 
@@ -476,6 +488,7 @@ Item {
                                             width:parent.width * 0.95
                                             wrapMode: Text.WordWrap
                                             text:"<p>"+discription.substring(1,discription.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")+"</p>"
+                                            color:fontColor
                                         }
                                     }
                                 }
@@ -531,6 +544,7 @@ Item {
                              wrapMode: Text.WordWrap
                              text:qsTr("Education:")
                              font.pixelSize: 24
+                             color:fontColor
                         }
 
                        Rectangle {
@@ -570,7 +584,7 @@ Item {
                                         Text {
                                             font.pixelSize: popup.height * 0.035
                                             text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
-
+                                            color:fontColor
                                             width:parent.width
 
                                             Text {
@@ -579,6 +593,7 @@ Item {
                                                 anchors.rightMargin: popup.height * 0.01
                                                 font.pixelSize: popup.height * 0.02
                                                 text:"Degree: "+expdate.substring(1,expdate.length-1)
+                                                color:fontColor
                                             }
                                         }
 
@@ -595,6 +610,7 @@ Item {
                                             width:parent.width * 0.95
                                             wrapMode: Text.WordWrap
                                             text:"<p>"+discription.substring(1,discription.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")+"</p>"
+                                            color:fontColor
                                         }
                                     }
                                 }
@@ -650,6 +666,7 @@ Item {
                                  wrapMode: Text.WordWrap
                                  text:qsTr("Work:")
                                  font.pixelSize: 24
+                                 color:fontColor
                             }
 
                            Rectangle {
@@ -690,6 +707,7 @@ Item {
                                                 font.pixelSize: popup.height * 0.035
                                                 text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
                                                 width:parent.width
+                                                color:fontColor
 
                                                 Text {
                                                     anchors.bottom:parent.bottom
@@ -697,6 +715,7 @@ Item {
                                                     anchors.rightMargin: popup.height * 0.01
                                                     font.pixelSize: popup.height * 0.02
                                                     text:"Years at Job: "+yoe.substring(1,yoe.length-1)
+                                                    color:fontColor
                                                 }
                                             }
 
@@ -713,6 +732,7 @@ Item {
                                                 width:parent.width * 0.95
                                                 wrapMode: Text.WordWrap
                                                 text:"<p>"+discription.substring(1,discription.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")+"</p>"
+                                                color:fontColor
                                             }
                                         }
                                     }
@@ -844,9 +864,10 @@ Item {
                         anchors.horizontalCenter: parent.horizontalCenter
                         spacing: mainView.width * 0.04
 
-                        Text{
+                        Text {
                             anchors.left:parent.left
                             text:qsTr("Achievements:")
+                            color:fontColor
                         }
                         Rectangle {
                                  anchors.horizontalCenter: parent.horizontalCenter

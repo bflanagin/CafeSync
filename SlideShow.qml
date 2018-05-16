@@ -91,7 +91,7 @@ Item {
                             //anchors.verticalCenter: parent.verticalCenter
                             //anchors.horizontalCenterOffset: parent.width * (0.01*fHoffset)
                            // anchors.verticalCenterOffset: parent.height * (0.01*fVoffset)
-
+                        color:fontColor
                 style: Text.Outline; styleColor: "#FFFFFF"
 
 
@@ -121,7 +121,7 @@ Item {
                             anchors.left:parent.left
                             wrapMode:Text.WordWrap
                             width:parent.width - 10
-
+                            color:fontColor
                 style: Text.Outline; styleColor: "#FFFFFF"
 
 
@@ -136,7 +136,7 @@ Item {
                     anchors.bottom:parent.bottom
                     anchors.right:parent.right
                     anchors.rightMargin: 10
-
+                    color:fontColor
         style: Text.Outline; styleColor: "#FFFFFF"
 
 
@@ -171,6 +171,7 @@ Item {
      font.pixelSize: parent.width * 0.08
      anchors.centerIn: parent
      text:qsTr("close")
+     color:fontColor
 
  }
  MouseArea {

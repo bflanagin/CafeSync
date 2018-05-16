@@ -120,24 +120,41 @@ Item {
                text:if(edit == false) {qsTr("New Event")} else {qsTr("Edit Event")}
                font.bold:true
                font.pixelSize: thisWindow.width * 0.1
+               color:fontColorTitle
            }
 
            TextField {
                id:eventName
               width:parent.width
               placeholderText: qsTr("Event Name")
+              padding: 6
+              color:fontColor
+              background: InputBack{}
 
            }
 
            TextField {
                id:eventLocation
               width:parent.width
+              padding: 6
               placeholderText: qsTr("Location")
-
+              color:fontColor
+              background: InputBack{}
            }
            CheckBox {
                anchors.right: parent.right
+               width:thisWindow.width * 0.1
                text:qsTr("Private Location")
+               contentItem: Text {
+                   text:parent.text
+                   anchors.right:parent.left
+                   width:parent.width
+                   verticalAlignment: Text.AlignVCenter
+                   horizontalAlignment: Text.AlignRight
+                   color:fontColor
+                   font.pixelSize: mainView.width * 0.04
+               }
+
            }
 
          //  GridLayout {
@@ -150,26 +167,84 @@ Item {
                to: 11
                value: d.getMonth()
 
-               textFromValue: function(value) {
-                                var themonth = "";
-                            switch(value) {
-                            case 0: themonth = "January";break;
-                            case 1: themonth = "Febuary";break;
-                            case 2: themonth = "March";break;
-                            case 3: themonth = "April";break;
-                            case 4: themonth = "May";break;
-                            case 5: themonth = "Jun";break;
-                            case 6: themonth = "July";break;
-                            case 7: themonth = "August";break;
-                            case 8: themonth = "September";break;
-                            case 9: themonth = "October";break;
-                            case 10: themonth = "November";break;
-                            case 11: themonth = "December";break;
-                            }
-                            //selected_month = themonth+1;
-                            return themonth;
-               }
-               //onValueChanged: grid.month = value
+               contentItem: Label {
+                   text:switch(parent.value) {
+                   case 0:"January";break;
+                   case 1:"Febuary";break;
+                   case 2:"March";break;
+                   case 3:"April";break;
+                   case 4:"May";break;
+                   case 5:"Jun";break;
+                   case 6:"July";break;
+                   case 7:"August";break;
+                   case 8:"September";break;
+                   case 9:"October";break;
+                   case 10:"November";break;
+                   case 11:"December";break;
+                   }
+
+                   width:parent.width
+                   verticalAlignment: Text.AlignVCenter
+                   horizontalAlignment: Text.AlignHCenter
+                   color:fontColor
+                   font.pixelSize: mainView.width * 0.04
+                   }
+
+
+               down.indicator: Rectangle {
+                                   width:parent.height /2
+                                   height:parent.height /2
+                                   radius: width /2
+                                   anchors.left:parent.left
+                                   anchors.verticalCenter: parent.verticalCenter
+                                   color:activeColor
+
+                                   Image {
+                                       id:d1
+                                       source:"./icons/minus.svg"
+                                       anchors.centerIn: parent
+                                       fillMode: Image.PreserveAspectFit
+                                       width: parent.width * 0.65
+
+
+                                   }
+
+                                   ColorOverlay {
+                                       source:d1
+                                       color:fontColor
+                                       anchors.fill:d1
+
+
+                                   }
+
+                                   }
+
+               up.indicator: Rectangle {
+                                   width:parent.height /2
+                                   height:parent.height /2
+                                   radius: width /2
+                                   anchors.right:parent.right
+                                   anchors.verticalCenter: parent.verticalCenter
+                                   color:activeColor
+
+                                   Image {
+                                       id:u1
+                                       source:"./icons/add.svg"
+                                       anchors.centerIn: parent
+                                       fillMode: Image.PreserveAspectFit
+                                       width: parent.width * 0.65
+                                   }
+
+                                   ColorOverlay {
+                                       source:u1
+                                       color:fontColor
+                                       anchors.fill:u1
+
+
+                                   }
+
+                                   }
+
            }
 
            Item {
@@ -184,7 +259,14 @@ Item {
                                 locale: grid.locale
                                  width:grid.width
                                  anchors.bottom:grid.top
+                                 delegate: Text {
 
+                                                    horizontalAlignment: Text.AlignHCenter
+                                                    verticalAlignment: Text.AlignVCenter
+                                                    font:parent.font
+                                                    text: model.shortName
+                                                    color:fontColorTitle
+                                                }
                             }
            MonthGrid {
                     id:grid
@@ -210,7 +292,7 @@ Item {
                    horizontalAlignment: Text.AlignHCenter
                    verticalAlignment: Text.AlignVCenter
                    text: model.day
-                   color:model.day === theday ? "white" : "black"
+                   color:model.day === theday ? highLightColor1 : fontColor
                    //font: control.font
 
 
@@ -243,6 +325,7 @@ Item {
                    horizontalAlignment: Text.AlignHCenter
                    font.pixelSize: thisWindow.width * 0.05
                    font.bold: true
+                   color:fontColor
                }
 
            SpinBox {
@@ -255,12 +338,70 @@ Item {
                            to:12
                            value:if(d.getHours() > 12) {d.getHours() - 12}
 
-                           textFromValue: function(value) {
-                               if(value < 10) {return "0"+(value)} else {return value}
-                              }
+
+                           contentItem: Label {
+                               text:if(parent.value < 10) { "0"+(parent.value)} else {parent.value}
+                               width:parent.width
+                               verticalAlignment: Text.AlignVCenter
+                               horizontalAlignment: Text.AlignHCenter
+                               color:fontColor
+                               font.pixelSize: mainView.width * 0.04
+                               }
 
 
-                             font.pixelSize: thisWindow.width * 0.04
+                           down.indicator: Rectangle {
+                                               width:parent.height /2
+                                               height:parent.height /2
+                                               radius: width /2
+                                               anchors.left:parent.left
+                                               anchors.verticalCenter: parent.verticalCenter
+                                               color:activeColor
+
+                                               Image {
+                                                   id:d2
+                                                   source:"./icons/minus.svg"
+                                                   anchors.centerIn: parent
+                                                   fillMode: Image.PreserveAspectFit
+                                                   width: parent.width * 0.65
+
+
+                                               }
+
+                                               ColorOverlay {
+                                                   source:d2
+                                                   color:fontColor
+                                                   anchors.fill:d2
+
+
+                                               }
+
+                                               }
+
+                           up.indicator: Rectangle {
+                                               width:parent.height /2
+                                               height:parent.height /2
+                                               radius: width /2
+                                               anchors.right:parent.right
+                                               anchors.verticalCenter: parent.verticalCenter
+                                               color:activeColor
+
+                                               Image {
+                                                   id:u2
+                                                   source:"./icons/add.svg"
+                                                   anchors.centerIn: parent
+                                                   fillMode: Image.PreserveAspectFit
+                                                   width: parent.width * 0.65
+                                               }
+
+                                               ColorOverlay {
+                                                   source:u2
+                                                   color:fontColor
+                                                   anchors.fill:u2
+
+
+                                               }
+
+                                               }
 
 
                        }
@@ -270,6 +411,7 @@ Item {
                //width:parent.width / 6
                horizontalAlignment: Text.AlignHCenter
                font.pixelSize: thisWindow.width * 0.05
+               color:fontColor
            }
 
            SpinBox {
@@ -279,11 +421,71 @@ Item {
                            from:0
                            to:59
                            value:d.getMinutes()
-                           textFromValue: function(value) {
-                               if(value < 10) {return "0"+(value)} else {return value}
-                              }
 
-                           font.pixelSize: thisWindow.width * 0.04
+
+                           contentItem: Label {
+                               text:if(parent.value < 10) {"0"+(parent.value)} else {parent.value}
+                               width:parent.width
+                               verticalAlignment: Text.AlignVCenter
+                               horizontalAlignment: Text.AlignHCenter
+                               color:fontColor
+                               font.pixelSize: mainView.width * 0.04
+                               }
+
+
+                           down.indicator: Rectangle {
+                                               width:parent.height /2
+                                               height:parent.height /2
+                                               radius: width /2
+                                               anchors.left:parent.left
+                                               anchors.verticalCenter: parent.verticalCenter
+                                               color:activeColor
+
+                                               Image {
+                                                   id:d3
+                                                   source:"./icons/minus.svg"
+                                                   anchors.centerIn: parent
+                                                   fillMode: Image.PreserveAspectFit
+                                                   width: parent.width * 0.65
+
+
+                                               }
+
+                                               ColorOverlay {
+                                                   source:d3
+                                                   color:fontColor
+                                                   anchors.fill:d3
+
+
+                                               }
+
+                                               }
+
+                           up.indicator: Rectangle {
+                                               width:parent.height /2
+                                               height:parent.height /2
+                                               radius: width /2
+                                               anchors.right:parent.right
+                                               anchors.verticalCenter: parent.verticalCenter
+                                               color:activeColor
+
+                                               Image {
+                                                   id:u3
+                                                   source:"./icons/add.svg"
+                                                   anchors.centerIn: parent
+                                                   fillMode: Image.PreserveAspectFit
+                                                   width: parent.width * 0.65
+                                               }
+
+                                               ColorOverlay {
+                                                   source:u3
+                                                   color:fontColor
+                                                   anchors.fill:u3
+
+
+                                               }
+
+                                               }
 
 
                        }
@@ -298,11 +500,70 @@ Item {
                            to: 1
                            value:if(d.getHours() >= 12) {1} else {0}
 
-                           textFromValue: function(value) {
-                                     if(value === 0) {return "AM"} else {return "PM"}
-                                    }
 
-                           font.pixelSize: thisWindow.width * 0.04
+                           contentItem: Label {
+                               text:if(parent.value === 0) {return "AM"} else {return "PM"}
+                               width:parent.width
+                               verticalAlignment: Text.AlignVCenter
+                               horizontalAlignment: Text.AlignHCenter
+                               color:fontColor
+                               font.pixelSize: mainView.width * 0.04
+                               }
+
+
+                           down.indicator: Rectangle {
+                                               width:parent.height /2
+                                               height:parent.height /2
+                                               radius: width /2
+                                               anchors.left:parent.left
+                                               anchors.verticalCenter: parent.verticalCenter
+                                               color:activeColor
+
+                                               Image {
+                                                   id:d4
+                                                   source:"./icons/minus.svg"
+                                                   anchors.centerIn: parent
+                                                   fillMode: Image.PreserveAspectFit
+                                                   width: parent.width * 0.65
+
+
+                                               }
+
+                                               ColorOverlay {
+                                                   source:d4
+                                                   color:fontColor
+                                                   anchors.fill:d4
+
+
+                                               }
+
+                                               }
+
+                           up.indicator: Rectangle {
+                                               width:parent.height /2
+                                               height:parent.height /2
+                                               radius: width /2
+                                               anchors.right:parent.right
+                                               anchors.verticalCenter: parent.verticalCenter
+                                               color:activeColor
+
+                                               Image {
+                                                   id:u4
+                                                   source:"./icons/add.svg"
+                                                   anchors.centerIn: parent
+                                                   fillMode: Image.PreserveAspectFit
+                                                   width: parent.width * 0.65
+                                               }
+
+                                               ColorOverlay {
+                                                   source:u4
+                                                   color:fontColor
+                                                   anchors.fill:u4
+
+
+                                               }
+
+                                               }
 
 
                        }
@@ -314,6 +575,7 @@ Item {
            Text {
                text:"Invites:"
                font.bold: true
+               color:fontColor
 
            }
 
@@ -324,7 +586,7 @@ Item {
 
            ListView {
                id:invitelistView
-               width:contentWidth
+               width:if(contentWidth < (thisWindow.width * 0.89)) {contentWidth} else {thisWindow.width * 0.89}
                anchors.left: parent.left
                orientation: ListView.Horizontal
                height:thisWindow.width * 0.2
@@ -360,10 +622,17 @@ Item {
                    //color:highLightColor1
 
                    Image {
+                       id:addinviteimg
                        anchors.centerIn: parent
-                       width:parent.width * 0.45
-                       height:parent.width * 0.45
+                       width:parent.width * 0.5
+                       height:parent.width * 0.5
                        source:"./icons/add.svg"
+                   }
+
+                   ColorOverlay {
+                       source:addinviteimg
+                       anchors.fill:addinviteimg
+                       color:fontColor
                    }
 
                    Flasher{}
@@ -381,8 +650,9 @@ Item {
            }
 
            Text {
-               text:"About:"
+               text:qsTr("About:")
                font.bold: true
+               color:fontColor
 
            }
            TextArea {
@@ -390,6 +660,7 @@ Item {
                width:parent.width
                height:thisWindow.width * 0.5
                text:"We'll talk about things and stuff"
+               color:fontColor
            }
 
            Item {
@@ -401,7 +672,7 @@ Item {
                width:parent.width * 0.48
                anchors.left: parent.left
                height:parent.height
-               text:"Cancel"
+               text:qsTr("Cancel")
                onClicked: {
 
 
@@ -412,12 +683,21 @@ Item {
                background: Rectangle {
                            color:highLightColor1
                            }
+
+               contentItem: Text {
+                                  width:parent.width
+                                  horizontalAlignment: Text.AlignHCenter
+                                  verticalAlignment: Text.AlignVCenter
+                                  font:parent.font
+                                  text:parent.text
+                                  color:fontColorTitle
+                              }
            }
             Button {
                 width:parent.width * 0.48
                  height:parent.height
                 anchors.right: parent.right
-                text:"Save"
+                text:qsTr("Save")
                 onClicked: {
 
                             if(ampmSpin.value === 1) {
@@ -434,6 +714,15 @@ Item {
                 background: Rectangle {
                             color:highLightColor1
                             }
+
+                contentItem: Text {
+                                   width:parent.width
+                                   horizontalAlignment: Text.AlignHCenter
+                                   verticalAlignment: Text.AlignVCenter
+                                   font:parent.font
+                                   text:parent.text
+                                   color:fontColorTitle
+                               }
             }
 
            }
@@ -466,6 +755,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.pixelSize: thisWindow.width * 0.1
                 text:qsTr("Remove Invite?")
+                color:fontColor
             }
 
             Button {
@@ -479,6 +769,14 @@ Item {
                 background: Rectangle {
                             color:highLightColor1
                             }
+                contentItem: Text {
+                                   width:parent.width
+                                   horizontalAlignment: Text.AlignHCenter
+                                   verticalAlignment: Text.AlignVCenter
+                                   font:parent.font
+                                   text:parent.text
+                                   color:fontColorTitle
+                               }
             }
 
             Button {
@@ -497,6 +795,14 @@ Item {
                 background: Rectangle {
                             color:highLightColor1
                             }
+                contentItem: Text {
+                                   width:parent.width
+                                   horizontalAlignment: Text.AlignHCenter
+                                   verticalAlignment: Text.AlignVCenter
+                                   font:parent.font
+                                   text:parent.text
+                                   color:fontColorTitle
+                               }
             }
 
 

@@ -109,7 +109,7 @@ Item {
 
                 text:"<div>"+name+"</div>"
                 font.pixelSize: (banborder.height * 0.65) - name.length
-                color:"white"
+                color:fontColorTitle
             }
             Text {
                 id:about
@@ -117,7 +117,7 @@ Item {
                 anchors.top:blogtitle.bottom
                 text:"<div>"+message+"</div>"
                 font.pixelSize: blogtitle.height * 0.30 - message.length
-                color:"white"
+                color:fontColor
             }
 
     }
@@ -188,7 +188,7 @@ Item {
                                     text:"<div>"+itemname+"...</div>"
                                     font.pixelSize: postbg.width * 0.06 - posttitle.length
                                     wrapMode:Text.WordWrap
-                                    color:"black"
+                                    color:fontColor
                                     }
 
                                 Text {
@@ -200,7 +200,7 @@ Item {
                                     text:itemprice
                                     font.pixelSize: postbg.width * 0.08 - posttitle.length
                                     wrapMode:Text.WordWrap
-                                    color:"darkgreen"
+                                    color:activeColor
                                     }
 
 

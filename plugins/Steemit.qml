@@ -106,7 +106,7 @@ Item {
             anchors.left:avimage.right
             text:name
             font.pixelSize: parent.height * 0.45 - text.length
-            color:"white"
+            color:fontColorTitle
             minimumPixelSize: 20
         }
         Text {
@@ -116,7 +116,7 @@ Item {
             anchors.topMargin: parent.height * 0.01
             text:message
             font.pixelSize: blogtitle.height * 0.25 - text.length
-            color:"white"
+            color:fontColor
             wrapMode: Text.WordWrap
             width:parent.width * 0.80
         }
@@ -168,7 +168,7 @@ Item {
                 text:"<b>"+posttitle+"</b>"
                 font.pixelSize: postbg.width * 0.12 - posttitle.length
                 wrapMode:Text.WordWrap
-                color:"black"
+                color:fontColor
             }
 
             Rectangle {
@@ -200,7 +200,7 @@ Item {
                 font.pixelSize: postbg.width * 0.04
                 text:"<p>"+post+"</p>"
                 wrapMode:Text.WordWrap
-                color:"black"
+                color:fontColor
             }
         }
 
@@ -398,7 +398,7 @@ Item {
         width:parent.width * 0.6
         wrapMode: Text.WordWrap
         z:3
-        color:"white"
+        color:fontColor
 
         opacity:logo.opacity
     }

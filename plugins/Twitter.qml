@@ -112,7 +112,7 @@ Item {
             clip:true
 
         Rectangle {
-            color:"white"
+            color:cardcolor
             border.color:"black"
             border.width:1
             radius:10
@@ -148,7 +148,7 @@ Item {
             text:profilename
             wrapMode: Text.WordWrap
             //style: Text.Outline; styleColor: "#FFFFFF"
-            color:"white"
+            color:fontColorTitle
 
 
 
@@ -175,7 +175,7 @@ Item {
             width:(parent.width - pic.width) * 0.98
             wrapMode: Text.WordWrap
             //style: Text.Outline; styleColor: "#FFFFFF"
-            color:"white"
+            color:fontColor
         }
 
         }
@@ -227,7 +227,7 @@ Item {
             text:"<h2>"+posttitle+"</h2>"
            // font.pixelSize: messageblock.width * 0.08 - posttitle.length
             wrapMode:Text.WordWrap
-            color:"black"
+            color:fontColor
         }
 
         Rectangle {
@@ -251,7 +251,7 @@ Item {
             wrapMode: Text.WordWrap
             width:parent.width* 0.98
             text:message
-
+            color:fontColor
             anchors.margins: 5
             font.pixelSize: popup.height * 0.03 - text.length
 
@@ -282,6 +282,7 @@ Item {
                // anchors.fill:parent
                 anchors.margins: 5
                 font.pixelSize: popup.height * 0.02 - text.length
+                color:fontColor
             }
         }
         DropShadow {
@@ -444,6 +445,7 @@ Item {
                          text:qsTr("Tweets & Replies")
                          //anchors.verticalCenter: parent.verticalCenter
                          font.pixelSize: parent.height * 0.3
+                         color:fontColor
 
                      }
                 // }
@@ -483,6 +485,7 @@ Item {
                      anchors.fill:parent
                      color:highLightColor1
                      opacity:0.9
+
                  }
 
                  Text {
@@ -493,7 +496,7 @@ Item {
                          //anchors.verticalCenter: parent.verticalCenter
                          anchors.centerIn: parent
                          font.pixelSize: parent.height * 0.3
-
+                        color:fontColor
                      }
                 // }
                 MouseArea {
@@ -539,6 +542,7 @@ Item {
                          //anchors.verticalCenter: parent.verticalCenter
                          anchors.centerIn: parent
                          font.pixelSize: parent.height * 0.30
+                         color:fontColor
 
                      }
                 // }
@@ -636,7 +640,7 @@ Item {
         width:parent.width * 0.6
         wrapMode: Text.WordWrap
         z:3
-        color:"white"
+        color:fontColor
 
         opacity:logo.opacity
     }

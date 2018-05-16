@@ -156,6 +156,7 @@ Item {
                 width: parent.width
                 height: popup.height * 0.18
                 radius: mainView.width * 0.01
+                color:cardcolor
 
                 Row {
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -173,6 +174,7 @@ Item {
                         anchors.verticalCenter: parent.verticalCenter
                         text:"CafeSync Code"
                         font.pixelSize: mainView.width * 0.05
+                        color:fontColor
                     }
 
 
@@ -186,6 +188,7 @@ Item {
                 width: parent.width
                 height: popup.height * 0.18
                 radius: mainView.width * 0.01
+                color:cardcolor
 
                 Row {
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -203,6 +206,7 @@ Item {
                         anchors.verticalCenter: parent.verticalCenter
                         text:"Text Message"
                         font.pixelSize: mainView.width * 0.05
+                        color:fontColor
                     }
                 }
                 MouseArea {
@@ -236,6 +240,7 @@ Sent from CafeSync
                 width: parent.width
                 height: popup.height * 0.18
                 radius: mainView.width * 0.01
+                color:cardcolor
 
                 Row {
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -254,6 +259,7 @@ Sent from CafeSync
                         anchors.verticalCenter: parent.verticalCenter
                         text:"Email Message"
                         font.pixelSize: mainView.width * 0.05
+                        color:fontColor
                     }
 
 
@@ -263,22 +269,18 @@ Sent from CafeSync
                     onClicked: {
                         if(username != currentcard_username) {console.log(currentcard);
                             Qt.openUrlExternally('mailto:?subject=CafeSync%20Invite&body='+username+' wants you to view '+currentcard_username+'\'s card on CafeSync.
-\nNever heard of CafeSync?
+\nDownload CafeSync on Android at:
 
-Find out more by checking out the link below.
-
-https://www.vagueentertainment.com/?page_id=434
+https://play.google.com/store/apps/details?id=com.vagueentertainment.cafesync&hl=en
 
 Sent from CafeSync
                                 ');
                         } else {
 
                         Qt.openUrlExternally('mailto:?subject=CafeSync%20Invite&body=Connect with '+username+' on CafeSync
-\nNever heard of CafeSync?
+\nDownload CafeSync on Android at:
 
-Find out more by checking out the link below.
-
-https://www.vagueentertainment.com/?page_id=434
+https://play.google.com/store/apps/details?id=com.vagueentertainment.cafesync&hl=en
 
 Sent from CafeSync
                             '); }
@@ -299,11 +301,13 @@ Sent from CafeSync
             anchors.centerIn: parent
             text:message
             font.pixelSize: parent.width * 0.2 - text.length
+            color:fontColor
 
             Text {
                 anchors.top:parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
                 text:qsTr("(Tap to close)")
+                color:fontColor
             }
 
         }
@@ -313,6 +317,7 @@ Sent from CafeSync
             anchors.bottom:parent.bottom
             anchors.bottomMargin:10
             text:qsTr("Warning: Closing this window invalidates code")
+            color:fontColor
         }
         MouseArea {
             anchors.fill: parent
@@ -357,6 +362,7 @@ Sent from CafeSync
             text:"Enter Code"
             color:fontColorTitle
             font.pixelSize: parent.width* 0.1 - text.length
+
         }
 
         }
@@ -374,6 +380,7 @@ Sent from CafeSync
             horizontalAlignment:TextInput.AlignHCenter
             maximumLength: 6
             text: text.toUpperCase()
+            color:fontColor
         }
 
    /* Image {
@@ -553,6 +560,16 @@ Sent from CafeSync
             text: "Send"
             anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
+
+            contentItem: Text {
+                               width:parent.width
+                               horizontalAlignment: Text.AlignHCenter
+                               verticalAlignment: Text.AlignVCenter
+                               font:parent.font
+                               text:parent.text
+                               color:fontColorTitle
+                           }
+
             background: Rectangle {
                         color:if(type == "send") {highLightColor1} else {backgroundColor}
                         }
@@ -565,6 +582,16 @@ Sent from CafeSync
             text: "Receive"
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
+
+            contentItem: Text {
+                               width:parent.width
+                               horizontalAlignment: Text.AlignHCenter
+                               verticalAlignment: Text.AlignVCenter
+                               font:parent.font
+                               text:parent.text
+                               color:fontColorTitle
+                           }
+
             background: Rectangle {
                         color:if(type == "receive") {highLightColor1} else {backgroundColor}
                         }

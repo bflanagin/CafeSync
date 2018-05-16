@@ -257,5 +257,9 @@
         <file>EventEdit.qml</file>
         <file>events.js</file>
         <file>EventInfo.qml</file>
+        <file>img/defaulttheme.png</file>
+        <file>icons/minus.svg</file>
+        <file>img/pinktheme.png</file>
+        <file>img/poptheme.png</file>
     </qresource>
 </RCC>

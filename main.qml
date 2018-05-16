@@ -51,12 +51,11 @@ ApplicationWindow {
     property string seperatorColor1: "#795548"
     property string barColor: Qt.rgba(0.98,0.98,0.96,1)
     property string bottombarColor: Qt.rgba(0.98,0.98,0.96,1)
-    property string activeColor: "#6E4879"
+    property string activeColor: Qt.rgba(0.99,0.95,0.88,1)
     property string cardcolor: Qt.rgba(0.98,0.98,0.98,1)
     property string overlayColor: "#795548"
     property string fontColorTitle: "black"
-
-
+    property string fontColor:"black"
 
 
 
@@ -119,6 +118,17 @@ ApplicationWindow {
     property int offset: 60000
 
 
+    /// Settings ////
+
+    property int cM: 1
+    property int fM: 1
+    property int mM: 1
+
+    property int sD: 30
+    property int sT: 3
+    property int kT: 3
+
+    property int theme: 0
 
     ////// End card info ///////
 
@@ -232,12 +242,13 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
 
 
 
-    visible: true
+    visible: false
     width: 720
     height: 1280
     //width:Screen.desktopAvailableWidth
     //height:Screen.desktopAvailableHeight
-    //background: "black"
+    //background: backgroundColor
+    color: backgroundColor
 
     title: "CafeSync"
 
@@ -372,10 +383,12 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
             id:startup
             interval:1; running:true; repeat: false
             onTriggered: {
-            Scripts.load_Card();
-                console.log("starting up");
+                // mainView.visible = true;
+                Scripts.load_Card();
+                //console.log("starting up");
                 heartbeats.running = true;
                  notification.visible = true;
+
 
             }
     }
@@ -804,6 +817,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                                         horizontalAlignment: Text.AlignRight
                                         anchors.verticalCenter: parent.verticalCenter
                                         text: ""+date
+                                        color:fontColorTitle
                                     }
 
                                     Rectangle {

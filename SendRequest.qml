@@ -68,7 +68,7 @@ Item {
     Rectangle {
         anchors.fill: parent
         id:backing
-        color:"white"
+        color:cardcolor
     }
 
     Column {
@@ -82,6 +82,7 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: thisWindow.height * 0.05
             width:parent.width
+            color:fontColor
 
             Rectangle {
                 z:-1
@@ -103,6 +104,7 @@ Item {
             anchors.left:parent.left
             anchors.leftMargin: thisWindow.height * 0.01
             font.pixelSize: thisWindow.height * 0.04
+            color:fontColor
         }
 
         TextArea {
@@ -113,9 +115,10 @@ Item {
             placeholderText: "To start messaging the user\n they must accept your request."
             wrapMode: Text.WordWrap
             font.pixelSize: parent.width * 0.06
+            color:fontColor
             Rectangle {
                 anchors.centerIn: parent
-                color:"white"
+                color:backgroundColor
                 width:parent.width * 1.01
                 height:parent.height * 1.01
                 border.color: "black"

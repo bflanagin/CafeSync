@@ -337,6 +337,7 @@ Flipable {
             text:when
             width:parent.width * 0.4
             wrapMode: Text.WordWrap
+            color:fontColorTitle
 
         }
 
@@ -368,6 +369,7 @@ Flipable {
             maximumLineCount: 2
             elide:Text.ElideRight
             text:name
+            color:fontColor
 
             Text {
                 anchors.top:parent.bottom
@@ -376,6 +378,7 @@ Flipable {
                 text:qsTr("Party of ")+party.length
                 font.italic: true
                 font.pixelSize: mainView.width * 0.03
+                color:fontColor
             }
         }
 
@@ -391,7 +394,7 @@ Flipable {
             wrapMode: Text.WordWrap
             text:eventname
             horizontalAlignment: Text.AlignHCenter
-
+            color:fontColor
             Text {
                 anchors.top:parent.bottom
                 anchors.topMargin: mainView.width * 0.01
@@ -400,6 +403,7 @@ Flipable {
                 maximumLineCount: 2
                 elide: Text.ElideRight
                 text:about
+                color:fontColor
             }
         }
 
@@ -497,6 +501,7 @@ Flipable {
             //anchors.top: parent.top
             //anchors.topMargin: parent.width * 0.1
             opacity: 0.4
+            color:fontColor
 
             text: switch(type) {
 

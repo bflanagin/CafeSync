@@ -201,7 +201,7 @@ ListView {
             height:conversecontent.height */
             width: parent.width * 0.97
             height: parent.height * 0.97
-            color:"white"
+            color:cardcolor
             radius:mainView.width * 0.01
         }
 
@@ -291,6 +291,7 @@ ListView {
                     anchors.horizontalCenter: parent.horizontalCenter
                     horizontalAlignment: Text.AlignLeft
                     //anchors.left:parent.left
+                    color:fontColor
 
 
                 }
@@ -311,6 +312,7 @@ ListView {
                 anchors.horizontalCenter: parent.horizontalCenter
                  horizontalAlignment: Text.LeftRight
                 wrapMode: Text.WordWrap
+                color:fontColor
                     }
 
             Text {
@@ -320,6 +322,7 @@ ListView {
                 horizontalAlignment: Text.AlignRight
                 anchors.right:parent.right
                 opacity: 0.2
+                color:fontColor
             }
 
 
@@ -505,7 +508,7 @@ ListView {
             width:content.width
             height:content.height
             visible: false
-            color:"white"
+            color:cardcolor
             radius:mainView.width * 0.03
            // border.color:"black"
            // border.width: 1
@@ -539,6 +542,7 @@ ListView {
                     anchors.horizontalCenter: parent.horizontalCenter
                     horizontalAlignment: Text.AlignLeft
                     //anchors.left:parent.left
+                    color:fontColor
 
                     Text {
                         text:timecode
@@ -547,6 +551,7 @@ ListView {
                         anchors.right:parent.right
                         font.pixelSize: thisWindow.width * 0.03
                         opacity: 0.2
+                        color:fontColor
                     }
                 }
 
@@ -566,6 +571,7 @@ ListView {
                 anchors.horizontalCenter: parent.horizontalCenter
                  horizontalAlignment: Text.LeftRight
                 wrapMode: Text.WordWrap
+                color:fontColor
             }
         }
 
@@ -580,19 +586,34 @@ Rectangle {
     anchors.bottomMargin: mainView.width * 0.01
     width:parent.width
     height:(parent.height * 0.01) + messageField.height
-    color:bottombarColor
+    color:barColor
 
-   Image {
-       id:addstuff
+    Item {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left:parent.left
         anchors.leftMargin: thisWindow.height * 0.01
         height:mainView.width * 0.06
         width:mainView.width * 0.06
+   Image {
+       id:addstuff
+        anchors.fill: parent
         source:"./icons/add.svg"
-        Flasher {
+        visible: false
 
-        }
+    }
+
+   ColorOverlay {
+       source:addstuff
+       color:fontColor
+       anchors.fill:addstuff
+
+
+   }
+
+   Flasher {
+
+   }
+
     }
    TextArea {
        id:messageField
@@ -608,7 +629,7 @@ Rectangle {
        //height:parent.height * 0.7
        font.pixelSize: parent.width * 0.04
        //maximumLength: 144
-        Keys.onPressed: { if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {Message.send_messages(roomId,messageField.text)} }
+        Keys.onPressed: { if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {Message.send_messages(roomId,messageField.text)} else {console.log(event.key);} }
 
         /*background:Rectangle {
             border.color: borderColor
@@ -618,21 +639,41 @@ Rectangle {
         background:InputBack{}
    }
 
-   Image {
-       id:sendMsg
+   Item {
        anchors.right:parent.right
        anchors.rightMargin: thisWindow.height * 0.01
-       source:"./icons/message.svg"
        anchors.verticalCenter: parent.verticalCenter
        width:mainView.width * 0.06
        height:mainView.width * 0.06
-       Flasher {
 
-       }
-        MouseArea {
-            anchors.fill: parent
-            onClicked: Message.send_messages(roomId,messageField.text)
-        }
+   Image {
+       id:sendMsg
+       //anchors.fill: parent
+       anchors.centerIn: parent
+       width:parent.width * 0.8
+       height:parent.height * 0.8
+       fillMode: Image.PreserveAspectFit
+       source:"./icons/message.svg"
+
+       visible: false
+
+   }
+
+   ColorOverlay {
+       source:sendMsg
+       color:fontColor
+       anchors.fill:sendMsg
+
+
+   }
+
+   Flasher {
+
+   }
+   MouseArea {
+       anchors.fill: parent
+       onClicked: Message.send_messages(roomId,messageField.text)
+   }
 
    }
 

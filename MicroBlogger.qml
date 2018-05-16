@@ -80,6 +80,7 @@ Item {
                 anchors.topMargin: mainView.width * 0.02
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("No Micro Blog Entries")
+                color:fontColor
 
             }
         }
@@ -115,6 +116,8 @@ Item {
              anchors.centerIn: parent
              width:parent.width * 0.98
              spacing: mainView.width * 0.015
+             clip:true
+
              padding:5
 
              Item {
@@ -134,12 +137,14 @@ Item {
                  anchors.verticalCenter: pic.verticalCenter
                 text:who
                 font.pixelSize: mainView.width * 0.06
+                color:fontColor
                 }
              }
              Text {
                  anchors.right:parent.right
                 text:if(compname !="") {"Company: "+compname} else {""}
                 font.pixelSize: mainView.width * 0.03
+                color:fontColor
 
              }
 
@@ -155,6 +160,7 @@ Item {
                  horizontalAlignment: Text.AlignJustify
                  wrapMode: Text.WordWrap
                 text:status
+                color:fontColor
              }
 
              Text {

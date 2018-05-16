@@ -109,7 +109,7 @@ Item {
             text:name
             minimumPixelSize: 20
             font.pixelSize: avimage.height * 0.60
-            color:"white"
+            color:fontColorTitle
         }
         Text {
             id:about
@@ -117,7 +117,7 @@ Item {
             anchors.top:blogtitle.bottom
             text:message
             font.pixelSize: blogtitle.height * 0.30 - message.length
-            color:"white"
+            color:fontColor
         }
 
     }
@@ -167,7 +167,8 @@ Item {
                 text:"<br>"+theposttitle
                 font.pixelSize: postbg.width * 0.08
                 wrapMode:Text.WordWrap
-                //color:"white"
+
+                color:fontColor
             }
 
             Rectangle {
@@ -200,7 +201,7 @@ Item {
                 font.pixelSize: postbg.width * 0.04
                 text:thepost
                 wrapMode:Text.WordWrap
-               // color:"white"
+                color:fontColor
             }
         }
 
@@ -402,7 +403,7 @@ Item {
         width:parent.width * 0.6
         wrapMode: Text.WordWrap
         z:3
-        color:"white"
+        color:fontColor
 
         opacity:logo.opacity
     }

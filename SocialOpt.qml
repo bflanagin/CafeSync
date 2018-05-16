@@ -43,7 +43,7 @@ Item {
                                 Text {
                                     anchors.verticalCenter: parent.verticalCenter
                                     text:source
-                                   color:if(bgcolor == cardcolor) {"black"} else {"white"}
+                                   color:if(bgcolor == cardcolor) {fontColor} else {"white"}
                                     //color:"black"
                                     width:parent.width * 0.89
                                     font.pixelSize: parent.height * 0.3
