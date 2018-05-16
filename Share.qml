@@ -215,23 +215,18 @@ Item {
 
                         if(username != currentcard_username) {
                             Qt.openUrlExternally('sms:?body='+username+' wants you to view '+currentcard_username+'\'s card on CafeSync.
-\nNever heard of CafeSync?
+\nDownload CafeSync on Android at:
 
-Find out more by checking out the link below.
-
-https://www.vagueentertainment.com/?page_id=434
+https://play.google.com/store/apps/details?id=com.vagueentertainment.cafesync&hl=en
 
 Sent from CafeSync');
                         } else {
                         Qt.openUrlExternally('sms:?body=Connect with '+username+' on CafeSync
-\nNever heard of CafeSync?
+\nDownload CafeSync on Android at:
 
-Find out more by checking out the link below.
+https://play.google.com/store/apps/details?id=com.vagueentertainment.cafesync&hl=en
 
-https://www.vagueentertainment.com/?page_id=434
-
-Sent from CafeSync
-                            ');
+Sent from CafeSync');
                 }
 
                 }
