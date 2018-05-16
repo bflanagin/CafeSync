@@ -208,6 +208,7 @@ function load_Card() {
 
         } else {
                 firstrun.state = "Active";
+                 mainView.visible = true;
             return 0;
             }
 
@@ -261,7 +262,7 @@ function load_Card() {
            //console.log("from card Loaded" + usercardNum);
 
            /* if(usercardNum == "150") {
-                backgroundColor=Qt.rgba(0.98,0.90,0.90,1);
+                backgroundColor=;
 
                 highLightColor1= Qt.rgba(0.99,0.95,0.88,1);
                 seperatorColor1= "#795548";
@@ -282,8 +283,113 @@ function load_Card() {
     });
 
 
+    // System Settings more may need to be added later, but for now this is what works //
+
+    db.transaction(function(tx) {
+
+       tx.executeSql('CREATE TABLE IF NOT EXISTS Settings(id TEXT, value INT)');
+
+        var CD = "SELECT * FROM Settings WHERE id='searchDistance'";
+        var CS = "SELECT * FROM Settings WHERE id='tempSupress'";
+        var CKT = "SELECT * FROM Settings WHERE id='keepTemp'";
+        var CT = "SELECT * FROM Settings WHERE id='theme'";
+
+        var CCM = "SELECT * FROM Settings WHERE id='CM'";
+        var CFM = "SELECT * FROM Settings WHERE id='FM'";
+        var CMM = "SELECT * FROM Settings WHERE id='MM'";
+
+        var checkDistance = tx.executeSql(CD);
+        var checkSupress = tx.executeSql(CS);
+        var checkKeepTemp = tx.executeSql(CKT);
+
+        var checkChanceMeetings = tx.executeSql(CCM);
+        var checkFrequenTMeetings = tx.executeSql(CFM);
+        var checkMissedMeetings = tx.executeSql(CMM);
+
+        var checkTheme = tx.executeSql(CT);
+
+        if(checkDistance.rows.length > 0) {sD = checkDistance.rows.item(0).value; } else {tx.executeSql("INSERT INTO Settings VALUES(?,?)",["searchDistance",sD]);}
+        if(checkSupress.rows.length > 0) {sT = checkSupress.rows.item(0).value; } else {tx.executeSql("INSERT INTO Settings VALUES(?,?)",["tempSupress",sT]);}
+        if(checkKeepTemp.rows.length > 0) {kT = checkKeepTemp.rows.item(0).value; } else {tx.executeSql("INSERT INTO Settings VALUES(?,?)",["keepTemp",kT]);}
+
+        if(checkChanceMeetings.rows.length > 0) { cM = checkChanceMeetings.rows.item(0).value; } else {tx.executeSql("INSERT INTO Settings VALUES(?,?)",["CM",cM]);}
+        if(checkFrequenTMeetings.rows.length > 0) { fM = checkFrequenTMeetings.rows.item(0).value;} else {tx.executeSql("INSERT INTO Settings VALUES(?,?)",["FM",fM]);}
+        if(checkMissedMeetings.rows.length > 0) { mM = checkMissedMeetings.rows.item(0).value; } else {tx.executeSql("INSERT INTO Settings VALUES(?,?)",["MM",mM]);}
+
+        if(checkTheme.rows.length > 0) {theme = checkTheme.rows.item(0).value; } else {tx.executeSql("INSERT INTO Settings VALUES(?,?)",["theme",theme]);}
+
+    });
+
+    db.transaction(function(tx) {
+      //tx.executeSql('DROP TABLE Themes');
+       tx.executeSql('CREATE TABLE IF NOT EXISTS Themes(id TEXT, backgroundColor TEXT, highLightColor TEXT, seperatorColor TEXT, barColor TEXT, activeColor TEXT, cardcolor TEXT, overlayColor TEXT, fontColorTitle TEXT, fontColor TEXT)');
+
+        //var pull = tx.executeSql(cardStr1);
+        //if(pull.rows.length > 0) {
+       var theplace = "INSERT INTO Themes VALUES(?,?,?,?,?,?,?,?,?,?)";
+        var theme0 = ["default","#F9F9F9","#FDF3E1","#795548","#FAFAF5","#FDF3E1","#FAFAFA","#795548","black","black"];
+        var theme1 = ["pink","#F9E6E6","#FCF2E1","#77564B","#F8AEAE","#FCF2E1","#FAF3F3","#77564B","black","black"];
+        var theme2 = ["PoP","#24282A","#48B9C7","#FAA41A","#3B3633","#E88937","#3B3633","#FFFFFF","#FAFAFA","#FAFAFA"];
+
+        var check1 = tx.executeSql("SELECT * FROM Themes WHERE id='default'");
+        var check2 = tx.executeSql("SELECT * FROM Themes WHERE id='pink'");
+        var check3 = tx.executeSql("SELECT * FROM Themes WHERE id='PoP'");
 
 
+        if(check1.rows.length !== 1) {
+            tx.executeSql(theplace,theme0);
+        }
+
+        if(check2.rows.length !== 1) {
+            tx.executeSql(theplace,theme1);
+        }
+
+        if(check3.rows.length !== 1) {
+            tx.executeSql(theplace,theme2);
+        }
+
+        switch(theme) {
+        case 0: if(check1.rows.length === 1) {
+            backgroundColor = check1.rows.item(0).backgroundColor;
+            highLightColor1 = check1.rows.item(0).highLightColor;
+            seperatorColor1 = check1.rows.item(0).seperatorColor;
+            barColor = check1.rows.item(0).barColor;
+            activeColor = check1.rows.item(0).activeColor;
+            cardcolor = check1.rows.item(0).cardcolor;
+            overlayColor = check1.rows.item(0).overlayColor;
+            fontColorTitle = check1.rows.item(0).fontColorTitle;
+            fontColor = check1.rows.item(0).fontColor;
+            }break;
+
+        case 1:if(check2.rows.length === 1) {
+            backgroundColor = check2.rows.item(0).backgroundColor;
+            highLightColor1 = check2.rows.item(0).highLightColor;
+            seperatorColor1 = check2.rows.item(0).seperatorColor;
+            barColor = check2.rows.item(0).barColor;
+            activeColor = check2.rows.item(0).activeColor;
+            cardcolor = check2.rows.item(0).cardcolor;
+            overlayColor = check2.rows.item(0).overlayColor;
+            fontColorTitle = check2.rows.item(0).fontColorTitle;
+            fontColor = check2.rows.item(0).fontColor;
+            }break;
+         case 2:if(check3.rows.length === 1) {
+             backgroundColor = check3.rows.item(0).backgroundColor;
+             highLightColor1 = check3.rows.item(0).highLightColor;
+             seperatorColor1 = check3.rows.item(0).seperatorColor;
+             barColor = check3.rows.item(0).barColor;
+             activeColor = check3.rows.item(0).activeColor;
+             cardcolor = check3.rows.item(0).cardcolor;
+             overlayColor = check3.rows.item(0).overlayColor;
+             fontColorTitle = check3.rows.item(0).fontColorTitle;
+             fontColor = check3.rows.item(0).fontColor;
+             }break;
+        }
+
+        //} else { }
+
+    });
+
+ // End System Settings //
 
 
     if(username.length < 1) {
@@ -303,6 +409,8 @@ function load_Card() {
     }
 
    // console.log(avimg);
+
+     mainView.visible = true;
 
 }
 
@@ -1750,9 +1858,9 @@ function temp_Elapsed(cid) {
 
             var deletedate = ""
                 if(pull.rows.item(num).stamp.length > 10) {
-                    deletedate = (pull.rows.item(num).stamp / 1000) + 259200;
+                    deletedate = (pull.rows.item(num).stamp / 1000) + (86400*kT) ;
                 } else {
-                    deletedate = pull.rows.item(num).stamp + 259200;
+                    deletedate = pull.rows.item(num).stamp + (86400*kT);
                 }
          if(pull.rows.item(num).stamp != 999) {
                   //  console.log("Collected On "+pull.rows.item(num).stamp);
@@ -2537,7 +2645,7 @@ function load_Stat (statname) {
 
         tx.executeSql('CREATE TABLE IF NOT EXISTS Stats(id TEXT, name TEXT,data TEXT, frequency INT)');
         var test = tx.executeSql(teststr);
-        if(test.rows.length != 0) {
+        if(test.rows.length !== 0) {
             //console.log(test.rows.item(0).data);
             theReturn = test.rows.item(0).data;
         } else {
@@ -2563,7 +2671,7 @@ function save_Stat (id,statname,data) {
 
 
         var test = tx.executeSql(teststr);
-        if(test.rows.length == 0) {
+        if(test.rows.length === 0) {
             tx.executeSql(Str,thedata);
 
         } else {
@@ -2573,4 +2681,31 @@ function save_Stat (id,statname,data) {
         }
 
 });
+}
+
+function save_setting(id,thevalue) {
+    var update = "UPDATE Settings SET value="+thevalue+" WHERE id= '"+id+"'";
+
+    db.transaction(function(tx) {
+        tx.executeSql(update);
+        //console.log(tx.err);
+
+        if(id === "theme") {
+            var teststr = tx.executeSql("SELECT  * FROM Themes WHERE 1");
+
+            backgroundColor = teststr.rows.item(thevalue).backgroundColor;
+            highLightColor1 = teststr.rows.item(thevalue).highLightColor;
+            seperatorColor1 = teststr.rows.item(thevalue).seperatorColor;
+            barColor = teststr.rows.item(thevalue).barColor;
+            activeColor = teststr.rows.item(thevalue).activeColor;
+            cardcolor = teststr.rows.item(thevalue).cardcolor;
+            overlayColor = teststr.rows.item(thevalue).overlayColor;
+            fontColorTitle = teststr.rows.item(thevalue).fontColorTitle;
+            fontColor = teststr.rows.item(thevalue).fontColor;
+        }
+
+    });
+
+
+
 }

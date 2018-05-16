@@ -113,8 +113,18 @@ Item {
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
         background: Rectangle {
-                    color:if(type == "new") {highLightColor1} else {"white"}
+                    color:if(type == "new") {highLightColor1} else {backgroundColor}
                     }
+        contentItem: Text {
+                           width:parent.width
+                           horizontalAlignment: Text.AlignHCenter
+                           verticalAlignment: Text.AlignVCenter
+                           font:parent.font
+                           text:parent.text
+                           color:fontColorTitle
+                       }
+
+
         onClicked: type = "new"
     }
 
@@ -125,8 +135,18 @@ Item {
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
         background: Rectangle {
-                    color:if(type == "accepted") {highLightColor1} else {"white"}
+                    color:if(type == "accepted") {highLightColor1} else {backgroundColor}
                     }
+
+        contentItem: Text {
+                           width:parent.width
+                           horizontalAlignment: Text.AlignHCenter
+                           verticalAlignment: Text.AlignVCenter
+                           font:parent.font
+                           text:parent.text
+                           color:fontColorTitle
+                       }
+
         onClicked: type = "accepted"
     }
     Button {
@@ -136,8 +156,18 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         background: Rectangle {
-                    color:if(type == "denied") {highLightColor1} else {"white"}
+                    color:if(type == "denied") {highLightColor1} else {backgroundColor}
                     }
+
+        contentItem: Text {
+                           width:parent.width
+                           horizontalAlignment: Text.AlignHCenter
+                           verticalAlignment: Text.AlignVCenter
+                           font:parent.font
+                           text:parent.text
+                           color:fontColorTitle
+                       }
+
         onClicked: type = "denied"
     }
 }
@@ -166,7 +196,7 @@ ListView {
             anchors.centerIn: content
             width:content.width
             height:content.height * 1.2
-            color:"white"
+            color:cardcolor
             radius:mainView.width * 0.01
             visible: false
         }
@@ -196,6 +226,7 @@ ListView {
                     anchors.horizontalCenter: parent.horizontalCenter
                     horizontalAlignment: Text.AlignLeft
                     //anchors.left:parent.left
+                    color:fontColor
 
                     Text {
                         text:timecode
@@ -204,6 +235,7 @@ ListView {
                         horizontalAlignment: Text.AlignRight
                         anchors.right:parent.right
                         opacity: 0.2
+                        color:fontColor
                     }
                 }
 
@@ -223,11 +255,13 @@ ListView {
                 anchors.horizontalCenter: parent.horizontalCenter
                  horizontalAlignment: Text.LeftRight
                 wrapMode: Text.WordWrap
+                color:fontColor
             }
             Text {
                 anchors.right:parent.right
                 anchors.rightMargin: thisWindow.height * 0.02
                 text:status
+                color:fontColor
             }
 
         }

@@ -89,6 +89,7 @@ Text {
     font.pixelSize: mainView.width * 0.1
     text: qsTr("Achievements")
     anchors.horizontalCenter: parent.horizontalCenter
+    color:fontColorTitle
 }
 
 
@@ -115,6 +116,7 @@ Item {
 
                 anchors.left:parent.left
                 text:qsTr("CafeSync:")
+                color:fontColor
             }
             Rectangle {
                      anchors.horizontalCenter: parent.horizontalCenter
@@ -257,6 +259,7 @@ Item {
             Text{
                 anchors.left:parent.left
                 text:qsTr("OpenSeed:")
+                color:fontColor
             }
             Rectangle {
                      anchors.horizontalCenter: parent.horizontalCenter

@@ -218,10 +218,12 @@ Item {
                 text:profilename
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.pixelSize: 32
+                color:fontColor
             }
 
             TextField {
                     id:account
+                    color:fontColor
                     text:switch(service) {
                          case "gravatar":useraccount;break;
                          case "twitter": useraccount.split("::")[1];break;
@@ -317,6 +319,7 @@ Item {
                  case "blog":"Website";break;
                  default:"";break;
                  }
+            color:fontColor
 
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
@@ -465,12 +468,13 @@ Item {
                     anchors.bottom:account1.bottom
                     text:qsTr("Tap to add Source")
                    ///color:if(bgcolor == cardcolor) {"black"} else {"white"}
-                    color:"black"
+
                     width:parent.width
                     horizontalAlignment:Text.AlignHCenter
                     font.pixelSize: mainView.width * 0.04
                     wrapMode: Text.WordWrap
                     visible: if(account1.visible == false ) {true} else {false}
+                    color:fontColorTitle
                 }
 
                 TextField {
@@ -485,6 +489,7 @@ Item {
                         font.pixelSize: mainView.width * 0.06
                         width:parent.width * 0.80
                         onTextChanged: servicecheck.restart()
+                        color:fontColor
 
                     Rectangle {
                         anchors.right:parent.right

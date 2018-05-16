@@ -55,7 +55,7 @@ Item {
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     text:source
                                    ///color:if(bgcolor == cardcolor) {"black"} else {"white"}
-                                    color:"black"
+                                    color:fontColor
                                     width:parent.width
                                     horizontalAlignment:Text.AlignHCenter
                                     font.pixelSize: parent.width * 0.055
@@ -140,6 +140,7 @@ Item {
                                              width:parent.width - opmask1.width
                                              text:if(profilename == "") {if(currentservice != ""){qsTr("Searching")} else {qsTr("Select Service")} } else {profilename}
                                              wrapMode: Text.WordWrap
+                                             color:fontColor
                                          }
 
                                          Text {
@@ -152,6 +153,7 @@ Item {
                                              height:opmask1.height * 0.80
                                              wrapMode: Text.WordWrap
                                              clip:true
+                                             color:fontColor
                                          }
 
                              }

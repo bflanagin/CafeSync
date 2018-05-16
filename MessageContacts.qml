@@ -106,7 +106,7 @@ delegate: Item {
         anchors.centerIn: conversecontent
         width:conversecontent.width
         height:conversecontent.height
-        color:"white"
+        color:cardcolor
         radius:5
     }
     Column {
@@ -166,6 +166,7 @@ delegate: Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 horizontalAlignment: Text.AlignLeft
                 //anchors.left:parent.left
+                color:fontColor
 
                 Text {
                     text:timecode
@@ -173,6 +174,7 @@ delegate: Item {
                     horizontalAlignment: Text.AlignRight
                     anchors.right:parent.right
                     opacity: 0.2
+                    color:fontColor
                 }
             }
 
@@ -192,6 +194,7 @@ delegate: Item {
             anchors.horizontalCenter: parent.horizontalCenter
              horizontalAlignment: Text.LeftRight
             wrapMode: Text.WordWrap
+            color:fontColor
                 }
             }
         }
@@ -225,7 +228,7 @@ id:conversationsbottomBar
 anchors.bottom:parent.bottom
 width:parent.width
 height:parent.height * 0.08
-color:bottombarColor
+color:barColor
 
 Image {
    id:newConversation

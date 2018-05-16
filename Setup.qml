@@ -144,6 +144,14 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
          text: "Profile"
          anchors.left: parent.left
          anchors.verticalCenter: parent.verticalCenter
+         contentItem: Text {
+                            width:parent.width
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            font:parent.font
+                            text:parent.text
+                            color:fontColorTitle
+                        }
          background: Rectangle {
                      color:if(type == "profile") {highLightColor1} else {backgroundColor}
                      }
@@ -158,6 +166,14 @@ onEnabledChanged: if(enabled == true) {Scripts.fillsites();}
          text: "System"
          anchors.right: parent.right
          anchors.verticalCenter: parent.verticalCenter
+         contentItem: Text {
+                            width:parent.width
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            font:parent.font
+                            text:parent.text
+                            color:fontColorTitle
+                        }
          background: Rectangle {
                      color:if(type == "settings") {highLightColor1} else {backgroundColor}
                      }
@@ -177,6 +193,10 @@ Flickable {
     anchors.horizontalCenter: parent.horizontalCenter
     contentHeight:settingsColumn.height
 
+    onVisibleChanged: if(visible == true) {if(cM == 1) {chance.checked = true} else {chance.check = false}
+                                           if(fM == 1) { frequent.checked = true;} else { frequent.checked = false}
+                                           if(mM == 1) { missed.checked = true;} else { missed.checked = false}
+                      }
     Column {
         id:settingsColumn
         width:parent.width
@@ -200,7 +220,7 @@ Flickable {
             anchors.leftMargin: 4
             width:parent.width * 0.60
             //anchors.verticalCenter: parent.verticalCenter
-
+            color:fontColorTitle
 
         }
 
@@ -247,6 +267,7 @@ Flickable {
                     Text {
                         text:qsTr("Collection:")
                         font.pixelSize: mainView.width * 0.07
+                        color:fontColor
                         }
                     Rectangle {
                         width: parent.width * 0.98
@@ -260,12 +281,82 @@ Flickable {
                      SpinBox {
                         anchors.right:parent.right
                        //anchors.bottom:parent.bottom
+                        width:thisWindow.width *0.45
                         id: delSpin
                         from:1
                         to: 99
-                        value: 3
+                        value: sT
                         textFromValue: function(value) {
                             return value+" Days";
+                        }
+
+                        contentItem: Label {
+                                text:parent.value+" Days";
+                                width:parent.width
+                                verticalAlignment: Text.AlignVCenter
+                                horizontalAlignment: Text.AlignHCenter
+                                color:fontColor
+                                font.pixelSize: mainView.width * 0.04
+                            }
+
+                        down.indicator: Rectangle {
+                                            width:parent.height /2
+                                            height:parent.height /2
+                                            radius: width /2
+                                            anchors.left:parent.left
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            color:activeColor
+
+                                            Image {
+                                                id:d1
+                                                source:"./icons/minus.svg"
+                                                anchors.centerIn: parent
+                                                fillMode: Image.PreserveAspectFit
+                                                width: parent.width * 0.65
+
+
+                                            }
+
+                                            ColorOverlay {
+                                                source:d1
+                                                color:fontColor
+                                                anchors.fill:d1
+
+
+                                            }
+
+                                            }
+
+                        up.indicator: Rectangle {
+                                            width:parent.height /2
+                                            height:parent.height /2
+                                            radius: width /2
+                                            anchors.right:parent.right
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            color:activeColor
+
+                                            Image {
+                                                id:u1
+                                                source:"./icons/add.svg"
+                                                anchors.centerIn: parent
+                                                fillMode: Image.PreserveAspectFit
+                                                width: parent.width * 0.65
+                                            }
+
+                                            ColorOverlay {
+                                                source:u1
+                                                color:fontColor
+                                                anchors.fill:u1
+
+
+                                            }
+
+                                            }
+
+                        onValueChanged: {if(settingFlick.visible == true) {
+                            sT = value;
+                            Scripts.save_setting("tempSupress",sT);
+                            }
                         }
 
                         Text {
@@ -276,18 +367,93 @@ Flickable {
                             wrapMode: Text.WordWrap
                             font.pixelSize: mainView.width * 0.04
                             verticalAlignment: Text.AlignVCenter
+                            color:fontColor
                         }
                    }
 
                        SpinBox {
                            anchors.right:parent.right
+                           width:thisWindow.width *0.45
                            //anchors.bottom:parent.bottom
                             id: keepSpin
                             from:1
                             to: 5
-                            value: 3
+                            value: kT
                             textFromValue: function(value) {
                                 return value+" Days";
+                            }
+
+                            contentItem: Label {
+                                text:parent.value+" Days";
+                                width:parent.width
+                                verticalAlignment: Text.AlignVCenter
+                                horizontalAlignment: Text.AlignHCenter
+                                color:fontColor
+                                font.pixelSize: mainView.width * 0.04
+                                }
+
+
+                            down.indicator: Rectangle {
+                                                width:parent.height /2
+                                                height:parent.height /2
+                                                radius: width /2
+                                                anchors.left:parent.left
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                color:activeColor
+
+                                                Image {
+                                                    id:d2
+                                                    source:"./icons/minus.svg"
+                                                    anchors.centerIn: parent
+                                                    fillMode: Image.PreserveAspectFit
+                                                    width: parent.width * 0.65
+
+
+                                                }
+
+                                                ColorOverlay {
+                                                    source:d2
+                                                    color:fontColor
+                                                    anchors.fill:d2
+
+
+                                                }
+
+                                                }
+
+                            up.indicator: Rectangle {
+                                                width:parent.height /2
+                                                height:parent.height /2
+                                                radius: width /2
+                                                anchors.right:parent.right
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                color:activeColor
+
+                                                Image {
+                                                    id:u2
+                                                    source:"./icons/add.svg"
+                                                    anchors.centerIn: parent
+                                                    fillMode: Image.PreserveAspectFit
+                                                    width: parent.width * 0.65
+                                                }
+
+                                                ColorOverlay {
+                                                    source:u2
+                                                    color:fontColor
+                                                    anchors.fill:u2
+
+
+                                                }
+
+                                                }
+
+
+
+
+                            onValueChanged: {if(settingFlick.visible == true) {
+                                kT = value;
+                                Scripts.save_setting("keepTemp",kT);
+                                }
                             }
 
                             Text {
@@ -297,6 +463,7 @@ Flickable {
                                 text:qsTr("Keep collected cards for:")
                                 font.pixelSize: mainView.width * 0.04
                                 verticalAlignment: Text.AlignVCenter
+                                color:fontColor
                             }
                        }
 
@@ -306,14 +473,86 @@ Flickable {
 
                    SpinBox {
                        anchors.right:parent.right
+                       width:thisWindow.width *0.45
                        //anchors.bottom:parent.bottom
                         id: areaSpin
                         from:10
                         to: 50
-                        value: 30
+                        value: sD
 
                         textFromValue: function(value) {
                             return value+ " Miles";
+                        }
+
+                        contentItem: Label {
+                            text:parent.value+" Miles";
+                            width:parent.width
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            color:fontColor
+                            font.pixelSize: mainView.width * 0.04
+                            }
+
+
+                        down.indicator: Rectangle {
+                                            width:parent.height /2
+                                            height:parent.height /2
+                                            radius: width /2
+                                            anchors.left:parent.left
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            color:activeColor
+
+                                            Image {
+                                                id:d3
+                                                source:"./icons/minus.svg"
+                                                anchors.centerIn: parent
+                                                fillMode: Image.PreserveAspectFit
+                                                width: parent.width * 0.65
+
+
+                                            }
+
+                                            ColorOverlay {
+                                                source:d3
+                                                color:fontColor
+                                                anchors.fill:d3
+
+
+                                            }
+
+                                            }
+
+                        up.indicator: Rectangle {
+                                            width:parent.height /2
+                                            height:parent.height /2
+                                            radius: width /2
+                                            anchors.right:parent.right
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            color:activeColor
+
+                                            Image {
+                                                id:u3
+                                                source:"./icons/add.svg"
+                                                anchors.centerIn: parent
+                                                fillMode: Image.PreserveAspectFit
+                                                width: parent.width * 0.65
+                                            }
+
+                                            ColorOverlay {
+                                                source:u3
+                                                color:fontColor
+                                                anchors.fill:u3
+
+
+                                            }
+
+                                            }
+
+
+                        onValueChanged: {if(settingFlick.visible == true) {
+                            sD = value;
+                            Scripts.save_setting("searchDistance",sD);
+                            }
                         }
 
                         Text {
@@ -323,6 +562,7 @@ Flickable {
                             text:qsTr("Area Search Range:")
                             font.pixelSize: mainView.width * 0.04
                             verticalAlignment: Text.AlignVCenter
+                            color:fontColor
                         }
                    }
 
@@ -365,6 +605,7 @@ Flickable {
            Text {
                text:qsTr("Events:")
                font.pixelSize: mainView.width * 0.07
+               color:fontColor
            }
 
            Rectangle {
@@ -379,26 +620,66 @@ Flickable {
            Text {
                text:qsTr("Auto Created Events:")
                font.pixelSize: mainView.width * 0.05
-
+                color:fontColor
            }
 
        CheckBox {
            id:chance
            anchors.left:parent.left
+           width:thisWindow.width * 0.1
            anchors.leftMargin: thisWindow.width * 0.01
            text:qsTr("Chance Meetings")
+           contentItem: Text {
+               text:parent.text
+               anchors.left:parent.right
+               width:parent.width
+               verticalAlignment: Text.AlignVCenter
+               horizontalAlignment: Text.AlignLeft
+               color:fontColor
+               font.pixelSize: mainView.width * 0.04
+           }
+
+           checked: if(cM == 1) {true} else {false}
+           onCheckedChanged: {if(settingFlick.visible == true) {if(checked === false) {cM = 0; Scripts.save_setting("CM",0);} else {cM = 1; Scripts.save_setting("CM",1);}
+           } }
        }
        CheckBox {
-           id:fequent
+           id:frequent
+           width:thisWindow.width * 0.1
            anchors.left:parent.left
            anchors.leftMargin: thisWindow.width * 0.01
            text:qsTr("Fequent Meetings")
+           contentItem: Text {
+               text:parent.text
+               anchors.left:parent.right
+               width:parent.width
+               verticalAlignment: Text.AlignVCenter
+               horizontalAlignment: Text.AlignLeft
+               color:fontColor
+               font.pixelSize: mainView.width * 0.04
+           }
+           checked: if(fM == 1) {true} else {false}
+           onCheckedChanged: {if(settingFlick.visible == true) {if(checked === false) {fM = 0; Scripts.save_setting("FM",0);} else {fM =1; Scripts.save_setting("FM",1);}
+           } }
        }
        CheckBox {
            id:missed
            anchors.left:parent.left
+           width:thisWindow.width * 0.1
            anchors.leftMargin: thisWindow.width * 0.01
             text:qsTr("Missed Meetings")
+            contentItem: Text {
+                text:parent.text
+                anchors.left:parent.right
+                width:parent.width
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignLeft
+                color:fontColor
+                font.pixelSize: mainView.width * 0.04
+            }
+            checked: if(mM == 1) {true} else {false}
+            onCheckedChanged: {if(settingFlick.visible == true) {if(checked === false) {mM = 0; Scripts.save_setting("MM",0);} else {mM = 1; Scripts.save_setting("MM",1);}
+            } }
        }
 
        }
@@ -437,6 +718,7 @@ Flickable {
        Text {
            text:qsTr("Look and Feel:")
            font.pixelSize: mainView.width * 0.07
+           color:fontColorTitle
        }
 
        Rectangle {
@@ -451,6 +733,7 @@ Flickable {
        Text {
            text:qsTr("Theming")
            font.pixelSize: mainView.width * 0.05
+           color:fontColor
        }
 
        ListView {
@@ -471,7 +754,12 @@ Flickable {
 
                ListElement {
                    name:"Pink"
-                   img:"./img/darktheme.png"
+                   img:"./img/pinktheme.png"
+               }
+
+               ListElement {
+                   name:"PoP"
+                   img:"./img/poptheme.png"
                }
            }
 
@@ -493,6 +781,13 @@ Flickable {
                         text:name
                         anchors.horizontalCenter: themepreview.horizontalCenter
                         font.pixelSize: thisWindow.width * 0.06
+                        color:fontColor
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {theme = index;Scripts.save_setting("theme",index);
+                        }
                     }
 
            }
@@ -552,7 +847,7 @@ Flickable {
              anchors.leftMargin: 4
              width:parent.width * 0.60
              //anchors.verticalCenter: parent.verticalCenter
-
+             color:fontColorTitle
 
          }
          /*Button {
@@ -594,7 +889,7 @@ Item {
     anchors.centerIn: parent
     width:parent.width * 0.98
     height:generalcolumn.height * 1.05
-    color:"white"
+    color:cardcolor
 
    Column {
        id:generalcolumn
@@ -675,6 +970,7 @@ Item {
         anchors.horizontalCenter:parent.horizontalCenter
         text: qsTr("(tap image to edit)")
         font.pixelSize: mainView.width * 0.04
+        color:fontColor
     }
 
 
@@ -702,7 +998,7 @@ Item {
         // text: qsTr("Name:")
         text:""
          font.pixelSize:  (parent.width  - username.length * 1.5) * 0.12
-
+        color:fontColor
 
 
        /*  MouseArea {
@@ -714,6 +1010,7 @@ Item {
          id: userName
          anchors.left: parent.left
         visible: true
+        color:fontColor
         // anchors.leftMargin: 4
          anchors.verticalCenter: parent.verticalCenter
          //anchors.top: parent.top
@@ -732,7 +1029,7 @@ Item {
 
   Text {
       id: aliasLabel
-
+        color:fontColor
 
       anchors.left:parent.left
       anchors.leftMargin: parent.width * 0.10
@@ -753,7 +1050,7 @@ Item {
 
       TextField {
          id: userAlias
-
+            color:fontColor
           anchors.verticalCenter: parent.verticalCenter
             visible: true
            // onVisibleChanged: if(visible == true) {focus = true}
@@ -785,7 +1082,7 @@ Item {
       //text: qsTr("Company:")
       text:''
       font.pixelSize: (parent.width  - usercompany.length * 1.5) * 0.08
-
+        color:fontColor
 
 
      /* MouseArea {
@@ -799,6 +1096,7 @@ Item {
          anchors.left: parent.left
          //anchors.leftMargin: 4
           anchors.verticalCenter: parent.verticalCenter
+          color:fontColor
          //anchors.top: parent.top
          placeholderText: qsTr("Company Name")
          font.pixelSize: (parent.width  - usercompany.length * 1.5) * 0.08
@@ -844,7 +1142,7 @@ Item {
      anchors.rightMargin: sendCard.width * 1.2
      horizontalAlignment: Text.AlignLeft
      anchors.verticalCenter: parent.verticalCenter
-
+        color:fontColor
      CheckBox {
         id:sendCard
 
@@ -889,7 +1187,7 @@ Text {
      visible: if(simpleMode == false) {true} else {false}
     text: qsTr("Contact")
     anchors.left:parent.left
-
+    color:fontColorTitle
     anchors.leftMargin: 8
     font.pixelSize: parent.width * 0.04
 
@@ -918,7 +1216,7 @@ Item {
    //  anchors.topMargin:20
     width:parent.width * 0.98
     height:parent.height
-    color:"white"
+    color:cardcolor
    anchors.centerIn: parent
 
     Column {
@@ -938,7 +1236,7 @@ Item {
 
   Text {
       id: phoneLabel
-
+        color:fontColor
 
       anchors.left:parent.left
       anchors.leftMargin: parent.height * 0.04
@@ -949,7 +1247,7 @@ Item {
 
       TextField {
          id: userPhone
-
+            color:fontColor
          anchors.left: parent.right
          anchors.leftMargin: 4
          //anchors.bottom: parent.bottom
@@ -968,7 +1266,7 @@ Item {
 
   Text {
       id: emailLabel
-
+        color:fontColor
 
       anchors.left:phoneLabel.left
       //anchors.leftMargin: parent.height * 0.04
@@ -980,7 +1278,7 @@ Item {
       font.pixelSize: mainView.width * 0.04
       TextField {
          id: userEmail
-
+         color:fontColor
          anchors.left: parent.right
          anchors.leftMargin: 4
          anchors.verticalCenter: parent.verticalCenter
@@ -1017,7 +1315,7 @@ Item {
      // anchors.topMargin: 10
       anchors.right:parent.right
       anchors.rightMargin:  sendContact.width * 1.2
-
+        color:fontColor
       CheckBox {
          id:sendContact
 
@@ -1068,6 +1366,7 @@ Text {
  text: qsTr("Info")
  style: Text.Normal
  font.pixelSize: parent.width * 0.04
+ color:fontColorTitle
 }
 
 Rectangle {
@@ -1087,7 +1386,7 @@ Item {
  Rectangle {
  id: rectangle1
 
-
+    color:cardcolor
  anchors.left:parent.left
  anchors.leftMargin:1
 // anchors.top:profileSettingLabel.bottom
@@ -1102,7 +1401,7 @@ Item {
 
 
  clip:true
- color: "#ffffff"
+
  //radius: 6
  //z: -1
 // border.width: 1
@@ -1157,6 +1456,7 @@ Item {
                       anchors.centerIn: parent
                       text: name
                       font.pixelSize: (parent.height * 0.5)
+                      color:fontColor
                   }
 
                   MouseArea {
@@ -1183,6 +1483,7 @@ Item {
                       height:personalMotto.height * 1.02
                       border.color:"gray"
                       border.width: 1
+                      color:backgroundColor
 
                   }
 
@@ -1196,7 +1497,7 @@ Item {
                   height:profileRow.height * 0.98
                   text:if(yourabout == ""){usermotto.split(";::;")[0].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")} else {yourabout.replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")}
                   clip:true
-
+                    color:fontColor
                   Image {
                       anchors.right:parent.right
                       anchors.bottom:parent.bottom
@@ -1208,7 +1509,8 @@ Item {
 
                   MouseArea {
                       anchors.fill:parent
-                      onClicked: {enterProfile.state = "Active",enterProfile.type = "about";
+                      onClicked: {enterProfile.state = "Active";
+                                        enterProfile.type = "about";
                                 if(yourabout == ""){
                                     enterProfile.aboutme = usermotto.split(";::;")[0].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
                                 } else {
@@ -1226,7 +1528,7 @@ Item {
                  anchors.topMargin: if(simpleMode == true) {mainView.width * 0.04} else {mainView.width * 0.01}
                  anchors.right:parent.right
                  anchors.rightMargin: catbutton.width * 1.1
-
+                    color:fontColor
                 Rectangle {
                        id:catbutton
                     width:if(cardindex == 0) {10*usercat.length + catText.width}
@@ -1247,7 +1549,9 @@ Item {
                     // anchors.verticalCenter: parent.verticalCenter
                      text:if(cardindex == 0) { if(usercat.length < 1) {qsTr("Select Category")} else {usercat}}
                      //onTextChanged: usercat = text;
+                     color:fontColor
                     }
+
                      MouseArea {
                          anchors.fill:parent
                          onClicked: catmenu.state = "Active"
@@ -1291,6 +1595,7 @@ Item {
                   height:exprlist.height * 1.02
                   border.color:"gray"
                   border.width: 1
+                  color:backgroundColor
 
               }
 
@@ -1325,7 +1630,7 @@ Item {
 
                                 Text {
                                     text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
-
+                                    color:fontColor
 
                                     anchors.left:parent.left
                                     anchors.leftMargin: parent.height * 0.1
@@ -1340,6 +1645,7 @@ Item {
                                         text:"Certified: "
                                         font.pixelSize: parent.height * 0.5
                                         visible:if(certified == "'false'") {false} else {true}
+                                        color:fontColor
                                         Image {
                                             id:checked
                                             anchors.left:parent.right
@@ -1364,6 +1670,7 @@ Item {
                                     width:parent.width*0.98
                                     wrapMode: Text.WordWrap
                                     text:"Discription:\n"+discription.substring(1,discription.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
+                                    color:fontColor
                                 }
 
                                 Image {
@@ -1421,6 +1728,7 @@ Item {
                       anchors.centerIn: parent
                       text:qsTr("Add Skill")
                       font.pixelSize: (parent.height * 0.5)
+                      color:fontColor
                   }
 
                   MouseArea {
@@ -1462,6 +1770,7 @@ Item {
                   height:schoollist.height* 1.02
                   border.color:"gray"
                   border.width: 1
+                  color:backgroundColor
 
               }
 
@@ -1497,7 +1806,7 @@ Item {
 
                           Text {
                               text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
-
+                                color:fontColor
 
                               anchors.left:parent.left
                               anchors.leftMargin: parent.height * 0.1
@@ -1512,6 +1821,7 @@ Item {
                                   text:"Graduated: "
                                   font.pixelSize: parent.height * 0.5
                                   visible: if(graduated == "'false'") {false} else {true}
+                                  color:fontColor
                                   Image {
                                       id:checked1
                                       anchors.left:parent.right
@@ -1536,6 +1846,7 @@ Item {
                               width:parent.width*0.98
                               wrapMode: Text.WordWrap
                               text:"Discription:\n"+discription.substring(1,discription.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
+                                color:fontColor
                           }
 
                           Image {
@@ -1594,6 +1905,7 @@ Item {
                       anchors.centerIn: parent
                       text:qsTr("Add School")
                       font.pixelSize: (parent.height * 0.5)
+                      color:fontColor
                   }
 
 
@@ -1634,6 +1946,7 @@ Item {
                   height:worklist.height * 1.02
                   border.color:"gray"
                   border.width: 1
+                  color:backgroundColor
 
               }
 
@@ -1668,7 +1981,7 @@ Item {
 
                           Text {
                               text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
-
+                                color:fontColor
 
                               anchors.left:parent.left
                               anchors.leftMargin: parent.height * 0.1
@@ -1683,6 +1996,8 @@ Item {
                                   text:"Currently Working: "
                                   font.pixelSize: parent.height * 0.5
                                   visible: if(currentlyEmployeed == "'false'") {false} else {true}
+                                  color:fontColor
+
                                   Image {
                                       id:checked2
                                       anchors.left:parent.right
@@ -1707,6 +2022,7 @@ Item {
                               width:parent.width*0.98
                               wrapMode: Text.WordWrap
                               text:"Discription:\n"+discription.substring(1,discription.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
+                              color:fontColor
                           }
 
                           Image {
@@ -1759,6 +2075,7 @@ Item {
                       anchors.centerIn: parent
                       text:qsTr("Add Work Expr.")
                       font.pixelSize: (parent.height * 0.5)
+                      color:fontColor
                   }
 
                   MouseArea {
@@ -1819,6 +2136,7 @@ Text {
  text: qsTr("Social Networks")
  style: Text.Normal
  font.pixelSize: parent.width * 0.04
+ color:fontColorTitle
 }
 
 Rectangle {
@@ -1838,7 +2156,7 @@ Item {
 
 Rectangle {
     id:socialNetworks
-    color:"white"
+    color:cardcolor
     anchors.fill: parent
    // width:parent.width
    // height:servicelist.height
@@ -1969,6 +2287,7 @@ Rectangle {
      text: qsTr("Misc.")
      font.pixelSize: parent.width * 0.04
      id:misc_title
+     color:fontColorTitle
  }
 
  Rectangle {
@@ -1996,6 +2315,7 @@ Rectangle {
      //radius:6
      //border.width:1
     // border.color:"black"
+     color:cardcolor
 
  Column {
      anchors.fill:parent
@@ -2009,6 +2329,7 @@ Rectangle {
              anchors.verticalCenter: parent.verticalCenter
              text: "About"
              font.pixelSize: parent.height * 0.4
+             color:fontColor
          }
 
          MouseArea {
@@ -2028,6 +2349,7 @@ Rectangle {
              anchors.verticalCenter: parent.verticalCenter
              text: "Credits"
              font.pixelSize: parent.height * 0.4
+             color:fontColor
          }
 
          MouseArea {
@@ -2046,6 +2368,7 @@ Rectangle {
              anchors.verticalCenter: parent.verticalCenter
              text: "Contribute"
              font.pixelSize: parent.height * 0.4
+             color:fontColor
          }
 
 

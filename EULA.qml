@@ -42,6 +42,7 @@ Item {
         anchors.leftMargin:mainView.width * 0.03
         anchors.top:parent.top
         anchors.topMargin: mainView.width * 0.01
+        color:fontColorTitle
     }
 
     Text {
@@ -52,6 +53,7 @@ Item {
         anchors.rightMargin:mainView.width * 0.03
         anchors.bottom:title.bottom
         anchors.bottomMargin: mainView.width * 0.01
+        color:fontColor
     }
 
     Rectangle {
@@ -77,6 +79,7 @@ Item {
             wrapMode: Text.WordWrap
             horizontalAlignment: Text.AlignLeft
             anchors.horizontalCenter: parent.horizontalCenter
+            color:fontColor
         }
 
     }

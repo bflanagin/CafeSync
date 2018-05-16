@@ -68,16 +68,16 @@ import "microblogger.js" as MicroBlogger
 
                                     Timer {id:selfdestruct;interval:800; running:true ; repeat: false
                                         onTriggered: {
-                                                    console.log("checking card "+cardId+" in "+listget);
+                                                    //console.log("checking card "+cardId+" in "+listget);
                                                     if(listget == "temp") {
                                                     if(type == 0) {
                                                             //if(saved != 1) {
                                                        // console.log("Card is not saved "+saved+" or from Contacts");
                                                                 if(cardsop != 2) {
-                                                       console.log("Card is not a special card");
+                                                      // console.log("Card is not a special card");
                                                       //  if(explodereset == 10000) {
                                                                       if(Scripts.temp_Elapsed(cardId) == 1) {
-                                                                console.log("Cards time has elapsed");
+                                                              //  console.log("Cards time has elapsed");
                                                                           //   OpenSeed.remote_delete(userid,listget,cardId);
                                                                             deletelist.push(cardId);
                                                                              cardslist.remove(index);
@@ -197,7 +197,7 @@ import "microblogger.js" as MicroBlogger
                                             anchors.top: parent.top
                                             anchors.topMargin: parent.height * 0.07
                                            // wrapMode:Text.WordWrap
-
+                                            color:fontColor
                                         }
 
                                         Rectangle {
@@ -224,6 +224,7 @@ import "microblogger.js" as MicroBlogger
                                             anchors.topMargin: parent.height * 0.06
                                             wrapMode:Text.WordWrap
                                             width:parent.width * 0.55
+                                            color:fontColor
                                         }
 
 
@@ -244,6 +245,7 @@ import "microblogger.js" as MicroBlogger
                                            maximumLineCount: 1
                                            elide: Text.ElideRight
                                            horizontalAlignment: Text.AlignRight
+                                           color:fontColor
                                           /* Image {
                                                anchors.fill: parent
                                                source:compImg
@@ -262,7 +264,7 @@ import "microblogger.js" as MicroBlogger
                                            // anchors.bottomMargin: parent.height * 0.05
                                             width:parent.width
                                             height:parent.height * 0.1
-                                            color:Qt.rgba(0.94,0.94,0.94,0.9)
+                                            color:Qt.rgba(0.94,0.94,0.94,0.1)
                                         Text {
                                             anchors.left:parent.left
                                             anchors.leftMargin: parent.width * 0.02
@@ -273,7 +275,7 @@ import "microblogger.js" as MicroBlogger
                                             wrapMode: Text.WordWrap
                                             maximumLineCount: 1
                                             elide: Text.ElideRight
-                                            color:"black"
+                                            color:fontColor
                                         }
 
                                         }
