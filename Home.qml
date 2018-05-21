@@ -389,10 +389,10 @@ Item {
                             height:parent.width * 0.40
                             fillColor: highLightColor1
                             icon:"./icons/calendar-today.svg"
-                            enabled: false
+                            //enabled: false
                             MouseArea {
                                 anchors.fill: parent
-                                onClicked: {notification1.themessage = "Coming Soon"; notification1.visible = true;}
+                                onClicked: {eventEdit.iswith = currentcard_thecard;eventEdit.state ="Active";}
                             }
 
                         }
@@ -404,7 +404,7 @@ Item {
 
                             MouseArea {
                                 anchors.fill: parent
-                                onClicked: {notification1.themessage = "Loading";notification1.visible = true; notes.state = "Active"}
+                                onClicked: {notes.state = "Active"}
                             }
 
                         }
