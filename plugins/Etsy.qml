@@ -78,7 +78,7 @@ Item {
         //fillMode:Image.PreserveAspectCrop
     } */
 
-    Rectangle {
+   /* Rectangle {
         id:banborder
         anchors.top:parent.top
         anchors.topMargin:10
@@ -120,15 +120,15 @@ Item {
                 color:fontColor
             }
 
-    }
+    } */
 
     GridView {
         id:itemgrid
         width:parent.width * 0.90
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top:banborder.bottom
+        anchors.bottom:parent.bottom
         //anchors.bottom:parent.bottom
-        height:parent.height - banborder.height
+        height:parent.height * 0.98
         anchors.margins: 8
         cellWidth: parent.width * 0.90
         cellHeight: parent.height * 0.70

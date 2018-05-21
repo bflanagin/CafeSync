@@ -7,6 +7,8 @@ import QtQuick.LocalStorage 2.0 as Sql
 
 Item {
 
+    property string fillColor:"white"
+    property string  icon: ""
 
     Rectangle {
         id:circle
@@ -18,7 +20,8 @@ Item {
         //clip: true
 
         //onStateChanged: Scripts.loadActions(list)
-
+        color:fillColor
+        opacity: if(parent.enabled == true) {1} else {0.4}
 
        anchors.fill: parent
 
@@ -29,14 +32,34 @@ Item {
             id:thedrop
            anchors.fill: circle
            horizontalOffset: 0
-           verticalOffset: 4
-           radius: 8.0
+           verticalOffset: 2
+           radius: 5.0
            samples: 17
            color: "#80000000"
            source: circle
-           z:-1
+            opacity: if(parent.enabled == true) {1} else {0.4}
 
        }
+
+    Image {
+        id:theicon
+        anchors.centerIn: parent
+        source:icon
+        width:parent.width * 0.6
+        height:parent.height * 0.6
+        visible: false
+        opacity: if(parent.enabled == true) {1} else {0.4}
+    }
+
+
+    ColorOverlay {
+        source:theicon
+        anchors.fill: theicon
+        color:overlayColor
+        opacity: if(parent.enabled == true) {1} else {0.4}
+    }
+
+
 
     }
 

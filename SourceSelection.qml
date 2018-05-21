@@ -40,7 +40,7 @@ Item {
             name:"InActive"
             PropertyChanges {
                 target: thisWindow
-                y:height * -1
+                y:height * -1.5
             }
 
     }

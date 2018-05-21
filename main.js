@@ -701,15 +701,15 @@ function temp_Load(search,locale,sortOpt) {
                     cardslist.append({
                                     type:0,
                                     name: n,
-                                       colorCode: "white",
-                                           imagesource: "img/default_avatar.png",
+                                    colorCode: "white",
+                                    imagesource: "img/default_avatar.png",
                                         //  cardback:"img/default_card.png",
-                                            company: c,
-                                             phone:  p,
-                                              email:  e,
-                                         cardposition: cp,
-                                         motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
-                                            cardId: pull.rows.item(record).id.toString(),
+                                    company: c,
+                                    phone:  p,
+                                    email:  e,
+                                    cardposition: cp,
+                                    motto:pull.rows.item(record).motto.replace(/&#x27;/g,"'"),
+                                    cardId: pull.rows.item(record).id.toString(),
 
                              mainsite: main,
                              URL1: w1,
@@ -719,6 +719,7 @@ function temp_Load(search,locale,sortOpt) {
 
                              spColor:spC,
                              cardStatus:"",
+                             connection: parseInt(get_contact_info(pull.rows.item(record).id.toString(),"relation")),
 
             cardb:pull.rows.item(record).cardback,
            // cardsymbol:symbol,
@@ -816,6 +817,7 @@ function temp_Load(search,locale,sortOpt) {
 
                 spColor:spC,
                 cardStatus:"",
+                connection: parseInt(get_contact_info(pull.rows.item(record).id.toString(),"relation")),
 
             //    cardback:card,
              //   cardsymbol:symbol,
@@ -1143,6 +1145,7 @@ function cards_Load(search,sortOpt) {
 
                  spColor:spC,
                  cardStatus:"",
+                 connection: parseInt(get_contact_info(pull.rows.item(record).id.toString(),"relation")),
 
                  cardback:card,
                  cardsymbol:symbol,
@@ -1177,6 +1180,7 @@ function cards_Load(search,sortOpt) {
 
                      spColor:spC,
                      cardStatus:"",
+                     connection: parseInt(get_contact_info(pull.rows.item(record).id.toString(),"relation")),
 
                      cardback:card,
                      cardsymbol:symbol,
@@ -1311,7 +1315,7 @@ function show_Sites(cid,list) {
 
                             spColor:spC,
                             cardStatus:"Here on CafeSync",
-
+                            connection: parseInt(get_contact_info(currentcard_thecard,"relation")),
                             mainsite:currentcard_mainsite,
                             URL1:currentcard_url1,
                             URL2:currentcard_url2,
@@ -1616,7 +1620,7 @@ function show_Sites(cid,list) {
 
                                spColor:spC,
                                cardStatus:"Amazingly awesome early adopters",
-
+                               connection: parseInt(get_contact_info(pull.rows.item(0).id.toString(),"relation")),
                                mainsite:pull.rows.item(0).main,
                                URL1:pull.rows.item(0).website1,
                                URL2:pull.rows.item(0).website2,
@@ -1863,8 +1867,8 @@ function temp_Elapsed(cid) {
                     deletedate = pull.rows.item(num).stamp + (86400*kT);
                 }
          if(pull.rows.item(num).stamp != 999) {
-                  //  console.log("Collected On "+pull.rows.item(num).stamp);
-                  //  console.log("time till deletion "+(deletedate - date));
+                    console.log("Collected On "+pull.rows.item(num).stamp);
+                    console.log("time till deletion "+(deletedate - date)/ 1200 );
 
              if(deletedate < date) {
                  //console.log("deleting "+cid);
@@ -1919,7 +1923,7 @@ function delete_Card(cid,list) {
     });
     }
 
-    if(list == "global"){
+    if(list === "global"){
         db.transaction(function(tx) {
    var tempDel = "DELETE FROM GlobCards WHERE id ='"+cid+"'";
         tx.executeSql(tempDel);
@@ -1937,7 +1941,7 @@ menuList.clear();
     // var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
     var num = 0;
-    while(category_list.split(",")[num] != 'undefined') {
+    while(category_list.split(",")[num] !== undefined) {
             menuList.append({menuitem:category_list.split(",")[num].split("::")[0]});
         num = num + 1;
     }
@@ -1951,7 +1955,7 @@ menuList.clear();
    //  var db = Sql.LocalStorage.openDatabaseSync("UserInfo", "1.0", "Local UserInfo", 1);
 
     var num = 0;
-    while(category_list.split(",")[num] != 'undefined') {
+    while(category_list.split(",")[num] !== undefined) {
             menuList.append({menuitem:category_list.split(",")[num].split("::")[0]});
         num = num + 1;
     }
@@ -2428,11 +2432,11 @@ function fillsites() {
 }
 
 function socialsetup(source) {
-    var ssinfo = "not found";
+    var ssinfo = "not found::black::./icons/stock_website.svg";
 
     for(var num=0;num < slist.length;num = num+1) {
 
-        if(slist[num].search(source) != -1) {
+        if(slist[num].search(source) !== -1) {
             ssinfo = slist[num];
         }
 
@@ -2706,6 +2710,48 @@ function save_setting(id,thevalue) {
 
     });
 
+}
 
+function save_contact_info(contactid,information,type) {
+        // adds / updates data in the ContactInfo database //
 
+    var insert = "INSERT INTO ContactInfo VALUES(?,?,?)";
+    var thedata = [contactid,information,type];
+    var update = "UPDATE ContactInfo SET information='"+information+"' WHERE type='"+type+"' AND contactid='"+contactid+"'";
+
+    db.transaction(function(tx) {
+
+        tx.executeSql('CREATE TABLE IF NOT EXISTS ContactInfo(contactid TEXT, information TEXT,type TEXT)');
+
+        var pull = tx.executeSql("SELECT * FROM ContactInfo WHERE contactid='"+contactid+"' AND type ='"+type+"'");
+
+        if(pull.rows.length === 1) {
+        tx.executeSql(update);
+        } else {
+            tx.executeSql(insert,thedata);
+        }
+
+});
+
+}
+
+function get_contact_info(contactid,type) {
+        // finds and retrieves data in the ContactInfo database //
+        var valuereturn = 0;
+    db.transaction(function(tx) {
+
+        tx.executeSql('CREATE TABLE IF NOT EXISTS ContactInfo(contactid TEXT, information TEXT,type TEXT)');
+
+        var pull = tx.executeSql("SELECT * FROM ContactInfo WHERE contactid='"+contactid+"' AND type ='"+type+"'");
+
+        if(pull.rows.length === 1) {
+            //console.log("returning " +pull.rows.item(0).information)
+            valuereturn = pull.rows.item(0).information;
+        } else {
+            //console.log("returning 0");
+            valuereturn = 0;
+        }
+
+});
+    return valuereturn;
 }

@@ -82,7 +82,7 @@ Item {
         //fillMode:Image.PreserveAspectCrop
     } */
 
-    Rectangle {
+    /*Rectangle {
         anchors.top:parent.top
         anchors.topMargin:10
         anchors.horizontalCenter: parent.horizontalCenter
@@ -90,6 +90,7 @@ Item {
         height:parent.width * 0.15
         color:Qt.rgba(0.5,0.5,0.5,0.8)
         radius:5
+        visible: false
        // border.color: "white"
       //  border.width:1
         z:1
@@ -120,11 +121,11 @@ Item {
             color:fontColor
         }
 
-    }
+    } */
 
     ListView {
         width:parent.width * 0.98
-        height:parent.height * 0.89
+        height:parent.height * 0.98
        // contentHeight: postbg.height * 1.2
        // contentWidth: width
         //anchors.centerIn: parent
@@ -403,7 +404,7 @@ Item {
         width:parent.width * 0.6
         wrapMode: Text.WordWrap
         z:3
-        color:fontColor
+        color:"white"
 
         opacity:logo.opacity
     }

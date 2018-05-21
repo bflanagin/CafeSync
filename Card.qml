@@ -1,4 +1,4 @@
-import QtQuick 2.2
+import QtQuick 2.10
 import QtQml 2.2
 import QtGraphicalEffects 1.0
 
@@ -68,7 +68,7 @@ import "microblogger.js" as MicroBlogger
 
                                     Timer {id:selfdestruct;interval:800; running:true ; repeat: false
                                         onTriggered: {
-                                                    //console.log("checking card "+cardId+" in "+listget);
+                                                   // console.log("checking card "+cardId+" in "+listget);
                                                     if(listget == "temp") {
                                                     if(type == 0) {
                                                             //if(saved != 1) {
@@ -83,9 +83,9 @@ import "microblogger.js" as MicroBlogger
                                                                              cardslist.remove(index);
 
                                                                              } else {
-                                                                                        selfdestruct.interval = 5000;
-                                                                                        selfdestruct.repeat = true;
-                                                                                        selfdestruct.restart();
+                                                                                        //selfdestruct.interval = 5000;
+                                                                                        //selfdestruct.repeat = true;
+                                                                                       // selfdestruct.restart();
                                                                                         }
                                                       //  explodereset = 0;
                                                     //} else {explodereset = explodereset + 1;}

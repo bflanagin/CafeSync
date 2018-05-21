@@ -66,7 +66,7 @@ Please consider submitting a bug by long pressing the post below, if the url is 
 
             if(rss !=-1 || rssalt !=-1 || medsearch !=-1 || feed !=-1) {
 
-                hasrss = 1;
+                webthing.hasrss = 1;
 
 
                 if(rss !=-1 || feed !=-1) {

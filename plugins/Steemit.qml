@@ -79,7 +79,7 @@ Item {
         //fillMode:Image.PreserveAspectCrop
     } */
 
-    Rectangle {
+    /* Rectangle {
         anchors.top:parent.top
         anchors.topMargin:10
         anchors.horizontalCenter: parent.horizontalCenter
@@ -121,11 +121,11 @@ Item {
             width:parent.width * 0.80
         }
 
-    }
+    } */
 
     ListView {
         width:parent.width * 0.98
-        height:parent.height * 0.85
+        height:parent.height * 0.98
        // contentHeight: postbg.height * 1.2
        // contentWidth: width
         //anchors.centerIn: parent
