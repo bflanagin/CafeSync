@@ -341,6 +341,7 @@ Item {
             anchors.leftMargin: thisWindow.height * 0.01
             font.pixelSize: thisWindow.height * 0.04
             color:fontColor
+            enabled:editing
         }
 
         TextArea {
@@ -353,6 +354,7 @@ Item {
             wrapMode: Text.WordWrap
             font.pixelSize: parent.width * 0.06
             color:fontColor
+            enabled:editing
             Rectangle {
                 anchors.centerIn: parent
                 color:backgroundColor
@@ -405,7 +407,7 @@ CircleIndicator {
 
                 Notes.save_note(currentcard_thecard,Secret.encrypt(key,noteTitleField.text),Secret.encrypt(key,notebody.text),nN.noteOrigin);
             nN.noteSelected = "";
-            notebody.focus = false;
+            //notebody.focus = false;
             editing = false;
 
 

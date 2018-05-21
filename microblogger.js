@@ -199,7 +199,7 @@ function send_log(user,message) {
     http.open('POST', url.trim(), true);
     //http.send(null);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    http.send("&id="+ userid + "&devid=" +devId+ "&appid="+appId+"&message=" + message + "&name="+ user + "&speaker=" + usercardNum+"&date="+mesgdate.getTime()+"&room=0&type=sending");
+    http.send("&id="+ userid + "&devid=" +devId+ "&appid="+appId+"&message=" + message + "&name="+ user + "&speaker=" + usercardNum+"&date="+mesgdate.getTime()+"&room="+user+"&type=sending");
 
 
 }

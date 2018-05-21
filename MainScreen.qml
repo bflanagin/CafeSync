@@ -35,7 +35,7 @@ ListView {
     //pressDelay: 1000
     onDraggingVerticallyChanged: if (draggingVertically == true) {enabled = false}
    // highlightFollowsCurrentItem: true
-    focus:true
+    //focus:true
     visible: true
     //cellHeight: units.gu(26)
     clip:true

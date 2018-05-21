@@ -282,6 +282,17 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                         }
 
                         close.accepted = false;
+
+        } else if(eventEdit.state == "Active") {
+            eventEdit.state = "InActive";
+            topBar.state="events";
+            close.accepted = false;
+
+        } else if(eventsPage.state == "Active") {
+            eventsPage.state = "InActive";
+            topBar.state="standard";
+            close.accepted = false;
+
         } else if(notes.state == "Active") {
 
             if(notes.editing == true) {
@@ -322,15 +333,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
             close.accepted = false;
 
 
-        } else if(eventEdit.state == "Active") {
-            eventEdit.state = "InActive";
-            topBar.state="events";
-            close.accepted = false;
 
-        } else if(eventsPage.state == "Active") {
-            eventsPage.state = "InActive";
-            topBar.state="standard";
-            close.accepted = false;
 
 
         }  else if(themenu.state == "Active") {

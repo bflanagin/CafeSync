@@ -19,6 +19,7 @@ Item {
     property int theday: d.getDate()
     property int selected_month: d.getMonth()
     property int selected_year: d.getFullYear()
+    property string iswith: ""
 
     property int hour: 0
     property int minutes: 0
@@ -70,13 +71,26 @@ Item {
 
     ]
 
-    onStateChanged: if(thisWindow.state == "Active" && thisWindow.edit == false) {party.push(usercardNum+":1");
-                    invites.append({
-                                   member:party[0]
-                                   });
+    onStateChanged: if(thisWindow.state == "Active" && thisWindow.edit == false) {
+                        party.push(usercardNum+":1");
+
+                        invites.append({
+                                       member:party[0]
+                                       });
+
+                        if(iswith != "") {
+                           party.push(iswith+":0") ;
+
+                            invites.append({
+                                           member:party[1]
+                                           });
+
+                        }
+
                     } else {
                         eventName.text = "";
                         eventLocation.text = "";
+                        iswith = "";
                         invites.clear();
                         party.splice(0,party.length);
 
@@ -119,8 +133,16 @@ Item {
            Text {
                text:if(edit == false) {qsTr("New Event")} else {qsTr("Edit Event")}
                font.bold:true
-               font.pixelSize: thisWindow.width * 0.1
+               font.pixelSize: thisWindow.width * 0.08
                color:fontColorTitle
+
+               Text {
+                   anchors.left:parent.right
+                   anchors.bottom:parent.bottom
+                   //anchors.verticalCenter: parent.verticalCenter
+                   font.pixelSize: thisWindow.width * 0.08
+                   text:if(iswith !="") {qsTr(" ( with ")+currentcard_username.split(" ")[0]+")"} else {""}
+               }
            }
 
            TextField {

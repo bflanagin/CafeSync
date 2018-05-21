@@ -1,6 +1,6 @@
 /*
-  This is where we setup the encryption for various functions of the application. This is not meant to be something as secure as RSA or the like
-  but hopefully good enough to keep some prying eyes from the posts.
+  This is where we setup the encryption for various functions of the application. This is not meant to be something as secure as RSA,
+  but hopefully good enough to keep some prying eyes from the posts. This is in addition to the already encrypted transmission to and from the server.
   Later on we will probably move to a more secure system.
 */
 
@@ -103,7 +103,7 @@ function encrypt(key,message) {
 
     /* these are sprinkled into the string for fun and to replace anything that doesn't behave */
     /* in the future these will be randomized as well, and the decryptor will have to figure them out as well */
-    var alpha10 = ['aV','b!','cX','d&','e-','ff','gN','hF','iQ','jE'];
+    var alpha10 = ['aV','b!','cX','dR','e-','ff','gN','hF','iQ','jE'];
 
     /* More mathy encryption stuff, replaces values, changes type etc */
     for(num = 0;num < encrypted1.length;num = num + 1) {
@@ -134,7 +134,7 @@ function decrypt(key,message) {
     var decrypted3 = "";
 
 
-    var alpha10 = ['aV','b!','cX','d&','e-','ff','gN','hF','iQ','jE'];
+    var alpha10 = ['aV','b!','cX','dR','e-','ff','gN','hF','iQ','jE'];
 
     var alphaoffset = 1;
 

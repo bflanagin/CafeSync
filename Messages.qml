@@ -617,7 +617,7 @@ Rectangle {
     }
    TextArea {
        id:messageField
-       focus: true
+       //focus: true
        anchors.bottom:parent.bottom
        anchors.horizontalCenter: parent.horizontalCenter
        verticalAlignment: Text.AlignVCenter
