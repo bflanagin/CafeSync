@@ -404,7 +404,7 @@ Item {
 
                             MouseArea {
                                 anchors.fill: parent
-                                onClicked: {notes.state = "Active"}
+                                onClicked: {notification.themessage = "Loading";notification1.visible = true; notes.state = "Active"}
                             }
 
                         }
