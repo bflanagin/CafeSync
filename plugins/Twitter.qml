@@ -94,7 +94,7 @@ Item {
         opacity: 0.1
         }
 
-        Rectangle {
+     /*   Rectangle {
            // anchors.centerIn: pic
            // anchors.left:pic.left
            // anchors.leftMargin: -8
@@ -108,6 +108,7 @@ Item {
             color:Qt.rgba(0.5,0.5,0.5,0.8)
             radius:5
             z:1
+            visible: false
 
             clip:true
 
@@ -154,9 +155,9 @@ Item {
 
             MouseArea {
                 anchors.fill:parent
-                /*onClicked:{showurl = service,
+                onClicked:{showurl = service,
                 fullWeb.state = "show",
-                cardPage.header.hide()} */
+                cardPage.header.hide()}
                 onClicked:Qt.openUrlExternally(service);
             }
 
@@ -178,13 +179,13 @@ Item {
             color:fontColor
         }
 
-        }
+        } */
 
 
 
     ListView {
         width:parent.width * 0.98
-        height:parent.height * 0.85
+        height:parent.height * 0.98
        // contentHeight: postbg.height * 1.2
        // contentWidth: width
         //anchors.centerIn: parent
@@ -221,7 +222,7 @@ Item {
             width:parent.width* 0.95
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top:parent.top
-            anchors.topMargin: parent.width * 0.04
+            anchors.topMargin: parent.width * 0.03
            // horizontalAlignment: Text.AlignHCenter
             visible:if(posttitle.length > 2) {true} else {false}
             text:"<h2>"+posttitle+"</h2>"
@@ -230,11 +231,20 @@ Item {
             color:fontColor
         }
 
+        Image {
+            source:pluginlogo
+            anchors.top:parent.top
+            anchors.margins: parent.width * 0.03
+            anchors.right: parent.right
+            width:32
+            height:32
+        }
+
         Rectangle {
             id:postsplitter
             color:"gray"
             anchors.top:titletext.bottom
-            anchors.topMargin: -popup.width *0.02
+            anchors.topMargin: -popup.width *0.01
             width:parent.width
             height:messageblock.height * 0.01
             visible:if(posttitle.length > 2) {true} else {false}
@@ -640,7 +650,7 @@ Item {
         width:parent.width * 0.6
         wrapMode: Text.WordWrap
         z:3
-        color:fontColor
+        color:"white"
 
         opacity:logo.opacity
     }

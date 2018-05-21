@@ -81,14 +81,14 @@ function retrieve_log(room,theid) {
                             if(room == theid) {
                              save_log(userid,messageblock[1],messageblock[2],messageblock[3],messageblock[4],messageblock[7]);
                             } else {
-                                remotelog[sync] = [room,messageblock[1],messageblock[2],messageblock[3],messageblock[4],messageblock[7]];
+                                log.remotelog[sync] = [room,messageblock[1],messageblock[2],messageblock[3],messageblock[4],messageblock[7]];
                                 //console.log(remotelog);
                             }
 
                         sync = sync + 1;
                     }
 
-                      if( remotelog.length > 0 ) {
+                      if( log.remotelog.length > 0 ) {
                        //  remotelogGet.stop();
                          show_log(room);
                      }
@@ -310,7 +310,7 @@ function show_log(room) {
         them = room.split(",")[0];
     } */
 
-if(room != usercardNum) {
+if(room !== usercardNum) {
        // console.log("from show log "+remotelog);
 
     //[152,,,,,,152,152,152,Hello World!,0,1523901344883]
@@ -329,7 +329,7 @@ if(room != usercardNum) {
 
       var pull = tx.executeSql(dataStr);
       var pull1 =  tx.executeSql(dataStr1);
-           if(pull.rows.length == 1) {
+           if(pull.rows.length === 1) {
                otherperson = pull.rows.item(0).name;
                otherCompany = pull.rows.item(0).company;
                if(pull.rows.item(0).avatar.length < 4) { otherava = "img/default_avatar.png"} else {otherava = pull.rows.item(0).avatar
@@ -337,7 +337,7 @@ if(room != usercardNum) {
 
               }
 
-           } else if(pull1.rows.length == 1){
+           } else if(pull1.rows.length === 1){
                otherperson = pull1.rows.item(0).name;
                otherCompany = pull1.rows.item(0).company;
                if(pull1.rows.item(0).avatar.length < 4) { otherava = "img/default_avatar.png"} else {otherava = pull1.rows.item(0).avatar
@@ -358,7 +358,7 @@ if(room != usercardNum) {
 
  var humanDate = new Date(currentpost[5]*1);
    var maybemore = "";
-   if(currentpost[3].search("http") != -1) {
+   if(currentpost[3].search("http") !== -1) {
        maybemore = "<img src="+currentpost[3]+">";
    } else {
        maybemore = "<p>"+currentpost[3]+"</p>";
@@ -405,7 +405,7 @@ if(room != usercardNum) {
 
              var otherava;
 
-             if(room != usercardNum ) {
+             if(room !== usercardNum ) {
                     dataStr1 = "SELECT  name,avatar  FROM SavedCards WHERE `id` ='"+room+"' AND `id` !=''";
 
               var pull = tx.executeSql(dataStr1);

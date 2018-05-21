@@ -132,7 +132,7 @@ Item {
 
 
         } else if(custompage == 0) {
-               //  WebPage.get_html(page.split("::")[1]);
+               console.log("Custom Page is naught");
                    }
 
     }
@@ -146,30 +146,28 @@ Item {
             name:"Active"
             PropertyChanges {
                 target: webthing
-                z: 3
+                visible:true
             }
             PropertyChanges {
                 target: web
                 visible:true
                 enabled:true
             }
+
             PropertyChanges {
-                target: home
+                target: internal
                 visible:false
                 enabled:false
+                thetype: "none"
             }
-            PropertyChanges {
-                target: log
-                visible:false
-                enabled:false
-            }
+
 
         },
         State {
           name:"InActive"
           PropertyChanges {
               target: webthing
-              z: -2
+              visible:false
           }
           PropertyChanges {
               target: web
@@ -177,45 +175,42 @@ Item {
               enabled:false
           }
           PropertyChanges {
-              target: home
+              target: internal
               visible:false
               enabled:false
+              thetype: "none"
           }
         },
         State {
           name:"Info"
           PropertyChanges {
               target: webthing
-              z: 0
+              visible:false
           }
         },
         State {
           name:"FullWeb"
           PropertyChanges {
               target: webthing
-              z: 0
+              visible:false
           }
         },
         State {
           name:"Home"
           PropertyChanges {
               target: webthing
-              z: 0
+              visible:true
           }
           PropertyChanges {
               target: web
               visible:false
               enabled:false
-          }
+          } 
           PropertyChanges {
-              target: log
-              visible:false
-              enabled:false
-          }
-          PropertyChanges {
-              target: home
+              target: internal
               visible:true
               enabled:true
+              thetype: "Home"
           }
         },
 
@@ -223,21 +218,19 @@ Item {
           name:"MicroBlog"
           PropertyChanges {
               target: webthing
-              z: 0
+              visible:true
           }
           PropertyChanges {
               target: web
               visible:false
               enabled:false
           }
+
           PropertyChanges {
-              target: home
-              visible:false
-              enabled:false
-          }
-          PropertyChanges {
-              target: log
+              target: internal
               visible:true
+              enabled:true
+              thetype: "Microblog"
           }
         }
 
@@ -280,7 +273,7 @@ Item {
 
 
         FaceBook {
-            state:if(custompage == 1 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
+            state:if(custompage === 1 && pindex-1 <= ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page
@@ -289,7 +282,7 @@ Item {
         }
 
         Linkedin {
-            state:if(custompage == 2 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
+            state:if(custompage === 2 && pindex-1 <= ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page
@@ -297,10 +290,8 @@ Item {
 
         }
 
-
-
         Twitter {
-            state:if(custompage == 3 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
+            state:if(custompage === 3 && pindex-1 <= ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page
@@ -341,7 +332,7 @@ Item {
         } */
 
         SoundCloud {
-            state:if(custompage == 8 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
+            state:if(custompage === 8 && pindex <= ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page
@@ -349,7 +340,7 @@ Item {
         }
 
         Tumblr {
-            state:if(custompage == 9 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
+            state:if(custompage === 9 && pindex <= ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page
@@ -358,7 +349,7 @@ Item {
         }
 
         RSS {
-            state:if(custompage == 13 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
+            state:if(custompage === 13 && pindex <= ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page
@@ -374,7 +365,7 @@ Item {
         }
 
        Etsy {
-            state:if(custompage == 10 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
+            state:if(custompage == 10 && pindex <= ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page
@@ -382,7 +373,7 @@ Item {
 
         }
        Steemit {
-            state:if(custompage == 14 && pindex == ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
+            state:if(custompage == 14 && pindex <= ms.indexAt(ms.contentX,0)) {"Active"} else {"InActive"}
             anchors.fill:parent
             pagesource:thesource
             service:page
@@ -416,19 +407,27 @@ Item {
          }
 
 
+    Item {
+
+    id:internal
+        anchors.fill:parent
+        property string thetype: ""
+
      Home {
          //   enabled: if(custompage == 0 && pindex == ms.indexAt(ms.contentX,0)) {true} else {false}
           id:home
-          visible:false
-          enabled: false
+          visible:if(internal.thetype == "Home"){true} else {false}
+          enabled:if(internal.thetype == "Home"){true} else {false}
               }
 
    MicroBlogger {
           //  enabled: if(custompage == 0 && pindex == ms.indexAt(ms.contentX,0)) {true} else {false}
           id:log
-          visible:false
-
+          visible:if(internal.thetype == "Microblog"){true} else {false}
+          enabled: if(internal.thetype == "Microblog"){true} else {false}
               }
+
+    }
 
    ListModel {
                    id:rssposts

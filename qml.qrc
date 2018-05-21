@@ -261,5 +261,8 @@
         <file>icons/minus.svg</file>
         <file>img/pinktheme.png</file>
         <file>img/poptheme.png</file>
+        <file>Notes.qml</file>
+        <file>notes.js</file>
+        <file>encryption.js</file>
     </qresource>
 </RCC>

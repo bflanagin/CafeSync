@@ -79,7 +79,7 @@ Item {
         //fillMode:Image.PreserveAspectCrop
     } */
 
-    Rectangle {
+    /*Rectangle {
         anchors.top:parent.top
         anchors.topMargin:10
         anchors.horizontalCenter: parent.horizontalCenter
@@ -90,6 +90,7 @@ Item {
         clip:true
        // border.color: "white"
        // border.width:1
+        visible: false
         z:1
         Image {
             id:avimage
@@ -121,11 +122,11 @@ Item {
             width:parent.width * 0.80
         }
 
-    }
+    } */
 
     ListView {
         width:parent.width * 0.98
-        height:parent.height * 0.85
+        height:parent.height * 0.98
        // contentHeight: postbg.height * 1.2
        // contentWidth: width
         //anchors.centerIn: parent
@@ -160,15 +161,28 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             width:parent.width * 0.98
             height:titletext.height+ postdata.height + postimg.height
+
             Text {
                 id:titletext
-                width:parent.width
-                horizontalAlignment: Text.AlignHCenter
+                width:parent.width* 0.95
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top:parent.top
+                anchors.topMargin: parent.width * 0.03
+               // horizontalAlignment: Text.AlignHCenter
                 visible:if(posttitle.length > 2) {true} else {false}
-                text:"<b>"+posttitle+"</b>"
-                font.pixelSize: postbg.width * 0.12 - posttitle.length
+                text:"<h2>"+posttitle+"</h2>"
+               // font.pixelSize: messageblock.width * 0.08 - posttitle.length
                 wrapMode:Text.WordWrap
                 color:fontColor
+            }
+
+            Image {
+                source:pluginlogo
+                anchors.top:parent.top
+                anchors.margins: parent.width * 0.03
+                anchors.right: parent.right
+                width:32
+                height:32
             }
 
             Rectangle {
@@ -398,7 +412,7 @@ Item {
         width:parent.width * 0.6
         wrapMode: Text.WordWrap
         z:3
-        color:fontColor
+        color:"white"
 
         opacity:logo.opacity
     }

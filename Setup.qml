@@ -2334,8 +2334,8 @@ Rectangle {
 
          MouseArea {
              anchors.fill: parent
-             onPressed:aboutflash.state = "Active"
-             onReleased:aboutflash.state = "InActive"
+             //onPressed:aboutflash.state = "Active"
+            // onReleased:aboutflash.state = "InActive"
              onClicked:aboutscreen.state = "Active"
          }
 

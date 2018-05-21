@@ -3,6 +3,7 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 //import QtQuick.Controls.Styles 1.3
 import QtGraphicalEffects 1.0
+import QtQuick.Layouts 1.3
 
 import QtQuick.LocalStorage 2.0 as Sql
 import "main.js" as Scripts
@@ -12,7 +13,7 @@ import "microblogger.js" as MicroBlog
 
 
 Item {
-    id:popup
+    id:thisWindow
     property string number: "0"
     property string list:""
     property string cardStatus: "No recent status updates"
@@ -45,7 +46,7 @@ Item {
         }
 
         Component.onCompleted: MicroBlog.latest_log_remote("othercard",cardId)
-
+        onVisibleChanged: if(visible == true) {MicroBlog.latest_log_remote("othercard",cardId)}
 
 
 
@@ -57,13 +58,13 @@ Item {
         width:parent.width * 0.98
         height:parent.height
         contentWidth: parent.width
-        contentHeight: homeinfo.height+ popup.height * 0.01
+        contentHeight: homeinfo.height+ thisWindow.height * 0.01
         clip:true
 
         Column {
             id:homeinfo
             anchors.horizontalCenter: parent.horizontalCenter
-            width:popup.width * 0.98
+            width:thisWindow.width * 0.98
            // height:parent.height * 1.2
             spacing:mainView.height * 0.02
 
@@ -219,15 +220,15 @@ Item {
 
             }
 
-
             Item {
                 width:parent.width
                 height:mainView.height * 0.01
             }
 
+
             Item {
                 anchors.horizontalCenter: parent.horizontalCenter
-                width: parent.width * 0.98
+                width: parent.width
                 height:statuscontent.height + mainView.width * 0.04
                 //visible: if(cstatus.length > 2) {true} else {false}
 
@@ -250,6 +251,7 @@ Item {
                             padding:parent.width * 0.02
                             text:qsTr("Status Update:")
                             color:fontColor
+                            font.pixelSize: 18
                         }
                         Rectangle {
                                  anchors.horizontalCenter: parent.horizontalCenter
@@ -325,14 +327,233 @@ Item {
                    }
             }
 
+
+
+
+            Item {
+                visible: if(currentcard_saved == 1) {true} else {false}
+                width:parent.width
+                height:mainView.width * 0.45
+
+                Rectangle {
+                    id:connectiontypeback
+                    anchors.centerIn: parent
+                    width: parent.width * 0.98
+                    height: parent.height * 0.98
+                    color:cardcolor
+                    visible: false
+                }
+                DropShadow {
+                       anchors.fill: connectiontypeback
+                       horizontalOffset: 0
+                       verticalOffset: 4
+                       radius: 8.0
+                       samples: 17
+                       color: "#80000000"
+                       source: connectiontypeback
+
+                   }
+
+                Item {
+                    width:parent.width * 0.40
+                    height:parent.height * 0.98
+                    anchors.verticalCenter:parent.verticalCenter
+                    anchors.right: parent.right
+                    anchors.rightMargin: parent.width * 0.04
+                    clip:true
+
+                    GridLayout {
+                        anchors.centerIn: parent
+                        width:parent.width * 0.98
+                        height:parent.height * 0.98
+                        //spacing: mainView.width * 0.01
+                        columns: 2
+                        rows: 2
+                        clip:true
+
+                        CircleIndicator {
+
+                            width:parent.width * 0.40
+                            height:parent.width * 0.40
+                            fillColor: highLightColor1
+                            icon:"./icons/calendar.svg"
+                            enabled: false
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {notification1.themessage = "Coming Soon"; notification1.visible = true;}
+                            }
+
+                        }
+                        CircleIndicator {
+                            width:parent.width * 0.40
+                            height:parent.width * 0.40
+                            fillColor: highLightColor1
+                            icon:"./icons/calendar-today.svg"
+                            enabled: false
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {notification1.themessage = "Coming Soon"; notification1.visible = true;}
+                            }
+
+                        }
+                        CircleIndicator {
+                            width:parent.width * 0.40
+                            height:parent.width * 0.40
+                            fillColor: highLightColor1
+                            icon:"./icons/edit-text.svg"
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {notes.state = "Active"}
+                            }
+
+                        }
+                        CircleIndicator {
+                            width:parent.width * 0.40
+                            height:parent.width * 0.40
+                            fillColor: highLightColor1
+                            icon:"./icons/stats.svg"
+                            enabled: false
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {notification1.themessage = "Coming Soon"; notification1.visible = true;}
+                            }
+                        }
+                    }
+
+                }
+
+                Column {
+
+                    width:parent.width * 0.48
+                    height:parent.height * 0.95
+                    anchors.verticalCenter:parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: parent.width * 0.04
+                    clip:true
+                    spacing: mainView.width * 0.02
+
+                    Text {
+                        anchors.left:parent.left
+                        padding:parent.width * 0.02
+                        text:qsTr("Contact Info:")
+                        color:fontColor
+                        font.pixelSize: 20
+
+                    }
+
+                Rectangle {
+                         anchors.horizontalCenter: parent.horizontalCenter
+                         width:parent.width * 0.98
+                         height:3
+                         color:seperatorColor1
+                     }
+
+                Text {
+                    anchors.left:parent.left
+                    padding:parent.width * 0.02
+                    text:qsTr("Relationship:")
+                    color:fontColor
+
+
+                }
+                SpinBox {
+                    anchors.left:parent.left
+                    width:parent.width
+                    height:mainView.width * 0.2
+                    from: 0
+                    to: 5
+                    value: connection
+                    contentItem: Label {
+                            text:switch(parent.value) {
+                                 case 0:qsTr("Not Applicable");break;
+                                 case 1:qsTr("Acquaintance");break;
+                                 case 2:qsTr("Professional");break;
+                                 case 3:qsTr("Friends");break;
+                                 case 4:qsTr("Family");break;
+                                 case 5:qsTr("Romantic");break;
+                                 }
+
+                            width:parent.width
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            color:fontColor
+                            font.underline: false
+                            font.pixelSize: mainView.width * 0.041
+
+
+                        }
+
+                    down.indicator: Rectangle {
+                                        width:parent.height /2
+                                        height:parent.height /2
+                                        radius: width /2
+                                        anchors.left:parent.left
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        color:activeColor
+
+                                        Image {
+                                            id:d1
+                                            source:"./img/go-previous.svg"
+                                            anchors.centerIn: parent
+                                            fillMode: Image.PreserveAspectFit
+                                            width: parent.width * 0.65
+
+
+                                        }
+
+                                        ColorOverlay {
+                                            source:d1
+                                            color:fontColor
+                                            anchors.fill:d1
+
+
+                                        }
+
+                                        }
+
+                    up.indicator: Rectangle {
+                                        width:parent.height /2
+                                        height:parent.height /2
+                                        radius: width /2
+                                        anchors.right:parent.right
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        color:activeColor
+
+                                        Image {
+                                            id:u1
+                                            source:"./img/go-next.svg"
+                                            anchors.centerIn: parent
+                                            fillMode: Image.PreserveAspectFit
+                                            width: parent.width * 0.65
+                                        }
+
+                                        ColorOverlay {
+                                            source:u1
+                                            color:fontColor
+                                            anchors.fill:u1
+
+
+                                        }
+
+                                        }
+
+                    onValueChanged: Scripts.save_contact_info(currentcard_thecard,value,"relation");
+                }
+
+                }
+
+            }
+
             Item {
                 width:parent.width
                 height:mainView.height * 0.01
             }
 
+
             Item {
                 anchors.horizontalCenter: parent.horizontalCenter
-                width: parent.width * 0.98
+                width: parent.width
                 height:aboutcontent.height + aboutcontent.y
                 visible: if(cardusername !=username && motto.length > 2) {true} else {false}
 
@@ -395,7 +616,7 @@ Item {
             Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
-                height:content.height + popup.height * 0.01
+                height:content.height + thisWindow.height * 0.01
                 visible: if(cardusername !=username && skillstats.count > 0) {true} else {false}
                     property string dataMine: ""+skills
 
@@ -412,7 +633,7 @@ Item {
                      anchors.top:parent.top
                      width:parent.width
                      //height:parent.height *0.98
-                     spacing:popup.height * 0.01
+                     spacing:thisWindow.height * 0.01
 
                         Text {
 
@@ -434,7 +655,7 @@ Item {
 
                        ListView {
                            width:parent.width
-                           spacing: popup.height * 0.01
+                           spacing: thisWindow.height * 0.01
                             height:contentHeight
 
                            model:ListModel {
@@ -457,10 +678,10 @@ Item {
                                         id:itemcontent
                                         anchors.centerIn: parent
                                         width:parent.width * 0.98
-                                        spacing: popup.height * 0.01
+                                        spacing: thisWindow.height * 0.01
 
                                         Text {
-                                            font.pixelSize: popup.height * 0.035
+                                            font.pixelSize: thisWindow.height * 0.035
                                             text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
                                             width:parent.width
                                             color:fontColor
@@ -468,8 +689,8 @@ Item {
                                             Text {
                                                 anchors.bottom:parent.bottom
                                                 anchors.right:parent.right
-                                                anchors.rightMargin: popup.height * 0.01
-                                                font.pixelSize: popup.height * 0.02
+                                                anchors.rightMargin: thisWindow.height * 0.01
+                                                font.pixelSize: thisWindow.height * 0.02
                                                 text:"Years of Experience: "+yoe.substring(1,yoe.length-1)
                                                 color:fontColor
                                             }
@@ -484,7 +705,7 @@ Item {
 
                                         Text {
                                             anchors.left:parent.left
-                                            anchors.leftMargin: popup.height * 0.02
+                                            anchors.leftMargin: thisWindow.height * 0.02
                                             width:parent.width * 0.95
                                             wrapMode: Text.WordWrap
                                             text:"<p>"+discription.substring(1,discription.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")+"</p>"
@@ -515,7 +736,7 @@ Item {
             Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
-                height:scontent.height + popup.height * 0.01
+                height:scontent.height + thisWindow.height * 0.01
                 visible: if(cardusername !=username && schoolstats.count > 0) {true} else {false}
 
                 property string dataMine: ""+school
@@ -534,7 +755,7 @@ Item {
                      anchors.top:parent.top
                      width:parent.width
 
-                     spacing:popup.height * 0.01
+                     spacing:thisWindow.height * 0.01
 
                         Text {
 
@@ -556,7 +777,7 @@ Item {
 
                        ListView {
                            width:parent.width
-                           spacing: popup.height * 0.01
+                           spacing: thisWindow.height * 0.01
                             height:contentHeight
 
                            model:ListModel {
@@ -579,10 +800,10 @@ Item {
                                         id:schoolcontent
                                         anchors.centerIn: parent
                                         width:parent.width * 0.98
-                                        spacing: popup.height * 0.01
+                                        spacing: thisWindow.height * 0.01
 
                                         Text {
-                                            font.pixelSize: popup.height * 0.035
+                                            font.pixelSize: thisWindow.height * 0.035
                                             text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
                                             color:fontColor
                                             width:parent.width
@@ -590,8 +811,8 @@ Item {
                                             Text {
                                                 anchors.bottom:parent.bottom
                                                 anchors.right:parent.right
-                                                anchors.rightMargin: popup.height * 0.01
-                                                font.pixelSize: popup.height * 0.02
+                                                anchors.rightMargin: thisWindow.height * 0.01
+                                                font.pixelSize: thisWindow.height * 0.02
                                                 text:"Degree: "+expdate.substring(1,expdate.length-1)
                                                 color:fontColor
                                             }
@@ -606,7 +827,7 @@ Item {
 
                                         Text {
                                             anchors.left:parent.left
-                                            anchors.leftMargin: popup.height * 0.02
+                                            anchors.leftMargin: thisWindow.height * 0.02
                                             width:parent.width * 0.95
                                             wrapMode: Text.WordWrap
                                             text:"<p>"+discription.substring(1,discription.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")+"</p>"
@@ -636,7 +857,7 @@ Item {
             Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
-                height:wcontent.height + popup.height * 0.01
+                height:wcontent.height + thisWindow.height * 0.01
                 visible: if(cardusername !=username && workstats.count > 0) {true} else {false}
                 clip:true
 
@@ -656,7 +877,7 @@ Item {
                          anchors.top:parent.top
                          width:parent.width
 
-                         spacing:popup.height * 0.01
+                         spacing:thisWindow.height * 0.01
 
                             Text {
 
@@ -678,7 +899,7 @@ Item {
 
                            ListView {
                                width:parent.width
-                               spacing: popup.height * 0.01
+                               spacing: thisWindow.height * 0.01
                                 height:contentHeight
 
                                model:ListModel {
@@ -701,10 +922,10 @@ Item {
                                             id:workcontent
                                             anchors.centerIn: parent
                                             width:parent.width * 0.98
-                                            spacing: popup.height * 0.01
+                                            spacing: thisWindow.height * 0.01
 
                                             Text {
-                                                font.pixelSize: popup.height * 0.035
+                                                font.pixelSize: thisWindow.height * 0.035
                                                 text:name.substring(1,name.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")
                                                 width:parent.width
                                                 color:fontColor
@@ -712,8 +933,8 @@ Item {
                                                 Text {
                                                     anchors.bottom:parent.bottom
                                                     anchors.right:parent.right
-                                                    anchors.rightMargin: popup.height * 0.01
-                                                    font.pixelSize: popup.height * 0.02
+                                                    anchors.rightMargin: thisWindow.height * 0.01
+                                                    font.pixelSize: thisWindow.height * 0.02
                                                     text:"Years at Job: "+yoe.substring(1,yoe.length-1)
                                                     color:fontColor
                                                 }
@@ -728,7 +949,7 @@ Item {
 
                                             Text {
                                                 anchors.left:parent.left
-                                                anchors.leftMargin: popup.height * 0.02
+                                                anchors.leftMargin: thisWindow.height * 0.02
                                                 width:parent.width * 0.95
                                                 wrapMode: Text.WordWrap
                                                 text:"<p>"+discription.substring(1,discription.length-1).replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+")+"</p>"
@@ -852,8 +1073,6 @@ Item {
                     id:statsbox
                     width:parent.width * 0.98
                     height:statscontent.height + mainView.width * 0.04
-                  //  anchors.top:eventbox.bottom
-                  //  anchors.topMargin:mainView.width * 0.04
                     anchors.horizontalCenter: parent.horizontalCenter
 
                     color:cardcolor
@@ -976,21 +1195,6 @@ Item {
 
     }
 
-    /*Share {
-        id:swapopt
-        //width:if(window_width > mobile_width) {parent.width * 0.50} else {parent.width * 0.95}
-        width:parent.width * 0.95
-        height:parent.height * 0.40
-        state:"InActive"
-        title:qsTr("Share Card")+" ("+cardId+")"
-        type:"send"
-        message:onetimecode
-        onStateChanged:if(swapopt.state =="Active") {OpenSeed.onetime(cardId,"1")}
-        MouseArea {
-            anchors.fill:parent
-            onClicked:swapopt.state = "InActive",OpenSeed.onetime(cardId,"0")
-        }
-    } */
 
 
 

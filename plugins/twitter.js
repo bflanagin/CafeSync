@@ -112,7 +112,7 @@ http.onreadystatechange = function() {
                                postimg:"",
                                message:" "
                                 }); */
-
+        gc();
         }
 
     }

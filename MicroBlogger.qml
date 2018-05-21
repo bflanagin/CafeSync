@@ -17,7 +17,7 @@ Item {
     property var remotelog:[]
     property bool fupdate: false
 
-    Component.onCompleted:{ MicroBlog.retrieve_log(currentcard_thecard,usercardNum);
+   /* Component.onCompleted:{ if(heart !== "Offline") {MicroBlog.retrieve_log(currentcard_thecard,usercardNum);}
                            // MicroBlog.show_log(currentcard_thecard);
                             if(currentcard_thecard != usercardNum) {
                            // remotelogGet.start();
@@ -26,16 +26,29 @@ Item {
                             }
                                // MicroBlog.dump();
                             remotelogGet.start();
-    }
+    } */
 
-    onFocusChanged: if(focus ==true) {console.log("I have focus");}
+    onVisibleChanged: if(visible == true ) {
+                           if(heart !== "Offline") { MicroBlog.retrieve_log(currentcard_thecard,usercardNum);}
+                                                     // MicroBlog.show_log(currentcard_thecard);
+                                                      if(currentcard_thecard != usercardNum) {
+                                                     // remotelogGet.start();
+                                                      } else {
+                                                          MicroBlog.show_log(currentcard_thecard);
+                                                      }
+                                                         // MicroBlog.dump();
+                                                      remotelogGet.start();
 
-   Timer {
+                      }
+
+   // onFocusChanged: if(focus ==true) {console.log("I have focus");}
+
+    Timer {
         id:remotelogGet
         interval: 60000
         repeat: true
         running: false
-        onTriggered: { MicroBlog.retrieve_log(currentcard_thecard,usercardNum);
+        onTriggered: { if(heart !== "Offline") {MicroBlog.retrieve_log(currentcard_thecard,usercardNum);}
             // MicroBlog.show_log(currentcard_thecard);
              if(currentcard_thecard != usercardNum) {
            //  remotelogGet.start();
@@ -46,8 +59,8 @@ Item {
 }
    }
 
-   onFupdateChanged: if(fupdate == true) {
-                        MicroBlog.retrieve_log(currentcard_thecard,usercardNum);
+ /*  onFupdateChanged: if(fupdate == true) {
+                        if(heart !== "Offline") {MicroBlog.retrieve_log(currentcard_thecard,usercardNum);}
                                     // MicroBlog.show_log(currentcard_thecard);
                                      if(currentcard_thecard != usercardNum) {
                                    //  remotelogGet.start();
@@ -55,7 +68,7 @@ Item {
                                          MicroBlog.show_log(currentcard_thecard);
                                      }
                                      fupdate = false;
-                    }
+                    } */
 
     Rectangle {
         anchors.fill: parent

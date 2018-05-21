@@ -282,7 +282,18 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                         }
 
                         close.accepted = false;
-        } else if(mainScreen.state == "Active") {
+        } else if(notes.state == "Active") {
+
+            if(notes.editing == true) {
+                notes.editing = false;
+                close.accepted = false;
+            } else {
+                notes.state = "InActive";
+                topBar.state="person";
+                topBar.visible= true;
+                close.accepted = false;
+            }
+        }else if(mainScreen.state == "Active") {
             mainScreen.state = "InActive";
             topBar.state="standard";
             close.accepted = false;
@@ -377,6 +388,8 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         repeat: false
         onTriggered: mainScreen.state = "Active"
     }
+
+    //onCurrentcard_thecardChanged: console.log("Card changed to "+currentcard_thecard);
 
 
     Timer {
@@ -531,7 +544,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
     TopBar {
         id:topBar
         width:parent.width
-        height:parent.height * 0.08
+        height:parent.width * 0.12
         z:1
 
 
@@ -832,6 +845,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                         Card {
                                id:thecard
                                 visible: if(type != 9) {true} else {false}
+                                enabled: if(type != 9) {true} else {false}
                                             }
 
                     }
@@ -1181,16 +1195,7 @@ Wizard {
 
 
 
-Notification {
-    id:notification1
-    pos:1
-    width:parent.width
-    height:parent.height * 0.20
-    anchors.bottom: parent.bottom
-  themessage : ""
-    visible: false
-    z:2
-}
+
 
 
 
@@ -1314,6 +1319,14 @@ SendRequest {
     onStateChanged: if(state == "Active") {topBar.visible = false} else {topBar.visible = true}
 }
 
+Notes {
+    id:notes
+    width:parent.width
+    height:parent.height
+    state:"InActive"
+    onStateChanged: if(state == "Active") {topBar.visible = false} else {topBar.visible = true}
+}
+
 
 SlideShow {
     id:slideshow
@@ -1372,6 +1385,17 @@ EventInfo {
     width:parent.width * 0.98
     height:parent.width * 0.60
     state: "InActive"
+}
+
+Notification {
+    id:notification1
+    pos:1
+    width:parent.width
+    height:parent.height * 0.20
+    anchors.bottom: parent.bottom
+  themessage : ""
+    visible: false
+    //z:5
 }
 
 

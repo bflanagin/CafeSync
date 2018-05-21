@@ -70,7 +70,7 @@ Item {
         border.width:1
     }
 
-    Rectangle {
+  /*  Rectangle {
         id:bannerborder
         anchors.top:parent.top
         anchors.topMargin: 10
@@ -118,7 +118,7 @@ Item {
         fillMode:Image.PreserveAspectFit
     }
 
-    }
+    } */
 
         GridView {
             id:itemgrid
