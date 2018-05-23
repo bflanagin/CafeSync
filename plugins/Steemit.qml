@@ -5,10 +5,11 @@ import QtGraphicalEffects 1.0
 
 import "../main.js" as Scripts
 import "steemit.js" as Site
+import "../markdown.js" as Markdown
 
 
 Item {
-    id:popup
+    id:thisWindow
     property string number: "0"
     property string list:""
     property string pagesource:""
@@ -28,14 +29,14 @@ Item {
 
     clip: true
 
-    onStateChanged: if(popup.state == "Active") {Site.get_html(service);}
+    onStateChanged: if(thisWindow.state == "Active") {Site.get_account(service);}
 
 
     states: [
         State {
             name:"Active"
             PropertyChanges {
-                target: popup
+                target: thisWindow
                 visible:true
 
             }
@@ -44,7 +45,7 @@ Item {
         State {
           name:"InActive"
           PropertyChanges {
-              target: popup
+              target: thisWindow
               visible:false
 
 
@@ -137,7 +138,7 @@ Item {
 
         delegate:Item {
                     width:parent.width * 0.98
-                    height:postcontent.height
+                    height:postcontent.height + mainView.width * 0.05
                     anchors.horizontalCenter: parent.horizontalCenter
 
             Rectangle {
@@ -150,58 +151,77 @@ Item {
         width:parent.width
         height:parent.height
 
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.centerIn: parent
         //height:postcontent.height + 10
         clip:true
         z:0
 
-        Item {
+        Column {
             id:postcontent
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.centerIn: parent
             width:parent.width * 0.98
-            height:titletext.height+ postdata.height + postimg.height
+            spacing:thisWindow.width * 0.03
+            clip:true
+
             Text {
                 id:titletext
-                width:parent.width
-                horizontalAlignment: Text.AlignHCenter
+                width:parent.width * 0.90
+                horizontalAlignment: Text.AlignLeft
                 visible:if(posttitle.length > 2) {true} else {false}
-                text:"<b>"+posttitle+"</b>"
-                font.pixelSize: postbg.width * 0.12 - posttitle.length
+                text:posttitle
+                font.pixelSize: mainView.width * 0.06
                 wrapMode:Text.WordWrap
                 color:fontColor
+
+                Image {
+                    anchors.left:parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    source:"../img/steemit-vector-icon.png"
+                    width:mainView.width * 0.08
+                    height:mainView.width * 0.08
+
+                }
             }
 
             Rectangle {
                 id:postsplitter
                 color:"gray"
-                anchors.top:titletext.bottom
                 width:parent.width
-                height:postbg.height * 0.01
+                height:mainView.width * 0.01
                 visible:if(posttitle.length > 2) {true} else {false}
             }
 
             Image {
                 visible: if(postimage.length > 2) {true} else {false}
-                anchors.top:postsplitter.bottom
                 width:parent.width * 0.98
-                //height:if(postimage.length > 2) {popup.height * 0.70} else {10}
+                //height:if(postimage.length > 2) {thisWindow.height * 0.70} else {10}
                 fillMode: Image.PreserveAspectFit
                 anchors.horizontalCenter: parent.horizontalCenter
                 source:postimage
                 id:postimg
             }
-            Text {
+            MarkDown {
                 id:postdata
-                anchors.top:postimg.bottom
-                anchors.topMargin:8
-                //anchors.bottom:parent.bottom
-                width:parent.width * 0.95
-                horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: postbg.width * 0.04
-                text:"<p>"+post+"</p>"
-                wrapMode:Text.WordWrap
-                color:fontColor
+                anchors.horizontalCenter: parent.horizontalCenter
+                width:parent.width * 0.93
+
+                thedata:post
+
             }
+
+            Rectangle {
+
+                color:"gray"
+                width:parent.width
+                height:mainView.width * 0.01
+                visible:if(posttitle.length > 2) {true} else {false}
+            }
+
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text:qsTr("Press and hold to read on Steemit.com")
+            }
+
         }
 
     }
@@ -216,6 +236,11 @@ Item {
                 source:postbg
                 z:1
             }
+
+            MouseArea {
+              anchors.fill:parent
+              onPressAndHold:Qt.openUrlExternally(thelink);
+             }
         }
 
         model:steemitposts
@@ -398,7 +423,7 @@ Item {
         width:parent.width * 0.6
         wrapMode: Text.WordWrap
         z:3
-        color:fontColor
+        color:"white"
 
         opacity:logo.opacity
     }

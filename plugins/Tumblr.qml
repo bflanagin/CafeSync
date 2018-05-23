@@ -138,7 +138,7 @@ Item {
 
         delegate:Item {
                     width:parent.width * 0.98
-                    height:postcontent.height
+                    height:postcontent.height + (mainView.width * 0.03)
                     anchors.horizontalCenter: parent.horizontalCenter
 
             Rectangle {

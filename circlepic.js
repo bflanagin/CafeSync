@@ -40,7 +40,7 @@ function returnImage(who,locale,source) {
     var pull =  tx.executeSql(dataStr);
     //numofcards = pull.rows.length;
 
-        if(pull.rows.length == 1) {
+        if(pull.rows.length === 1) {
             //console.log("Found image for "+who);
     if(pull.rows.item(0).avatar.length < 4) { ava = "img/default_avatar.png";} else {ava = pull.rows.item(0).avatar;
                  if(ava.search("/9j/4A") != -1 && ava.search("data:image/jpeg;base64") == -1) { ava = "data:image/jpeg;base64, "+ava.replace(/ /g, "+");}
