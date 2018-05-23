@@ -1,10 +1,10 @@
-import QtQuick 2.8
+import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Dialogs 1.2
 //import QtWebKit 3.0
 //import QtWebView 1.0
-import QtQuick.Window 2.0
-import QtPositioning 5.2
+import QtQuick.Window 2.3
+import QtPositioning 5.8
 import QtQuick.Controls.Material 2.2
 import QtGraphicalEffects 1.0
 import QtQuick.Controls.Styles 1.4

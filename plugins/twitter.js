@@ -34,6 +34,7 @@ http.onreadystatechange = function() {
 
             pagedata = http.responseText;
 
+            //console.log(pagedata);
 
            profilepic = pagedata.substring(pagedata.search("https://pbs.twimg.com/profile_images/"),(pagedata.search("https://pbs.twimg.com/profile_images/") + 150));
            profilepic = profilepic.split('"')
@@ -43,8 +44,8 @@ http.onreadystatechange = function() {
             profilebanner = profilebanner.split(")");
             banner = profilebanner[0];
             } else {
-                profilebanner = "../img/overlay.svg";
-                banner = profilebanner;
+               /// profilebanner = "../img/overlay.svg";
+               // banner = profilebanner;
             }
             mission = pagedata.substring(pagedata.search('<p class="ProfileHeaderCard-bio u-dir" dir="ltr">'),pagedata.search('<div class="ProfileHeaderCard-location ">'));
 
@@ -112,7 +113,7 @@ http.onreadystatechange = function() {
                                postimg:"",
                                message:" "
                                 }); */
-        gc();
+        //gc();
         }
 
     }

@@ -284,7 +284,8 @@ Item {
                            // text:MicroBlog.latest_log("mycard",cardId)
                             placeholderText: "Update your Status"
                             background: InputBack{}
-                            //enabled: false
+                            enabled: if(infoFlick.moving == true || ms.moving == true ) {false} else {true}
+                            focus:if(infoFlick.moving == true || ms.moving == true ) {false}
 
                             Image {
                                 visible: if(statusField.text.length > 1) {true} else {false}

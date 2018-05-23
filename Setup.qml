@@ -1,8 +1,8 @@
-import QtQuick 2.8
+import QtQuick 2.9
 import QtQuick.Dialogs 1.2
 //import QtWebKit 3.0
 //import QtWebView 1.0
-import QtQuick.Window 2.2
+import QtQuick.Window 2.3
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
@@ -2176,13 +2176,16 @@ Rectangle {
                         model: socialcontracts
 
                         delegate: SocialOpt {
-
+                                        id:soItem
                                 width:parent.width * 0.95
                                 height:thisWindow.height * 0.08
 
                                 MouseArea {
                                     anchors.fill: parent
-                                    onClicked:{if(type == 2) {sConnect.state = "Active",sConnect.service = "", sConnect.type = "intergration", sConnect.po = po
+                                    onClicked:{if(type === 2) {sConnect.state = "Active";
+                                                                sConnect.service = "";
+                                                                sConnect.type = "intergration";
+                                                                sConnect.po = po;
                                                 switch (po) {
                                                     case 0: sConnect.useraccount = usermain;break;
                                                     case 1: sConnect.useraccount = website1;break;
@@ -2208,7 +2211,7 @@ Rectangle {
                                     anchors.verticalCenter: parent.verticalCenter
                                     height:parent.height * 0.95
                                     width:3
-                                    color:"white"
+                                    color:if(parent.bgColor === cardcolor && type !== 2) {"gray"} else {"white"}
                                 }
 
                                 Item {
@@ -2230,7 +2233,7 @@ Rectangle {
                                 ColorOverlay {
                                        anchors.fill: del_icon
                                        source: del_icon
-                                       color: "white"
+                                       color: if(soItem.bgColor === cardcolor && type !== 2) {fontColor} else {"white"}
                                    }
 
                                 MouseArea {

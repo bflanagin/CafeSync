@@ -264,5 +264,9 @@
         <file>Notes.qml</file>
         <file>notes.js</file>
         <file>encryption.js</file>
+        <file>img/steemit-vector-icon.png</file>
+        <file>plugins/MarkDown.qml</file>
+        <file>plugins/markdown.js</file>
+        <file>icons/achievements/iconlist.md</file>
     </qresource>
 </RCC>

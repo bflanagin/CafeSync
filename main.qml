@@ -1,10 +1,10 @@
-import QtQuick 2.8
+import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Dialogs 1.2
 //import QtWebKit 3.0
 //import QtWebView 1.0
-import QtQuick.Window 2.0
-import QtPositioning 5.2
+import QtQuick.Window 2.3
+import QtPositioning 5.8
 import QtQuick.Controls.Material 2.2
 import QtGraphicalEffects 1.0
 
@@ -238,7 +238,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
     property var slist : ["Twitter::"+"lightblue"+"::./img/twitter.png::twitter::@username","Tumblr::"+"#343460"+"::./img/tumblr.png::tumblr::username/blogname",
     "Medium::"+cardcolor+"::./img/medium.png::medium::example.com","WordPress::"+"darkgray"+"::./img/wordpress.png::wordpress::example.com",
         "RSS::"+"lightgray"+"::./img/RSS.png::blog::example.com","SoundCloud::"+"orange"+"::./img/soundcloud.png::soundcloud::bandname","Etsy::"+"#F56400"+"::./img/etsy.png::etsy::store",
-        "Steemit::"+"lightgray"+"::./img/steemit-vector-logo.png::steemit::@username"];
+        "Steemit::"+cardcolor+"::./img/steemit-vector-icon.png::steemit::@username"];
 
 
 

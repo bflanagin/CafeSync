@@ -1,4 +1,4 @@
-import QtQuick 2.8
+import QtQuick 2.9
 import QtGraphicalEffects 1.0
 import IO 1.0
 
@@ -118,11 +118,25 @@ Item {
          height:logContent.height + mainView.width * 0.1
 
          Rectangle {
+             id:postbg
              anchors.horizontalCenter: parent.horizontalCenter
              width:parent.width * 0.98
              height:parent.height
              color: cardcolor
+             visible: false
          }
+
+
+             DropShadow {
+                 anchors.fill:postbg
+                 horizontalOffset: 0
+                 verticalOffset: 2
+                 radius: 4.0
+                 samples: 17
+                 color: "#80000000"
+                 source:postbg
+             }
+
 
          Column {
              id:logContent
