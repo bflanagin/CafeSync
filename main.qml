@@ -367,9 +367,9 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         interval: 6000
         running:false
         repeat:true
-        onTriggered:if(firstrun.state == "InActive") {OpenSeed.heartbeat();
-
-                        OpenSeed.retrieve_data(userid);}
+        onTriggered:if(firstrun.state == "InActive") {
+                                                      OpenSeed.heartbeat();
+                                                      OpenSeed.retrieve_data(userid);}
     }
 
 //Component.onCompleted: (console.log(Application.version));
@@ -439,6 +439,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
         positionSource.update();
     }
             gpsupdate.interval = 20000;
+
         }
     }
 
@@ -454,7 +455,7 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                         OpenSeed.get_list(userid,"region");
                         OpenSeed.get_list(userid,"saved");
 
-
+                            get_list_updater.interval = get_list_updater.interval * 3;
 
                          }
             }
@@ -814,6 +815,8 @@ Government::brown,Law::maroon,Living::darkgreen,Lifestyle::pink,Music::darkblue,
                    // flickableDirection: Flickable.VerticalFlick
                     visible: true
                     spacing: mainView.width * 0.05
+
+                    //onContentHeightChanged: console.log("List Changed")
 
                     clip:true
 

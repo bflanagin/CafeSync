@@ -588,32 +588,14 @@ Rectangle {
     height:(parent.height * 0.01) + messageField.height
     color:barColor
 
-    Item {
+    CircleIndicator {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left:parent.left
         anchors.leftMargin: thisWindow.height * 0.01
         height:mainView.width * 0.06
         width:mainView.width * 0.06
-   Image {
-       id:addstuff
-        anchors.fill: parent
-        source:"./icons/add.svg"
-        visible: false
-
-    }
-
-   ColorOverlay {
-       source:addstuff
-       color:fontColor
-       anchors.fill:addstuff
-
-
-   }
-
-   Flasher {
-
-   }
-
+        icon:"./icons/add.svg"
+        fillColor: highLightColor1
     }
    TextArea {
        id:messageField
@@ -639,46 +621,21 @@ Rectangle {
         background:InputBack{}
    }
 
-   Item {
+   CircleIndicator {
        anchors.right:parent.right
        anchors.rightMargin: thisWindow.height * 0.01
        anchors.verticalCenter: parent.verticalCenter
        width:mainView.width * 0.06
        height:mainView.width * 0.06
+       icon:"./icons/message.svg"
+       fillColor:highLightColor1
 
-   Image {
-       id:sendMsg
-       //anchors.fill: parent
-       anchors.centerIn: parent
-       width:parent.width * 0.8
-       height:parent.height * 0.8
-       fillMode: Image.PreserveAspectFit
-       source:"./icons/message.svg"
-
-       visible: false
-
-   }
-
-   ColorOverlay {
-       source:sendMsg
-       color:fontColor
-       anchors.fill:sendMsg
-
-
-   }
-
-   Flasher {
-
-   }
    MouseArea {
        anchors.fill: parent
        onClicked: Message.send_messages(roomId,messageField.text)
    }
 
    }
-
-
-
 
 }
 

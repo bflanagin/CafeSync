@@ -27,7 +27,7 @@ Item {
                     visible: if(type == "text") {true} else {false}
                     wrapMode: Text.WordWrap
                     clip:true
-                    horizontalAlignment: Text.AlignJustify
+                    horizontalAlignment: Text.AlignLeft
                     font.pixelSize: postbg.width * 0.04
                     text:"<div>"+thepost+"</div>"
 

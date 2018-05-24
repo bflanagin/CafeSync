@@ -3,7 +3,7 @@ function get_account(account) {
     var tosend = '{"jsonrpc":"2.0", "method":"follow_api.get_blog", "params":{"account":"'+account.split("@")[1]+'","start_entry_id":0,"limit":3}, "id":1}'
    // console.log(url);
     var http = new XMLHttpRequest();
-
+    gc();
     var pagedata = "";
 
     steemitposts.clear();
@@ -34,7 +34,7 @@ function get_account(account) {
                     posttitle:contents[num].split('"title":"')[1].split('","body":"')[0],
                     //postimage:pluginlogo,
                     //post:contents[num].split('"body":"')[1].split('","json_metadata')[0]
-                      post:contents[num].split('"body":"')[1].slice(0,1000)+"...",
+                      post:contents[num].split('"body":"')[1].slice(0,2000)+"...",
                       thelink:"https://steemit.com/"+parent+"/@"+account.split("@")[1]+"/"+permlink
                 });
 

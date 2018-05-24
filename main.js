@@ -855,7 +855,7 @@ function temp_Load(search,locale,sortOpt) {
 
 
 
-function Cards_save(id,username,userphone,useremail,usercompany,useralias,usermotto,main,website1,website2,website3,website4,avatar,cardback,cardcat,cardsop) {
+function cards_Save(id,username,userphone,useremail,usercompany,useralias,usermotto,main,website1,website2,website3,website4,avatar,cardback,cardcat,cardsop) {
 
    // console.log(id,username,userphone,useremail);
 
@@ -868,7 +868,7 @@ function Cards_save(id,username,userphone,useremail,usercompany,useralias,usermo
            //tx.executeSql("DROP TABLE Card");
             tx.executeSql('CREATE TABLE IF NOT EXISTS SavedCards(id INT UNIQUE, name TEXT,phone TEXT, email TEXT,company TEXT,alias TEXT, motto TEXT,main TEXT, website1 TEXT,website2 TEXT,website3 TEXT,website4 TEXT,avatar TEXT,cardback TEXT,cat TEXT,cardsop INT)');
 
-            if(id.length != 0) {
+            if(id.length !== 0) {
                // console.log("Saved card "+id);
             tx.executeSql(userStr, data);
             }
@@ -2541,7 +2541,7 @@ function skillListings() {
     var skillnum = 0;
     while(yourskills.length > skillnum) {
 
-    if(yourskills[skillnum].split(":::")[0] != "") {
+    if(yourskills[skillnum].split(":::")[0] !== "") {
         skills.append({
             name:yourskills[skillnum].split(":::")[0],
             certified:yourskills[skillnum].split(":::")[1],
@@ -2562,7 +2562,7 @@ function skillListings() {
 function editItem(type,index) {
 
     switch(type) {
-    case "skill":if(yourskills[index].split(":::")[0] != "") {
+    case "skill":if(yourskills[index].split(":::")[0] !== "") {
 
                              skillname.text = yourskills[index].split(":::")[0].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
                             certifed.checked = yourskills[index].split(":::")[1].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
@@ -2573,7 +2573,7 @@ function editItem(type,index) {
 
 
                         };break;
-    case "school":if(yourschooling[index].split(":::")[0] != "") {
+    case "school":if(yourschooling[index].split(":::")[0] !== "") {
 
 
                                 schoolname.text = yourschooling[index].split(":::")[0].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
@@ -2583,7 +2583,7 @@ function editItem(type,index) {
                                 degree.text = yourschooling[index].split(":::")[4].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
 
                         };break;
-    case "work":if(yourworked[index].split(":::")[0] != "") {
+    case "work":if(yourworked[index].split(":::")[0] !== "") {
 
                             companyname.text = yourworked[index].split(":::")[0].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
                             currentlyEmployeed.checked = yourworked[index].split(":::")[1].split("'")[1].replace(/;#x2c;/g,",").replace(/;#x2b;/g,"+");
@@ -2600,10 +2600,11 @@ function editItem(type,index) {
 }
 
 function formatResume(type,stuff) {
+    var num = 0;
 
     switch(type) {
-    case "skill": for(var num = 0;num < stuff.split(",").length;num = num + 1) {
-            if(stuff.split(",")[num].split(":::")[0] != "") {
+    case "skill": for(num = 0;num < stuff.split(",").length;num = num + 1) {
+            if(stuff.split(",")[num].split(":::")[0] !== "") {
         skillstats.append ({
                 name:stuff.split(",")[num].split(":::")[0],
                 certified:stuff.split(",")[num].split(":::")[1],
@@ -2613,8 +2614,8 @@ function formatResume(type,stuff) {
                 yoe:stuff.split(",")[num].split(":::")[5]
                     }); }
                 };break;
-    case "school":for(var num = 0;num < stuff.split(",").length;num = num + 1) {
-            if(stuff.split(",")[num].split(":::")[0] != "") {
+    case "school":for(num = 0;num < stuff.split(",").length;num = num + 1) {
+            if(stuff.split(",")[num].split(":::")[0] !== "") {
             schoolstats.append ({
                     name:stuff.split(",")[num].split(":::")[0],
                     certified:stuff.split(",")[num].split(":::")[1],
@@ -2625,8 +2626,8 @@ function formatResume(type,stuff) {
                         }); }
                     };break;
 
-    case "work":for(var num = 0;num < stuff.split(",").length;num = num + 1) {
-            if(stuff.split(",")[num].split(":::")[0] != "") {
+    case "work":for(num = 0;num < stuff.split(",").length;num = num + 1) {
+            if(stuff.split(",")[num].split(":::")[0] !== "") {
             workstats.append ({
                     name:stuff.split(",")[num].split(":::")[0],
                     certified:stuff.split(",")[num].split(":::")[1],

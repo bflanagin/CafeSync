@@ -118,7 +118,7 @@ function retrieve_conversations(room) {
                 //console.log(http.responseText);
                 var raw = http.responseText;
                 if(raw == "1") {
-                   //console.log("up to date");
+                   console.log("up to date");
                     // remote = 0;
                 } else {
 
@@ -126,14 +126,15 @@ function retrieve_conversations(room) {
 
                     var fromserver = raw.split("><");
                     var sync = 1;
-                    var dataStr1;
-                    var dataStr2;
-                    var you;
-                    var otherperson;
-                    var otherava;
-                    var ava;
+                   // var dataStr1;
+                  //  var dataStr2;
+                  //  var you;
+                   // var otherperson;
+                   // var otherava;
+                  //  var ava;
                      while(sync < fromserver.length) {
                         var messageblock = fromserver[sync].split("::");
+                        // console.log(messageblock);
 
                             save_messages(userid,messageblock[2]," "," "," "," "," ",messageblock[3],messageblock[4],messageblock[2]);
 

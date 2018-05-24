@@ -525,18 +525,18 @@ function get_list(id,list) {
                 carddata = http.responseText;
 
 
-                if(http.responseText == 100) {
+                if(http.responseText == "100") {
 
                     console.log("Incorrect DevID");
 
-                } else if(http.responseText == 101) {
+                } else if(http.responseText == "101") {
                     console.log("Incorrect AppID");
                 } else {
                         carddata = http.responseText;
                         //if(carddata.length != remotetemp) {
                         remotetemp = carddata;
 
-
+                        //console.log("from interwebs temp "+carddata);
 
                         var tnum = 0;
                         while (remotetemp.split(",")[tnum] != null) {
@@ -656,6 +656,8 @@ function get_list(id,list) {
 }
 
 function check_for_update(id,list) {
+    gc();
+
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/lastupdated.php?id="+userid+"&cid="+id;
 
@@ -708,7 +710,7 @@ function check_for_update(id,list) {
                                          //    console.log("Found Stat");
                                             if(pull.rows.item(0).data == carddata) {
                                                  updateIt = 0;
-                                                      //  console.log("everything is good for "+id);
+                                                     //   console.log("everything is good for "+id);
                                                         if(list != "saved") {
                                                        // remote_delete(userid,list,id);
                                                         }
@@ -724,7 +726,7 @@ function check_for_update(id,list) {
                                                 }
                                             } else {
                                                     updateIt = 2;
-                                                   // console.log("No Card found "+id);
+                                                  //  console.log("No Card found "+id);
                                                     if(usercardNum != id) {
 
                                                             update_card(id,list);
@@ -760,13 +762,13 @@ function check_for_update(id,list) {
 
 function update_card(id,list) {
 
-
+    gc();
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/devs/" + devId + "/" + appId + "/scripts/updatecard.php?id=" + userid+"&cid="+id+"&list="+list;
     //console.log(url);
    // var updatetype = check_for_update(id,list);
 
-   // console.log("from Update card "+updatetype);
+    //console.log("from Update card "+updatetype);
 
    // if(updatetype != 0) {
 
@@ -778,17 +780,19 @@ function update_card(id,list) {
             carddata = http.responseText;
 
 
-            if(http.responseText == 100) {
+            if(http.responseText == "100") {
 
                 console.log("Incorrect DevID");
 
-            } else if(http.responseText == 101) {
+            } else if(http.responseText == "101") {
                 console.log("Incorrect AppID");
             } else {
 
 
 
                 var cardpos = carddata.split(";&;");
+
+                //console.log(cardpos);
 
                 var cid = cardpos[0];
                 var name = cardpos[1];

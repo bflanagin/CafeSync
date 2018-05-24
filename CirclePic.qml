@@ -32,7 +32,7 @@ Item {
             anchors.fill:parent
             anchors.margins: 4
             visible: false
-            source: fixpic
+            source: if(fixpic === 'undefined') {"./img/default_avatar.png"} else {fixpic}
             fillMode: Image.PreserveAspectCrop
 
             Image {

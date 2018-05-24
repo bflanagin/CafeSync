@@ -76,7 +76,7 @@ import "microblogger.js" as MicroBlogger
                                                                 if(cardsop != 2) {
                                                       // console.log("Card is not a special card");
                                                       //  if(explodereset == 10000) {
-                                                                      if(Scripts.temp_Elapsed(cardId) == 1) {
+                                                                      if(Scripts.temp_Elapsed(cardId) === 1) {
                                                               //  console.log("Cards time has elapsed");
                                                                           //   OpenSeed.remote_delete(userid,listget,cardId);
                                                                             deletelist.push(cardId);
@@ -173,7 +173,7 @@ import "microblogger.js" as MicroBlogger
                                                 height: parent.height * 0.9
                                                 anchors.verticalCenter: parent.verticalCenter
                                                 anchors.left:parent.left
-                                                thesource:""+imgsource
+                                               // thesource:""+imgsource
                                                 where:listget
                                                 whichPic:cardId
                                                 }

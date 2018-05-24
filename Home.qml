@@ -285,7 +285,7 @@ Item {
                             placeholderText: "Update your Status"
                             background: InputBack{}
                             enabled: if(infoFlick.moving == true || ms.moving == true ) {false} else {true}
-                            focus:if(infoFlick.moving == true || ms.moving == true ) {false}
+                            //focus:if(infoFlick.moving == true || ms.moving == true ) {false}
 
                             Image {
                                 visible: if(statusField.text.length > 1) {true} else {false}
