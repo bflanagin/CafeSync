@@ -589,6 +589,7 @@ Rectangle {
     color:barColor
 
     CircleIndicator {
+        id:addstuff
         anchors.verticalCenter: parent.verticalCenter
         anchors.left:parent.left
         anchors.leftMargin: thisWindow.height * 0.01
@@ -611,7 +612,7 @@ Rectangle {
        //height:parent.height * 0.7
        font.pixelSize: parent.width * 0.04
        //maximumLength: 144
-        Keys.onPressed: { if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {Message.send_messages(roomId,messageField.text)} else {console.log(event.key);} }
+        Keys.onPressed: { if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {Message.send_messages(roomId,messageField.text)} }
 
         /*background:Rectangle {
             border.color: borderColor
@@ -622,6 +623,7 @@ Rectangle {
    }
 
    CircleIndicator {
+       id:sendMsg
        anchors.right:parent.right
        anchors.rightMargin: thisWindow.height * 0.01
        anchors.verticalCenter: parent.verticalCenter

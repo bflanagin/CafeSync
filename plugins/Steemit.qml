@@ -65,71 +65,9 @@ Item {
         opacity: 0.1
     }
 
-   /* Rectangle {
-        anchors.fill:parent
-        radius:10
-        color:Qt.rgba(0.5,0.5,0.5,0.6)
-        border.width:1
-    } */
-
-    /*Image {
-        id:shade
-        anchors.centerIn: parent
-        source:"../img/shade.png"
-        anchors.fill: parent
-        //fillMode:Image.PreserveAspectCrop
-    } */
-
-    /* Rectangle {
-        anchors.top:parent.top
-        anchors.topMargin:10
-        anchors.horizontalCenter: parent.horizontalCenter
-        width:parent.width * 0.98
-        height:parent.height * 0.15
-        color:Qt.rgba(0.5,0.5,0.5,0.8)
-        radius:4
-        clip:true
-       // border.color: "white"
-       // border.width:1
-        z:1
-        Image {
-            id:avimage
-            anchors.left:parent.left
-            anchors.verticalCenter: parent.verticalCenter
-            width:parent.height * 0.80
-            height:parent.height * 0.80
-            fillMode:Image.PreserveAspectFit
-            source:avatar
-
-        }
-        Text {
-            id:blogtitle
-            anchors.left:avimage.right
-            text:name
-            font.pixelSize: parent.height * 0.45 - text.length
-            color:fontColorTitle
-            minimumPixelSize: 20
-        }
-        Text {
-            id:about
-            anchors.left:avimage.right
-            anchors.top:blogtitle.bottom
-            anchors.topMargin: parent.height * 0.01
-            text:message
-            font.pixelSize: blogtitle.height * 0.25 - text.length
-            color:fontColor
-            wrapMode: Text.WordWrap
-            width:parent.width * 0.80
-        }
-
-    } */
-
     ListView {
         width:parent.width * 0.98
         height:parent.height * 0.98
-       // contentHeight: postbg.height * 1.2
-       // contentWidth: width
-        //anchors.centerIn: parent
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: parent.height * 0.05
@@ -144,15 +82,14 @@ Item {
             Rectangle {
         id:postbg
         radius:5
-        //anchors.centerIn: parent
+
         color:cardcolor
-        //border.color:"gray"
-       // border.width:4
+
         width:parent.width
         height:parent.height
 
         anchors.centerIn: parent
-        //height:postcontent.height + 10
+
         clip:true
         z:0
 
@@ -194,7 +131,6 @@ Item {
             Image {
                 visible: if(postimage.length > 2) {true} else {false}
                 width:parent.width * 0.98
-                //height:if(postimage.length > 2) {thisWindow.height * 0.70} else {10}
                 fillMode: Image.PreserveAspectFit
                 anchors.horizontalCenter: parent.horizontalCenter
                 source:postimage

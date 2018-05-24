@@ -1,13 +1,17 @@
+/* In complete but working MarkDown to qml connverter
+  currently supports most of the things I have used in my own posts but I'm sure others will need to be added for maxium support */
+
+
 function md2qml (text) {
-    //console.log("From md2html");
+
     var splittext = text.split("\\n");
     var formatted = "";
 
-    //first wee need to get rid of the \n's and replace them with <br> //
+
     for(var num = 0;num < splittext.length;num = num + 1) {
         var changeformat = "";
 
-
+        /* here we search for code breaks I'd like to add color highlighting based on what kind of code is present but that will come later */
             if(splittext[num].search("```") !== -1){
             changeformat = splittext[num].replace(/```/,"<br><br>").replace(/\\n/,"");
 
@@ -21,8 +25,10 @@ function md2qml (text) {
         } else
                 if(splittext[num].search(/\!\[/) !== -1) {
 
+                    /* here we search for images */
+
                 changeformat = splittext[num].split("](")[1].split(")")[0].replace(/\\/g,"");
-                     //console.log(changeformat);
+
 
                     markdown.append({
                                       type:"image",
@@ -35,7 +41,7 @@ function md2qml (text) {
 
             else {
 
-                  //  console.log(splittext[num].replace("\\n","<br>"));
+                  /* Main text converter */
                     markdown.append({
                                      type:"text",
                                      thepost:replace_linestarters(splittext[num]),
@@ -56,23 +62,9 @@ function md2qml (text) {
 function replace_linestarters(line) {
     var formatedline = "";
 
-    /*else
-                  if(splittext[num].search(/\[/) !== -1) {
 
-                      var url = splittext[num].split("](")[1].split(")")[0].replace(/\\/g,"");
-                      var short = splittext[num].split("](")[0].split("[")[1];
-                        console.log(changeformat);
-
-                         markdown.append({
-                                 type:"link",
-                                   thepost:"<a href='"+url+"'>"+short+"</a>",
-                                   img:""
-
-                                   });
-
-                            } */
-
-
+        /* Here we take the information in the array and run it through the text that is given. The nested array is broken into three parts [What to lookfor, What to replace it with,
+            and how to end the line] */
 
     var linestarters = [["#### ","<h4>","</h4>"],["### ","<h3>","</h3>"],["## ","<h2>","</h2>"],
                         ["# ","<h1>","</h1>"],["- ","<ul><li>","</li></ul>"],[/ \*\*/g,"<b>",""],[/\*\*/g,"<b>",""],[/\*\* /g,"</b>",""],
