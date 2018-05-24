@@ -29,12 +29,12 @@ Item {
     } */
 
     onVisibleChanged: if(visible == true ) {
-                           if(heart !== "Offline") { MicroBlog.retrieve_log(currentcard_thecard,usercardNum);}
+                           if(heart !== "Offline") { MicroBlog.retrieve_log(cardId,usercardNum);}
                                                      // MicroBlog.show_log(currentcard_thecard);
                                                       if(currentcard_thecard != usercardNum) {
                                                      // remotelogGet.start();
                                                       } else {
-                                                          MicroBlog.show_log(currentcard_thecard);
+                                                          MicroBlog.show_log(cardId);
                                                       }
                                                          // MicroBlog.dump();
                                                       remotelogGet.start();
@@ -45,16 +45,17 @@ Item {
 
     Timer {
         id:remotelogGet
-        interval: 60000
+        interval: 1000
         repeat: true
         running: false
-        onTriggered: { if(heart !== "Offline") {MicroBlog.retrieve_log(currentcard_thecard,usercardNum);}
+        onTriggered: { if(heart !== "Offline") {MicroBlog.retrieve_log(cardId,usercardNum);}
             // MicroBlog.show_log(currentcard_thecard);
              if(currentcard_thecard != usercardNum) {
            //  remotelogGet.start();
              } else {
                  MicroBlog.show_log(currentcard_thecard);
              }
+             remotelogGet.interval = remotelogGet.interval * 2;
                 // MicroBlog.dump();
 }
    }

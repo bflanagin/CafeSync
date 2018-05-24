@@ -1,7 +1,7 @@
 function get_html(account) {
 
     var url = "https://"+account.split("::")[1]+".tumblr.com/";
-
+        gc();
     tumblrposts.clear();
 
 var http = new XMLHttpRequest();
@@ -14,10 +14,10 @@ http.onreadystatechange = function() {
 
         pagedata = http.responseText;
 
-        if(http.responseText == 100) {
+        if(http.responseText === '100') {
             console.log(http.responseText);
 
-        } else if(http.responseText == 101) {
+        } else if(http.responseText === '101') {
             console.log(http.responseText);
 
         } else {
@@ -61,7 +61,7 @@ http.onreadystatechange = function() {
             while(posts.length > num && num <= 5) {
 
          // postinfo = pagedata.substring(pagedata.search('<article'),pagedata.search('</article>'));
-                 if(posts[num].search('</article>') != -1) {
+                 if(posts[num].search('</article>') !== -1) {
                         postinfo = posts[num].split('</article>')[0];
                     } else {
                      postinfo = posts[num].split('</div><!-- end .post -->')[0];

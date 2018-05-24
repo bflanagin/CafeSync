@@ -41,76 +41,30 @@ Item {
           //x:parent.width / 2 - width /2.3
           //clip: true
 
-          Item {
-              width: /*units.gu(2) */ parent.width / 10
-              height: /*units.gu(2) */ parent.width / 10
+
+          CircleIndicator {
+              width: parent.width / 9
+              height: parent.width / 9
               anchors.verticalCenter: parent.verticalCenter
-              opacity: if(carduserphone.length >= 7 && carduserphone != "*******") {1} else {0.4}
-              //name:"outgoing-call"
+              enabled: if(carduserphone.length >= 7 && carduserphone != "*******") {true} else {false}
 
-              //z: -8
-
-
-              Image {
-                  id:call_icon
-                  visible: false
-                  //anchors.fill: parent
-                  anchors.centerIn: parent
-                  width:parent.width * 0.8
-                  height:parent.height * 0.8
-                  source: "./icons/outgoing-call.svg"
-
-
-
-              }
-
-              ColorOverlay {
-                  source:call_icon
-                  anchors.fill: call_icon
-                  color:overlayColor
-              }
-
-              Flasher {
-                  //id:locflick
-              }
+              icon :"./icons/outgoing-call.svg"
+              fillColor: highLightColor1
 
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true
                   onClicked: if(carduserphone.length >= 7 && carduserphone != "*******") {Qt.openUrlExternally('tel:'+carduserphone)}
               }
-
           }
-          Item {
-              width: /*units.gu(2) */ parent.width / 10
-              height: /*units.gu(2) */ parent.width / 10
+
+
+          CircleIndicator {
+              width: parent.width / 9
+              height: parent.width / 9
               anchors.verticalCenter: parent.verticalCenter
-              //name:"message"
-
-              //z: -8
-
-              Image {
-                  id:message_icon
-                  visible: false
-                  //anchors.fill: parent
-                  anchors.centerIn: parent
-                  width:parent.width * 0.8
-                  height:parent.height * 0.8
-                  source: "./icons/message.svg"
-
-
-              }
-
-              ColorOverlay {
-                  source:message_icon
-                  anchors.fill: message_icon
-                  color:overlayColor
-              }
-
-
-              Flasher {
-                  //id:locflick
-              }
+              icon :"./icons/message.svg"
+              fillColor: highLightColor1
 
               MouseArea {
                   anchors.fill: parent
@@ -132,80 +86,39 @@ Item {
               }
 
               }
-
           }
-          Item {
 
-              width: /*units.gu(2) */ parent.width / 10
-              height: /*units.gu(2) */ parent.width / 10
+          CircleIndicator {
+              width: parent.width / 9
+              height: parent.width / 9
               anchors.verticalCenter: parent.verticalCenter
-              opacity: if(carduseremail.length >= 5 && carduseremail != "*******") {1} else {0.4}
+              enabled: if(carduseremail.length >= 5 && carduseremail != "*******") {true} else {false}
 
-
-              Image {
-                  id:email_icon
-                  visible: false
-                  //anchors.fill: parent
-                  anchors.centerIn: parent
-                  width:parent.width * 0.8
-                  height:parent.height * 0.8
-                  source: "./icons/email.svg"
-
-
-
-              }
-
-              ColorOverlay {
-                  source:email_icon
-                  anchors.fill: email_icon
-                  color:overlayColor
-              }
-
-              Flasher {
-                  //id:locflick
-              }
+              icon :"./icons/email.svg"
+              fillColor: highLightColor1
 
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true
                   onClicked: if(carduseremail.length >= 5 && carduseremail != "*******") {Qt.openUrlExternally('mailto:'+carduseremail)}
               }
-
           }
 
-          Item {
-              width: /*units.gu(2) */ parent.width / 10
-              height: /*units.gu(2) */ parent.width / 10
+          CircleIndicator {
+              width: parent.width / 9
+              height: parent.width / 9
               anchors.verticalCenter: parent.verticalCenter
+              enabled: if(carduseremail.length >= 5 && carduseremail != "*******") {true} else {false}
 
+              icon :if(currentcard_saved == 0) {"./icons/contact-new.svg"} else {"./icons/contact.svg"}
+              fillColor: highLightColor1
 
-              Image {
-                  id:addcon_icon
-                  //anchors.fill: parent
-                  anchors.centerIn: parent
-                  width:parent.width * 0.8
-                  height:parent.height * 0.8
-                  source: if(currentcard_saved == 0) {"./icons/contact-new.svg"} else {"./icons/contact.svg"}
-
-
-
-              }
-
-              ColorOverlay {
-                  source:addcon_icon
-                  anchors.fill: addcon_icon
-                  color:overlayColor
-              }
-
-              Flasher {
-                  //id:locflick
-              }
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true
                  // onClicked: swapopt.state ="Active"
 
-                  onClicked: { if(currentcard_saved == 0) {Scripts.Cards_save(currentcard_thecard,currentcard_username,currentcard_userphone,currentcard_useremail,currentcard_companyname,currentcard_cardposition,currentcard_motto,
+                  onClicked: { if(currentcard_saved == 0) {Scripts.cards_Save(currentcard_thecard,currentcard_username,currentcard_userphone,currentcard_useremail,currentcard_companyname,currentcard_cardposition,currentcard_motto,
                                                                 currentcard_mainsite,currentcard_url1,currentcard_url2,currentcard_url3,currentcard_url4,currentcard_avatarimg,currentcard_realcardback,currentcard_cardcat,currentcard_cardsop);
 
                                              //currentcard_saved;
@@ -238,68 +151,8 @@ Item {
                                         }
 
               }
-
           }
 
-       /*   Rectangle {
-              height:parent.height * 0.90
-              anchors.verticalCenter: parent.verticalCenter
-              width:parent.width * 0.005
-              color:"gray"
-          }
-
-          Image {
-              width:  parent.width / 9
-              height: parent.width / 9
-              //name: if (saved == 0) {"add"} else {"starred"}
-              //name:"email"
-              source:if (saved == 0) {"./icons/add.svg"} else {"./icons/starred.svg"}
-              //z: -8
-
-              Flasher {
-                  id:savflick
-
-              }
-
-              MouseArea {
-                  anchors.fill:parent
-                  onClicked: if (saved == 0){Scripts.Cards_save(thecard,cardusername,carduserphone,carduseremail,companyname,"",motto,mainsite,URL1,URL2,URL3,URL4,avatarimg,realcardback,cardcat);
-                                 cardslist.clear();
-                                 OpenSeed.sync_cards(userid,3);
-                                 OpenSeed.get_list(userid,"saved");
-                                 Scripts.temp_Load(searchtext,listget);}
-              onPressed: savflick.state = "Active"
-              onReleased: savflick.state = "InActive"
-
-              }
-
-          }
-
-          Image {
-              width:  parent.width / 9
-              height:  parent.width / 9
-              //name: if (saved == 0) {"add"} else {"starred"}
-              //name:"email"
-              source:"./icons/delete.svg"
-              //z: -8
-
-              Flasher {
-                  id:delflick
-
-              }
-
-              MouseArea {
-                  anchors.fill: parent
-                  preventStealing: true
-                  onClicked: if (saved == 0){Scripts.Delete_card(thecard,listget);OpenSeed.remote_delete(userid,listget,thecard);cardslist.clear();Scripts.temp_Load(searchtext,listget);} else {
-                                      Scripts.Delete_card(thecard,"saved");OpenSeed.remote_delete(userid,"saved",thecard);cardslist.clear();Scripts.cards_Load(searchtext); //OpenSeed.sync_cards(userid,3);
-                             }
-                  onPressed: delflick.state = "Active"
-                  onReleased: delflick.state = "InActive"
-
-              }
-
-          } */
     }
 
 
@@ -315,81 +168,31 @@ Item {
           onVisibleChanged: if(visible == true) {currentcard_thecard = usercard}
           //clip: true
 
-          Item {
-              width: /*units.gu(2) */ parent.width / 10
-              height: /*units.gu(2) */ parent.width / 10
-              //name: if (saved == 0) {"add"} else {"starred"}
-              visible:false
+        /*  CircleIndicator {
+              width: parent.width / 9
+              height: parent.width / 9
               anchors.verticalCenter: parent.verticalCenter
 
-              //name:"account"
 
-              //z: -8
-
-              Image {
-                  id:contact_icon
-                  visible: false
-                  //anchors.fill: parent
-                  anchors.centerIn: parent
-                  width:parent.width * 0.8
-                  height:parent.height * 0.8
-                  source: "./icons/contact.svg"
-
-
-
-              }
-
-              ColorOverlay {
-                  source:contact_icon
-                  anchors.fill: contact_icon
-                  color:overlayColor
-              }
-
-              Flasher {
-
-
-              }
+              icon :"./icons/contact.svg"
+              fillColor: highLightColor1
 
               MouseArea {
                   anchors.fill: parent
                   preventStealing: true
                   //onClicked: Qt.openUrlExternally('qr:')
               }
+          } */
 
-          }
 
-          Image {
-              width: parent.width / 11
-              height: parent.width / 11
+          CircleIndicator {
+              width: parent.width / 9
+              height: parent.width / 9
 
               anchors.verticalCenter: parent.verticalCenter
 
-              Image {
-                  id:priv_icon1
-                  visible: false
-                  //anchors.fill: parent
-                  anchors.centerIn: parent
-                  width:parent.width * 0.8
-                  height:parent.height * 0.8
-                  source: if(stf == "true") {"./icons/share.svg"} else {"./icons/private-browsing.svg"}
-
-
-
-              }
-
-              ColorOverlay {
-                  source:priv_icon1
-                  anchors.fill: priv_icon1
-                  color:overlayColor
-              }
-
-              Flasher {
-                id:privateb
-               // state: if(stf =="true") {"InActive"} else {"Enabled"}
-              }
-
-
-
+              icon: if(stf == "true") {"./icons/share.svg"} else {"./icons/private-browsing.svg"}
+              fillColor: highLightColor1
 
 
               MouseArea {
@@ -407,97 +210,28 @@ Item {
 
 
                             }
+                    }
+
               }
 
 
 
-          }
-
-
-        /*  Image {
-              width:   if(cardindex == 0) {if(atf == "true") {parent.width / 10} else {parent.width / 11} }
-              height:  if(cardindex == 0) {if(atf == "true") {parent.width / 10} else {parent.width / 11} }
-              //name: if (saved == 0) {"add"} else {"starred"}
-              //name:"private-browsing"
-              source:"./icons/private-browsing.svg"
-              //z: -8
+          CircleIndicator {
+              width: if(cardindex == 0) {if(ctf == "true") {parent.width / 9} else {parent.width / 9} }
+              height: if(cardindex == 0) {if(ctf == "true") {parent.width / 9} else {parent.width / 9} }
               anchors.verticalCenter: parent.verticalCenter
+
+              icon:"./icons/contact.svg"
+              fillColor: highLightColor1
 
               Image {
                   //anchors.fill:parent
-                  visible: if (cardindex == 0) { if ( atf == "true") {false} else {true} }
+                  visible: if (ctf == "true") {false} else {true}
 
                   anchors.centerIn: parent
-                  width:parent.width * 1.17
-                  height:parent.height * 1.17
+                  width:parent.width * 0.9
+                  height:parent.height * 0.9
                   source:"./icons/cancel.svg"
-              }
-
-              Flasher {
-
-
-              }
-
-              MouseArea {
-                  anchors.fill: parent
-                  preventStealing: true
-                  onClicked: { if(cardindex == 0) {if(atf == "true") {atf = "false" } else { atf = "true" } }
-                      Scripts.save_card(userid,username,userphone,useremail,usercompany,
-                                                                                useralias,usermotto,usermain,website1,website2,website3,website4,
-                                                                                stf,atf,ctf,avimg,carddesign,usercat);
-                                                              OpenSeed.upload_data(userid,username,userphone,useremail,usercompany,
-                                                                                   useralias,usermotto,stf,atf,ctf,usermain,website1,website2,website3,website4,
-                                                                                   avimg,carddesign,usercat);
-
-                  }
-
-
-              }
-
-          } */
-
-          Item {
-              width: if(cardindex == 0) {if(ctf == "true") {parent.width / 11} else {parent.width / 11} }
-              height: if(cardindex == 0) {if(ctf == "true") {parent.width / 11} else {parent.width / 11} }
-              anchors.verticalCenter: parent.verticalCenter
-
-              //name: if (saved == 0) {"add"} else {"starred"}
-              //name:"contact"
-
-              //z: -8
-
-              Image {
-                  id:contact_icon1
-                  visible: false
-                  //anchors.fill: parent
-                  anchors.centerIn: parent
-                  width:parent.width * 0.8
-                  height:parent.height * 0.8
-                  source: "./icons/contact.svg"
-
-                  Image {
-                      //anchors.fill:parent
-                      visible: if (ctf == "true") {false} else {true}
-
-                      anchors.centerIn: parent
-                      width:parent.width * 1.17
-                      height:parent.height * 1.17
-                      source:"./icons/cancel.svg"
-                  }
-
-              }
-
-              ColorOverlay {
-                  source:contact_icon1
-                  anchors.fill:contact_icon1
-                  color:overlayColor
-              }
-
-
-
-              Flasher {
-
-
               }
 
               MouseArea {
@@ -521,36 +255,13 @@ Item {
 
           }
 
-          Item {
-              width: /*units.gu(2) */ parent.width / 11
-              height: /*units.gu(2) */ parent.width / 11
+          CircleIndicator {
+              width:  parent.width / 9
+              height:  parent.width / 9
               anchors.verticalCenter: parent.verticalCenter
+              fillColor:highLightColor1
+              icon: if(menu == 1) {"./icons/overlay.svg"} else {"./icons/stats.svg"}
 
-
-              Image {
-                  id:stats_icon
-                  visible: false
-                  //anchors.fill: parent
-                  anchors.centerIn: parent
-                  width:parent.width * 0.8
-                  height:parent.height * 0.8
-                  source: if(menu == 1) {"./icons/overlay.svg"} else {"./icons/stats.svg"}
-
-
-
-              }
-
-              ColorOverlay {
-                  source:stats_icon
-                  anchors.fill: stats_icon
-                  color:overlayColor
-              }
-
-
-              Flasher {
-
-
-              }
 
               MouseArea {
                   anchors.fill: parent

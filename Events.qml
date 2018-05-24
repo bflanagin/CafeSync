@@ -72,7 +72,9 @@ Item {
          interval: 5007
          running: invitecheck
          repeat: true
-         onTriggered:{if(heart != "Offline" && firstrun.state == "InActive") {Events.check_invites();} }
+         onTriggered:{if(heart != "Offline" && firstrun.state == "InActive") {
+                 //console.log("Check Invites");
+              Events.check_invites();} }
 
      }
 
@@ -82,7 +84,9 @@ Item {
         interval: 10000
         running: updatecheck
         repeat: true
-        onTriggered:{if(heart != "Offline" && firstrun.state == "InActive") {Events.get_events();}}
+        onTriggered:{if(heart != "Offline" && firstrun.state == "InActive") {
+                    //console.log("get Invites");
+                Events.get_events();}}
 
     }
 

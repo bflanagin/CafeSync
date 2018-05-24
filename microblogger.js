@@ -5,7 +5,7 @@ function check_log(user) {
     //console.log(user);
 
     var party = ""
-    if(user.search(",") != -1) {
+    if(user.search(",") !== -1) {
             party =user;
             messagePage.roomId = user;
          } else {
@@ -17,19 +17,19 @@ function check_log(user) {
         if (http.readyState == 4) {
             //console.log(http.responseText);
             //userid = http.responseText;
-            if(http.responseText == 100) {
+            if(http.responseText == "100") {
                 console.log("Incorrect DevID");
-            } else if(http.responseText == 101) {
+            } else if(http.responseText == '101') {
                 console.log("Incorrect AppID");
             } else {
                //console.log(http.responseText);
 
                 if(http.responseText == "0") {
-                        if(user != 0) {
+                        if(user !== 0) {
                         send_messages(user,"<begin>");
                         }
 
-                } else if(messagePage.messagelist != http.responseText){
+                } else if(messagePage.messagelist !== http.responseText){
                         messagePage.messagelist =http.responseText;
                         retrieve_messages(user,userid);
 
@@ -47,49 +47,44 @@ function check_log(user) {
 }
 
 function retrieve_log(room,theid) {
-    //remote = 1;
-    //console.log("sending to server: "+currentmessage+" : "+mesgdate);
+
+    gc();
 
     var http = new XMLHttpRequest();
     var url = "https://openseed.vagueentertainment.com:8675/corescripts/narrative.php";
-   // console.log(url)
-    // whowith = "Chat";
 
-   // console.log(room,theid);
 
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
-            //console.log(http.responseText);
-            //userid = http.responseText;
-            if(http.responseText == 100) {
+
+            if(http.responseText === '100') {
                 console.log("Incorrect DevID");
-            } else if(http.responseText == 101) {
+            } else if(http.responseText === '101') {
                 console.log("Incorrect AppID");
             } else {
-                //console.log(http.responseText);
+
                 var raw = http.responseText;
                 if(raw == "1") {
-                   //console.log("up to date");
-                    // remote = 0;
+
                 } else {
-                   //console.log("from server: "+raw);
+
                     var fromserver = raw.split("><");
                     var sync = 0;
                      while(sync < (fromserver.length)) {
                         var messageblock = fromserver[sync].split("::");
                         var lr = 0;
-                            if(room == theid) {
+                            if(room === theid) {
                              save_log(userid,messageblock[1],messageblock[2],messageblock[3],messageblock[4],messageblock[7]);
                             } else {
                                 log.remotelog[sync] = [room,messageblock[1],messageblock[2],messageblock[3],messageblock[4],messageblock[7]];
-                                //console.log(remotelog);
+
                             }
 
                         sync = sync + 1;
                     }
 
                       if( log.remotelog.length > 0 ) {
-                       //  remotelogGet.stop();
+
                          show_log(room);
                      }
 
@@ -100,7 +95,7 @@ function retrieve_log(room,theid) {
         }
     }
     http.open('POST', url.trim(), true);
-    //http.send(null);
+
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     http.send("&id="+ userid +"&devid=" + devId + "&appid=" + appId + "&name="+ room +"&type=retrieve" );
 
@@ -183,9 +178,9 @@ function send_log(user,message) {
         if (http.readyState == 4) {
             //console.log(http.responseText);
             //userid = http.responseText;
-            if(http.responseText == 100) {
+            if(http.responseText === '100') {
                 console.log("Incorrect DevID");
-            } else if(http.responseText == 101) {
+            } else if(http.responseText === '101') {
                 console.log("Incorrect AppID");
             } else {
                 //console.log(http.responseText);
@@ -227,7 +222,7 @@ function save_log(theid,roomid,name,themessage,branch,mesgdate) {
             var pull = tx.executeSql(testStr);
           //  console.log("From save_messages database input "+data);
            //    console.log("from Saved "+ pull.rows.length);
-            if(pull.rows.length == 0) {
+            if(pull.rows.length === 0) {
                 //console.log("Inserting");
 
                         tx.executeSql(userStr,data);
@@ -310,7 +305,7 @@ function show_log(room) {
         them = room.split(",")[0];
     } */
 
-if(room !== usercardNum) {
+if(room !== usercardNum ) {
        // console.log("from show log "+remotelog);
 
     //[152,,,,,,152,152,152,Hello World!,0,1523901344883]
@@ -379,7 +374,10 @@ if(room !== usercardNum) {
 
 
 
-} else { db.transaction(function(tx) {
+} else {
+
+
+    db.transaction(function(tx) {
 
              tx.executeSql('CREATE TABLE IF NOT EXISTS NARRATIVE (id TEXT, roomid TEXT,speaker TEXT, speech TEXT,branch INT, updated TEXT)');
 
@@ -414,7 +412,7 @@ if(room !== usercardNum) {
               otherCompany = pull.rows.item(0).company;
               //  whowith = otherperson;
               if(pull.rows.item(0).avatar.length < 4) { otherava = "img/default_avatar.png"} else {otherava = pull.rows.item(0).avatar
-                           if(otherava.search("/9j/4A") != -1 && otherava.search("data:image/jpeg;base64") == -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
+                           if(otherava.search("/9j/4A") !== -1 && otherava.search("data:image/jpeg;base64") == -1) { otherava = "data:image/jpeg;base64, "+otherava.replace(/ /g, "+");}
 
               }
 
@@ -426,7 +424,7 @@ if(room !== usercardNum) {
 
              var humanDate = new Date(chat.rows.item(sync).updated*1);
              var maybemore = "";
-             if(chat.rows.item(sync).speech.search("http") != -1) {
+             if(chat.rows.item(sync).speech.search("http") !== -1) {
                  maybemore = "<img src="+chat.rows.item(sync).speech+">";
              } else {
                  maybemore = "<p>"+chat.rows.item(sync).speech+"</p>";
@@ -463,7 +461,7 @@ function latest_log(from,cardNum) {
              tx.executeSql('CREATE TABLE IF NOT EXISTS NARRATIVE (id TEXT, roomid TEXT,speaker TEXT, speech TEXT,branch INT, updated TEXT)');
 
         var chat = tx.executeSql(getstuff);
-            if(chat.rows.length != 0) {
+            if(chat.rows.length !== 0) {
                 latestLog = chat.rows.item(0).speech;
             }
 
@@ -491,9 +489,9 @@ function latest_log_remote (from,cardNum) {
         if (http.readyState == 4) {
             //console.log(http.responseText);
             //userid = http.responseText;
-            if(http.responseText == 100) {
+            if(http.responseText == "100") {
                 console.log("Incorrect DevID");
-            } else if(http.responseText == 101) {
+            } else if(http.responseText == "101") {
                 console.log("Incorrect AppID");
             } else {
                 //console.log(http.responseText);
@@ -506,7 +504,7 @@ function latest_log_remote (from,cardNum) {
                     var fromserver = raw.split("><");
                     var messageblock;
                         //console.log(fromserver[1].split("::"));
-                        if(fromserver[1] != undefined) {
+                        if(fromserver[1] !== undefined) {
                         messageblock = fromserver[1].split("::");
 
                         } else {
@@ -514,14 +512,14 @@ function latest_log_remote (from,cardNum) {
                         }
 
                         var lr = 0;
-                            if(cardNum == from) {
+                            if(cardNum === from) {
                              save_log(userid,messageblock[1],messageblock[2],messageblock[3],messageblock[4],messageblock[7]);
                             } else {
                                 latestLog = messageblock[3];
 
                                // console.log(latestLog);
                                 if(latestLog != undefined) {
-                                    if(from == "othercard") {
+                                    if(from === "othercard") {
                                     cardStatus = messageblock[3];
                                     } else {
                                         cardStatus = qsTr("Status: ")+messageblock[3];
@@ -569,9 +567,9 @@ function show_log_remote(room) {
         if (http.readyState == 4) {
             //console.log(http.responseText);
             //userid = http.responseText;
-            if(http.responseText == 100) {
+            if(http.responseText == "100") {
                 console.log("Incorrect DevID");
-            } else if(http.responseText == 101) {
+            } else if(http.responseText == "101") {
                 console.log("Incorrect AppID");
             } else {
                 //console.log(http.responseText);
@@ -584,7 +582,7 @@ function show_log_remote(room) {
                     var fromserver = raw.split("><");
                     var messageblock;
                         //console.log(fromserver[1].split("::"));
-                        if(fromserver[1] != undefined) {
+                        if(fromserver[1] !== undefined) {
                         messageblock = fromserver[1].split("::");
 
                         } else {
@@ -637,6 +635,9 @@ function show_log_remote(room) {
         sync = sync + 1;
 
 }
+
+
+
 
 
 function dump() {

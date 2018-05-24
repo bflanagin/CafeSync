@@ -18,7 +18,7 @@ function load_current() {
 
             var dd = new Date(pull.rows.item(num).date);
 
-            if(previousdate != pull.rows.item(num).date) {
+            if(previousdate !== pull.rows.item(num).date) {
                                                 //console.log('adding spacer')
                                                 previousdate = pull.rows.item(num).date;
                                          elCurrent.append({
@@ -64,7 +64,7 @@ function load_log() {
                 //console.log(pull.rows.item(num).name);
             var dd = new Date(pull.rows.item(num).date);
 
-            if(previousdate != pull.rows.item(num).date) {
+            if(previousdate !== pull.rows.item(num).date) {
                                                 //console.log('adding spacer')
                                                 previousdate = pull.rows.item(num).date;
                                           elLog.append({
@@ -176,7 +176,7 @@ function send_event(event) {
                         console.log("Incorrect AppID");
                     } else {
                       // console.log(http.responseText);
-
+                        gc();
                     }
 
                 }
@@ -227,6 +227,7 @@ function rsvp_event(unique,usercardNum,answer) {
             eventInfo.state = "InActive";
             eventsPage.invitecheck = true;
             eventsPage.updatecheck = true;
+                gc();
             }
 
         }
@@ -241,6 +242,8 @@ function rsvp_event(unique,usercardNum,answer) {
 }
 
 function get_events() {
+
+    gc();
 
     var d = new Date();
 
@@ -326,7 +329,7 @@ function check_invites() {
     var d = new Date();
      var previousdate;
 
-   // console.log("checking for invites");
+  //  console.log("checking for invites");
 
     db.transaction(function(tx) {
 

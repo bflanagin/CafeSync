@@ -344,6 +344,10 @@ Item {
             enabled:editing
         }
 
+        Flickable {
+            width:parent.width
+            height:contentHeight
+
         TextArea {
             id:notebody
             width:parent.width * 0.98
@@ -363,6 +367,8 @@ Item {
 
                 z:-1
             }
+        }
+
         }
 
         Rectangle {
