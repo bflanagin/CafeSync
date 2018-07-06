@@ -632,7 +632,7 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: avimg = imgsource
-                    onPressAndHold:Scripts.Delete_img(imgsource)
+                    onPressAndHold:Scripts.delete_Img(imgsource)
                 }
 
             }
@@ -724,7 +724,12 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: sConnect.state = "Active",sConnect.service = "gravatar", sConnect.type = "avatar", sConnect.useraccount = useremail
+                    onClicked: {
+                                sConnect.state = "Active"
+                                sConnect.service = "gravatar"
+                                sConnect.type = "avatar"
+                                sConnect.useraccount = useremail
+                                }
                 }
           }
 
@@ -793,7 +798,13 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: sConnect.state = "Active",sConnect.service = "soundcloud", sConnect.type = "avatar", sConnect.useraccount = ""
+            onClicked: {
+
+                sConnect.state = "Active"
+                sConnect.service = "soundcloud"
+                sConnect.type = "avatar"
+                sConnect.useraccount = ""
+            }
         }
 
          }
@@ -868,15 +879,17 @@ Item {
 
          MouseArea {
              anchors.fill: parent
-             onClicked: sConnect.state = "Active",sConnect.service = "twitter", sConnect.type = "avatar", sConnect.useraccount = ""
+             onClicked: {
+                        sConnect.state = "Active"
+                        sConnect.service = "twitter"
+                        sConnect.type = "avatar"
+                        sConnect.useraccount = ""
+                        }
          }
           }
 
          Item {
              id:tumblrButton
-             //anchors.horizontalCenter: parent.horizontalCenter
-             //anchors.top:kickstarterButton.bottom
-            // anchors.topMargin: 20
              width:parent.width * 0.49
              height:thisWindow.height * 0.08
 
@@ -936,7 +949,12 @@ Item {
              }
         MouseArea {
             anchors.fill: parent
-            onClicked: sConnect.state = "Active",sConnect.service = "tumblr", sConnect.type = "avatar", sConnect.useraccount = ""
+            onClicked: {
+                sConnect.state = "Active"
+                sConnect.service = "tumblr"
+                sConnect.type = "avatar"
+                sConnect.useraccount = ""
+            }
         }
          }
     }
@@ -1001,7 +1019,11 @@ Item {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: photo.state = "Hide", thisWindow.state = "InActive", sourceselect = false
+                onClicked: {
+                    photo.state = "Hide"
+                    thisWindow.state = "InActive"
+                    sourceselect = false
+                }
             }
         }
 

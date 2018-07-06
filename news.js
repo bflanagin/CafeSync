@@ -10,11 +10,9 @@ function get_news() {
 
      db.transaction(function(tx) {
 
-    tx.executeSql('CREATE TABLE IF NOT EXISTS NEWS (date TEXT)');
-
          var pull = tx.executeSql(testStr);
 
-         if(pull.rows.length == 1) {
+         if(pull.rows.length === 1) {
              seen = pull.rows.item(0).date;
          } else {
              seen = "none";
@@ -28,9 +26,9 @@ function get_news() {
         if (http.readyState == 4) {
             //console.log(http.responseText);
             //userid = http.responseText;
-            if(http.responseText == 100) {
+            if(http.responseText === 100) {
                 console.log("Incorrect DevID");
-            } else if(http.responseText == 101) {
+            } else if(http.responseText === 101) {
                 console.log("Incorrect AppID");
             } else {
                 //console.log(http.responseText);
@@ -68,11 +66,9 @@ function dismiss_news(date) {
 
      db.transaction(function(tx) {
 
-    tx.executeSql('CREATE TABLE IF NOT EXISTS NEWS (date TEXT)');
-
          var pull = tx.executeSql(testStr);
 
-         if(pull.rows.length == 1) {
+         if(pull.rows.length === 1) {
                 tx.executeSql(update);
          } else {
                 tx.executeSql(insert,data);

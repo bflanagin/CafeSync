@@ -600,7 +600,7 @@ Flickable {
            id:eventsColumn
            width:parent.width * 0.98
            anchors.centerIn: parent
-           spacing: thisWindow.width * 0.006
+           spacing: 10
 
            Text {
                text:qsTr("Events:")
@@ -623,10 +623,10 @@ Flickable {
                 color:fontColor
            }
 
-       CheckBox {
+       Switch {
            id:chance
            anchors.left:parent.left
-           width:thisWindow.width * 0.1
+           width:thisWindow.width * 0.15
            anchors.leftMargin: thisWindow.width * 0.01
            text:qsTr("Chance Meetings")
            contentItem: Text {
@@ -636,16 +636,16 @@ Flickable {
                verticalAlignment: Text.AlignVCenter
                horizontalAlignment: Text.AlignLeft
                color:fontColor
-               font.pixelSize: mainView.width * 0.04
+               font.pixelSize: mainView.width * 0.05
            }
 
            checked: if(cM == 1) {true} else {false}
            onCheckedChanged: {if(settingFlick.visible == true) {if(checked === false) {cM = 0; Scripts.save_setting("CM",0);} else {cM = 1; Scripts.save_setting("CM",1);}
            } }
        }
-       CheckBox {
+       Switch {
            id:frequent
-           width:thisWindow.width * 0.1
+           width:thisWindow.width * 0.15
            anchors.left:parent.left
            anchors.leftMargin: thisWindow.width * 0.01
            text:qsTr("Fequent Meetings")
@@ -656,16 +656,16 @@ Flickable {
                verticalAlignment: Text.AlignVCenter
                horizontalAlignment: Text.AlignLeft
                color:fontColor
-               font.pixelSize: mainView.width * 0.04
+               font.pixelSize: mainView.width * 0.05
            }
            checked: if(fM == 1) {true} else {false}
            onCheckedChanged: {if(settingFlick.visible == true) {if(checked === false) {fM = 0; Scripts.save_setting("FM",0);} else {fM =1; Scripts.save_setting("FM",1);}
            } }
        }
-       CheckBox {
+       Switch {
            id:missed
            anchors.left:parent.left
-           width:thisWindow.width * 0.1
+           width:thisWindow.width * 0.15
            anchors.leftMargin: thisWindow.width * 0.01
             text:qsTr("Missed Meetings")
             contentItem: Text {
@@ -675,7 +675,7 @@ Flickable {
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignLeft
                 color:fontColor
-                font.pixelSize: mainView.width * 0.04
+                font.pixelSize: mainView.width * 0.05
             }
             checked: if(mM == 1) {true} else {false}
             onCheckedChanged: {if(settingFlick.visible == true) {if(checked === false) {mM = 0; Scripts.save_setting("MM",0);} else {mM = 1; Scripts.save_setting("MM",1);}
@@ -1143,7 +1143,7 @@ Item {
      horizontalAlignment: Text.AlignLeft
      anchors.verticalCenter: parent.verticalCenter
         color:fontColor
-     CheckBox {
+     Switch {
         id:sendCard
 
          anchors.left: onlineLabel.right
@@ -1205,7 +1205,7 @@ Rectangle {
 Item {
     width:parent.width
    // height:contactLabel.y+(contactLabel.height * 2)
-    height: contactcolumn.height * 1.3
+    height: contactcolumn.height + 20
     visible: if(simpleMode == false) {true} else {false}
 
  Rectangle {
@@ -1221,10 +1221,12 @@ Item {
 
     Column {
         id:contactcolumn
-        y:20
+        //y:20
         width:parent.width
         //height:parent.height
         anchors.centerIn: parent
+       // anchors.top:parent.top
+       // anchors.topMargin: 10
         spacing: mainView.width * 0.05
 
         Item {
@@ -1308,7 +1310,7 @@ Item {
   Text {
       id:contactLabel
       text: qsTr("Share Contact Info")
-      font.pointSize: mainView.width * 0.03
+      font.pointSize: mainView.width * 0.04
       //font.bold: true
       horizontalAlignment: Text.AlignLeft
      // anchors.top:parent.top
@@ -1316,7 +1318,7 @@ Item {
       anchors.right:parent.right
       anchors.rightMargin:  sendContact.width * 1.2
         color:fontColor
-      CheckBox {
+      Switch {
          id:sendContact
 
           anchors.left: contactLabel.right
@@ -1381,7 +1383,7 @@ Rectangle {
 
 Item {
     width:parent.width
-    height: personalMotto.height + (catbutton.height *3.5)
+    height: personalMotto.height + (catbutton.height *3.5) + 20
 
  Rectangle {
  id: rectangle1
@@ -1525,7 +1527,7 @@ Item {
                  font.pixelSize: mainView.widtht * 0.03
                  text:qsTr("Category: ")
                  anchors.top:profileRow.bottom
-                 anchors.topMargin: if(simpleMode == true) {mainView.width * 0.04} else {mainView.width * 0.01}
+                 anchors.topMargin:  mainView.width * 0.03
                  anchors.right:parent.right
                  anchors.rightMargin: catbutton.width * 1.1
                     color:fontColor
@@ -1702,7 +1704,11 @@ Item {
 
                             MouseArea {
                                 anchors.fill: parent
-                                onClicked: enterProfile.state = "Active",enterProfile.type = "skill", enterProfile.listindex = index+1
+                                onClicked: {
+                                    enterProfile.state = "Active"
+                                    enterProfile.type = "skill"
+                                    enterProfile.listindex = index+1
+                                }
                             }
 
                   }
@@ -1733,7 +1739,11 @@ Item {
 
                   MouseArea {
                       anchors.fill:parent
-                      onClicked:enterProfile.state = "Active",enterProfile.type = "skill",enterProfile.listindex = -1
+                      onClicked:{
+                                    enterProfile.state = "Active"
+                                    enterProfile.type = "skill"
+                                    enterProfile.listindex = -1
+                                }
                   }
               }
 
@@ -1878,7 +1888,11 @@ Item {
 
                       MouseArea {
                           anchors.fill: parent
-                          onClicked: enterProfile.state = "Active",enterProfile.type = "school", enterProfile.listindex = index+1
+                          onClicked: {
+                                        enterProfile.state = "Active"
+                                        enterProfile.type = "school"
+                                        enterProfile.listindex = index+1
+                                        }
                       }
 
             }
@@ -1911,7 +1925,11 @@ Item {
 
                   MouseArea {
                       anchors.fill:parent
-                      onClicked:enterProfile.state = "Active",enterProfile.type = "school",enterProfile.listindex = -1
+                      onClicked:{
+                                 enterProfile.state = "Active"
+                                 enterProfile.type = "school"
+                                 enterProfile.listindex = -1
+                                }
                   }
               }
               DropShadow {
@@ -2054,7 +2072,11 @@ Item {
 
                       MouseArea {
                           anchors.fill: parent
-                          onClicked: enterProfile.state = "Active",enterProfile.type = "work", enterProfile.listindex = index+1
+                          onClicked: {
+                                      enterProfile.state = "Active"
+                                      enterProfile.type = "work"
+                                      enterProfile.listindex = index+1
+                                    }
                       }
 
             }
@@ -2080,7 +2102,11 @@ Item {
 
                   MouseArea {
                       anchors.fill:parent
-                      onClicked:enterProfile.state = "Active",enterProfile.type = "work",enterProfile.listindex = -1
+                      onClicked: {
+                          enterProfile.state = "Active"
+                          enterProfile.type = "work"
+                          enterProfile.listindex = -1
+                      }
                   }
               }
 
@@ -2490,7 +2516,11 @@ Rectangle {
      height:mainView.height
      state:"InActive"
      listindex: -1
-     onStateChanged: if(state == "InActive") { Scripts.skillListings(),Scripts.schoolListings(),Scripts.workListings(),topBar.visible = true} else {topBar.visible = false}
+     onStateChanged: if(state == "InActive") { Scripts.skillListings()
+                                                Scripts.schoolListings()
+                                                Scripts.workListings()
+                                                topBar.visible = true
+                     } else {topBar.visible = false}
 
  }
 

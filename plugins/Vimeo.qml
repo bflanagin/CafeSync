@@ -171,7 +171,7 @@ Item {
                     onPressed:wrflasher.state = "Active"
                     onClicked: {
 
-                        if(page.substr(page.length-1,page.length) == "/"){extrathing =""} else {extrathing="/"}
+                        if(page.substr(page.length-1,page.length) === "/"){extrathing = ""} else {extrathing = "/"}
                         showurl = page+extrathing+"chat"
                         fullWeb.state = "show"
                         cardPage.header.hide()

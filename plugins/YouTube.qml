@@ -30,7 +30,9 @@ Item {
 
     clip: true
 
-    onStateChanged: if(popup.state == "Active") {Site.get_html(service),Site.channelist(service);}
+    onStateChanged: if(popup.state === "Active") {
+                        Site.get_html(service)
+                        Site.channelist(service);}
 
 
     states: [
@@ -204,18 +206,16 @@ Item {
 
 
                               }
-                                Flasher {
-                                    id:itemflash
-                                }
+
 
                                 MouseArea {
                                   anchors.fill:parent
-                                     onClicked: showurl = itemlink,Qt.openUrlExternally(showurl);
+                                     onClicked: { showurl = itemlink
+                                                    Qt.openUrlExternally(showurl); }
 
-                                                //fullWeb.state = "show"
-                                     //,cardPage.header.hide()
                                      onPressed:itemflash.state = "Active"
                                      onReleased:itemflash.state = "InActive"
+
 
                                  }
 
