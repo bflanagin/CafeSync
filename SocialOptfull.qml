@@ -12,7 +12,7 @@ Item {
 
                            // id:twitterButton
                         //    anchors.horizontalCenter: parent.horizontalCenter
-                            visible: if(type == 1) {true} else {false}
+                            visible: if(type === 1) {true} else {false}
 
 
 

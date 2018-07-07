@@ -1,18 +1,15 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>CCreator.qml</file>
         <file>DownTab.qml</file>
         <file>Flasher.qml</file>
         <file>Home.qml</file>
-        <file>LeftTab.qml</file>
         <file>main.js</file>
         <file>MainScreen.qml</file>
         <file>Menus.qml</file>
         <file>openseed.js</file>
         <file>Pages.qml</file>
         <file>Payment.qml</file>
-        <file>RightTab.qml</file>
         <file>RotateScreen.qml</file>
         <file>Setup.qml</file>
         <file>slides.js</file>
@@ -23,38 +20,6 @@
         <file>CardBack.qml</file>
         <file>Card.qml</file>
         <file>graphics/CafeSync.png</file>
-        <file>img/card/background-b/0.png</file>
-        <file>img/card/background-f/0.png</file>
-        <file>img/card/background-f/1.png</file>
-        <file>img/card/styles-b/0.qml</file>
-        <file>img/card/styles-b/1.qml</file>
-        <file>img/card/styles-b/2.qml</file>
-        <file>img/card/styles-b/3.qml</file>
-        <file>img/card/styles-b/4.qml</file>
-        <file>img/card/styles-b/5.qml</file>
-        <file>img/card/styles-b/6.qml</file>
-        <file>img/card/styles-b/card_opts.png</file>
-        <file>img/card/styles-f/0.qml</file>
-        <file>img/card/styles-f/1.qml</file>
-        <file>img/card/styles-f/2.qml</file>
-        <file>img/card/styles-f/3.qml</file>
-        <file>img/card/styles-f/4.qml</file>
-        <file>img/card/styles-f/5.qml</file>
-        <file>img/card/styles-f/6.qml</file>
-        <file>img/card/symbols/1.png</file>
-        <file>img/card/symbols/10.png</file>
-        <file>img/card/symbols/11.png</file>
-        <file>img/card/symbols/12.png</file>
-        <file>img/card/symbols/13.png</file>
-        <file>img/card/symbols/14.png</file>
-        <file>img/card/symbols/2.png</file>
-        <file>img/card/symbols/3.png</file>
-        <file>img/card/symbols/4.png</file>
-        <file>img/card/symbols/5.png</file>
-        <file>img/card/symbols/6.png</file>
-        <file>img/card/symbols/7.png</file>
-        <file>img/card/symbols/8.png</file>
-        <file>img/card/symbols/9.png</file>
         <file>img/areas.png</file>
         <file>img/areas_g.png</file>
         <file>img/areas_l.png</file>

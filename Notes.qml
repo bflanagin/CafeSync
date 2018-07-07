@@ -1,8 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Dialogs 1.2
-//import QtWebKit 3.0
-//import QtWebView 1.0
 import QtQuick.Window 2.3
 import QtPositioning 5.9
 import QtGraphicalEffects 1.0
@@ -246,7 +244,6 @@ Item {
          height:mainView.width * 0.15
          text: qsTr("Add Note")
          onClicked: {editing = true; nN.noteSelected = ""; nN.noteOrigin = 0; }
-         //enabled: if(key === "0") {false} else {true}
 
          contentItem: Text {
                             //width:parent.width
@@ -344,22 +341,13 @@ Item {
             enabled:editing
         }
 
-        Flickable {
-            width:parent.width
-            height:contentHeight
-
-        TextArea {
-            id:notebody
+        ScrollView {
             width:parent.width * 0.98
             anchors.horizontalCenter: parent.horizontalCenter
-            height:thisWindow.height / 1.5
-           // placeholderText: "Just let it flow"
-            text:if(nN.noteSelected == "") {qsTr("Note area")} else {Secret.decrypt(key,nN.noteBody)}
-            wrapMode: Text.WordWrap
-            font.pixelSize: parent.width * 0.06
-            color:fontColor
-            enabled:editing
-            Rectangle {
+            height:thisWindow.height * 0.90
+            contentWidth: parent.width * 0.98
+            ScrollBar.horizontal.interactive: false
+            background:  Rectangle {
                 anchors.centerIn: parent
                 color:backgroundColor
                 width:parent.width * 1.01
@@ -367,9 +355,19 @@ Item {
 
                 z:-1
             }
-        }
+        TextArea {
+            id:notebody
+            width:thisWindow.width
+            text:if(nN.noteSelected == "") {qsTr("Note area")} else {Secret.decrypt(key,nN.noteBody)}
+            wrapMode: Text.WordWrap
+            font.pointSize: thisWindow.height * 0.03
+            color:fontColor
+            enabled:editing
 
         }
+        }
+
+
 
         Rectangle {
             color:seperatorColor1

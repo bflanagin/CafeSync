@@ -89,7 +89,16 @@ Item {
                             case 4: useraccount = website4;break;
                             }
                         }
-                    } else {preview = false,currentservice ="",service="",useraccount="",avatar = "",profilename = "",info = "",servicecheck.stop();settingsPage.enabled = true;}
+                    } else {preview = false
+                            currentservice =""
+                        service=""
+                        useraccount=""
+                        avatar = ""
+                        profilename = ""
+                        info = ""
+                        servicecheck.stop()
+                        settingsPage.enabled = true;
+                    }
 
     Timer {
         id:servicecheck
@@ -438,7 +447,7 @@ Item {
                                        height: mainView.height * 0.014
                                        border.width: 1
                                        border.color:barColor
-                                       color: if(index == socialSelect.indexAt(socialSelect.contentX,0)) {highLightColor1} else {Qt.rgba(9,9,9,0);}
+                                       color: if(index === socialSelect.indexAt(socialSelect.contentX,0)) {highLightColor1} else {Qt.rgba(9,9,9,0);}
                                        radius:width /2
 
 

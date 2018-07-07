@@ -27,9 +27,9 @@ function createPage(custom) {
     // Loading and we should wait for the component's statusChanged() signal to
     // know when the file is downloaded and ready before calling createObject().
 
-    if (component.status == Component.Ready) {
+    if (component.status === Component.Ready) {
         var dynamicObject = component.createObject(gameboard);
-        if (dynamicObject == null) {
+        if (dynamicObject === null) {
             console.log("error creating block");
             console.log(component.errorString());
             return false;
